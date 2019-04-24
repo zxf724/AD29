@@ -1,0 +1,15 @@
+"D:\IAR FOR ARM\arm\bin\armproc.dll" 
+
+"D:\IAR FOR ARM\arm\bin\armjlink2.dll" 
+
+"D:\工作\AD-29\FreeRTOS\AD_29_V1\2019_1_10\EWARM\project\Exe\project.out" 
+
+--plugin="D:\IAR FOR ARM\arm\bin\armbat.dll" 
+
+--device_macro="D:\IAR FOR ARM\arm\config\debugger\ST\STM32F1xx.dmac" 
+
+--flash_loader="D:\IAR FOR ARM\arm\config\flashloader\ST\FlashSTM32F10xxE.board" 
+
+
+
+
