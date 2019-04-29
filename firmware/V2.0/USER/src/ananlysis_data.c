@@ -20,13 +20,13 @@ void Get_Time(uint8_t* data)
 void Get_Mote_Data(uint8_t* data)
 {
 	motoDef.num = *(data+11);
-	printf("rec mote %d",motoDef.num);
+//	printf("rec mote %d",motoDef.num);
 }
 
 void Get_Lock_Data(uint8_t* data)
 {
 	motoDef.num = *(data+11)+32;
-  printf("rec lock %d",motoDef.num);
+ // printf("rec lock %d",motoDef.num);
 }
 
 void Get_Gun_Data(uint8_t* data)
@@ -38,7 +38,7 @@ void Get_Gun_Data(uint8_t* data)
 	{
 	  g_start_cmd[i-1] = *(data+4+i);
 	}
-	 printf("rec Gun \r\n");
+	// printf("rec Gun \r\n");
 }
 
 void Get_Cargo_Data(uint8_t* data)
@@ -56,7 +56,7 @@ void Get_Back_Data(uint8_t* data)
 	{
 	  //收到扫码信息
 		errorDef.android_state = 1;
-	  printf("rec bar \r\n");
+	//  printf("rec bar \r\n");
 	}
 }   
 
@@ -66,7 +66,7 @@ void Get_Bar_Code(uint8_t* data)
 	for(i = 0;i < *(data + 4);i++)
 	 g_bar_code[i] = *(data+i);
 	errorDef.bar_code_state = 1;
-	printf("andorid rec bar \r\n");
+//	printf("andorid rec bar \r\n");
 }
 
 void Report_State(uint8_t cmd,uint8_t* data,uint8_t len)
@@ -85,9 +85,8 @@ void Report_State(uint8_t cmd,uint8_t* data,uint8_t len)
 	  report_data[7+i] = *(data+i);
 	}
 	report_data[7+i] = 0;
-	report_data[8+i] = 0;
-	report_data[9+i] = FEND;
-	Uart_Send_Data(SCREEN,(char*)report_data,len+10);
+	report_data[8+i] = FEND;
+	Uart_Send_Data(SCREEN,(char*)report_data,len+9);
 }
 
 

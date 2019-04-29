@@ -17,15 +17,16 @@ void Screen_CommandReceive_Poll(void)
 	 char* p = NULL;
   while(app_uart_get(&CmdRecBuf[index],SCREEN) == NRF_SUCCESS) 
   { 
-#if 0		
-    if(index == len + 9)
+#if 1		
+    if(index == len + 8)
     {
       Uart_Protocol_Cmd_Analy(CmdRecBuf,index); 
     }else
 		{
 			if(index == 6)
 				len = CmdRecBuf[index];			
-		  index++;			
+		  index++;
+      delay_ms(2);			
 		}
 #else
 		if (CmdRecBuf[index] == '\n' && CmdRecBuf[index - 1] == '\r') 
