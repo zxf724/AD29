@@ -2,7 +2,7 @@
 ..\obj\rtc.o: ..\SYSTEM\sys\sys.h
 ..\obj\rtc.o: .\inc\stm32f10x.h
 ..\obj\rtc.o: ..\CORE\core_cm3.h
-..\obj\rtc.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\rtc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\rtc.o: .\inc\system_stm32f10x.h
 ..\obj\rtc.o: .\inc\stm32f10x_conf.h
 ..\obj\rtc.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h
@@ -31,10 +31,10 @@
 ..\obj\rtc.o: ..\STM32F10x_FWLib\inc\misc.h
 ..\obj\rtc.o: ..\SYSTEM\delay\delay.h
 ..\obj\rtc.o: ..\SYSTEM\usart\usart.h
-..\obj\rtc.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\rtc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\rtc.o: ..\RTC\rtc.h
 ..\obj\rtc.o: .\inc\prjlib.h
-..\obj\rtc.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\rtc.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-..\obj\rtc.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
-..\obj\rtc.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\rtc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\rtc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\rtc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
+..\obj\rtc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

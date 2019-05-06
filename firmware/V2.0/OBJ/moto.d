@@ -3,7 +3,7 @@
 ..\obj\moto.o: ..\SYSTEM\sys\sys.h
 ..\obj\moto.o: .\inc\stm32f10x.h
 ..\obj\moto.o: ..\CORE\core_cm3.h
-..\obj\moto.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\moto.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\moto.o: .\inc\system_stm32f10x.h
 ..\obj\moto.o: .\inc\stm32f10x_conf.h
 ..\obj\moto.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h
@@ -30,5 +30,5 @@
 ..\obj\moto.o: ..\STM32F10x_FWLib\inc\stm32f10x_usart.h
 ..\obj\moto.o: ..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h
 ..\obj\moto.o: ..\STM32F10x_FWLib\inc\misc.h
-..\obj\moto.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\moto.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\moto.o: ..\SYSTEM\delay\delay.h

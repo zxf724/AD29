@@ -22,10 +22,10 @@ int main(void)
   Cmd_AddEntrance(CMD_ENT(MOTO));
 	delay_init();	    	   
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
-  uart1_init(115200);	
+  uart1_init(115200);
 	uart2_init(9600);
 	Moto_Init();
-
+ 
 	DBG_LOG("system start");
   if(RTC_Init())
 		DBG_LOG("RTC Init fail");
@@ -41,7 +41,7 @@ int main(void)
 		 IWDG_Feed();
 	   time = mytime_2_utc_sec(&fff,0);
 		 Gun_CommandReceive_Poll(); 
-		 Screen_CommandReceive_Poll();	
+		 Screen_CommandReceive_Poll();
 		 Start_Schedule();
 		// printf("motoDef.state = %d",motoDef.state);
 	}	 

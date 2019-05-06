@@ -1,9 +1,9 @@
 ..\obj\fifo.o: src\fifo.c
 ..\obj\fifo.o: .\inc\fifo.h
-..\obj\fifo.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-..\obj\fifo.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\fifo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\fifo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\obj\fifo.o: ..\SYSTEM\usart\usart.h
-..\obj\fifo.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\fifo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\fifo.o: ..\SYSTEM\sys\sys.h
 ..\obj\fifo.o: .\inc\stm32f10x.h
 ..\obj\fifo.o: ..\CORE\core_cm3.h

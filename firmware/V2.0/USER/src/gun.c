@@ -23,7 +23,7 @@ uint8_t Set_Gun()
 		 }
 	}
 	return 1;
-}
+ }
 
 uint8_t Open_Gun()
 {

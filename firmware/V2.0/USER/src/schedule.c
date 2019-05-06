@@ -42,7 +42,7 @@ void Start_Schedule()
 					else machine.moto_state = state_error;
 					machine.state = state_report;
 				}
-				Report_Bar_Code();
+	//			Report_Bar_Code();
 			 break;
 		 case state_repay:	
   			Start_Repay();

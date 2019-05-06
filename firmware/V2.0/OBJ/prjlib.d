@@ -1,11 +1,11 @@
 ..\obj\prjlib.o: src\prjlib.c
 ..\obj\prjlib.o: .\inc\prjlib.h
-..\obj\prjlib.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\prjlib.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-..\obj\prjlib.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\prjlib.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-..\obj\prjlib.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
-..\obj\prjlib.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\prjlib.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\prjlib.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\prjlib.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\prjlib.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\prjlib.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
+..\obj\prjlib.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\prjlib.o: .\inc\stm32f10x.h
 ..\obj\prjlib.o: ..\CORE\core_cm3.h
 ..\obj\prjlib.o: .\inc\system_stm32f10x.h

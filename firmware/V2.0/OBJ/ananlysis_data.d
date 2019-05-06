@@ -3,7 +3,7 @@
 ..\obj\ananlysis_data.o: ..\SYSTEM\sys\sys.h
 ..\obj\ananlysis_data.o: .\inc\stm32f10x.h
 ..\obj\ananlysis_data.o: ..\CORE\core_cm3.h
-..\obj\ananlysis_data.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\ananlysis_data.o: .\inc\system_stm32f10x.h
 ..\obj\ananlysis_data.o: .\inc\stm32f10x_conf.h
 ..\obj\ananlysis_data.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h
@@ -32,9 +32,9 @@
 ..\obj\ananlysis_data.o: ..\STM32F10x_FWLib\inc\misc.h
 ..\obj\ananlysis_data.o: ..\HARDWARE\MOTO\moto.h
 ..\obj\ananlysis_data.o: ..\SYSTEM\delay\delay.h
-..\obj\ananlysis_data.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ..\obj\ananlysis_data.o: .\inc\analysis_protocol.h
 ..\obj\ananlysis_data.o: ..\SYSTEM\usart\usart.h
-..\obj\ananlysis_data.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\ananlysis_data.o: .\inc\fifo.h
-..\obj\ananlysis_data.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

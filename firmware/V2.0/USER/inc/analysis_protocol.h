@@ -31,5 +31,6 @@ void Screen_CommandReceive_Poll(void);
 void Gun_CommandReceive_Poll(void);
 
 void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length);
+void send_back(uint8_t *dat);
 #endif
 

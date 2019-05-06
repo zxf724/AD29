@@ -19,14 +19,14 @@ void Get_Time(uint8_t* data)
 
 void Get_Mote_Data(uint8_t* data)
 {
-	motoDef.num = *(data+11);
-//	printf("rec mote %d",motoDef.num);
+	motoDef.num = *data;
+	printf("rec mote %d",motoDef.num);
 }
 
 void Get_Lock_Data(uint8_t* data)
 {
-	motoDef.num = *(data+11)+32;
- // printf("rec lock %d",motoDef.num);
+	motoDef.num = *data;
+ 	printf("rec lock %d",motoDef.num);
 }
 
 void Get_Gun_Data(uint8_t* data)
