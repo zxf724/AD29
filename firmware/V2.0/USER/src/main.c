@@ -11,6 +11,8 @@
 #include "moto.h"
 #include "schedule.h"
 #include "wdg.h"
+#include "key.h"
+#include "ananlysis_data.h"
 
 static void funControl(int argc, char* argv[]);
 extern Moto motoDef;
@@ -25,7 +27,7 @@ int main(void)
   uart1_init(115200);
 	uart2_init(9600);
 	Moto_Init();
- 
+
 	DBG_LOG("system start");
   if(RTC_Init())
 		DBG_LOG("RTC Init fail");
@@ -37,14 +39,16 @@ int main(void)
 	fff.min = 00;
 	fff.sec = 0;
 	while(1)
-	{	
+	{
 		 IWDG_Feed();
 	   time = mytime_2_utc_sec(&fff,0);
 		 Gun_CommandReceive_Poll(); 
 		 Screen_CommandReceive_Poll();
 		 Start_Schedule();
+		 open_all_door(); 
+		 led_light();
 		// printf("motoDef.state = %d",motoDef.state);
-	}	 
+	}
 }
 
 static void funControl(int argc, char* argv[]) {
@@ -73,4 +77,9 @@ static void funControl(int argc, char* argv[]) {
 	}
 }
 
-
+void led_light(void) {
+	if(1) {
+		GPIO_ResetBits(GPIOD,GPIO_Pin_0);
+		GPIO_ResetBits(GPIOD,GPIO_Pin_1);
+	}
+}

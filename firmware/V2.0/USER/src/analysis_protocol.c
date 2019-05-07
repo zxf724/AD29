@@ -5,13 +5,14 @@
 #include "ananlysis_data.h"
 #include "delay.h"
 #include "moto.h"
+#include "key.h"
 
 uint8_t  CmdRecBuf[COMMAND_MAX] = {0};
 extern uint8_t     g_bar_code[50];
 extern mError errorDef;
-// static uint8_t dat_tmp[11] = {0x7E,0x82,0x00,0x01,0x02,0x03,0x01,0x01,0x00,0x00,0x7E};
 static uint8_t dat_tmp[11] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
-uint8_t dat[13] = {0x7E,0x05,0x00,0x00,0x00,0x00,0x03,0x00,0x00,0x00,0x00,0x00,0x7E};
+uint8_t dat[26] = {0x7E,0x05,0x00,0x00,0x00,0x00,0x10,0x00,0x00,0x00,0x00,
+									0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x7E};  // 1+1+4+1+16+2+1 = 26
 
 
 void Screen_CommandReceive_Poll(void) 
@@ -21,17 +22,16 @@ void Screen_CommandReceive_Poll(void)
 	char* p = NULL;
   while(app_uart_get(&CmdRecBuf[index],SCREEN) == NRF_SUCCESS) 
   {
-		DBG_LOG("test!");
-#if 1		
+#if 1
     if(index == len + 8)
     {
       Uart_Protocol_Cmd_Analy(CmdRecBuf,index); 
-    }else
+    } else
 		{
 			if(index == 6)
-				len = CmdRecBuf[index];			
+				len = CmdRecBuf[index];
 		  index++;
-      delay_ms(2);			
+      delay_ms(2);
 		}
 #else
 		if (CmdRecBuf[index] == '\n' && CmdRecBuf[index - 1] == '\r') 
@@ -50,7 +50,7 @@ void Screen_CommandReceive_Poll(void)
 			index++;
 		}
 #endif
-  }
+   }
 }
 
 void Gun_CommandReceive_Poll(void) 
@@ -66,12 +66,10 @@ void Gun_CommandReceive_Poll(void)
 			p = (char*)&CmdRecBuf[0];
 			strcpy((char*)g_bar_code,p);
 			errorDef.bar_code_state = 1;
-		//	DBG_LOG("data is %s",p);
 			//send date
-			for(i=1;i<=3;i++) {
-				dat[7] = CmdRecBuf[0];
-				dat[8] = CmdRecBuf[1];
-				dat[9] = CmdRecBuf[2];
+			for(i=0;i<=15;i++) {
+				dat[7+i] = CmdRecBuf[i];
+				DBG_LOG("dat[%d] = %d",(i+7),dat[7+i]);
 			}
 			Uart_Send_Data(SCREEN, (char *)dat,sizeof(dat));
 		/*while (!isgraph(*p)) 
@@ -106,7 +104,7 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length)
 								DBG_LOG("tmp_dat = %02x",tmp_dat);
 								DBG_LOG("data is %d",CmdRecBuf[7]);
                 Get_Mote_Data(&tmp_dat);
-						break;	
+						break;
 					case CMD_LOCK:
 								Get_Lock_Data(&CmdRecBuf[7]);
 								DBG_LOG("data is %x",CmdRecBuf[7]);
@@ -125,7 +123,27 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length)
 				}
     } 
 }
-   
+
+void open_all_door(void) {
+	//check the key
+	static uint8_t key = 0;
+	while (1) {
+		key = KEY_Scan(0);
+		if(key) {
+			switch (key) {
+			case KEY_ALL_NUM:
+				DBG_LOG("open all the door");
+				for(uint8_t i=33;i<=54;i++) {
+					delay_ms(20);
+					Open_xMoto(i);
+				}
+				break;
+			default:
+				break;
+			}
+		}
+	}
+}
 
 // void send_back(uint8_t *dat) {
 // 		uint8_t dat_tmp[11] = {0x7E,0x82,0x00,0x01,0x02,0x03,0x01,0x01,0x00,0x00,0x7E};

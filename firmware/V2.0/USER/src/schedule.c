@@ -27,7 +27,7 @@ void Start_Schedule()
 				{
 				  machine.state = state_report;
 				  machine.gun_state = state_error;
-				}			
+				}
 				if(Set_Moto() < 33 && Set_Moto() > 0) //出货电机
 				{
 					machine.state = state_report;
@@ -42,13 +42,13 @@ void Start_Schedule()
 					else machine.moto_state = state_error;
 					machine.state = state_report;
 				}
-	//			Report_Bar_Code();
+				// Report_Bar_Code();
 			 break;
 		 case state_repay:	
   			Start_Repay();
 			 break;
 		 case state_borrow:
-			  Start_Borrow();	
+			  Start_Borrow();
 			 break;
 		 case state_report:
 			   machine.state = state_stop;
@@ -59,9 +59,9 @@ void Start_Schedule()
 					  machine.moto_state = state_stop;
 					  motoDef.num = 0;
 				 }else if(machine.moto_state == state_report)
-				 {	 
+				 {
 					  state = 1;
-					  Report_State(CMD_REMOTO,&state,1);	
+					  Report_State(CMD_REMOTO,&state,1);
 					  machine.state = state_borrow;       //进入借物流程
 				    machine.moto_state = state_stop;
 				 }
@@ -69,13 +69,13 @@ void Start_Schedule()
 				 if(machine.lock_state == state_error)
 				 {
 					  state = 0;
-						Report_State(CMD_RELOCK,&state,1);		  //上报门锁错误
+					  Report_State(CMD_RELOCK,&state,1);		  //上报门锁错误
 					  machine.moto_state = state_stop;
 					  motoDef.num = 0;
 				 }else if(machine.lock_state == state_report)
-				 {	 
+				 {
 					  state = 1;
-					  Report_State(CMD_RELOCK,&state,1);	
+					  Report_State(CMD_RELOCK,&state,1);
 					  machine.state = state_repay;           //进入还物流程
 				    machine.lock_state = state_stop;
 				 }
@@ -87,12 +87,12 @@ void Start_Schedule()
 				    machine.gun_state = state_stop;
 					  memset(g_start_cmd,0,sizeof(g_start_cmd));
 				 }else if(machine.gun_state == state_report)
-			   {
+			    {
 					  state = 1;
 					  Report_State(CMD_REGUN,&state,1);//上报扫码枪正确
-				    machine.gun_state = state_stop;
+				      machine.gun_state = state_stop;
 					  memset(g_start_cmd,0,sizeof(g_start_cmd));
-				 }				 
+				}				 
 			 break; 
 	 }
 }
@@ -120,7 +120,7 @@ void Start_Borrow()
 				motoDef.num = 0;  //清除电机标志
 			}
 		break;
-		case state_run_second:	//启动出货电机	   
+		case state_run_second:	//启动出货电机
 			
 			motoDef.open_moto(MOTO_CARGO);
 			if(!Check_Moto(CHECK_CARGO))
@@ -178,15 +178,17 @@ void Start_Repay()
 					machine.state = state_stop;
 			break;
 		case state_door_open:
-				if(motoDef.read_moto(motoDef.num + 24))
-				{
-				   motoDef.close_moto(motoDef.num);
-					 check_flag = 1;
-				}else if(check_flag && !motoDef.read_moto(motoDef.num))
-				{
-					 check_flag = 0;
-				   motoDef.state = state_report;
-				}
+				delay_ms(3000);
+				motoDef.close_moto(motoDef.num);
+				// if(motoDef.read_moto(motoDef.num + 24))
+				// {
+				//    motoDef.close_moto(motoDef.num);
+				// 	 check_flag = 1;
+				// }else if(check_flag && !motoDef.read_moto(motoDef.num))
+				// {
+				// 	check_flag = 0;
+				//     motoDef.state = state_report;
+				// }
 			break;
 		case state_report:
 	      memset(g_start_cmd,0,sizeof(g_start_cmd));

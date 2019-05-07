@@ -42,3 +42,4 @@
 ..\obj\analysis_protocol.o: .\inc\ananlysis_data.h
 ..\obj\analysis_protocol.o: ..\SYSTEM\delay\delay.h
 ..\obj\analysis_protocol.o: ..\HARDWARE\MOTO\moto.h
+..\obj\analysis_protocol.o: ..\HARDWARE\KEY\key.h

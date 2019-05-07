@@ -26,7 +26,7 @@ void Get_Mote_Data(uint8_t* data)
 void Get_Lock_Data(uint8_t* data)
 {
 	motoDef.num = *data;
- 	printf("rec lock %d",motoDef.num);
+ 	DBG_LOG("rec lock %d",motoDef.num);
 }
 
 void Get_Gun_Data(uint8_t* data)

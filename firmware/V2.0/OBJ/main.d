@@ -47,3 +47,4 @@
 ..\obj\main.o: ..\HARDWARE\MOTO\moto.h
 ..\obj\main.o: .\inc\schedule.h
 ..\obj\main.o: ..\HARDWARE\WDG\wdg.h
+..\obj\main.o: .\inc\ananlysis_data.h

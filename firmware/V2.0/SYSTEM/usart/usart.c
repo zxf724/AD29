@@ -27,7 +27,7 @@ void uart1_init(u32 bound){
   //USART1_RX	  GPIOA.10初始化
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;//PA10
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;//浮空输入
-  GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化GPIOA.10  
+  GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化GPIOA.10
 
   //Usart1 NVIC 配置
   NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
