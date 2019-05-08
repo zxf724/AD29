@@ -1,4 +1,6 @@
 ..\obj\ananlysis_data.o: src\ananlysis_data.c
+..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h
+..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\ananlysis_data.o: .\inc\ananlysis_data.h
 ..\obj\ananlysis_data.o: ..\SYSTEM\sys\sys.h
 ..\obj\ananlysis_data.o: .\inc\stm32f10x.h
@@ -35,6 +37,5 @@
 ..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ..\obj\ananlysis_data.o: .\inc\analysis_protocol.h
 ..\obj\ananlysis_data.o: ..\SYSTEM\usart\usart.h
-..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\ananlysis_data.o: .\inc\fifo.h
 ..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

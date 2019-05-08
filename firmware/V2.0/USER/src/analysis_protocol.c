@@ -6,11 +6,11 @@
 #include "delay.h"
 #include "moto.h"
 #include "key.h"
+#include "wdg.h"
 
 uint8_t  CmdRecBuf[COMMAND_MAX] = {0};
 extern uint8_t     g_bar_code[50];
 extern mError errorDef;
-static uint8_t dat_tmp[11] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 uint8_t dat[26] = {0x7E,0x05,0x00,0x00,0x00,0x00,0x10,0x00,0x00,0x00,0x00,
 									0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x7E};  // 1+1+4+1+16+2+1 = 26
 
@@ -19,7 +19,6 @@ void Screen_CommandReceive_Poll(void)
 {
   uint16_t index = 0;
   uint8_t len = 0;
-	char* p = NULL;
   while(app_uart_get(&CmdRecBuf[index],SCREEN) == NRF_SUCCESS) 
   {
 		// for (uint8_t i=0; i<=sizeof(CmdRecBuf); i++){
@@ -91,22 +90,20 @@ void Gun_CommandReceive_Poll(void)
 
 void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length)
 {
-		static uint8_t tmp_dat, i = 0;
+		static uint8_t i = 0;
     if(CmdRecBuf[0] == FHEADER && CmdRecBuf[length] == FEND)
     {
         switch(CmdRecBuf[1])
 				{
 					case CMD_TIME:
-								Get_Time(&CmdRecBuf[2]);
+								Get_Time(CmdRecBuf);
 						break;
 					case CMD_MOTO:
 								for(i=0;i<=11;i++) {
 									DBG_LOG("CmdRecBuf[%d] = %02x",i,CmdRecBuf[i]);
 								}
-								tmp_dat = CmdRecBuf[7];
-								DBG_LOG("tmp_dat = %02x",tmp_dat);
 								DBG_LOG("data is %d",CmdRecBuf[7]);
-                Get_Mote_Data(&tmp_dat);
+                Get_Mote_Data(&CmdRecBuf[7]);
 						break;
 					case CMD_LOCK:
 								Get_Lock_Data(&CmdRecBuf[7]);
@@ -141,16 +138,10 @@ void open_all_door(void) {
 			Open_xMoto(i);
 			delay_ms(100);
 			Close_xMoto(i);
-		}	
-		break;			
+		}
+		break;
 	default:
 		break;
 		} //end of switch
 	}
 }
-
-// void send_back(uint8_t *dat) {
-// 		uint8_t dat_tmp[11] = {0x7E,0x82,0x00,0x01,0x02,0x03,0x01,0x01,0x00,0x00,0x7E};
-// 		dat_tmp[1] = dat;
-// 		Uart_Send_Data(SCREEN, dat_tmp,sizeof(dat_tmp));
-// }

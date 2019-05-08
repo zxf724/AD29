@@ -1,3 +1,5 @@
+#include <time.h>
+#include <stdio.h>
 #include "ananlysis_data.h"
 #include "moto.h"
 #include "delay.h"
@@ -12,9 +14,17 @@ extern mError errorDef;
 uint8_t g_start_cmd[7] = {0};
 uint8_t g_bar_code[50] = {'\0'};
 
-void Get_Time(uint8_t* data)
-{
-   
+void Get_Time(uint8_t data[]) {
+		uint32_t realtime = (data[2]<<24) | (data[3]<<16) | (data[4]<<8) | data[5];
+    time_t time_seconds = (int)realtime;
+    struct tm* now_time = localtime(&time_seconds);
+		DBG_LOG("time seconds is %d",realtime);
+    DBG_LOG("%d-%d-%d %d:%d:%d\n", now_time->tm_year + 1900, now_time->tm_mon + 1,
+      now_time->tm_mday, now_time->tm_hour+8, now_time->tm_min,
+      now_time->tm_sec);
+			//time setting
+		RTC_Set(now_time->tm_year+1900,now_time->tm_mon+1,now_time->tm_mday,
+				now_time->tm_hour+8,now_time->tm_min,now_time->tm_sec);
 }
 
 void Get_Mote_Data(uint8_t* data)

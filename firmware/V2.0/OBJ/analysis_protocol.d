@@ -43,3 +43,4 @@
 ..\obj\analysis_protocol.o: ..\SYSTEM\delay\delay.h
 ..\obj\analysis_protocol.o: ..\HARDWARE\MOTO\moto.h
 ..\obj\analysis_protocol.o: ..\HARDWARE\KEY\key.h
+..\obj\analysis_protocol.o: ..\HARDWARE\WDG\wdg.h

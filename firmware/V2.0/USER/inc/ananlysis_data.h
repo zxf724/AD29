@@ -3,7 +3,7 @@
 
 #include "sys.h"
 
-void Get_Time(uint8_t* data);
+void Get_Time(uint8_t data[]);
 void Get_Mote_Data(uint8_t* data);
 void Get_Lock_Data(uint8_t* data);
 void Get_Gun_Data(uint8_t* data);

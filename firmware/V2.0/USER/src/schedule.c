@@ -165,7 +165,7 @@ void Start_Borrow()
 
 void Start_Repay()
 {
-	static uint8_t check_flag = 0;
+	//static uint8_t check_flag = 0;
 	switch(motoDef.state)
 	{
 		case state_stop:
