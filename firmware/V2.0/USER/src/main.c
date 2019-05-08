@@ -31,7 +31,7 @@ int main(void)
 	DBG_LOG("system start");
   if(RTC_Init())
 		DBG_LOG("RTC Init fail");
-	IWDG_Init(4,625);    //与分频数为64,重载值为625,溢出时间为1s	
+	IWDG_Init(6,1024);    //与分频数为64,重载值为625,溢出时间为1s	
 	fff.w_year = 2019;
 	fff.w_month = 3;
 	fff.w_date = 26;

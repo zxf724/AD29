@@ -22,6 +22,9 @@ void Screen_CommandReceive_Poll(void)
 	char* p = NULL;
   while(app_uart_get(&CmdRecBuf[index],SCREEN) == NRF_SUCCESS) 
   {
+		// for (uint8_t i=0; i<=sizeof(CmdRecBuf); i++){
+		// 	DBG_LOG("CmdRecBuf[%d] = %d",i,CmdRecBuf[i]);
+		// }
 #if 1
     if(index == len + 8)
     {
@@ -127,21 +130,22 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length)
 void open_all_door(void) {
 	//check the key
 	static uint8_t key = 0;
-	while (1) {
-		key = KEY_Scan(0);
-		if(key) {
-			switch (key) {
-			case KEY_ALL_NUM:
-				DBG_LOG("open all the door");
-				for(uint8_t i=33;i<=54;i++) {
-					delay_ms(20);
-					Open_xMoto(i);
-				}
-				break;
-			default:
-				break;
-			}
-		}
+	static uint8_t i = 0; 
+	key = KEY_Scan(0);
+	if(key) {
+		switch (key) {
+		case KEY_ALL_NUM:				
+		DBG_LOG("open all the door");
+		for(i=33;i<=54;i++) {
+			IWDG_Feed();
+			Open_xMoto(i);
+			delay_ms(100);
+			Close_xMoto(i);
+		}	
+		break;			
+	default:
+		break;
+		} //end of switch
 	}
 }
 
