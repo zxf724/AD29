@@ -92,6 +92,7 @@
 #define MOTO_56 {GPIOD,GPIO_Pin_0,GPIO_Mode_Out_PP}
 #define MOTO_57 {GPIOD,GPIO_Pin_1,GPIO_Mode_Out_PP}
 
+
 #define DEM_33  {GPIOF,GPIO_Pin_13,GPIO_Mode_IPU}
 #define DEM_34  {GPIOF,GPIO_Pin_14,GPIO_Mode_IPU}
 

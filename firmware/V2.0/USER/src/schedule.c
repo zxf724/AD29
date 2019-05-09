@@ -28,7 +28,7 @@ void Start_Schedule()
 				  machine.state = state_report;
 				  machine.gun_state = state_error;
 				}
-				if(Set_Moto() < 33 && Set_Moto() > 0) //出货电机
+				if(Set_Moto() < 33 && Set_Moto() > 0) // 出货电机
 				{
 					machine.state = state_report;
 					machine.moto_state = state_report;
@@ -46,10 +46,10 @@ void Start_Schedule()
 			 break;
 		 case state_repay:	
   			Start_Repay();
-			 break;
+			break;
 		 case state_borrow:
-			 break;
 			  Start_Borrow();
+			break;
 		 case state_report:
 			   machine.state = state_stop;
 			   if(machine.moto_state == state_error)
@@ -196,3 +196,8 @@ void Start_Repay()
 			break;
 	}
 }
+
+// base_function(){
+// 	motoDef.open_moto(motoDef.num);
+// 	Set_Moto();
+// }

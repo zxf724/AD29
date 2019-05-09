@@ -48,7 +48,7 @@ int main(void)
 		 Gun_CommandReceive_Poll(); 
 		 Screen_CommandReceive_Poll();
 		 Start_Schedule();
-		 open_all_door(); 
+		 open_all_door();  
 		 led_light();
 		// printf("motoDef.state = %d",motoDef.state);
 	}

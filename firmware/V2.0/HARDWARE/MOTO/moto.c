@@ -5,7 +5,9 @@ Machine machine = {0,0,0};
 Moto motoDef = {Open_xMoto,Close_xMoto,Read_xMoto,0,0};
 mError errorDef = {0,0};
 
-mPin Pin_Array[PINMAX] = {
+mPin Pin_Array[PINMAX] = {  // 1-32 is ouput motor, 33-54 is output motor, 55 is feedback signal of transfer track 
+														// 56 is shipment door lock, 57 is shipment door track
+														// DEM is repay lock signal feedback, but no useing cause the lock problem
 		MOTO(1), MOTO(2), MOTO(3), MOTO(4), MOTO(5), MOTO(6), MOTO(7), MOTO(8), MOTO(9), MOTO(10),
 		MOTO(11),MOTO(12),MOTO(13),MOTO(14),MOTO(15),MOTO(16),MOTO(17),MOTO(18),MOTO(19),MOTO(20),
 		MOTO(21),MOTO(22),MOTO(23),MOTO(24),MOTO(25),MOTO(26),MOTO(27),MOTO(28),MOTO(29),MOTO(30),
