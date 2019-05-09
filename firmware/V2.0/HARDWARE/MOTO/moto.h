@@ -6,7 +6,7 @@
 #define SUCCESS 1
 #define FAIL    0
 
-#define PINMAX       81
+#define PINMAX	77//81
 
 /*¼ì²âµôÂäµÄÒý½Å*/
 #define CHECK_DROP   79
@@ -57,9 +57,6 @@
 
 #define MOTO_31 {GPIOB,GPIO_Pin_1,GPIO_Mode_Out_PP}
 #define MOTO_32 {GPIOB,GPIO_Pin_2,GPIO_Mode_Out_PP}
-
-//motor feedback
-#define MOTO_FEEDBACK_1 {GPIOA,GPIO_Pin_15,GPIO_Mode_Out_PP}	//DEM55
 
 //LOCK1-22  --> schematic  MOTOR 33-54
 #define LOCK_1	{GPIOF,GPIO_Pin_11,GPIO_Mode_Out_PP}	//33
@@ -112,7 +109,8 @@
 
 #define MOTO_FEEDBACK_21 {GPIOA,GPIO_Pin_11,GPIO_Mode_Out_PP}	//DEM53
 #define MOTO_FEEDBACK_22 {GPIOA,GPIO_Pin_12,GPIO_Mode_Out_PP}	//DEM54
-
+//motor feedback
+#define MOTO_FEEDBACK_1 {GPIOA,GPIO_Pin_15,GPIO_Mode_Out_PP}	//DEM55
 
 #define MOTO_58_RUN_LEFT  	PCout(10) = 1;PCout(11) = 0						                
 #define MOTO_58_RUN_RIGHT	  PCout(10) = 0;PCout(11) = 1
