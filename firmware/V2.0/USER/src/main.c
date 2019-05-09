@@ -37,7 +37,7 @@ int main(void)
 	IWDG_Init(6,1024);    //与分频数为64,重载值为625,溢出时间为1s	
 	fff.w_year = 2019;
 	fff.w_month = 3;
- 	fff.w_date = 26;
+	fff.w_date = 26;
 	fff.hour = 14;
 	fff.min = 00;
 	fff.sec = 0;
@@ -45,22 +45,14 @@ int main(void)
 	while(1)
 	{
 		 IWDG_Feed();
-	   time = mytime_2_utc_sec(&fff,0);
+	  //  time = mytime_2_utc_sec(&fff,0);
 		//  Gun_CommandReceive_Poll(); 
 		//  Screen_CommandReceive_Poll();
 		//  Start_Schedule();
-		//  open_all_door();  
+		// //  open_all_door();  
 		//  led_light();
-		// motoDef.num = 18;
-		// Set_Moto();
-		for(uint8_t i =0;i<31;i++) {
-			IWDG_Feed();
-			delay_ms(500);
-			GPIO_SetBits(Pin_Array[i].port,Pin_Array[i].pin); 
-			delay_ms(500);
-			GPIO_ResetBits(Pin_Array[i].port,Pin_Array[i].pin);
-		}
-			// GPIO_SetBits(GPIOE,GPIO_Pin_3);
+		// motoDef.open_moto(18);
+		  GPIO_SetBits(Pin_Array[15].port,Pin_Array[15].pin);
 		// printf("motoDef.state = %d",motoDef.state);
 	}
 }
@@ -94,13 +86,15 @@ static void funControl(int argc, char* argv[]) {
 void led_light(void) {
 	RTC_Get();
 	// showcase,time can change according to the demand.
-	if((fff.hour > 6) || (fff.hour <= 24)) {
+	// if((fff.hour > 6) || (fff.hour <= 24)) {
+	if(1) {
 		GPIO_SetBits(GPIOD,GPIO_Pin_0);
 	} else {
 			GPIO_ResetBits(GPIOD,GPIO_Pin_0);
 	}
 	// logo part, time  can change according to the demand.
-	if((fff.hour > 6) || (fff.hour <= 24)) {
+	// if((fff.hour > 6) || (fff.hour <= 24)) {
+	if(1) {
 		GPIO_SetBits(GPIOD,GPIO_Pin_1);
 	} else {
 		GPIO_ResetBits(GPIOD,GPIO_Pin_1);

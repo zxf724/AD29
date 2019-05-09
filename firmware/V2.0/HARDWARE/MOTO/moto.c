@@ -1,6 +1,8 @@
 #include "moto.h"
 #include <stdio.h>
 #include "delay.h"
+#include "usart.h"
+
 Machine machine = {0,0,0};
 Moto motoDef = {Open_xMoto,Close_xMoto,Read_xMoto,0,0};
 mError errorDef = {0,0};

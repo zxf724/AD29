@@ -9,7 +9,7 @@
 #define PINMAX	77//81
 
 /*¼ì²âµôÂäµÄÒý½Å*/
-#define CHECK_DROP   79
+#define CHECK_DROP   54
 
 #define DOOR_CARGO   54
 #define MOTO_CARGO   55
