@@ -6,18 +6,18 @@ Moto motoDef = {Open_xMoto,Close_xMoto,Read_xMoto,0,0};
 mError errorDef = {0,0};
 
 mPin Pin_Array[PINMAX] = {
-		//borrow motor array number:1-32
+		//borrow motor array number:0-31
 		MOTO(1), MOTO(2), MOTO(3), MOTO(4), MOTO(5), MOTO(6), MOTO(7), MOTO(8), MOTO(9), MOTO(10),
 		MOTO(11),MOTO(12),MOTO(13),MOTO(14),MOTO(15),MOTO(16),MOTO(17),MOTO(18),MOTO(19),MOTO(20),
 		MOTO(21),MOTO(22),MOTO(23),MOTO(24),MOTO(25),MOTO(26),MOTO(27),MOTO(28),MOTO(29),MOTO(30),
 		MOTO(31),MOTO(32),
-		//repay lock,array number: 33-54
+		//repay lock,array number: 32-53
 		LOCK(1),LOCK(2),LOCK(3),LOCK(4),LOCK(5),LOCK(6),LOCK(7),LOCK(8),LOCK(9),LOCK(10),LOCK(11),
 		LOCK(12),LOCK(13),LOCK(14),LOCK(15),LOCK(16),LOCK(17),LOCK(18),LOCK(19),LOCK(20),LOCK(21),
 		LOCK(22),
-		// borrow motor feedback signal, array num 55  
+		// borrow motor feedback signal, array num 54
 		MOTO_FEEDBACK(1),
-		// lock feedback signal, array num 56-77
+		// lock feedback signal, array num 55-76
 		LOCK_FEEDBACK(1),LOCK_FEEDBACK(2),LOCK_FEEDBACK(3),LOCK_FEEDBACK(4),LOCK_FEEDBACK(5),LOCK_FEEDBACK(6),
 		LOCK_FEEDBACK(7),LOCK_FEEDBACK(8),LOCK_FEEDBACK(9),LOCK_FEEDBACK(10),LOCK_FEEDBACK(11),LOCK_FEEDBACK(12),
 		LOCK_FEEDBACK(13),LOCK_FEEDBACK(14),LOCK_FEEDBACK(15),LOCK_FEEDBACK(16),LOCK_FEEDBACK(17),LOCK_FEEDBACK(18), 
