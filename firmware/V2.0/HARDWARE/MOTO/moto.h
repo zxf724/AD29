@@ -18,20 +18,21 @@
 #define CHECK_CARGO_DOOR  79
 
 #define MOTO(x) MOTO_##x
-#define DEM(x)  DEM_##x
+#define LOCK(x)	LOCK_##x
+#define MOTO_FEEDBACK(x) MOTO_FEEDBACK_##x		
 
+//borrow motor
 #define MOTO_1  {GPIOE,GPIO_Pin_2,GPIO_Mode_Out_PP}
 #define MOTO_2  {GPIOE,GPIO_Pin_3,GPIO_Mode_Out_PP}
 #define MOTO_3  {GPIOE,GPIO_Pin_4,GPIO_Mode_Out_PP}
 #define MOTO_4  {GPIOE,GPIO_Pin_5,GPIO_Mode_Out_PP}
 #define MOTO_5  {GPIOE,GPIO_Pin_6,GPIO_Mode_Out_PP}
-
 #define MOTO_6  {GPIOC,GPIO_Pin_13,GPIO_Mode_Out_PP}
-
 #define MOTO_7  {GPIOF,GPIO_Pin_0,GPIO_Mode_Out_PP}
 #define MOTO_8  {GPIOF,GPIO_Pin_1,GPIO_Mode_Out_PP}
 #define MOTO_9  {GPIOF,GPIO_Pin_2,GPIO_Mode_Out_PP}
 #define MOTO_10 {GPIOF,GPIO_Pin_3,GPIO_Mode_Out_PP}
+
 #define MOTO_11 {GPIOF,GPIO_Pin_4,GPIO_Mode_Out_PP}
 #define MOTO_12 {GPIOF,GPIO_Pin_5,GPIO_Mode_Out_PP}
 #define MOTO_13 {GPIOF,GPIO_Pin_6,GPIO_Mode_Out_PP}
@@ -39,93 +40,78 @@
 #define MOTO_15 {GPIOF,GPIO_Pin_8,GPIO_Mode_Out_PP}
 #define MOTO_16 {GPIOF,GPIO_Pin_9,GPIO_Mode_Out_PP}
 #define MOTO_17 {GPIOF,GPIO_Pin_10,GPIO_Mode_Out_PP}
-
 #define MOTO_18 {GPIOC,GPIO_Pin_0,GPIO_Mode_Out_PP}
 #define MOTO_19 {GPIOC,GPIO_Pin_1,GPIO_Mode_Out_PP}
 #define MOTO_20 {GPIOC,GPIO_Pin_2,GPIO_Mode_Out_PP}
-#define MOTO_21 {GPIOC,GPIO_Pin_3,GPIO_Mode_Out_PP}
 
+#define MOTO_21 {GPIOC,GPIO_Pin_3,GPIO_Mode_Out_PP}
 #define MOTO_22 {GPIOA,GPIO_Pin_0,GPIO_Mode_Out_PP}
 #define MOTO_23 {GPIOA,GPIO_Pin_1,GPIO_Mode_Out_PP}
 #define MOTO_24 {GPIOA,GPIO_Pin_4,GPIO_Mode_Out_PP}
 #define MOTO_25 {GPIOA,GPIO_Pin_5,GPIO_Mode_Out_PP}
 #define MOTO_26 {GPIOA,GPIO_Pin_6,GPIO_Mode_Out_PP}
 #define MOTO_27 {GPIOA,GPIO_Pin_7,GPIO_Mode_Out_PP}
-
 #define MOTO_28 {GPIOC,GPIO_Pin_4,GPIO_Mode_Out_PP}
 #define MOTO_29 {GPIOC,GPIO_Pin_5,GPIO_Mode_Out_PP}
-
 #define MOTO_30 {GPIOB,GPIO_Pin_0,GPIO_Mode_Out_PP}
+
 #define MOTO_31 {GPIOB,GPIO_Pin_1,GPIO_Mode_Out_PP}
 #define MOTO_32 {GPIOB,GPIO_Pin_2,GPIO_Mode_Out_PP}
 
-#define MOTO_33 {GPIOF,GPIO_Pin_11,GPIO_Mode_Out_PP}
-#define MOTO_34 {GPIOF,GPIO_Pin_12,GPIO_Mode_Out_PP}
-#define MOTO_35 {GPIOF,GPIO_Pin_15,GPIO_Mode_Out_PP}
+//motor feedback
+#define MOTO_FEEDBACK_1 {GPIOA,GPIO_Pin_15,GPIO_Mode_Out_PP}	//DEM55
 
-#define MOTO_36 {GPIOG,GPIO_Pin_0,GPIO_Mode_Out_PP}
+//LOCK1-22  --> schematic  MOTOR 33-54
+#define LOCK_1	{GPIOF,GPIO_Pin_11,GPIO_Mode_Out_PP}	//33
+#define LOCK_2  {GPIOF,GPIO_Pin_12,GPIO_Mode_Out_PP}	//34
+#define LOCK_3  {GPIOF,GPIO_Pin_15,GPIO_Mode_Out_PP}	//35
+#define LOCK_4  {GPIOG,GPIO_Pin_0,GPIO_Mode_Out_PP}		//36
+#define LOCK_5  {GPIOE,GPIO_Pin_8,GPIO_Mode_Out_PP}		//37
+#define LOCK_6  {GPIOE,GPIO_Pin_9,GPIO_Mode_Out_PP}		//38
+#define LOCK_7  {GPIOE,GPIO_Pin_12,GPIO_Mode_Out_PP}	//39	
+#define LOCK_8  {GPIOE,GPIO_Pin_13,GPIO_Mode_Out_PP}	//40
+#define LOCK_9  {GPIOB,GPIO_Pin_10,GPIO_Mode_Out_PP}	//41
+#define LOCK_10  {GPIOB,GPIO_Pin_11,GPIO_Mode_Out_PP}	//42
 
-#define MOTO_37 {GPIOE,GPIO_Pin_8,GPIO_Mode_Out_PP}
-#define MOTO_38 {GPIOE,GPIO_Pin_9,GPIO_Mode_Out_PP}
-#define MOTO_39 {GPIOE,GPIO_Pin_12,GPIO_Mode_Out_PP}
-#define MOTO_40 {GPIOE,GPIO_Pin_13,GPIO_Mode_Out_PP}
+#define LOCK_11  {GPIOB,GPIO_Pin_14,GPIO_Mode_Out_PP}	//43
+#define LOCK_12  {GPIOB,GPIO_Pin_15,GPIO_Mode_Out_PP}	//44	
+#define LOCK_13  {GPIOD,GPIO_Pin_10,GPIO_Mode_Out_PP}	//45
+#define LOCK_14  {GPIOD,GPIO_Pin_11,GPIO_Mode_Out_PP}	//46
+#define LOCK_15  {GPIOD,GPIO_Pin_14,GPIO_Mode_Out_PP}	//47
+#define LOCK_16  {GPIOD,GPIO_Pin_15,GPIO_Mode_Out_PP}	//48
+#define LOCK_17  {GPIOG,GPIO_Pin_4,GPIO_Mode_Out_PP}	//49
+#define LOCK_18  {GPIOG,GPIO_Pin_5,GPIO_Mode_Out_PP}	//50
+#define LOCK_19  {GPIOG,GPIO_Pin_8,GPIO_Mode_Out_PP}	//51
+#define LOCK_20  {GPIOC,GPIO_Pin_6,GPIO_Mode_Out_PP}	//52
 
-#define MOTO_41 {GPIOB,GPIO_Pin_10,GPIO_Mode_Out_PP}
-#define MOTO_42 {GPIOB,GPIO_Pin_11,GPIO_Mode_Out_PP}
-#define MOTO_43 {GPIOB,GPIO_Pin_14,GPIO_Mode_Out_PP}
-#define MOTO_44 {GPIOB,GPIO_Pin_15,GPIO_Mode_Out_PP}
+#define LOCK_21  {GPIOC,GPIO_Pin_9,GPIO_Mode_Out_PP}	//53
+#define LOCK_22  {GPIOA,GPIO_Pin_8,GPIO_Mode_Out_PP}	//54
 
-#define MOTO_45 {GPIOD,GPIO_Pin_10,GPIO_Mode_Out_PP}
-#define MOTO_46 {GPIOD,GPIO_Pin_11,GPIO_Mode_Out_PP}
-#define MOTO_47 {GPIOD,GPIO_Pin_14,GPIO_Mode_Out_PP}
-#define MOTO_48 {GPIOD,GPIO_Pin_15,GPIO_Mode_Out_PP}
+// MOTO_FEEDBACK schematic 33-
+#define MOTO_FEEDBACK_1 {GPIOF,GPIO_Pin_13,GPIO_Mode_Out_PP}  //DEM33
+#define MOTO_FEEDBACK_2 {GPIOF,GPIO_Pin_14,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_3 {GPIOG,GPIO_Pin_0,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_4 {GPIOG,GPIO_Pin_1,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_5 {GPIOE,GPIO_Pin_10,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_6 {GPIOE,GPIO_Pin_11,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_7 {GPIOE,GPIO_Pin_14,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_8 {GPIOE,GPIO_Pin_15,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_9 {GPIOB,GPIO_Pin_12,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_10 {GPIOB,GPIO_Pin_13,GPIO_Mode_Out_PP}	//DEM42
 
-#define MOTO_49 {GPIOG,GPIO_Pin_4,GPIO_Mode_Out_PP}
-#define MOTO_50 {GPIOG,GPIO_Pin_5,GPIO_Mode_Out_PP}
-#define MOTO_51 {GPIOG,GPIO_Pin_8,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_11 {GPIOD,GPIO_Pin_8,GPIO_Mode_Out_PP}	//DEM43
+#define MOTO_FEEDBACK_12 {GPIOD,GPIO_Pin_9,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_13 {GPIOD,GPIO_Pin_12,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_14 {GPIOD,GPIO_Pin_13,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_15 {GPIOG,GPIO_Pin_2,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_16 {GPIOG,GPIO_Pin_3,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_17 {GPIOG,GPIO_Pin_6,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_18 {GPIOG,GPIO_Pin_7,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_19 {GPIOC,GPIO_Pin_7,GPIO_Mode_Out_PP}
+#define MOTO_FEEDBACK_20 {GPIOC,GPIO_Pin_8,GPIO_Mode_Out_PP}	//DEM52
 
-#define MOTO_52 {GPIOC,GPIO_Pin_6,GPIO_Mode_Out_PP}
-#define MOTO_53 {GPIOC,GPIO_Pin_9,GPIO_Mode_Out_PP}
-
-#define MOTO_54 {GPIOA,GPIO_Pin_8,GPIO_Mode_Out_PP}
-
-#define MOTO_56 {GPIOD,GPIO_Pin_0,GPIO_Mode_Out_PP}
-#define MOTO_57 {GPIOD,GPIO_Pin_1,GPIO_Mode_Out_PP}
-
-
-#define DEM_33  {GPIOF,GPIO_Pin_13,GPIO_Mode_IPU}
-#define DEM_34  {GPIOF,GPIO_Pin_14,GPIO_Mode_IPU}
-
-#define DEM_35  {GPIOG,GPIO_Pin_1,GPIO_Mode_IPU}
-
-#define DEM_36  {GPIOE,GPIO_Pin_7,GPIO_Mode_IPU}
-#define DEM_37  {GPIOE,GPIO_Pin_10,GPIO_Mode_IPU}
-#define DEM_38  {GPIOE,GPIO_Pin_11,GPIO_Mode_IPU}
-#define DEM_39  {GPIOE,GPIO_Pin_14,GPIO_Mode_IPU}
-#define DEM_40  {GPIOE,GPIO_Pin_15,GPIO_Mode_IPU}
-
-#define DEM_41  {GPIOB,GPIO_Pin_12,GPIO_Mode_IPU}
-#define DEM_42  {GPIOB,GPIO_Pin_13,GPIO_Mode_IPU}
-
-#define DEM_43  {GPIOD,GPIO_Pin_8,GPIO_Mode_IPU}
-#define DEM_44  {GPIOD,GPIO_Pin_9,GPIO_Mode_IPU}
-#define DEM_45  {GPIOD,GPIO_Pin_12,GPIO_Mode_IPU}
-#define DEM_46  {GPIOD,GPIO_Pin_13,GPIO_Mode_IPU}
-
-#define DEM_47  {GPIOG,GPIO_Pin_2,GPIO_Mode_IPU}
-#define DEM_48  {GPIOG,GPIO_Pin_3,GPIO_Mode_IPU}
-#define DEM_49  {GPIOG,GPIO_Pin_6,GPIO_Mode_IPU}
-#define DEM_50  {GPIOG,GPIO_Pin_7,GPIO_Mode_IPU}
-
-#define DEM_51  {GPIOC,GPIO_Pin_7,GPIO_Mode_IPU}
-#define DEM_52  {GPIOC,GPIO_Pin_8,GPIO_Mode_IPU}
-
-#define DEM_53  {GPIOA,GPIO_Pin_11,GPIO_Mode_IPU}
-#define DEM_54  {GPIOA,GPIO_Pin_12,GPIO_Mode_IPU}
-#define DEM_55  {GPIOA,GPIO_Pin_15,GPIO_Mode_IPD}
-
-#define DEM_56  {GPIOD,GPIO_Pin_2,GPIO_Mode_IPU}
-#define DEM_57  {GPIOD,GPIO_Pin_3,GPIO_Mode_IPU}
+#define MOTO_FEEDBACK_21 {GPIOA,GPIO_Pin_11,GPIO_Mode_Out_PP}	//DEM53
+#define MOTO_FEEDBACK_22 {GPIOA,GPIO_Pin_12,GPIO_Mode_Out_PP}	//DEM54
 
 
 #define MOTO_58_RUN_LEFT  	PCout(10) = 1;PCout(11) = 0						                

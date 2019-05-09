@@ -54,12 +54,11 @@ void Start_Schedule()
 			   machine.state = state_stop;
 			   if(machine.moto_state == state_error)
 				 {
-					  state = 0;
-						Report_State(CMD_REMOTO,&state,1);	  //上报出货电机错误
-					  machine.moto_state = state_stop;
-					  motoDef.num = 0;
-				 }else if(machine.moto_state == state_report)
-				 {
+				    state = 0;
+					Report_State(CMD_REMOTO,&state,1);	  //上报出货电机错误
+					machine.moto_state = state_stop;
+					motoDef.num = 0;
+				 }else if(machine.moto_state == state_report) {
 					  state = 1;
 					  Report_State(CMD_REMOTO,&state,1);
 					  machine.state = state_borrow;       //进入借物流程

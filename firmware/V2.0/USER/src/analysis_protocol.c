@@ -113,7 +113,7 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 								Get_Lock_Data(&CmdRecBuf[7]);
 								DBG_LOG("data is %x",CmdRecBuf[7]);
 								// Uart_Send_Data(SCREEN, dat_tmp,sizeof(dat_tmp));
-								//send_back(tmp);
+								//send_back(tmp); 
 						break;
 					case CMD_GUN:
 								DBG_LOG("hello,world!");
@@ -134,14 +134,14 @@ void open_all_door(void) {
 	static uint8_t key = 0;
 	static uint8_t i = 0; 
 	key = KEY_Scan(0);
-	if(key) {
+	if(key) {	
 		switch (key) {
 		case KEY_ALL_NUM:				
 		DBG_LOG("open all the door");
 		for(i=33;i<=54;i++) {
 			IWDG_Feed();
 			Open_xMoto(i);
-			delay_ms(100);
+			delay_ms(500);
 			Close_xMoto(i);
 		}
 		break;

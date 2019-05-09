@@ -5,19 +5,21 @@ Machine machine = {0,0,0};
 Moto motoDef = {Open_xMoto,Close_xMoto,Read_xMoto,0,0};
 mError errorDef = {0,0};
 
-mPin Pin_Array[PINMAX] = {  // 1-32 is ouput motor, 33-54 is output motor, 55 is feedback signal of transfer track 
-														// 56 is shipment door lock, 57 is shipment door track
-														// DEM is repay lock signal feedback, but no useing cause the lock problem
+mPin Pin_Array[PINMAX] = {  //	
 		MOTO(1), MOTO(2), MOTO(3), MOTO(4), MOTO(5), MOTO(6), MOTO(7), MOTO(8), MOTO(9), MOTO(10),
 		MOTO(11),MOTO(12),MOTO(13),MOTO(14),MOTO(15),MOTO(16),MOTO(17),MOTO(18),MOTO(19),MOTO(20),
 		MOTO(21),MOTO(22),MOTO(23),MOTO(24),MOTO(25),MOTO(26),MOTO(27),MOTO(28),MOTO(29),MOTO(30),
-		MOTO(31),MOTO(32),MOTO(33),MOTO(34),MOTO(35),MOTO(36),MOTO(37),MOTO(38),MOTO(39),MOTO(40),
-		MOTO(41),MOTO(42),MOTO(43),MOTO(44),MOTO(45),MOTO(46),MOTO(47),MOTO(48),MOTO(49),MOTO(50),
-		MOTO(51),MOTO(52),MOTO(53),MOTO(54),MOTO(56),MOTO(57),
-		DEM(33), DEM(34) ,DEM(35) ,DEM(36), DEM(37), DEM(38), DEM(39), //63
-		DEM(40), DEM(41) ,DEM(42) ,DEM(43), DEM(44), DEM(45), DEM(46),DEM(47),DEM(48),DEM(49),
-		DEM(50), DEM(51) ,DEM(52) ,DEM(53), DEM(54), DEM(55), DEM(56),DEM(57)
-	};
+		MOTO(31),MOTO(32),
+		LOCK(1),LOCK(2),LOCK(3),LOCK(4),LOCK(5),LOCK(6),LOCK(7),LOCK(8),LOCK(9),LOCK(10),LOCK(11),
+		LOCK(12),LOCK(13),LOCK(14),LOCK(15),LOCK(16),LOCK(17),LOCK(18),LOCK(19),LOCK(20),LOCK(21),
+		LOCK(22),
+		MOTO_FEEDBACK(1), // motor 1-32 feedback signal
+		// lock feedback signal
+		LOCK_FEEDBACK(1),LOCK_FEEDBACK(2),LOCK_FEEDBACK(3),LOCK_FEEDBACK(4),LOCK_FEEDBACK(5),LOCK_FEEDBACK(6),
+		LOCK_FEEDBACK(7),LOCK_FEEDBACK(8),LOCK_FEEDBACK(9),LOCK_FEEDBACK(10),LOCK_FEEDBACK(11),LOCK_FEEDBACK(12),
+		LOCK_FEEDBACK(13),LOCK_FEEDBACK(14),LOCK_FEEDBACK(15),LOCK_FEEDBACK(16),LOCK_FEEDBACK(17),LOCK_FEEDBACK(18), 
+		LOCK_FEEDBACK(19),LOCK_FEEDBACK(20),LOCK_FEEDBACK(21),LOCK_FEEDBACK(22)
+};
 	
 void Moto_Init()
 {
