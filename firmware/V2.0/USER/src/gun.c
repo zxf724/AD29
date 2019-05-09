@@ -32,7 +32,7 @@ uint8_t Open_Gun()
 
 void Report_Bar_Code()
 {
-	if(errorDef.bar_code_state) //ÊÕµ½ÌõÂë
+	if(errorDef.bar_code_state)
 	{
      Report_State(CMD_REBACK,g_bar_code,strlen((const char*)g_bar_code));
 		 delay_ms(5);

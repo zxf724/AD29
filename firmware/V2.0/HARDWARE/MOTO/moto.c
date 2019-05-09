@@ -5,8 +5,7 @@ Machine machine = {0,0,0};
 Moto motoDef = {Open_xMoto,Close_xMoto,Read_xMoto,0,0};
 mError errorDef = {0,0};
 
-mPin Pin_Array[PINMAX] = 
-	{
+mPin Pin_Array[PINMAX] = {
 		MOTO(1), MOTO(2), MOTO(3), MOTO(4), MOTO(5), MOTO(6), MOTO(7), MOTO(8), MOTO(9), MOTO(10),
 		MOTO(11),MOTO(12),MOTO(13),MOTO(14),MOTO(15),MOTO(16),MOTO(17),MOTO(18),MOTO(19),MOTO(20),
 		MOTO(21),MOTO(22),MOTO(23),MOTO(24),MOTO(25),MOTO(26),MOTO(27),MOTO(28),MOTO(29),MOTO(30),
@@ -44,6 +43,12 @@ void Moto_Init()
 		GPIO_Init(GPIOD, &GPIO_InitStructure);
 	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	
 	
+	// push motor gpio init begin && electromagnetic lock
+		GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12;
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+		GPIO_Init(GPIOC, &GPIO_InitStructure);
+	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	
+
 	for(i = 0;i < PINMAX;i++)
 	{
 		GPIO_InitStructure.GPIO_Pin  = Pin_Array[i].pin;
@@ -54,48 +59,59 @@ void Moto_Init()
 	}
 }
 
-uint8_t Open_xMoto(uint8_t num)
-{
+/**
+ * open motor  success return 0 not success return 1
+ * @param argc 
+ * @param argv 
+ */
+uint8_t Open_xMoto(uint8_t num) {
 	if(num < 1 || num > 56)
 		return 1;
   GPIO_SetBits(Pin_Array[num-1].port,Pin_Array[num-1].pin); 
   return 0;		
 }
 
-uint8_t Close_xMoto(uint8_t num)
-{
+
+/**
+ * close motor success return 0 not success return 1
+ * @param argc 
+ * @param argv 
+ */
+uint8_t Close_xMoto(uint8_t num) {
 	if(num < 1 || num > 56)
 		return 1;
   GPIO_ResetBits(Pin_Array[num-1].port,Pin_Array[num-1].pin);
   return 0;		
 }
 
-uint8_t Read_xMoto(uint8_t num)
-{
+/**
+ * read motor state 
+ * @param argc 
+ * @param argv 
+ */
+uint8_t Read_xMoto(uint8_t num) {
 	if(num < 56 || num > 81)
 		return 0xff;
-
 	return GPIO_ReadInputDataBit(Pin_Array[num-1].port,Pin_Array[num-1].pin);
 }
 
 
-uint8_t Check_Moto(uint8_t num)
-{
+/**
+ * checkout motor feedback signal
+ * @param argc 
+ * @param argv 
+ */
+uint8_t Check_Moto(uint8_t num) {
 	static uint8_t checkflag = 0;
-  if(motoDef.read_moto(num) == 0xff)
-	{
+  if(motoDef.read_moto(num) == 0xff) {
      return 1;
-	}else if(motoDef.read_moto(num))
-	{
+	} else if(motoDef.read_moto(num)) {
 		delay_ms(5);
 		if(motoDef.read_moto(num))
 			checkflag = 1;
-	}else if(checkflag && !motoDef.read_moto(num))
-	{
-		
+	} else if(checkflag && !motoDef.read_moto(num)) {
 		delay_ms(5);
-		if(!motoDef.read_moto(num))
-		{
+		if(!motoDef.read_moto(num)) {
 			checkflag = 0;
 			return 0;
 		}
@@ -103,6 +119,11 @@ uint8_t Check_Moto(uint8_t num)
 	return 1;
 }
 
+/**
+ * open motor 
+ * @param argc 
+ * @param argv 
+ */
 uint8_t Set_Moto()
 {
   if(motoDef.num)

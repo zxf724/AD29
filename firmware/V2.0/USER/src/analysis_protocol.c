@@ -88,10 +88,14 @@ void Gun_CommandReceive_Poll(void)
   }
 }
 
-void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length)
-{
+void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 		static uint8_t i = 0;
-    if(CmdRecBuf[0] == FHEADER && CmdRecBuf[length] == FEND)
+		// crc16 test
+		// static uint16_t crc_data_count = CRC_16(0xffff,CmdRecBuf+2,13);
+		// static uint16_t crc_data = (CmdRecBuf[16] << 8) | CmdRecBuf[17];
+    // if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[length] == FEND) && (crc_data_count == crc_data))
+		
+    if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[length] == FEND))
     {
         switch(CmdRecBuf[1])
 				{
@@ -112,6 +116,7 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length)
 								//send_back(tmp);
 						break;
 					case CMD_GUN:
+								DBG_LOG("hello,world!");
                 Get_Gun_Data(&CmdRecBuf[2]);
 						break;
 					case CMD_CARGO:
@@ -145,3 +150,4 @@ void open_all_door(void) {
 		} //end of switch
 	}
 }
+

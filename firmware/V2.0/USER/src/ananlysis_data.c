@@ -47,6 +47,7 @@ void Get_Gun_Data(uint8_t* data)
 	for(i = 1;i <len+1;i++)
 	{
 	  g_start_cmd[i-1] = *(data+4+i);
+		DBG_LOG("g_start_cmd[%d] = %d",i-1,g_start_cmd[i-1]);
 	}
 	// printf("rec Gun \r\n");
 }

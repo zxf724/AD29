@@ -48,8 +48,8 @@ void Start_Schedule()
   			Start_Repay();
 			 break;
 		 case state_borrow:
-			  Start_Borrow();
 			 break;
+			  Start_Borrow();
 		 case state_report:
 			   machine.state = state_stop;
 			   if(machine.moto_state == state_error)
@@ -83,8 +83,8 @@ void Start_Schedule()
 				 if(machine.gun_state == state_error)
 				 {   
 						state = 0;
-					  Report_State(CMD_REGUN,&state,1);						 //上报扫码枪错误
-				    machine.gun_state = state_stop;
+					  Report_State(CMD_REGUN,&state,1);		//上报扫码枪错误
+				    	machine.gun_state = state_stop;
 					  memset(g_start_cmd,0,sizeof(g_start_cmd));
 				 }else if(machine.gun_state == state_report)
 			    {
@@ -97,34 +97,32 @@ void Start_Schedule()
 	 }
 }
 
-
+/**
+ * start borrow tools
+ * @param argc 
+ * @param argv 
+ */
 void Start_Borrow()
 {
 	uint8_t state = 0;
-	switch(motoDef.state)
-	{
+	switch(motoDef.state) {
 		case state_stop:
-			  if(motoDef.num)
-				{
+			  if(motoDef.num) {
 					motoDef.state = state_run_first;
-				}else 
-				{
+				} else {
 					machine.state = state_stop;
 				}
 			break;
 		case state_run_first: //启动送货履带
-			if(!Check_Moto(CHECK_DROP))
-			{
+			if(!Check_Moto(CHECK_DROP)) {
 				motoDef.close_moto(motoDef.num);
 				motoDef.state = state_run_second;
 				motoDef.num = 0;  //清除电机标志
 			}
 		break;
 		case state_run_second:	//启动出货电机
-			
 			motoDef.open_moto(MOTO_CARGO);
-			if(!Check_Moto(CHECK_CARGO))
-			{
+			if(!Check_Moto(CHECK_CARGO)) {
 				motoDef.close_moto(MOTO_CARGO);
 				motoDef.open_moto(DOOR_CARGO);
 				motoDef.state = state_run_third;
@@ -132,29 +130,25 @@ void Start_Borrow()
 			motoDef.state = state_run_third;
 		break;
 		case state_run_third:  //开出货口的门
-				if(!motoDef.read_moto(DOOR_CARGO))
-				{
-					motoDef.close_moto(DOOR_CARGO);
-					motoDef.state = state_report;
-				}
+			if(!motoDef.read_moto(DOOR_CARGO)) {
+				motoDef.close_moto(DOOR_CARGO);
 				motoDef.state = state_report;
+			}
+			motoDef.state = state_report;
 			break;
 		case state_report:
 			state = 1;
-		  Report_State(CMD_RECARGO,&state,1);  //出货信息上报
-		  if(errorDef.android_state) //收到ANDROID消息
-			{
+		  	Report_State(CMD_RECARGO,&state,1);  //出货信息上报
+		  	if(errorDef.android_state) { //收到ANDROID消息
 				errorDef.android_state = 0;
-			  motoDef.state = state_stop;
+				motoDef.state = state_stop;
 				errorDef.error_count = 0;
 				errorDef.android_state = 0;
-			}else
-			{
+			} else {
 		   	errorDef.error_count++;
 				delay_ms(5);
-				if(errorDef.error_count >= 10)
-				{
-				  motoDef.state = state_stop;
+				if(errorDef.error_count >= 10) {
+				  	motoDef.state = state_stop;
 					errorDef.android_state = 0;
 					errorDef.error_count = 0;
 				}
@@ -163,6 +157,11 @@ void Start_Borrow()
 	}
 }
 
+/**
+ * start repay tools
+ * @param argc 
+ * @param argv 
+ */
 void Start_Repay()
 {
 	//static uint8_t check_flag = 0;

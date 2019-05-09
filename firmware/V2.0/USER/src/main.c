@@ -13,6 +13,7 @@
 #include "wdg.h"
 #include "key.h"
 #include "ananlysis_data.h"
+#include "prjlib.h"
 
 static void funControl(int argc, char* argv[]);
 extern Moto motoDef;
@@ -39,11 +40,7 @@ int main(void)
 	fff.hour = 14;
 	fff.min = 00;
 	fff.sec = 0;
-
-// test
-	// uint8_t time_array[] = {0x7E,0x01,0x5C,0xD2,0x93,0x9F,0x7E};
-	// Get_Time(time_array);
-
+	
 	while(1)
 	{
 		 IWDG_Feed();
@@ -85,10 +82,17 @@ static void funControl(int argc, char* argv[]) {
 
 void led_light(void) {
 	RTC_Get();
+	// showcase,time can change according to the demand.
 	if((fff.hour > 6) || (fff.hour <= 24)) {
-		GPIO_ResetBits(GPIOD,GPIO_Pin_0);
+		GPIO_SetBits(GPIOD,GPIO_Pin_0);
+	} else {
+			GPIO_ResetBits(GPIOD,GPIO_Pin_0);
 	}
+	// logo part, time  can change according to the demand.
 	if((fff.hour > 6) || (fff.hour <= 24)) {
+		GPIO_SetBits(GPIOD,GPIO_Pin_1);
+	} else {
 		GPIO_ResetBits(GPIOD,GPIO_Pin_1);
 	}
+	
 }

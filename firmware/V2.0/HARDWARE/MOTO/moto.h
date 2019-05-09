@@ -126,59 +126,67 @@
 #define DEM_56  {GPIOD,GPIO_Pin_2,GPIO_Mode_IPU}
 #define DEM_57  {GPIOD,GPIO_Pin_3,GPIO_Mode_IPU}
 
+
 #define MOTO_58_RUN_LEFT  	PCout(10) = 1;PCout(11) = 0						                
 #define MOTO_58_RUN_RIGHT	  PCout(10) = 0;PCout(11) = 1
 
 #define READ_MOTO_58        PCin(12)  
+
+// push mortor
+#define PUSH_MOTOR_LEFT  {GPIO_SetBits(GPIOC,GPIO_Pin_10);GPIO_ResetBits(GPIOC,GPIO_Pin_11)}   //GPIO_SetBits()  //GPIO_ResetBits()
+#define PUSH_MOTOR_RIGHT {GPIO_SetBits(GPIOC,GPIO_Pin_11);GPIO_ResetBits(GPIOC,GPIO_Pin_10)}
+
+//electromagnetic lock
+#define OPEN_ELECTRIC_LOCK  GPIO_SetBits(GPIOC,GPIO_Pin_12)
+#define CLOSE_ELECTRIC_LOCK GPIO_ResetBits(GPIOC,GPIO_Pin_12)
+
 	
-enum
-{
+enum {
   state_stop = 0,
   state_repay,
-	state_borrow,
-	state_run_first,
-	state_error,
-	state_run_second,
-	state_run_third,
-	state_report,
-	state_gun_open,
-	state_door_open
+  state_borrow,
+  state_run_first,
+  state_error,
+  state_run_second,
+  state_run_third,
+  state_report,
+  state_gun_open,
+  state_door_open
+  //new state
 };
 
-/*电机结构体
- * open_moto： 开启电机函数
- * close_moto： 关闭电机函数
- * read_moto：  读取状态
- * num： 电机序号
- * state：执行状态
+/*motor Structure
+ * open_moto： open motor function
+ * close_moto： close motor function
+ * read_moto：  read motor function
+ * num： the motor number
+ * state：running state
 */
-typedef struct
-{
+typedef struct {
 	uint8_t(*open_moto)(uint8_t);
 	uint8_t(*close_moto)(uint8_t);
 	uint8_t(*read_moto)(uint8_t);
 	uint8_t num;
 	uint8_t state;
-}Moto;
+} Moto;
 
-/*机器整体结构体
- *moto_state:  出货电机
- *lock_state:  归还电机
- *gun_state:
- *state: 机器状态 
+/*all the machine state Structure
+ *moto_state:  borrow motor state
+ *lock_state:  repay motor state
+ *gun_state:   scan gun state
+ *state: machine state
 */
-typedef struct
-{
+typedef struct {
 	uint8_t lock_state;
 	uint8_t moto_state;
 	uint8_t gun_state;
 	uint8_t state;
-}Machine;
+} Machine;
 
-/*错误结构体
- *android_state: 安卓回复状态
- *error_count: 错误计数
- *bar_code_state: 条码收到
+/*error structure
+ *android_state: android reapy state
+ *error_count:  error count
+ *bar_code_state: bar state
 */
 typedef struct
 {
@@ -187,7 +195,7 @@ typedef struct
 	uint8_t bar_code_state;
 }mError;
 
-/*12字节*/
+/*new data*/
 typedef struct
 {
 	GPIO_TypeDef* port;
