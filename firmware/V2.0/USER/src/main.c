@@ -45,11 +45,12 @@ int main(void)
   while(1) {
 	IWDG_Feed();
 	time = mytime_2_utc_sec(&fff,0);
-	Gun_CommandReceive_Poll(); 
-	Screen_CommandReceive_Poll();
-	Start_Schedule();
-	open_all_door();  
-	led_light();
+	// Gun_CommandReceive_Poll(); 
+	// Screen_CommandReceive_Poll();
+	// Start_Schedule();
+	// open_all_door();  
+	// led_light();
+	test_fun();
 		// printf("motoDef.state = %d",motoDef.state);
 	}
 }
@@ -97,4 +98,14 @@ void led_light(void) {
 		GPIO_ResetBits(GPIOD,GPIO_Pin_1);
 	}
 	
+}
+
+void test_fun() {
+	motoDef.open_moto(1);
+	motoDef.open_moto(2);
+	if(motoDef.read_moto(CHECK_DROP)) {
+	} else {
+		DBG_LOG("signal feedback55");
+	}
+
 }
