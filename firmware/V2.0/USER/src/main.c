@@ -42,17 +42,14 @@ int main(void)
 	fff.min = 00;
 	fff.sec = 0;
 	
-	while(1)
-	{
-		 IWDG_Feed();
-	  //  time = mytime_2_utc_sec(&fff,0);
-		//  Gun_CommandReceive_Poll(); 
-		//  Screen_CommandReceive_Poll();
-		//  Start_Schedule();
-		// //  open_all_door();  
-		//  led_light();
-		// motoDef.open_moto(18);
-		  GPIO_SetBits(Pin_Array[15].port,Pin_Array[15].pin);
+  while(1) {
+	IWDG_Feed();
+	time = mytime_2_utc_sec(&fff,0);
+	Gun_CommandReceive_Poll(); 
+	Screen_CommandReceive_Poll();
+	Start_Schedule();
+	open_all_door();  
+	led_light();
 		// printf("motoDef.state = %d",motoDef.state);
 	}
 }
