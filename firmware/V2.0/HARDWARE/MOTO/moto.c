@@ -59,7 +59,7 @@ void Moto_Init()
 		GPIO_Init(GPIOC, &GPIO_InitStructure);
 	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	
 
-	for(i = 0;i < PINMAX;i++)
+	for(i=0;i<PINMAX;i++)
 	{
 		GPIO_InitStructure.GPIO_Pin  = Pin_Array[i].pin;
 		GPIO_InitStructure.GPIO_Mode = Pin_Array[i].mode;
@@ -113,8 +113,6 @@ uint8_t Read_xMoto(uint8_t num) {
  */
 uint8_t Check_Moto(uint8_t num) {
 	static uint8_t checkflag = 0;
-	DBG_LOG("check moto num is %d",num);
-	DBG_LOG("start check!!");
   if(motoDef.read_moto(CHECK_DROP) == 0xff) {
      return 1;
 	} else if(motoDef.read_moto(num)) {
@@ -132,7 +130,7 @@ uint8_t Check_Moto(uint8_t num) {
 }
 
 /**
- * open motor 
+ * open motor  
  * @param argc 
  * @param argv 
  */

@@ -45,11 +45,11 @@ int main(void)
   while(1) {
 	IWDG_Feed();
 	time = mytime_2_utc_sec(&fff,0);
-	// Gun_CommandReceive_Poll(); 
-	// Screen_CommandReceive_Poll();
-	// Start_Schedule();
-	// open_all_door();  
-	// led_light();
+	Gun_CommandReceive_Poll(); 
+	Screen_CommandReceive_Poll();
+	Start_Schedule();
+	// open_all_door();
+	led_light();
 	test_fun();
 		// printf("motoDef.state = %d",motoDef.state);
 	}
@@ -88,7 +88,7 @@ void led_light(void) {
 	if(1) {
 		GPIO_SetBits(GPIOD,GPIO_Pin_0);
 	} else {
-			GPIO_ResetBits(GPIOD,GPIO_Pin_0);
+		GPIO_ResetBits(GPIOD,GPIO_Pin_0);
 	}
 	// logo part, time  can change according to the demand.
 	// if((fff.hour > 6) || (fff.hour <= 24)) {
@@ -101,11 +101,12 @@ void led_light(void) {
 }
 
 void test_fun() {
-	motoDef.open_moto(1);
-	motoDef.open_moto(2);
-	if(motoDef.read_moto(CHECK_DROP)) {
-	} else {
-		DBG_LOG("signal feedback55");
-	}
-
+	// motoDef.open_moto(1);
+	// motoDef.open_moto(2);
+	// if(motoDef.read_moto(CHECK_DROP)) {
+	// 	DBG_LOG("signal feedback55");
+	// }
+	delay_ms(2000);
+	motoDef.open_moto();
+	delay_ms(2000);
 }

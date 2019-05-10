@@ -10,10 +10,6 @@
 
 /*¼ì²âµôÂäµÄÒý½Å*/
 #define CHECK_TEST54  54
-#define CHECK_DROP   55
-#define CHECK_TEST56  56
-#define CHECK_TEST57  57
-
 
 #define DOOR_CARGO   54
 #define MOTO_CARGO   54
