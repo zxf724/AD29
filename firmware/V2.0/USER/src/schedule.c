@@ -41,9 +41,11 @@ void Start_Schedule() {
   			Start_Repay();
 			break;
 		 case state_borrow:
+		 	DBG_LOG("start borrow!!");
 			Start_Borrow();
 			break;
 		 case state_report:
+		 	DBG_LOG("start report!!");
 			machine.state = state_stop;
 			if(machine.moto_state == state_error) {
 				state = 0;
@@ -52,6 +54,7 @@ void Start_Schedule() {
 				motoDef.num = 0;
 			} else if(machine.moto_state == state_report) {
 				state = 1;
+		 		DBG_LOG("(machine.moto_state == state_report");				
 				Report_State(CMD_REMOTO,&state,1);
 				machine.state = state_borrow;       //进入借物流程
 				machine.moto_state = state_stop;
@@ -103,16 +106,18 @@ void Start_Borrow()
 		case state_run_first: //启动送货履带
 				motoDef.open_moto(motoDef.num);
 			if(!Check_Moto(CHECK_DROP)) {
+				DBG_LOG("in first!");
 				motoDef.close_moto(motoDef.num);
 				motoDef.state = state_run_second;
 				motoDef.num = 0;  //清除电机标志
 			}
 			break;
 		case state_run_second:	//启动出货电机
-			motoDef.open_moto(MOTO_CARGO);
+			// motoDef.open_moto(MOTO_CARGO);
+			DBG_LOG("running!!!");
 			if(!Check_Moto(CHECK_CARGO)) {
 				motoDef.close_moto(MOTO_CARGO);
-				motoDef.open_moto(DOOR_CARGO);
+				// motoDef.open_moto(DOOR_CARGO);
 				motoDef.state = state_run_third;
 			}
 			motoDef.state = state_run_third;

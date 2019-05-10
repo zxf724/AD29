@@ -141,7 +141,7 @@ void open_all_door(void) {
 		for(i=33;i<=54;i++) {
 			IWDG_Feed();
 			Open_xMoto(i);
-			delay_ms(500);
+			delay_ms(200);
 			Close_xMoto(i);
 		}
 		break;

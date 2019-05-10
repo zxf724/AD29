@@ -100,7 +100,8 @@ uint8_t Close_xMoto(uint8_t num) {
  * @param argv 
  */
 uint8_t Read_xMoto(uint8_t num) {
-	if(num < 56 || num > 81)
+	if(num < 20 || num > 81)
+	DBG_LOG("num = %d",num);
 		return 0xff;
 	return GPIO_ReadInputDataBit(Pin_Array[num-1].port,Pin_Array[num-1].pin);
 }
@@ -113,6 +114,8 @@ uint8_t Read_xMoto(uint8_t num) {
  */
 uint8_t Check_Moto(uint8_t num) {
 	static uint8_t checkflag = 0;
+	DBG_LOG("check moto num is %d",num);
+	DBG_LOG("start check!!");
   if(motoDef.read_moto(num) == 0xff) {
      return 1;
 	} else if(motoDef.read_moto(num)) {
@@ -138,10 +141,12 @@ uint8_t Set_Moto()
 {
   if(motoDef.num)
 	{
-	  if(!motoDef.open_moto(motoDef.num))
+	  if(!motoDef.open_moto(motoDef.num)) {
+			DBG_LOG("motoDef.num in moto.c is %d",motoDef.num);
       return motoDef.num;
-		else
+		} else {
 			return 0xff;
+		}
 	}
 	return 0;
 }
