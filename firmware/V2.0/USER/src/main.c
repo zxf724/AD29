@@ -23,13 +23,13 @@ _calendar_obj fff;
 int main(void)
 {		
 	CMD_ENT_DEF(MOTO, funControl);
-  Cmd_AddEntrance(CMD_ENT(MOTO));
+	Cmd_AddEntrance(CMD_ENT(MOTO));
 	delay_init();	    	   
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
-  uart1_init(115200);
+  	uart1_init(115200);
 	uart2_init(9600);
 	Moto_Init();
-
+	CLOSE_ELECTRIC_LOCK;
 
 	DBG_LOG("system start");
   if(RTC_Init())
@@ -41,7 +41,7 @@ int main(void)
 	fff.hour = 14;
 	fff.min = 00;
 	fff.sec = 0;
-	
+
   while(1) {
 	IWDG_Feed();
 	time = mytime_2_utc_sec(&fff,0);
@@ -78,6 +78,9 @@ static void funControl(int argc, char* argv[]) {
 	}else if(ARGV_EQUAL("CLOSE")) 
 	{  
 		  motoDef.close_moto(uatoi(argv[1]));
+	}else if(ARGV_EQUAL("motor_turn_off")) {
+		PUSH_MOTOR(LEFT);
+		DBG_LOG("motor_turn_off");
 	}
 }
 
@@ -101,12 +104,34 @@ void led_light(void) {
 }
 
 void test_fun() {
+	// test borrow motor
 	// motoDef.open_moto(1);
 	// motoDef.open_moto(2);
-	// if(motoDef.read_moto(CHECK_DROP)) {
+	// if(motoDef.read_moto(CHECK_TRACK)) {
 	// 	DBG_LOG("signal feedback55");
 	// }
-	delay_ms(2000);
-	motoDef.open_moto();
-	delay_ms(2000);
+
+	// test push motor
+	// delay_ms(2000);
+	// motoDef.open_moto();
+	// delay_ms(2000);
+
+	// test infrared
+	// if (!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
+	// 	DBG_LOG("infrared!");
+	// }
+	//test push motor
+	// GPIO_ResetBits(GPIOC,GPIO_Pin_11);
+	// GPIO_SetBits(GPIOC,GPIO_Pin_10);
+	// PUSH_MOTOR(RIGHT);  // out 
+	// PUSH_MOTOR(LEFT);		//in
+
+	//test electric lock
+	// static uint8_t flag = 0;
+	// if (flag == 0) {
+	// 	OPEN_ELECTRIC_LOCK;
+	// 	delay_ms(500);
+	// 	CLOSE_ELECTRIC_LOCK;
+	// 	flag = 1;
+	// }
 }

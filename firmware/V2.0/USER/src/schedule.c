@@ -91,6 +91,7 @@ void Start_Schedule() {
 void Start_Borrow()
 {
 	uint8_t state = 0;
+	static uint8_t flag_infrared = 0,flag_signal_transfer = 0;
 	switch(motoDef.state) {
 		case state_stop:
 			if(motoDef.num) {
@@ -99,29 +100,37 @@ void Start_Borrow()
 				machine.state = state_stop;
 			}
 			break;
-		case state_run_first: //启动送货履带
+		case state_run_first: // input 
 				motoDef.open_moto(motoDef.num);
-			if(!Check_Moto(CHECK_DROP)) {
+			if(motoDef.read_moto(CHECK_TRACK)) {  // CHECK_TRACK
+				flag_signal_transfer = 1;
 				motoDef.close_moto(motoDef.num);
 				motoDef.state = state_run_second;
-				motoDef.num = 0;  //清除电机标志
+				 // clear num
+				motoDef.num = 0; 
 			}
 			break;
-		case state_run_second:	//启动出货电机
-			// motoDef.open_moto(MOTO_CARGO);
-			if(motoDef.read_moto(CHECK_DROP)) {
-				motoDef.close_moto(MOTO_CARGO);
-				motoDef.open_moto(DOOR_CARGO);
+		case state_run_second:
+			//check infrared  output 0 signal when it cover
+			if(!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
+				DBG_LOG("in state_run_second!");
+				flag_infrared = 1;
 				motoDef.state = state_run_third;
 			}
-			motoDef.state = state_run_third;
 		break;
-		case state_run_third:  //开出货口的门
-			if(!motoDef.read_moto(DOOR_CARGO)) {
-				motoDef.close_moto(DOOR_CARGO);
-				motoDef.state = state_report;
+		case state_run_third:  // push motor
+			if((flag_signal_transfer == 1) && (flag_infrared == 1)) {
+				OPEN_ELECTRIC_LOCK;
+				delay_ms(500);
+				CLOSE_ELECTRIC_LOCK;
+				PUSH_MOTOR(RIGHT);
+				flag_signal_transfer = 0;
+				flag_infrared = 0;
 			}
-			motoDef.state = state_report;
+			if (motoDef.read_moto(INFRARED_SENSOR_TEST)) {
+				PUSH_MOTOR(LEFT);
+				motoDef.state = state_report; 
+			}
 			break;
 		case state_report:
 			state = 1;
@@ -188,7 +197,7 @@ void Start_Repay()
 // 	motoDef.open_moto(motoDef.num);
 // 	Set_Moto();
 // motoDef.close_moto(motoDef.num);
-	// if(!Check_Moto(CHECK_DROP)) {
+	// if(!Check_Moto(CHECK_TRACK)) {
 	// 			motoDef.close_moto(motoDef.num);
 	// 			motoDef.state = state_run_second;
 	// 			motoDef.num = 0;  //清除电机标志

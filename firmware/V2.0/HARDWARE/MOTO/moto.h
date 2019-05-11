@@ -6,21 +6,22 @@
 #define SUCCESS 1
 #define FAIL    0
 
-#define PINMAX	77//81
+#define PINMAX	78//81
 
-/*¼ì²âµôÂäµÄÒý½Å*/
-#define CHECK_TEST54  54
-
-#define DOOR_CARGO   54
-#define MOTO_CARGO   54
+//check 
+#define CHECK_TRACK   55
+#define INFRARED_SENSOR_TEST  78
 
 #define CHECK_CARGO       80
 #define CHECK_CARGO_DOOR  79
+
 
 #define MOTO(x) MOTO_##x
 #define LOCK(x)	LOCK_##x
 #define MOTO_FEEDBACK(x) MOTO_FEEDBACK_##x	
 #define LOCK_FEEDBACK(x) LOCK_FEEDBACK_##x
+#define INFRARED_SENSOR(x)	INFRARED_SENSOR_##x  //infrared sensor
+#define PUSH_MOTOR(x)	PUSH_MOTOR_##x
 
 //borrow motor
 #define MOTO_1  {GPIOE,GPIO_Pin_2,GPIO_Mode_Out_PP}
@@ -113,14 +114,18 @@
 //motor feedback
 #define MOTO_FEEDBACK_1 {GPIOA,GPIO_Pin_15,GPIO_Mode_IPD}	//DEM55
 
+//infrared sensor
+#define INFRARED_SENSOR_1 {GPIOD,GPIO_Pin_4,GPIO_Mode_IPD}
+
 #define MOTO_58_RUN_LEFT  	PCout(10) = 1;PCout(11) = 0
 #define MOTO_58_RUN_RIGHT	  PCout(10) = 0;PCout(11) = 1
 
 #define READ_MOTO_58        PCin(12)  
 
-// push mortor
-#define PUSH_MOTOR_LEFT  {GPIO_SetBits(GPIOC,GPIO_Pin_10);GPIO_ResetBits(GPIOC,GPIO_Pin_11)}   //GPIO_SetBits()  //GPIO_ResetBits()
-#define PUSH_MOTOR_RIGHT {GPIO_SetBits(GPIOC,GPIO_Pin_11);GPIO_ResetBits(GPIOC,GPIO_Pin_10)}
+// push mortor  left = in; right = out
+#define PUSH_MOTOR_LEFT  {GPIO_SetBits(GPIOC,GPIO_Pin_10);GPIO_ResetBits(GPIOC,GPIO_Pin_11);}   //GPIO_SetBits()  //GPIO_ResetBits()
+#define PUSH_MOTOR_RIGHT {GPIO_SetBits(GPIOC,GPIO_Pin_11);GPIO_ResetBits(GPIOC,GPIO_Pin_10);}
+#define PUSH_MOTOR_CLEAR {GPIO_ResetBits(GPIOC,GPIO_Pin_11);GPIO_ResetBits(GPIOC,GPIO_Pin_10);}
 
 //electromagnetic lock
 #define OPEN_ELECTRIC_LOCK  GPIO_SetBits(GPIOC,GPIO_Pin_12)
@@ -135,6 +140,8 @@ enum {
   state_error,
   state_run_second,
   state_run_third,
+//   state_run_fourth,
+//   state_run_fifth,
   state_report,
   state_gun_open,
   state_door_open

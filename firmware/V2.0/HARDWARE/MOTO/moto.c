@@ -23,8 +23,9 @@ mPin Pin_Array[PINMAX] = {
 		LOCK_FEEDBACK(1),LOCK_FEEDBACK(2),LOCK_FEEDBACK(3),LOCK_FEEDBACK(4),LOCK_FEEDBACK(5),LOCK_FEEDBACK(6),
 		LOCK_FEEDBACK(7),LOCK_FEEDBACK(8),LOCK_FEEDBACK(9),LOCK_FEEDBACK(10),LOCK_FEEDBACK(11),LOCK_FEEDBACK(12),
 		LOCK_FEEDBACK(13),LOCK_FEEDBACK(14),LOCK_FEEDBACK(15),LOCK_FEEDBACK(16),LOCK_FEEDBACK(17),LOCK_FEEDBACK(18), 
-		LOCK_FEEDBACK(19),LOCK_FEEDBACK(20),LOCK_FEEDBACK(21),LOCK_FEEDBACK(22)
-
+		LOCK_FEEDBACK(19),LOCK_FEEDBACK(20),LOCK_FEEDBACK(21),LOCK_FEEDBACK(22),
+		// infrared sensor init num is 77  
+		INFRARED_SENSOR(1),
 };
 	
 void Moto_Init()
@@ -53,11 +54,24 @@ void Moto_Init()
 		GPIO_Init(GPIOD, &GPIO_InitStructure);
 	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	
 	
-	// push motor gpio init begin && electromagnetic lock
-		GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12;
+	// push motor gpio init begin
+		GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_10|GPIO_Pin_11;
 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 		GPIO_Init(GPIOC, &GPIO_InitStructure);
 	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	
+
+		// electromagnetic lock
+		GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_12;
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+		GPIO_Init(GPIOC, &GPIO_InitStructure);
+	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	
+
+	//	infrared sensor init gpio
+		GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_4;
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;
+		GPIO_Init(GPIOD, &GPIO_InitStructure);
+	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	
+
 
 	for(i=0;i<PINMAX;i++)
 	{
@@ -113,7 +127,7 @@ uint8_t Read_xMoto(uint8_t num) {
  */
 uint8_t Check_Moto(uint8_t num) {
 	static uint8_t checkflag = 0;
-  if(motoDef.read_moto(CHECK_DROP) == 0xff) {
+  if(motoDef.read_moto(CHECK_TRACK) == 0xff) {
      return 1;
 	} else if(motoDef.read_moto(num)) {
 		delay_ms(5);
