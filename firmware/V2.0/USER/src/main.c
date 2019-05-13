@@ -42,14 +42,18 @@ int main(void)
 	fff.min = 00;
 	fff.sec = 0;
 
+	// led on
+	GPIO_SetBits(GPIOD,GPIO_Pin_0);
+	GPIO_SetBits(GPIOD,GPIO_Pin_1);
+
   while(1) {
 	IWDG_Feed();
 	time = mytime_2_utc_sec(&fff,0);
-	Gun_CommandReceive_Poll(); 
+	Gun_CommandReceive_Poll();
 	Screen_CommandReceive_Poll();
 	Start_Schedule();
-	// open_all_door();
-	led_light();
+	open_all_door();
+	// led_light();
 	test_fun();
 		// printf("motoDef.state = %d",motoDef.state);
 	}

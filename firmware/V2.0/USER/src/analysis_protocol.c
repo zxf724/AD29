@@ -134,7 +134,7 @@ void open_all_door(void) {
 	static uint8_t key = 0;
 	static uint8_t i = 0; 
 	key = KEY_Scan(0);
-	if(key) {	
+	if(key) {
 		switch (key) {
 		case KEY_ALL_NUM:				
 		DBG_LOG("open all the door");

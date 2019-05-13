@@ -128,9 +128,11 @@ void Start_Borrow()
 				flag_infrared = 0;
 			}
 			if (motoDef.read_moto(INFRARED_SENSOR_TEST)) {
+				delay_ms(2000);
 				PUSH_MOTOR(LEFT);
 				motoDef.state = state_report; 
 			}
+
 			break;
 		case state_report:
 			state = 1;
@@ -153,6 +155,7 @@ void Start_Borrow()
 	}
 }
 
+
 /**
  * start repay tools
  * @param argc 
@@ -161,29 +164,17 @@ void Start_Borrow()
 void Start_Repay()
 {
 	//static uint8_t check_flag = 0;
-	switch(motoDef.state)
-	{
+	switch(motoDef.state) {
 		case state_stop:
-			  if(motoDef.num)
-				{
-					motoDef.state = state_door_open;
-					motoDef.open_moto(motoDef.num);
-				}
-				else
-					machine.state = state_stop;
+			if(motoDef.num) {
+				motoDef.state = state_door_open;
+				motoDef.open_moto(motoDef.num);
+			} else
+				machine.state = state_stop;
 			break;
 		case state_door_open:
-				delay_ms(3000);
-				motoDef.close_moto(motoDef.num);
-				// if(motoDef.read_moto(motoDef.num + 24))
-				// {
-				//    motoDef.close_moto(motoDef.num);
-				// 	 check_flag = 1;
-				// }else if(check_flag && !motoDef.read_moto(motoDef.num))
-				// {
-				// 	check_flag = 0;
-				//     motoDef.state = state_report;
-				// }
+			delay_ms(3000);
+			motoDef.close_moto(motoDef.num);
 			break;
 		case state_report:
 	      memset(g_start_cmd,0,sizeof(g_start_cmd));
@@ -192,14 +183,3 @@ void Start_Repay()
 			break;
 	}
 }
-
-// base_function(){
-// 	motoDef.open_moto(motoDef.num);
-// 	Set_Moto();
-// motoDef.close_moto(motoDef.num);
-	// if(!Check_Moto(CHECK_TRACK)) {
-	// 			motoDef.close_moto(motoDef.num);
-	// 			motoDef.state = state_run_second;
-	// 			motoDef.num = 0;  //清除电机标志
-	// 		}
-// }
