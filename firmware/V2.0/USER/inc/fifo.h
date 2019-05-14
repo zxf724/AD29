@@ -179,6 +179,7 @@ uint32_t app_fifo_write(app_fifo_t * p_fifo, uint8_t const * p_byte_array, uint3
 uint32_t app_uart_flush(uint8_t usart);
 uint32_t app_uart_get(uint8_t * p_byte,uint8_t usart);
 uint32_t app_uart_put(uint8_t byte,uint8_t usart);
+uint32_t fifo_length(app_fifo_t * p_fifo);
 #endif 
 
 /** @} */

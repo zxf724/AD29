@@ -15,7 +15,7 @@
 app_fifo_t  rx_fifo_Gun_Def; 
 app_fifo_t  rx_fifo_Screen_Def;
 
-static uint32_t fifo_length(app_fifo_t * p_fifo)
+uint32_t fifo_length(app_fifo_t * p_fifo)
 {
   uint32_t tmp = p_fifo->read_pos;
   return p_fifo->write_pos - tmp;
@@ -209,7 +209,7 @@ uint32_t app_uart_flush(uint8_t usart)
 uint32_t app_uart_get(uint8_t* p_byte,uint8_t usart)
 {
     if(p_byte == NULL ) 
-			return NRF_ERROR_NULL;
+		return NRF_ERROR_NULL;
 
 		if(usart == SCREEN)
 		 return app_fifo_get(&rx_fifo_Screen_Def, p_byte);
@@ -221,12 +221,14 @@ uint32_t app_uart_get(uint8_t* p_byte,uint8_t usart)
 uint32_t app_uart_put(uint8_t byte,uint8_t usart)
 {
     uint32_t err_code;
-	  if(usart == SCREEN)
-			err_code = app_fifo_put(&rx_fifo_Screen_Def, byte);
-		else if(usart == GUN)
-		{
-			err_code = app_fifo_put(&rx_fifo_Gun_Def, byte);
-		}
+	  if(usart == SCREEN) {
+          err_code = app_fifo_put(&rx_fifo_Screen_Def, byte);
+      }
+    else if(usart == GUN)
+    {
+        err_code = app_fifo_put(&rx_fifo_Gun_Def, byte);
+    }
+     
     return err_code;
 }
 

@@ -3,15 +3,15 @@
 
 #include "stm32f10x.h"
 
-#define COMMAND_MAX   512
+#define COMMAND_MAX   1024 
 
 /*帧头尾*/
-#define FHEADER       0x7E
-#define FEND          0x7E
+#define FHEADER       0xDE//0x7E
+#define FEND          0x0C//0x7E
 
 /*下发协议命令*/
 #define CMD_TIME      0x00
-#define CMD_MOTO      0x01
+#define CMD_MOTO      0x20//0x01
 #define CMD_LOCK      0x02
 #define CMD_GUN       0x03
 #define CMD_CARGO     0x84

@@ -7,6 +7,7 @@
 #include "moto.h"
 #include "key.h"
 #include "wdg.h"
+#include "string.h"
 
 uint8_t  CmdRecBuf[COMMAND_MAX] = {0};
 extern uint8_t     g_bar_code[50];
@@ -14,26 +15,41 @@ extern mError errorDef;
 uint8_t dat[26] = {0x7E,0x05,0x00,0x00,0x00,0x00,0x10,0x00,0x00,0x00,0x00,
 									0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x7E};  // 1+1+4+1+16+2+1 = 26
 
-
+extern app_fifo_t  rx_fifo_Screen_Def;
+extern uint8_t gs_screen_rx_buff[1024];
 void Screen_CommandReceive_Poll(void) 
 {
   uint16_t index = 0;
-  uint8_t len = 0;
-  while(app_uart_get(&CmdRecBuf[index],SCREEN) == NRF_SUCCESS) 
+  uint32_t len = 0;
+	uint8_t i = 0;
+   len = fifo_length(&rx_fifo_Screen_Def);
+	if(len >= 12 {
+		delay_ms(100);
+		len = fifo_length(&rx_fifo_Screen_Def);
+		app_uart_get(CmdRecBuf,SCREEN);   //one bit
+		memcpy(CmdRecBuf,gs_screen_rx_buff,sizeof(gs_screen_rx_buff));
+		memset(gs_screen_rx_buff,0,sizeof(gs_screen_rx_buff));
+		Uart_Protocol_Cmd_Analy(CmdRecBuf,index); 
+		// for (i=0; i<len; i++){
+		//  	 DBG_LOG("CmdRecBuf[%d] = %x",i,CmdRecBuf[i]);
+		// }	
+	}
+
+  //while(app_uart_get(&CmdRecBuf[index],SCREEN) == NRF_SUCCESS)
+	if(0)
   {
+		
 		// for (uint8_t i=0; i<=sizeof(CmdRecBuf); i++){
 		// 	DBG_LOG("CmdRecBuf[%d] = %d",i,CmdRecBuf[i]);
 		// }
 #if 1
-    if(index == len + 8)
-    {
-      Uart_Protocol_Cmd_Analy(CmdRecBuf,index); 
-    } else
-		{
-			if(index == 6)
-				len = CmdRecBuf[index];
-		  index++;
-      delay_ms(2);
+    if(index >= 8) {
+     //Uart_Protocol_Cmd_Analy(CmdRecBuf,index); 
+    } else {
+			// if(index == 6)
+			// 	len = CmdRecBuf[index];
+		  // index++;
+      // delay_ms(2);
 		}
 #else
 		if (CmdRecBuf[index] == '\n' && CmdRecBuf[index - 1] == '\r') 
@@ -67,7 +83,7 @@ void Gun_CommandReceive_Poll(void)
 			CmdRecBuf[index+1] = '\0';
 			p = (char*)&CmdRecBuf[0];
 			strcpy((char*)g_bar_code,p);
-			errorDef.bar_code_state = 1;
+ 			errorDef.bar_code_state = 1;
 			//send date
 			for(i=0;i<=15;i++) {
 				dat[7+i] = CmdRecBuf[i];
@@ -94,8 +110,12 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 		// static uint16_t crc_data_count = CRC_16(0xffff,CmdRecBuf+2,13);
 		// static uint16_t crc_data = (CmdRecBuf[16] << 8) | CmdRecBuf[17];
     // if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[length] == FEND) && (crc_data_count == crc_data))
-		
-    if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[length] == FEND))
+			for (i=0; i<12; i++){
+		 	 DBG_LOG("CmdRecBuf[%d] = %x",i,CmdRecBuf[i]);
+		}	
+		// DBG_LOG("CmdRecBuf[0] = 0x%0x",CmdRecBuf[0]);
+
+    if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[11] == 0xFF))
     {
         switch(CmdRecBuf[1])
 				{
@@ -103,9 +123,9 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 								Get_Time(CmdRecBuf);
 						break;
 					case CMD_MOTO:
-								for(i=0;i<=11;i++) {
-									DBG_LOG("CmdRecBuf[%d] = %02x",i,CmdRecBuf[i]);
-								}
+								// for(i=0;i<=11;i++) {
+								// 	DBG_LOG("CmdRecBuf[%d] = %02x",i,CmdRecBuf[i]);
+								// }
 								DBG_LOG("data is %d",CmdRecBuf[7]);
                 Get_Mote_Data(&CmdRecBuf[7]);
 						break;

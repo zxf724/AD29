@@ -7,8 +7,8 @@
 extern app_fifo_t  rx_fifo_Gun_Def; 
 extern app_fifo_t  rx_fifo_Screen_Def;
 
-static uint8_t gs_screen_rx_buff[512] = {'\0'};
-static uint8_t gs_gun_rx_buff[512] = {'\0'};
+uint8_t gs_screen_rx_buff[1024] = {'\0'};
+static uint8_t gs_gun_rx_buff[1024] = {'\0'};
 
 void uart1_init(u32 bound){
   //GPIO∂Àø⁄…Ë÷√
