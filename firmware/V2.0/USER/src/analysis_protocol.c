@@ -23,16 +23,13 @@ void Screen_CommandReceive_Poll(void)
   uint32_t len = 0;
 	uint8_t i = 0;
    len = fifo_length(&rx_fifo_Screen_Def);
-	if(len >= 12 {
+	if(len >= 12) {
 		delay_ms(100);
 		len = fifo_length(&rx_fifo_Screen_Def);
-		app_uart_get(CmdRecBuf,SCREEN);   //one bit
-		memcpy(CmdRecBuf,gs_screen_rx_buff,sizeof(gs_screen_rx_buff));
-		memset(gs_screen_rx_buff,0,sizeof(gs_screen_rx_buff));
+		for(i=0;i<len;i++)
+		app_uart_get(&CmdRecBuf[i],SCREEN);   //one bit
+		len = 0;
 		Uart_Protocol_Cmd_Analy(CmdRecBuf,index); 
-		// for (i=0; i<len; i++){
-		//  	 DBG_LOG("CmdRecBuf[%d] = %x",i,CmdRecBuf[i]);
-		// }	
 	}
 
   //while(app_uart_get(&CmdRecBuf[index],SCREEN) == NRF_SUCCESS)
