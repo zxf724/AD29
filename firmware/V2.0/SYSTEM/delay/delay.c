@@ -174,7 +174,8 @@ void delay_us(u32 nus)
 }
 //延时nms
 //nms:要延时的ms数
-void delay_ms(u16 nms)
+void 
+delay_ms(u16 nms)
 {	
 	if(delay_osrunning&&delay_osintnesting==0)	//如果OS已经在跑了,并且不是在中断里面(中断里面不能任务调度)	    
 	{		 
@@ -225,6 +226,15 @@ void delay_ms(u16 nms)
 
 
 
+void delay_ms_whx(u16 time)
+{    
+   u16 i=0;  
+   while(time--)
+   {
+      i=12000;  //自己定义
+      while(i--) ;    
+   }
+}
 
 
 

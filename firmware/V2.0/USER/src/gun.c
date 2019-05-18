@@ -14,8 +14,7 @@ uint8_t Set_Gun()
 	const uint8_t kCmd_Start_Gun[] = {0x53,0x43,0x41,0x4E,0x20,0x4F,0x4E};
   if(strcmp((const char*)kCmd_Start_Gun,(const char*)g_start_cmd) == 0)
 	{
-	   if(!Open_Gun())
-		 {
+	   if(!Open_Gun()) {
 		   return 0;
 		 }else
 		 {

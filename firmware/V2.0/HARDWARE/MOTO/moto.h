@@ -8,8 +8,9 @@
 
 #define PINMAX	78//81
 
-//check 
+// check   tail of the cargo road
 #define CHECK_TRACK   55
+// infrared
 #define INFRARED_SENSOR_TEST  78
 
 #define CHECK_CARGO       80
@@ -140,7 +141,7 @@ enum {
   state_error,
   state_run_second,
   state_run_third,
-//   state_run_fourth,
+  state_run_third_again,
 //   state_run_fifth,
   state_report,
   state_gun_open,

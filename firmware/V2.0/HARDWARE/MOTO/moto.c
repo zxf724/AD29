@@ -78,7 +78,6 @@ void Moto_Init()
 		GPIO_Init(GPIOD, &GPIO_InitStructure);
 	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	
 
-
 	for(i=0;i<PINMAX;i++)
 	{
 		GPIO_InitStructure.GPIO_Pin  = Pin_Array[i].pin;

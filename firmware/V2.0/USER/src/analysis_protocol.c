@@ -9,6 +9,8 @@
 #include "wdg.h"
 #include "string.h"
 
+#define	MOTOR_NUM		13
+
 uint8_t  CmdRecBuf[COMMAND_MAX] = {0};
 extern uint8_t     g_bar_code[50];
 extern mError errorDef;
@@ -24,6 +26,7 @@ void Screen_CommandReceive_Poll(void)
 	uint8_t i = 0;
    len = fifo_length(&rx_fifo_Screen_Def);
 	if(len >= 12) {
+		IWDG_Feed();
 		delay_ms(100);
 		len = fifo_length(&rx_fifo_Screen_Def);
 		for(i=0;i<len;i++)
@@ -36,9 +39,6 @@ void Screen_CommandReceive_Poll(void)
 	if(0)
   {
 		
-		// for (uint8_t i=0; i<=sizeof(CmdRecBuf); i++){
-		// 	DBG_LOG("CmdRecBuf[%d] = %d",i,CmdRecBuf[i]);
-		// }
 #if 1
     if(index >= 8) {
      //Uart_Protocol_Cmd_Analy(CmdRecBuf,index); 
@@ -75,6 +75,7 @@ void Gun_CommandReceive_Poll(void)
   char* p = NULL;
 	while(app_uart_get(&CmdRecBuf[index],GUN) == NRF_SUCCESS) 
   {
+		IWDG_Feed();
 		if (CmdRecBuf[index] == '\n' && CmdRecBuf[index - 1] == '\r') 
 		{
 			CmdRecBuf[index+1] = '\0';
@@ -90,7 +91,7 @@ void Gun_CommandReceive_Poll(void)
 		/*while (!isgraph(*p)) 
 			{
 				p++;
-			}			
+			}
 			Cmd_Handle(p);*/
 			index = 0;
 		}else
@@ -102,39 +103,34 @@ void Gun_CommandReceive_Poll(void)
 }
 
 void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
-		static uint8_t i = 0;
-		// crc16 test
-		// static uint16_t crc_data_count = CRC_16(0xffff,CmdRecBuf+2,13);
-		// static uint16_t crc_data = (CmdRecBuf[16] << 8) | CmdRecBuf[17];
-    // if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[length] == FEND) && (crc_data_count == crc_data))
-			for (i=0; i<12; i++){
-		 	 DBG_LOG("CmdRecBuf[%d] = %x",i,CmdRecBuf[i]);
-		}	
-		// DBG_LOG("CmdRecBuf[0] = 0x%0x",CmdRecBuf[0]);
+	static uint8_t i = 0;
 
-    if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[11] == 0xFF))
-    {
-        switch(CmdRecBuf[1])
-				{
+	for (i=0; i<17; i++){
+		 	 DBG_LOG("CmdRecBuf[%d] = 0x%x",i,CmdRecBuf[i]);
+		}	
+	// crc16 test  already test 
+	uint16_t crc_data_count = CRC_16(0xffff,CmdRecBuf+2,13);
+	uint16_t crc_data = (CmdRecBuf[15] << 8) | CmdRecBuf[16];
+	DBG_LOG("crc_data_count is 0x%04x",crc_data_count);
+	DBG_LOG("crc_data is 0x%04x",crc_data);
+	//and crc16
+  if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[17] == FHEADER)) {
+        switch(CmdRecBuf[1]) {
 					case CMD_TIME:
-								Get_Time(CmdRecBuf);
+						Get_Time(CmdRecBuf);
 						break;
 					case CMD_MOTO:
-								// for(i=0;i<=11;i++) {
-								// 	DBG_LOG("CmdRecBuf[%d] = %02x",i,CmdRecBuf[i]);
-								// }
-								DBG_LOG("data is %d",CmdRecBuf[7]);
-                Get_Mote_Data(&CmdRecBuf[7]);
+						DBG_LOG("data is %d",CmdRecBuf[MOTOR_NUM]);
+            Get_Mote_Data(&CmdRecBuf[MOTOR_NUM]);
 						break;
 					case CMD_LOCK:
-								Get_Lock_Data(&CmdRecBuf[7]);
-								DBG_LOG("data is %x",CmdRecBuf[7]);
-								// Uart_Send_Data(SCREEN, dat_tmp,sizeof(dat_tmp));
-								//send_back(tmp); 
+						Get_Lock_Data(&CmdRecBuf[MOTOR_NUM]);
+						DBG_LOG("data is %x",CmdRecBuf[MOTOR_NUM]);
+						// Uart_Send_Data(SCREEN, dat_tmp,sizeof(dat_tmp));
+						// send_back(tmp); 
 						break;
 					case CMD_GUN:
-								DBG_LOG("hello,world!");
-                Get_Gun_Data(&CmdRecBuf[2]);
+            Get_Gun_Data(&CmdRecBuf[2]);
 						break;
 					case CMD_CARGO:
                 Get_Cargo_Data(&CmdRecBuf[2]);
@@ -150,7 +146,7 @@ void open_all_door(void) {
 	//check the key
 	static uint8_t key = 0;
 	static uint8_t i = 0; 
-	key = KEY_Scan(0);
+	key = KEY_Scan(1);
 	if(key) {
 		switch (key) {
 		case KEY_ALL_NUM:				

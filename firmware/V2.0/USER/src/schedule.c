@@ -90,6 +90,7 @@ void Start_Schedule() {
  */
 void Start_Borrow()
 {
+	IWDG_Feed();
 	uint8_t state = 0;
 	static uint8_t flag_infrared = 0,flag_signal_transfer = 0;
 	switch(motoDef.state) {
@@ -106,33 +107,44 @@ void Start_Borrow()
 				flag_signal_transfer = 1;
 				motoDef.close_moto(motoDef.num);
 				motoDef.state = state_run_second;
-				 // clear num
-				motoDef.num = 0; 
 			}
 			break;
 		case state_run_second:
 			//check infrared  output 0 signal when it cover
 			if(!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
-				DBG_LOG("in state_run_second!");
 				flag_infrared = 1;
 				motoDef.state = state_run_third;
 			}
 		break;
-		case state_run_third:  // push motor
+		case state_run_third:
 			if((flag_signal_transfer == 1) && (flag_infrared == 1)) {
-				OPEN_ELECTRIC_LOCK;
-				delay_ms(500);
-				CLOSE_ELECTRIC_LOCK;
-				PUSH_MOTOR(RIGHT);
-				flag_signal_transfer = 0;
+				delay_ms_whx(1000);
 				flag_infrared = 0;
+				motoDef.state = state_run_third_again;
 			}
-			if (motoDef.read_moto(INFRARED_SENSOR_TEST)) {
-				delay_ms(2000);
+		break;
+		case state_run_third_again:  // push motor
+			delay_ms_whx(1000);
+			if(!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
+				flag_infrared = 1;
+			}
+			if((flag_signal_transfer == 1) && (flag_infrared == 1)) {
+					OPEN_ELECTRIC_LOCK;
+					PUSH_MOTOR(RIGHT);
+					flag_infrared = 0;
+			}
+			if(motoDef.read_moto(INFRARED_SENSOR_TEST)) {
+				IWDG_Feed();
 				PUSH_MOTOR(LEFT);
-				motoDef.state = state_report; 
+				delay_ms_whx(5000);
+				IWDG_Feed();
+				CLOSE_ELECTRIC_LOCK;
+				flag_infrared = 0;
+				flag_signal_transfer = 0;
+				// clear num
+				motoDef.num = 0;
+				motoDef.state = state_report;
 			}
-
 			break;
 		case state_report:
 			state = 1;

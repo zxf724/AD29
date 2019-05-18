@@ -53,7 +53,7 @@ int main(void)
 	Screen_CommandReceive_Poll();
 	Start_Schedule();
 	open_all_door();
-	// led_light();
+	led_light();
 	test_fun();
 		// printf("motoDef.state = %d",motoDef.state);
 	}
@@ -66,8 +66,7 @@ static void funControl(int argc, char* argv[]) {
   argc--;
   if(ARGV_EQUAL("ALL_OPEN")) 
 	{  
-	   for(i = 1;i < 57;i++)
-		{ 
+	   for(i = 1;i < 57;i++) { 
 		   motoDef.open_moto(i);
 		}
 	}else if(ARGV_EQUAL("ALL_CLOSE")) 
@@ -92,18 +91,18 @@ void led_light(void) {
 	RTC_Get();
 	// showcase,time can change according to the demand.
 	// if((fff.hour > 6) || (fff.hour <= 24)) {
-	if(1) {
-		GPIO_SetBits(GPIOD,GPIO_Pin_0);
-	} else {
-		GPIO_ResetBits(GPIOD,GPIO_Pin_0);
-	}
+	// if(1) {
+	// 	GPIO_SetBits(GPIOD,GPIO_Pin_0);
+	// } else {
+	// 	GPIO_ResetBits(GPIOD,GPIO_Pin_0);
+	// }
 	// logo part, time  can change according to the demand.
 	// if((fff.hour > 6) || (fff.hour <= 24)) {
-	if(1) {
-		GPIO_SetBits(GPIOD,GPIO_Pin_1);
-	} else {
-		GPIO_ResetBits(GPIOD,GPIO_Pin_1);
-	}
+	// if(1) {
+	// 	GPIO_SetBits(GPIOD,GPIO_Pin_1);
+	// } else {
+	// 	GPIO_ResetBits(GPIOD,GPIO_Pin_1);
+	// }
 	
 }
 
@@ -131,11 +130,22 @@ void test_fun() {
 	// PUSH_MOTOR(LEFT);		//in
 
 	//test electric lock
-	// static uint8_t flag = 0;
-	// if (flag == 0) {
-	// 	OPEN_ELECTRIC_LOCK;
-	// 	delay_ms(500);
-	// 	CLOSE_ELECTRIC_LOCK;
-	// 	flag = 1;
+		// IWDG_Feed();
+		// OPEN_ELECTRIC_LOCK;
+		// delay_ms_whx(5000);
+		// IWDG_Feed();
+		// CLOSE_ELECTRIC_LOCK;
+		// delay_ms_whx(5000);
+	//crc16 test!
+	// uint16_t crc_test;
+	// uint8_t crc[10] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0A};
+	// crc_test = CRC_16(0xffff,crc+2,5);
+	// DBG_LOG("crc_test = 0x%04x",crc_test);
+
+	//led bug 
+	// motoDef.open_moto(18);
+	// if(motoDef.read_moto(CHECK_TRACK)) {
+	// 	DBG_LOG("test!");
+	// 	DBG_LOG("hello,world!");
 	// }
 }
