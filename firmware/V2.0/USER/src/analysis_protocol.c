@@ -32,7 +32,7 @@ void Screen_CommandReceive_Poll(void)
 		for(i=0;i<len;i++)
 		app_uart_get(&CmdRecBuf[i],SCREEN);   //one bit
 		len = 0;
-		Uart_Protocol_Cmd_Analy(CmdRecBuf,index); 
+		Uart_Protocol_Cmd_Analy(CmdRecBuf,index);
 	}
 
   //while(app_uart_get(&CmdRecBuf[index],SCREEN) == NRF_SUCCESS)

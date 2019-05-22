@@ -29,6 +29,6 @@
 "..\obj\stm32f10x_iwdg.o"
 "..\obj\rtc.o"
 --library_type=microlib --strict --scatter "..\OBJ\AD-29.sct"
---summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\AD-29.map" -o ..\OBJ\AD-29.axf

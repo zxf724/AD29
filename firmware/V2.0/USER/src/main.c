@@ -19,7 +19,8 @@ static void funControl(int argc, char* argv[]);
 extern Moto motoDef;
 extern mPin Pin_Array[PINMAX];
 int time = 0;
-_calendar_obj fff;
+extern _calendar_obj calendar;//时钟结构体 
+
 int main(void)
 {		
 	CMD_ENT_DEF(MOTO, funControl);
@@ -35,26 +36,16 @@ int main(void)
   if(RTC_Init())
 		DBG_LOG("RTC Init fail");
 	IWDG_Init(6,1024);    //与分频数为64,重载值为625,溢出时间为1s	
-	fff.w_year = 2019;
-	fff.w_month = 3;
-	fff.w_date = 26;
-	fff.hour = 14;
-	fff.min = 00;
-	fff.sec = 0;
-
-	// led on
-	GPIO_SetBits(GPIOD,GPIO_Pin_0);
-	GPIO_SetBits(GPIOD,GPIO_Pin_1);
 
   while(1) {
 	IWDG_Feed();
-	time = mytime_2_utc_sec(&fff,0);
+	// DBG_CommandReceive_Poll();
 	Gun_CommandReceive_Poll();
 	Screen_CommandReceive_Poll();
 	Start_Schedule();
 	open_all_door();
 	led_light();
-	test_fun();
+	// test_fun();
 		// printf("motoDef.state = %d",motoDef.state);
 	}
 }
@@ -89,63 +80,66 @@ static void funControl(int argc, char* argv[]) {
 
 void led_light(void) {
 	RTC_Get();
-	// showcase,time can change according to the demand.
-	// if((fff.hour > 6) || (fff.hour <= 24)) {
-	// if(1) {
-	// 	GPIO_SetBits(GPIOD,GPIO_Pin_0);
-	// } else {
-	// 	GPIO_ResetBits(GPIOD,GPIO_Pin_0);
-	// }
-	// logo part, time  can change according to the demand.
-	// if((fff.hour > 6) || (fff.hour <= 24)) {
-	// if(1) {
-	// 	GPIO_SetBits(GPIOD,GPIO_Pin_1);
-	// } else {
-	// 	GPIO_ResetBits(GPIOD,GPIO_Pin_1);
-	// }
-	
+	if(calendar.hour <= 6) {
+		// led turns off
+		GPIO_ResetBits(GPIOD,GPIO_Pin_0);
+		GPIO_ResetBits(GPIOD,GPIO_Pin_1);
+	} else {
+		// led turns on
+		delay_ms_whx(1000);
+		DBG_LOG("calendar.hour = %d",calendar.hour);
+		GPIO_SetBits(GPIOD,GPIO_Pin_0);
+		GPIO_SetBits(GPIOD,GPIO_Pin_1);
+	}
 }
 
 void test_fun() {
 	// test borrow motor
-	// motoDef.open_moto(1);
-	// motoDef.open_moto(2);
-	// if(motoDef.read_moto(CHECK_TRACK)) {
-	// 	DBG_LOG("signal feedback55");
-	// }
+	motoDef.open_moto(1);
+	motoDef.open_moto(2);
+	if(motoDef.read_moto(CHECK_TRACK)) {
+		DBG_LOG("signal feedback55");
+	}
 
 	// test push motor
-	// delay_ms(2000);
+	delay_ms(2000);
 	// motoDef.open_moto();
-	// delay_ms(2000);
+	delay_ms(2000);
 
 	// test infrared
-	// if (!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
-	// 	DBG_LOG("infrared!");
-	// }
-	//test push motor
-	// GPIO_ResetBits(GPIOC,GPIO_Pin_11);
-	// GPIO_SetBits(GPIOC,GPIO_Pin_10);
-	// PUSH_MOTOR(RIGHT);  // out 
-	// PUSH_MOTOR(LEFT);		//in
+	if (!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
+		DBG_LOG("infrared!");
+	}
+	// test push motor
+	GPIO_ResetBits(GPIOC,GPIO_Pin_11);
+	GPIO_SetBits(GPIOC,GPIO_Pin_10);
+	PUSH_MOTOR(RIGHT);  // out 
+	PUSH_MOTOR(LEFT);		//in
 
-	//test electric lock
-		// IWDG_Feed();
-		// OPEN_ELECTRIC_LOCK;
-		// delay_ms_whx(5000);
-		// IWDG_Feed();
-		// CLOSE_ELECTRIC_LOCK;
-		// delay_ms_whx(5000);
-	//crc16 test!
-	// uint16_t crc_test;
-	// uint8_t crc[10] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0A};
-	// crc_test = CRC_16(0xffff,crc+2,5);
-	// DBG_LOG("crc_test = 0x%04x",crc_test);
+	// test electric lock
+		IWDG_Feed();
+		OPEN_ELECTRIC_LOCK;
+		delay_ms_whx(5000);
+		IWDG_Feed();
+		CLOSE_ELECTRIC_LOCK;
+		delay_ms_whx(5000);
+	// crc16 test!
+	uint16_t crc_test;
+	uint8_t crc[10] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0A};
+	crc_test = CRC_16(0xffff,crc+2,5);
+	DBG_LOG("crc_test = 0x%04x",crc_test);
 
-	//led bug 
-	// motoDef.open_moto(18);
-	// if(motoDef.read_moto(CHECK_TRACK)) {
-	// 	DBG_LOG("test!");
-	// 	DBG_LOG("hello,world!");
-	// }
+	// led bug 
+	motoDef.open_moto(18);
+	if(motoDef.read_moto(CHECK_TRACK)) {
+		DBG_LOG("test!");
+		DBG_LOG("hello,world!");
+	}
+
+	// test unix time seting
+	uint8_t CmdRecBuf[18] = {0x7E,0x00,0x5C,0xE4,0xA6,0x42,0X07,0x53,0x43,0x41,\
+							 0x4E,0x20,0x4F,0x4E,0x00,0x63,0xBF,0x7E};
+	Get_Time(CmdRecBuf);
+	delay_ms_whx(1000);
+	DBG_LOG("calendar.sec is %d",calendar.hour);
 }
