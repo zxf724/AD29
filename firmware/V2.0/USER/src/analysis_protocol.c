@@ -84,15 +84,11 @@ void Gun_CommandReceive_Poll(void)
  			errorDef.bar_code_state = 1;
 			//send date
 			for(i=0;i<=15;i++) {
-				dat[7+i] = CmdRecBuf[i];
-				DBG_LOG("dat[%d] = %d",(i+7),dat[7+i]);
+				// dat[7+i] = CmdRecBuf[i];
+				// DBG_LOG("dat[%d] = %d",(i+7),dat[7+i]);
+				DBG_LOG("CmdRecBuf[%d] = %s",i,CmdRecBuf[i]);
 			}
-			Uart_Send_Data(SCREEN, (char *)dat,sizeof(dat));
-		/*while (!isgraph(*p)) 
-			{
-				p++;
-			}
-			Cmd_Handle(p);*/
+			// Uart_Send_Data(SCREEN, (char *)dat,sizeof(dat));
 			index = 0;
 		}else
 		{
