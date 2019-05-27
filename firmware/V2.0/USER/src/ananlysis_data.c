@@ -83,20 +83,26 @@ void Get_Bar_Code(uint8_t* data)
 void Report_State(uint8_t cmd,uint8_t* data,uint8_t len)
 {
 	uint8_t i = 0;
-  uint8_t report_data[100] = {0};
+  uint8_t report_data[18] = {0};
+	uint16_t crc_test;
   report_data[0] = FHEADER;	
 	report_data[1] = cmd;
-	report_data[2] = 0;
-	report_data[3] = 0;
-	report_data[4] = 0;
-	report_data[5] = 0;
+	report_data[2] = 0x01;
+	report_data[3] = 0x02;
+	report_data[4] = 0x03;
+	report_data[5] = 0x04;
 	report_data[6] = len;
 	for(i = 0;i<len;i++)
 	{
 	  report_data[7+i] = *(data+i);
 	}
-	report_data[7+i] = 0;
-	report_data[8+i] = FEND;
+	crc_test = CRC_16(0xffff,report_data+1,14);
+	DBG_LOG("crc_test = 0x%04x",crc_test);
+	report_data[15] = crc_test;
+	report_data[16] = crc_test>>2;
+	DBG_LOG("report_data[15] = 0x%02x",report_data[15]);
+	DBG_LOG("report_data[16] = 0x%02x",report_data[16]);
+	report_data[17] = FEND;
 	Uart_Send_Data(SCREEN,(char*)report_data,len+9);
 }
 

@@ -15,10 +15,11 @@
 uint8_t  CmdRecBuf[COMMAND_MAX] = {0};
 extern uint8_t     g_bar_code[50];
 extern mError errorDef;
-uint8_t dat[26] = {0x7E,0x05,0x00,0x00,0x00,0x00,0x10,0x00,0x00,0x00,0x00,
-									0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x7E};  // 1+1+4+1+16+2+1 = 26
+uint8_t data[8] = {0};
 
 extern app_fifo_t  rx_fifo_Screen_Def;
+extern app_fifo_t  rx_fifo_Gun_Def; 
+
 extern uint8_t gs_screen_rx_buff[1024];
 void Screen_CommandReceive_Poll(void) 
 {
@@ -33,7 +34,7 @@ void Screen_CommandReceive_Poll(void)
 		for(i=0;i<len;i++)
 		app_uart_get(&CmdRecBuf[i],SCREEN);   //one bit
 		len = 0;
-		Uart_Protocol_Cmd_Analy(CmdRecBuf,index); 
+		Uart_Protocol_Cmd_Analy(CmdRecBuf,index);
 	}
 
   //while(app_uart_get(&CmdRecBuf[index],SCREEN) == NRF_SUCCESS)
@@ -71,32 +72,27 @@ void Screen_CommandReceive_Poll(void)
 
 void Gun_CommandReceive_Poll(void) 
 {
-  uint16_t index = 0;
+  uint32_t len = 0;
 	uint8_t i = 0;
-  char* p = NULL;
-	static uint8_t data_tmp[16] = {0};
-	while(app_uart_get(&CmdRecBuf[index],GUN) == NRF_SUCCESS) 
-  {
+	uint8_t data_tmp[16] = {0};
+  len = fifo_length(&rx_fifo_Gun_Def);
+	if(len >= 16) {
 		IWDG_Feed();
-		if (CmdRecBuf[index] == '\n' && CmdRecBuf[index - 1] == '\r') 
-		{
-			CmdRecBuf[index+1] = '\0';
-			p = (char*)&CmdRecBuf[0];
-			strcpy((char*)g_bar_code,p);
- 			errorDef.bar_code_state = 1;
-			//send date
-			for(i=0;i<=15;i++) {
-				data_tmp[i] = (uint8_t)(CmdRecBuf[i]-48);
-				DBG_LOG("data_tmp[%d] = %d",data_tmp[i]);
-			}
-			// Report_State(CMD_REMOTO,&data,1);
-			index = 0;
-		}else
-		{
-			delay_ms(2);
-			index++; 
+		delay_ms(100);
+		len = fifo_length(&rx_fifo_Gun_Def);
+		for(i=0;i<len;i++)
+		app_uart_get(&CmdRecBuf[i],GUN);   //one bit
+		len = 0;
+		for(i=0;i<16;i++) {
+			data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
+			DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
 		}
-  }
+		for(i=0;i<=7;i++) {
+			data[i] = data_tmp[i*2]|data_tmp[i*2+1];
+			DBG_LOG("data[%d] = 0x%02x",i,data[i]);
+		}
+		Report_State(0x05,data,sizeof(data));
+	}
 }
 
 void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {

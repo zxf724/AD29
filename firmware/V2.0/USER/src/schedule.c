@@ -112,7 +112,6 @@ void Start_Borrow()
 		case state_run_second:
 			//check infrared  output 0 signal when it cover
 			if(!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
-				PUSH_MOTOR(RIGHT);
 				flag_infrared = 1;
 				motoDef.state = state_run_third;
 			}
@@ -131,6 +130,7 @@ void Start_Borrow()
 			}
 			if((flag_signal_transfer == 1) && (flag_infrared == 1)) {
 					OPEN_ELECTRIC_LOCK;
+					PUSH_MOTOR(RIGHT);
 					flag_infrared = 0;
 			}
 			if(motoDef.read_moto(INFRARED_SENSOR_TEST)) {
