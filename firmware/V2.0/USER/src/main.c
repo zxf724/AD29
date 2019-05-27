@@ -42,6 +42,7 @@ int main(void)
 	fff.min = 00;
 	fff.sec = 0;
 
+ 
 	// led on
 	GPIO_SetBits(GPIOD,GPIO_Pin_0);
 	GPIO_SetBits(GPIOD,GPIO_Pin_1);

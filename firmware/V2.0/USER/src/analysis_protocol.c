@@ -8,6 +8,7 @@
 #include "key.h"
 #include "wdg.h"
 #include "string.h"
+#include "stdlib.h"
 
 #define	MOTOR_NUM		13
 
@@ -73,6 +74,7 @@ void Gun_CommandReceive_Poll(void)
   uint16_t index = 0;
 	uint8_t i = 0;
   char* p = NULL;
+	static uint8_t data_tmp[16] = {0};
 	while(app_uart_get(&CmdRecBuf[index],GUN) == NRF_SUCCESS) 
   {
 		IWDG_Feed();
@@ -84,15 +86,10 @@ void Gun_CommandReceive_Poll(void)
  			errorDef.bar_code_state = 1;
 			//send date
 			for(i=0;i<=15;i++) {
-				dat[7+i] = CmdRecBuf[i];
-				DBG_LOG("dat[%d] = %d",(i+7),dat[7+i]);
+				data_tmp[i] = (uint8_t)(CmdRecBuf[i]-48);
+				DBG_LOG("data_tmp[%d] = %d",data_tmp[i]);
 			}
-			Uart_Send_Data(SCREEN, (char *)dat,sizeof(dat));
-		/*while (!isgraph(*p)) 
-			{
-				p++;
-			}
-			Cmd_Handle(p);*/
+			// Report_State(CMD_REMOTO,&data,1);
 			index = 0;
 		}else
 		{
