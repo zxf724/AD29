@@ -20,6 +20,7 @@ extern Moto motoDef;
 extern mPin Pin_Array[PINMAX];
 int time = 0;
 extern _calendar_obj calendar;//时钟结构体 
+uint8_t g_begin_gun_shot = 0;
 
 int main(void)
 {		
@@ -40,7 +41,9 @@ int main(void)
   while(1) {
 	IWDG_Feed();
 	// DBG_CommandReceive_Poll();
-	Gun_CommandReceive_Poll();
+	// if(g_begin_gun_shot == 1) {
+		Gun_CommandReceive_Poll();
+	// }
 	Screen_CommandReceive_Poll();
 	Start_Schedule();
 	open_all_door();
@@ -94,52 +97,63 @@ void led_light(void) {
 }
 
 void test_fun() {
-	// test borrow motor
-	motoDef.open_moto(1);
-	motoDef.open_moto(2);
-	if(motoDef.read_moto(CHECK_TRACK)) {
-		DBG_LOG("signal feedback55");
-	}
+	// // test borrow motor
+	// motoDef.open_moto(1);
+	// motoDef.open_moto(2);
+	// if(motoDef.read_moto(CHECK_TRACK)) {
+	// 	DBG_LOG("signal feedback55");
+	// }
 
-	// test push motor
-	delay_ms(2000);
-	// motoDef.open_moto();
-	delay_ms(2000);
+	// // test push motor
+	// delay_ms(2000);
+	// // motoDef.open_moto();
+	// delay_ms(2000);
 
-	// test infrared
-	if (!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
-		DBG_LOG("infrared!");
-	}
-	// test push motor
-	GPIO_ResetBits(GPIOC,GPIO_Pin_11);
-	GPIO_SetBits(GPIOC,GPIO_Pin_10);
-	PUSH_MOTOR(RIGHT);  // out 
-	PUSH_MOTOR(LEFT);		//in
+	// // test infrared
+	// if (!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
+	// 	DBG_LOG("infrared!");
+	// }
+	// // test push motor
+	// GPIO_ResetBits(GPIOC,GPIO_Pin_11);
+	// GPIO_SetBits(GPIOC,GPIO_Pin_10);
+	// PUSH_MOTOR(RIGHT);  // out 
+	// PUSH_MOTOR(LEFT);		//in
 
-	// test electric lock
-		IWDG_Feed();
-		OPEN_ELECTRIC_LOCK;
-		delay_ms_whx(5000);
-		IWDG_Feed();
-		CLOSE_ELECTRIC_LOCK;
-		delay_ms_whx(5000);
-	// crc16 test!
-	uint16_t crc_test;
-	uint8_t crc[10] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0A};
-	crc_test = CRC_16(0xffff,crc+2,5);
-	DBG_LOG("crc_test = 0x%04x",crc_test);
+	// // test electric lock
+	// 	IWDG_Feed();
+	// 	OPEN_ELECTRIC_LOCK;
+	// 	delay_ms_whx(5000);
+	// 	IWDG_Feed();
+	// 	CLOSE_ELECTRIC_LOCK;
+	// 	delay_ms_whx(5000);
+	// // crc16 test!
+	// uint16_t crc_test;
+	// uint8_t crc[10] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0A};
+	// crc_test = CRC_16(0xffff,crc+2,5);
+	// DBG_LOG("crc_test = 0x%04x",crc_test);
 
-	// led bug 
-	motoDef.open_moto(18);
-	if(motoDef.read_moto(CHECK_TRACK)) {
-		DBG_LOG("test!");
-		DBG_LOG("hello,world!");
-	}
+	// // led bug 
+	// motoDef.open_moto(18);
+	// if(motoDef.read_moto(CHECK_TRACK)) {
+	// 	DBG_LOG("test!");
+	// 	DBG_LOG("hello,world!");
+	// }
 
-	// test unix time seting
-	uint8_t CmdRecBuf[18] = {0x7E,0x00,0x5C,0xE4,0xA6,0x42,0X07,0x53,0x43,0x41,\
-							 0x4E,0x20,0x4F,0x4E,0x00,0x63,0xBF,0x7E};
-	Get_Time(CmdRecBuf);
-	delay_ms_whx(1000);
-	DBG_LOG("calendar.sec is %d",calendar.hour);
+	// // test unix time seting
+	// uint8_t CmdRecBuf[18] = {0x7E,0x00,0x5C,0xE4,0xA6,0x42,0X07,0x53,0x43,0x41,\
+	// 						 0x4E,0x20,0x4F,0x4E,0x00,0x63,0xBF,0x7E};
+	// Get_Time(CmdRecBuf);
+	// delay_ms_whx(1000);
+	// DBG_LOG("calendar.sec is %d",calendar.hour);
+
+	// uint16_t data = 0xe267;
+	// uint8_t data15 = 0, data16 = 0;
+	// data15 = data;
+	// data16 = data>>8;
+
+
+	//test input function
+	static uint8_t report_data[8] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+	Report_State(0x80,(char*)report_data,sizeof(report_data));
+
 }

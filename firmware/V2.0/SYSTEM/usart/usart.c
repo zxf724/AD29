@@ -162,7 +162,7 @@ void Uart_Send_Data(uint8_t usart,char* data,int len)
 		{
 			USARTx = 	USART1;
 		}
-		while ((i < len))
+		while ((i <= len))
 		{
 				USART_SendData(USARTx, (u8) data[i++]);
 				while (USART_GetFlagStatus(USARTx, USART_FLAG_TC) == RESET); 

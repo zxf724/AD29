@@ -15,12 +15,14 @@
 uint8_t  CmdRecBuf[COMMAND_MAX] = {0};
 extern uint8_t     g_bar_code[50];
 extern mError errorDef;
-uint8_t data[8] = {0};
+extern uint8_t g_begin_gun_shot;
 
 extern app_fifo_t  rx_fifo_Screen_Def;
 extern app_fifo_t  rx_fifo_Gun_Def; 
-
 extern uint8_t gs_screen_rx_buff[1024];
+
+uint8_t data[8] = {0};
+
 void Screen_CommandReceive_Poll(void) 
 {
   uint16_t index = 0;
@@ -92,17 +94,18 @@ void Gun_CommandReceive_Poll(void)
 			DBG_LOG("data[%d] = 0x%02x",i,data[i]);
 		}
 		Report_State(0x05,data,sizeof(data));
+		g_begin_gun_shot = 0;
 	}
 }
 
 void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 	static uint8_t i = 0;
 
-	for (i=0; i<17; i++){
-		 	 DBG_LOG("CmdRecBuf[%d] = 0x%x",i,CmdRecBuf[i]);
+	for (i=0; i<=17; i++) {
+		 	 DBG_LOG("CmdRecBuf[%d] = 0x%02x",i,CmdRecBuf[i]);
 		}	
 	// crc16 test  already test 
-	uint16_t crc_data_count = CRC_16(0xffff,CmdRecBuf+2,13);
+	uint16_t crc_data_count = CRC_16(0xffff,CmdRecBuf+1,14);
 	uint16_t crc_data = (CmdRecBuf[15] << 8) | CmdRecBuf[16];
 	DBG_LOG("crc_data_count is 0x%04x",crc_data_count);
 	DBG_LOG("crc_data is 0x%04x",crc_data);
@@ -110,7 +113,10 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
   if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[17] == FHEADER)) {
         switch(CmdRecBuf[1]) {
 					case CMD_TIME:
+						static uint8_t report_data[8] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 						Get_Time(CmdRecBuf);
+						DBG_LOG("reset time!!");
+						Report_State(0x80,(char*)report_data,sizeof(report_data));
 						break;
 					case CMD_MOTO:
 						DBG_LOG("data is %d",CmdRecBuf[MOTOR_NUM]);
@@ -120,10 +126,12 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 						Get_Lock_Data(&CmdRecBuf[MOTOR_NUM]);
 						DBG_LOG("data is %x",CmdRecBuf[MOTOR_NUM]);
 						// Uart_Send_Data(SCREEN, dat_tmp,sizeof(dat_tmp));
-						// send_back(tmp); 
+						// send_back(tmp);
 						break;
 					case CMD_GUN:
             Get_Gun_Data(&CmdRecBuf[2]);
+						g_begin_gun_shot = 1;
+						DBG_LOG("g_begin_gun_shot = %d",g_begin_gun_shot);
 						break;
 					case CMD_CARGO:
                 Get_Cargo_Data(&CmdRecBuf[2]);

@@ -82,6 +82,7 @@ void Get_Bar_Code(uint8_t* data)
 
 void Report_State(uint8_t cmd,uint8_t* data,uint8_t len)
 {
+	IWDG_Feed();
 	uint8_t i = 0;
   uint8_t report_data[18] = {0};
 	uint16_t crc_test;
@@ -99,11 +100,14 @@ void Report_State(uint8_t cmd,uint8_t* data,uint8_t len)
 	crc_test = CRC_16(0xffff,report_data+1,14);
 	DBG_LOG("crc_test = 0x%04x",crc_test);
 	report_data[15] = crc_test;
-	report_data[16] = crc_test>>2;
+	report_data[16] = crc_test>>8;
 	DBG_LOG("report_data[15] = 0x%02x",report_data[15]);
 	DBG_LOG("report_data[16] = 0x%02x",report_data[16]);
 	report_data[17] = FEND;
-	Uart_Send_Data(SCREEN,(char*)report_data,len+9);
+	for(i=0;i<=17;i++) {
+		DBG_LOG("report_data[%d] = 0x%02x",i,report_data[i]);
+	}
+	Uart_Send_Data(GUN,(char*)report_data,18);
 }
 
 
