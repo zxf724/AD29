@@ -129,7 +129,7 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 						// send_back(tmp);
 						break;
 					case CMD_GUN:
-            Get_Gun_Data(&CmdRecBuf[2]);
+            // Get_Gun_Data(&CmdRecBuf[2]);
 						g_begin_gun_shot = 1;
 						DBG_LOG("g_begin_gun_shot = %d",g_begin_gun_shot);
 						break;

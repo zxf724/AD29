@@ -41,9 +41,9 @@ int main(void)
   while(1) {
 	IWDG_Feed();
 	// DBG_CommandReceive_Poll();
-	// if(g_begin_gun_shot == 1) {
+	// // if(g_begin_gun_shot == 1) {
 		Gun_CommandReceive_Poll();
-	// }
+	// // }
 	Screen_CommandReceive_Poll();
 	Start_Schedule();
 	open_all_door();
@@ -153,7 +153,7 @@ void test_fun() {
 
 
 	//test input function
-	static uint8_t report_data[8] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+	delay_ms_whx(1000);
+	static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
 	Report_State(0x80,(char*)report_data,sizeof(report_data));
-
 }
