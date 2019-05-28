@@ -87,12 +87,12 @@ void Gun_CommandReceive_Poll(void)
 		len = 0;
 		for(i=0;i<16;i++) {
 			data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
+			DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
 		}
 		for(i=0;i<=7;i++) {
-			data[i] = data_tmp[i*2]|data_tmp[i*2+1];
-			// // DBG_LOG("data[%d] = 0x%02x",i,data[i]);
+			data[i] =( data_tmp[i*2]<<4)|data_tmp[i*2+1];
+			DBG_LOG("data[%d] = 0x%02x",i,data[i]);
 		}
-		data[0] << 8;
 		Report_State(0x05,data,sizeof(data));
 		g_begin_gun_shot = 0;
 	}
