@@ -158,7 +158,7 @@ uint8_t Set_Moto()
   if(motoDef.num)
 	{
 	  if(!motoDef.open_moto(motoDef.num)) {
-			DBG_LOG("motoDef.num in moto.c is %d",motoDef.num);
+			// DBG_LOG("motoDef.num in moto.c is %d",motoDef.num);
       return motoDef.num;
 		} else {
 			return 0xff;

@@ -151,7 +151,7 @@ void Screen_printf (char *fmt, ...)
 		va_end(arg_ptr);
 }
 
-void Uart_Send_Data(uint8_t usart,char* data,int len)
+void Uart_Send_Data(uint8_t usart,uint8_t* data,int len)
 {
 	  int i = 0;
 	  USART_TypeDef* USARTx = NULL;

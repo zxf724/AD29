@@ -13,7 +13,7 @@ void uart2_init(u32 bound);
 void Gun_printf (char *fmt, ...);
 void Screen_printf (char *fmt, ...);
 
-void Uart_Send_Data(uint8_t usart,char* data,int len);
+void Uart_Send_Data(uint8_t usart,uint8_t* data,int len);
 #endif
 
 

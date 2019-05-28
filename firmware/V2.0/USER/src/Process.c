@@ -47,7 +47,7 @@ void Process_Init(void) {
 
   Subscribe_MQTT(subscribeTopic, QOS0, ArrivePath);
 
-  DBG_LOG("Process Start.");
+  // DBG_LOG("Process Start.");
 }
 /**
  * Function: CMD_Updata
@@ -83,11 +83,11 @@ BOOL CMD_Updata(char* cmd, cJSON* desired) {
       ret = Publish_MQTT(publishTopic, QOS0, (uint8_t*)s, s_len);
       free(s);
     } else {
-      DBG_LOG("malloc string failed.");
+      // DBG_LOG("malloc string failed.");
     }
     cJSON_Delete(root);
   } else {
-    DBG_LOG("malloc root failed.");
+    // DBG_LOG("malloc root failed.");
   }
   return ret;
 }

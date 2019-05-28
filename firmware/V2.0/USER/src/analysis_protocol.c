@@ -87,12 +87,12 @@ void Gun_CommandReceive_Poll(void)
 		len = 0;
 		for(i=0;i<16;i++) {
 			data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
-			DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
 		}
 		for(i=0;i<=7;i++) {
 			data[i] = data_tmp[i*2]|data_tmp[i*2+1];
-			DBG_LOG("data[%d] = 0x%02x",i,data[i]);
+			// // DBG_LOG("data[%d] = 0x%02x",i,data[i]);
 		}
+		data[0] << 8;
 		Report_State(0x05,data,sizeof(data));
 		g_begin_gun_shot = 0;
 	}
@@ -102,36 +102,30 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 	static uint8_t i = 0;
 
 	for (i=0; i<=17; i++) {
-		 	 DBG_LOG("CmdRecBuf[%d] = 0x%02x",i,CmdRecBuf[i]);
+		 	//  // DBG_LOG("CmdRecBuf[%d] = 0x%02x",i,CmdRecBuf[i]);
 		}	
 	// crc16 test  already test 
 	uint16_t crc_data_count = CRC_16(0xffff,CmdRecBuf+1,14);
 	uint16_t crc_data = (CmdRecBuf[15] << 8) | CmdRecBuf[16];
-	DBG_LOG("crc_data_count is 0x%04x",crc_data_count);
-	DBG_LOG("crc_data is 0x%04x",crc_data);
 	//and crc16
   if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[17] == FHEADER)) {
         switch(CmdRecBuf[1]) {
 					case CMD_TIME:
-						static uint8_t report_data[8] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
-						Get_Time(CmdRecBuf);
-						DBG_LOG("reset time!!");
-						Report_State(0x80,(char*)report_data,sizeof(report_data));
+						static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
+						// Get_Time(CmdRecBuf);
+						Report_State(0x80,(uint8_t*)report_data,sizeof(report_data));
 						break;
 					case CMD_MOTO:
-						DBG_LOG("data is %d",CmdRecBuf[MOTOR_NUM]);
             Get_Mote_Data(&CmdRecBuf[MOTOR_NUM]);
 						break;
 					case CMD_LOCK:
 						Get_Lock_Data(&CmdRecBuf[MOTOR_NUM]);
-						DBG_LOG("data is %x",CmdRecBuf[MOTOR_NUM]);
 						// Uart_Send_Data(SCREEN, dat_tmp,sizeof(dat_tmp));
 						// send_back(tmp);
 						break;
 					case CMD_GUN:
             // Get_Gun_Data(&CmdRecBuf[2]);
 						g_begin_gun_shot = 1;
-						DBG_LOG("g_begin_gun_shot = %d",g_begin_gun_shot);
 						break;
 					case CMD_CARGO:
                 Get_Cargo_Data(&CmdRecBuf[2]);
@@ -151,7 +145,7 @@ void open_all_door(void) {
 	if(key) {
 		switch (key) {
 		case KEY_ALL_NUM:				
-		DBG_LOG("open all the door");
+		// DBG_LOG("open all the door");
 		for(i=33;i<=54;i++) {
 			IWDG_Feed();
 			Open_xMoto(i);

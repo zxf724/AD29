@@ -18,9 +18,9 @@ void Get_Time(uint8_t data[]) {
 		uint32_t realtime = (data[2]<<24) | (data[3]<<16) | (data[4]<<8) | data[5];
     time_t time_seconds = (int)realtime;
     struct tm* now_time = localtime(&time_seconds);
-		DBG_LOG("time seconds is %d",realtime);
-    DBG_LOG("%d-%d-%d %d:%d:%d\n", now_time->tm_year + 1900, now_time->tm_mon + 1,
-      now_time->tm_mday, now_time->tm_hour+8, now_time->tm_min,
+		// DBG_LOG("time seconds is %d",realtime);
+    //DBG_LOG("%d-%d-%d %d:%d:%d\n", now_time->tm_year + 1900, now_time->tm_mon + 1,\
+      now_time->tm_mday, now_time->tm_hour+8, now_time->tm_min,\
       now_time->tm_sec);
 			//time setting
 		RTC_Set(now_time->tm_year+1900,now_time->tm_mon+1,now_time->tm_mday,
@@ -30,13 +30,12 @@ void Get_Time(uint8_t data[]) {
 void Get_Mote_Data(uint8_t* data)
 {
 	motoDef.num = *data;
-	printf("rec mote %d",motoDef.num);
 }
 
 void Get_Lock_Data(uint8_t* data)
 {
 	motoDef.num = *data;
- 	DBG_LOG("rec lock %d",motoDef.num);
+ 	// DBG_LOG("rec lock %d",motoDef.num);
 }
 
 void Get_Gun_Data(uint8_t* data)
@@ -47,7 +46,7 @@ void Get_Gun_Data(uint8_t* data)
 	for(i = 1;i <len+1;i++)
 	{
 	  g_start_cmd[i-1] = *(data+4+i);
-		DBG_LOG("g_start_cmd[%d] = %d",i-1,g_start_cmd[i-1]);
+		// DBG_LOG("g_start_cmd[%d] = %d",i-1,g_start_cmd[i-1]);
 	}
 	// printf("rec Gun \r\n");
 }
@@ -98,16 +97,13 @@ void Report_State(uint8_t cmd,uint8_t* data,uint8_t len)
 	  report_data[7+i] = *(data+i);
 	}
 	crc_test = CRC_16(0xffff,report_data+1,14);
-	// DBG_LOG("crc_test = 0x%04x",crc_test);
 	report_data[15] = crc_test;
 	report_data[16] = crc_test>>8;
-	// DBG_LOG("report_data[15] = 0x%02x",report_data[15]);
-	// DBG_LOG("report_data[16] = 0x%02x",report_data[16]);
 	report_data[17] = FEND;
 	for(i=0;i<=17;i++) {
-		// DBG_LOG("report_data[%d] = 0x%02x",i,report_data[i]);
+		// // DBG_LOG("report_data[%d] = 0x%02x",i,report_data[i]);
 	}
-	Uart_Send_Data(SCREEN,(char*)report_data,17);
-}
+	Uart_Send_Data(SCREEN,(uint8_t*)report_data,17);
 
+}
 
