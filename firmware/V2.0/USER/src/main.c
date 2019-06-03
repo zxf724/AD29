@@ -48,7 +48,8 @@ int main(void)
 	Start_Schedule();
 	open_all_door();
 	led_light();
-	// test_fun();
+	test_fun();
+	// DBG_LOG("hello,world!");
 		// printf("motoDef.state = %d",motoDef.state);
 	}
 }
@@ -89,8 +90,6 @@ void led_light(void) {
 		GPIO_ResetBits(GPIOD,GPIO_Pin_1);
 	} else {
 		// led turns on
-		// delay_ms_whx(1000);
-		// // DBG_LOG("calendar.hour = %d",calendar.hour);
 		GPIO_SetBits(GPIOD,GPIO_Pin_0);
 		GPIO_SetBits(GPIOD,GPIO_Pin_1);
 	}
@@ -153,7 +152,11 @@ void test_fun() {
 
 
 	//test input function
-	delay_ms_whx(1000);
-	static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
-	Report_State(0x80,(char*)report_data,sizeof(report_data));
+	// delay_ms_whx(1000);
+	// static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
+	// Report_State(0x80,(char*)report_data,sizeof(report_data));
+
+	// test new push motor
+	// PUSH_MOTOR(LEFT);
+	// PUSH_MOTOR_RIGHT;
 }

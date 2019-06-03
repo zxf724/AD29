@@ -86,7 +86,6 @@ void Gun_CommandReceive_Poll(void)
 		app_uart_get(&CmdRecBuf[i],GUN);   //one bit
 		len = 0;
 		for(i=0;i<16;i++) {
-			//  10 15 80 01 05 06 00 01  0A,0F,
 			data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
 			// DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
 		}
@@ -101,6 +100,7 @@ void Gun_CommandReceive_Poll(void)
 
 void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 	static uint8_t i = 0;
+	static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
 
 	for (i=0; i<=17; i++) {
 		 	//  // DBG_LOG("CmdRecBuf[%d] = 0x%02x",i,CmdRecBuf[i]);
@@ -112,7 +112,6 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
   if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[17] == FHEADER)) {
         switch(CmdRecBuf[1]) {
 					case CMD_TIME:
-						static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
 						// Get_Time(CmdRecBuf);
 						Report_State(0x80,(uint8_t*)report_data,sizeof(report_data));
 						break;
@@ -121,7 +120,8 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 						break;
 					case CMD_LOCK:
 						Get_Lock_Data(&CmdRecBuf[MOTOR_NUM]);
-						// Uart_Send_Data(SCREEN, dat_tmp,sizeof(dat_tmp));
+						// DBG_LOG("error 1!")
+						// Uart_Send_Data(SCREEN, report_data,sizeof(dat_tmp));
 						// send_back(tmp);
 						break;
 					case CMD_GUN:

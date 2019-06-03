@@ -52,7 +52,7 @@ void Start_Schedule() {
 				motoDef.num = 0;
 			} else if(machine.moto_state == state_report) {
 				state = 1;
-				Report_State(CMD_REMOTO,&state,1);
+				// Report_State(CMD_REMOTO,&state,1);
 				machine.state = state_borrow;       //进入借物流程
 				machine.moto_state = state_stop;
 			}
@@ -64,7 +64,8 @@ void Start_Schedule() {
 			}else if(machine.lock_state == state_report) {
 				state = 1;
 				Report_State(CMD_RELOCK,&state,1);
-				machine.state = state_repay;           //进入还物流程
+				machine.state = state_repay;           //进入还物流程.
+				// DBG_LOG("machine.state = state_repay");
 				machine.lock_state = state_stop;
 			}
 
@@ -103,6 +104,7 @@ void Start_Borrow()
 			break;
 		case state_run_first: // input 
 				motoDef.open_moto(motoDef.num);
+				// DBG_LOG("hello,world!");
 			if(motoDef.read_moto(CHECK_TRACK)) {  // CHECK_TRACK
 				flag_signal_transfer = 1;
 				motoDef.close_moto(motoDef.num);
@@ -118,7 +120,7 @@ void Start_Borrow()
 		break;
 		case state_run_third:
 			if((flag_signal_transfer == 1) && (flag_infrared == 1)) {
-				delay_ms_whx(1000);
+				delay_ms_whx(100);
 				flag_infrared = 0;
 				motoDef.state = state_run_third_again;
 			}
@@ -179,19 +181,24 @@ void Start_Repay()
 	switch(motoDef.state) {
 		case state_stop:
 			if(motoDef.num) {
-				motoDef.state = state_door_open;
 				motoDef.open_moto(motoDef.num);
+				motoDef.state = state_door_open;
+				// DBG_LOG("hello,world!");
 			} else
 				machine.state = state_stop;
 			break;
 		case state_door_open:
 			delay_ms(3000);
 			motoDef.close_moto(motoDef.num);
+			// DBG_LOG("hello,world!");
+			motoDef.state = state_report;
 			break;
 		case state_report:
 	      memset(g_start_cmd,0,sizeof(g_start_cmd));
-		    if(motoDef.num) motoDef.num = 0;
-			  motoDef.state = state_stop;
+		    if(motoDef.num) {
+				motoDef.num = 0;
+				motoDef.state = state_stop;
+			}
 			break;
 	}
 }

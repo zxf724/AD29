@@ -30,6 +30,7 @@ void Get_Time(uint8_t data[]) {
 void Get_Mote_Data(uint8_t* data)
 {
 	motoDef.num = *data;
+	// DBG_LOG("motoDef.num is %d",motoDef.num);
 }
 
 void Get_Lock_Data(uint8_t* data)

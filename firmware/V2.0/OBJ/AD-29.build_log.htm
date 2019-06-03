@@ -3,15 +3,9 @@
 <pre>
 <h1>礦ision Build Log</h1>
 <h2>Tool Versions:</h2>
-<<<<<<< HEAD
 IDE-Version: μVision V5.15
 Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
 License Information: keil keil, keil, LIC=GUUCX-HKB1Z-FI25Z-JBRBE-ST45L-MP3CU
-=======
-IDE-Version: μVision V5.16a
-Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: wenzong wenzong, wenzong, LIC=MPP56-DKWJG-IGF7N-YICKG-AENBB-N2HEC
->>>>>>> b48c0f5cd182f187a491b8b3134681f787f3f34f
  
 Tool Versions:
 Toolchain:       DK-ARM Developers Kit  Version: 5.15.0
@@ -27,41 +21,26 @@ Target DLL:      Segger\JL2CM3.dll V2.99.15.0
 Dialog DLL:      TARMSTM.DLL V1.64.0.0
  
 <h2>Project:</h2>
-<<<<<<< HEAD
 D:\file\工作\afu\AD29\firmware\V2.0\USER\AD-29.uvprojx
 Project File Date:  05/28/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'AD-29'
-compiling analysis_protocol.c...
-src\analysis_protocol.c(115): warning:  #1182-D: a declaration cannot have a label
-                                                static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
-src\analysis_protocol.c(110): warning:  #177-D: variable "crc_data" was declared but never referenced
-        uint16_t crc_data = (CmdRecBuf[15] << 8) | CmdRecBuf[16];
-src\analysis_protocol.c: 2 warnings, 0 errors
+compiling schedule.c...
+src\schedule.c(94): warning:  #223-D: function "IWDG_Feed" declared implicitly
+        IWDG_Feed();
+src\schedule.c: 1 warning, 0 errors
 linking...
-Program Size: Code=21996 RO-data=2064 RW-data=780 ZI-data=4316  
+Program Size: Code=21968 RO-data=2064 RW-data=772 ZI-data=4316  
 FromELF: creating hex file...
-"..\OBJ\AD-29.axf" - 0 Error(s), 2 Warning(s).
+"..\OBJ\AD-29.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\file\工作\afu\AD29\firmware\V2.0\USER\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-=======
-D:\workspace\AD-29乐盒\firmware\V2.0\USER\AD-29.uvprojx
-Project File Date:  05/27/2019
-
-<h2>Output:</h2>
-*** Target 'AD-29'  - Device Family 'Cortex-M3', default ARM-Compiler version 'Unspecified: use latest compiler version 5' is not available.
-*** Please review the installed ARM Compiler Versions:
-   'Manage Project Items - Folders/Extensions' to manage ARM Compiler Versions.
-   'Options for Target - Target' to select an ARM Compiler Version for the target.
-*** Rebuild aborted.
-Build Time Elapsed:  00:00:01
->>>>>>> b48c0f5cd182f187a491b8b3134681f787f3f34f
 </pre>
 </body>
 </html>
