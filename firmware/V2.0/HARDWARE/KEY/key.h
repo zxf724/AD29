@@ -25,5 +25,5 @@
 #define KEY_ALL_NUM     1
 
 void KEY_Init(void);//IO初始化
-u8 KEY_Scan(u8);  	//按键扫描函数					    
+uint8_t KEY_Scan(uint8_t mode);  	//按键扫描函数					    
 #endif

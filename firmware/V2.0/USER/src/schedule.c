@@ -7,6 +7,7 @@
 #include "ananlysis_data.h"
 #include "delay.h"
 #include "gun.h"
+#include "wdg.h"
 
 extern uint8_t g_start_cmd[7];
 extern Moto motoDef;

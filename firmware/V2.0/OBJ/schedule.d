@@ -38,3 +38,4 @@
 ..\obj\schedule.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\schedule.o: .\inc\ananlysis_data.h
 ..\obj\schedule.o: ..\SYSTEM\delay\delay.h
+..\obj\schedule.o: ..\HARDWARE\WDG\wdg.h

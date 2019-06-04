@@ -7,6 +7,9 @@
 #include "analysis_protocol.h"
 #include "usart.h"
 #include "fifo.h"
+#include "rtc.h"
+#include "wdg.h"
+#include "prjlib.h"
 
 extern Moto motoDef;
 extern mError errorDef;

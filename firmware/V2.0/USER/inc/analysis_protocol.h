@@ -14,6 +14,7 @@
 #define CMD_MOTO      0x01
 #define CMD_LOCK      0x02
 #define CMD_GUN       0x03
+#define CMD_SCREEN_CLOSE    0x04
 #define CMD_CARGO     0x84
 #define CMD_BACK      0x85
 #define CMD_BACK_SUCCESS  0x86

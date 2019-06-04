@@ -20,7 +20,6 @@ extern Moto motoDef;
 extern mPin Pin_Array[PINMAX];
 int time = 0;
 extern _calendar_obj calendar;//时钟结构体 
-uint8_t g_begin_gun_shot = 0;
 
 int main(void)
 {		
@@ -41,9 +40,7 @@ int main(void)
   while(1) {
 	IWDG_Feed();
 	// DBG_CommandReceive_Poll();
-	// if(g_begin_gun_shot == 1) {
-		Gun_CommandReceive_Poll();
-	// }
+	Gun_CommandReceive_Poll();
 	Screen_CommandReceive_Poll();
 	Start_Schedule();
 	open_all_door();
