@@ -101,11 +101,10 @@ void Gun_CommandReceive_Poll(void)
 }
 
 void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
-	static uint8_t i = 0;
+	uint8_t i = 0;
 	static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
 	static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
 	static uint8_t stop_screen[6] = {0x04,0xE5,0x04,0x00,0xFF,0x13};
-
 
 	for (i=0; i<=17; i++) {
 		 	//  // DBG_LOG("CmdRecBuf[%d] = 0x%02x",i,CmdRecBuf[i]);
@@ -125,17 +124,18 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 					case CMD_LOCK:
 						Get_Lock_Data(&CmdRecBuf[MOTOR_NUM]);
 						// Uart_Send_Data(SCREEN, report_data,sizeof(dat_tmp));
-						// send_back(tmp);
 						break;
 					case CMD_GUN:
             // Get_Gun_Data(&CmdRecBuf[2]);
-						for(uint8_t i=0;i<=3;i++) {
-							Uart_Send_Data(GUN,start_screen,sizeof(start_screen));
+						// DBG_LOG("hello,world!");
+						for(i=0;i<=2;i++) {
+							delay_ms(100);
+							Uart_Send_Data(SCREEN,start_screen,(sizeof(start_screen)-1));
 						}
 						break;
 					case CMD_SCREEN_CLOSE:		//no use
 						for(uint8_t i=0;i<=3;i++) {
-							Uart_Send_Data(GUN,stop_screen,sizeof(stop_screen));
+							Uart_Send_Data(SCREEN,stop_screen,sizeof(stop_screen));
 						}
 						break;
 					case CMD_CARGO:
@@ -151,7 +151,7 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 void open_all_door(void) {
 	//check the key
 	static uint8_t key = 0;
-	static uint8_t i = 0; 
+	static uint8_t i = 0;
 	key = KEY_Scan(1);
 	if(key) {
 		switch (key) {

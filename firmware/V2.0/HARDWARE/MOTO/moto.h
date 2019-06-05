@@ -141,7 +141,6 @@ enum {
   state_error,
   state_run_second,
   state_run_third,
-  state_run_third_again,
 //   state_run_fifth,
   state_report,
   state_gun_open,

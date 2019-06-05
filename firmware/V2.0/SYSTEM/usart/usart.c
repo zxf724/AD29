@@ -85,7 +85,7 @@ void uart2_init(u32 bound)
 
   USART_Init(USART2, &USART_InitStructure); 
   USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
-  USART_Cmd(USART2, ENABLE);    
+  USART_Cmd(USART2, ENABLE);
 
 
 }
