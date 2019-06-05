@@ -112,7 +112,7 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
   if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[17] == FHEADER)) {
         switch(CmdRecBuf[1]) {
 					case CMD_TIME:
-						// Get_Time(CmdRecBuf);
+						Get_Time(CmdRecBuf);
 						Report_State(0x80,(uint8_t*)report_data,sizeof(report_data));
 						break;
 					case CMD_MOTO:
