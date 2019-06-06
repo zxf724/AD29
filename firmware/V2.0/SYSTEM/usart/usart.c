@@ -1,3 +1,12 @@
+/*
+ * @Author: »ΖΚ©γό
+ * @Description: 
+ * @Version: V1.0
+ * @Date: 2019-06-04 09:03:50
+ * @LastEditors: OBKoro1
+ * @LastEditTime: 2019-06-06 11:52:19
+ * @locale: zh-CN
+ */
 #include "sys.h"
 #include "usart.h"	 
 #include <stdarg.h>

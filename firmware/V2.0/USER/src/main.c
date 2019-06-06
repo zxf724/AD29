@@ -30,7 +30,7 @@ int main(void)
 	delay_init();	    	   
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
   	uart1_init(115200);
-	uart2_init(115200);
+	uart2_init(9600);
 	Moto_Init();
 	TIM3_Int_Init(HEAR_BEAT_TIME,7199);//10Khz的计数频率，计数到5000为500ms
 	CLOSE_ELECTRIC_LOCK;
@@ -39,8 +39,7 @@ int main(void)
   if(RTC_Init())
 		// DBG_LOG("RTC Init fail");
 	IWDG_Init(6,1024);    //与分频数为64,重载值为625,溢出时间为1s	
-
-
+	
   while(1) {
 	IWDG_Feed();
 	Gun_CommandReceive_Poll();
@@ -48,7 +47,7 @@ int main(void)
 	Start_Schedule();
 	open_all_door();
 	led_light();
-	test_fun();
+	// test_fun();
 	}
 }
 
@@ -160,8 +159,13 @@ void test_fun() {
 	// PUSH_MOTOR(LEFT);
 	// PUSH_MOTOR_RIGHT;
 
-	// screen 
+	// // screen 
+	// static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
+	// delay_ms(100);
+	// Uart_Send_Data(GUN,start_screen,(sizeof(start_screen)-1));
+
+	// success!!
 	static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
-	delay_ms(100);
-	Uart_Send_Data(GUN,start_screen,(sizeof(start_screen)-1));
+	delay_ms_whx(1000);
+	Uart_Send_Data(GUN,start_screen,sizeof(start_screen)-1);
 }

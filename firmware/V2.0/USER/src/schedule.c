@@ -129,7 +129,7 @@ void Start_Borrow()
 			if(motoDef.read_moto(INFRARED_SENSOR_TEST)) {
 				IWDG_Feed();
 				PUSH_MOTOR(LEFT);
-				delay_ms_whx(1000);
+				delay_ms_whx(5000);
 				IWDG_Feed();
 				CLOSE_ELECTRIC_LOCK;
 				flag_signal_transfer = 0;
