@@ -118,7 +118,7 @@
       (Path "Design Resources" ".\ad-29.dsn")
       (Path "Design Resources" ".\ad-29.dsn" "乐盒智能玩具")
       (Path "Outputs")
-      (Select "Design Resources" ".\ad-29.dsn" "乐盒智能玩具" "04_Locks"))
+      (Select "Design Resources" ".\ad-29.dsn" "乐盒智能玩具" "02_MAIN"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
@@ -138,9 +138,9 @@
     (Doc
       (Type "COrSchematicDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -8 -31 52 1591 52 679")
-        (Scroll "394 1267")
-        (Zoom "228")
+        (Placement "44 2 3 -1 -1 -8 -31 52 1591 52 679")
+        (Scroll "0 0")
+        (Zoom "114")
         (Occurrence "/"))
       (Path "D:\WORKSPACE\AD-29乐盒\AD29\HARDWARE\V2.0\AD-29.DSN")
       (Schematic "乐盒智能玩具")

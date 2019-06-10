@@ -77,26 +77,29 @@ void Gun_CommandReceive_Poll(void)
 	uint8_t i = 0;
 	uint8_t data_tmp[16] = {0};
   len = fifo_length(&rx_fifo_Gun_Def);
-	if(len >= 5) {
+	if(len >= 16) {
 		IWDG_Feed();
 		delay_ms(100);
 		len = fifo_length(&rx_fifo_Gun_Def);
 		for(i=0;i<len;i++)
 		app_uart_get(&CmdRecBuf[i],GUN);   //one bit
 		len = 0;
-		for(i=0;i<16;i++) {
+		data_tmp[0] = (uint8_t)(CmdRecBuf[0] - 48);
+		if (data_tmp[0] == 1) {
+			for(i=0;i<16;i++) {
 			data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
 			DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
+			}
+			for(i=0;i<=7;i++) {
+				data[i] =(data_tmp[i*2]*10)+data_tmp[i*2+1];
+				DBG_LOG("data[%d] = 0x%02x",i,data[i]);
+			}
 			static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
 			for(uint8_t i=0;i<=3;i++) {
 				Uart_Send_Data(GUN,start_screen,sizeof(start_screen)-1);
 			}
+			Report_State(0x05,data,sizeof(data));
 		}
-		for(i=0;i<=7;i++) {
-			data[i] =(data_tmp[i*2]*10)+data_tmp[i*2+1];
-			DBG_LOG("data[%d] = 0x%02x",i,data[i]);
-		}
-		Report_State(0x05,data,sizeof(data));
 	}
 }
 

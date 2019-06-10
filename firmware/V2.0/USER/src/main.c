@@ -15,7 +15,7 @@
 #include "ananlysis_data.h"
 #include "prjlib.h"
 
-#define HEAR_BEAT_TIME	45000
+#define HEAR_BEAT_TIME	(500*90)
 
 static void funControl(int argc, char* argv[]);
 extern Moto motoDef;
@@ -30,7 +30,7 @@ int main(void)
 	delay_init();	    	   
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
   	uart1_init(115200);
-	uart2_init(115200);
+	uart2_init(9600);
 	Moto_Init();
 	TIM3_Int_Init(HEAR_BEAT_TIME,7199);//10Khz的计数频率，计数到5000为500ms
 	CLOSE_ELECTRIC_LOCK;
