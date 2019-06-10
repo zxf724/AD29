@@ -197,6 +197,7 @@ typedef struct
 }mPin;
 
 void Moto_Init(void);
+void sound_control(void);
 uint8_t Open_xMoto(uint8_t num);
 uint8_t Close_xMoto(uint8_t num);
 uint8_t Read_xMoto(uint8_t num);

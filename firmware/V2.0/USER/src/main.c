@@ -34,6 +34,7 @@ int main(void)
 	Moto_Init();
 	TIM3_Int_Init(HEAR_BEAT_TIME,7199);//10Khz的计数频率，计数到5000为500ms
 	CLOSE_ELECTRIC_LOCK;
+	sound_control();
 
 	// DBG_LOG("system start");
   if(RTC_Init())
@@ -92,6 +93,11 @@ void led_light(void) {
 		GPIO_SetBits(GPIOD,GPIO_Pin_0);
 		GPIO_SetBits(GPIOD,GPIO_Pin_1);
 	}
+}
+
+void sound_control(void) {
+	// sound control
+	GPIO_SetBits(GPIOD,GPIO_Pin_3);
 }
 
 void test_fun() {
