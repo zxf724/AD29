@@ -57,7 +57,7 @@ static void funControl(int argc, char* argv[]) {
   argv++;
   argc--;
   if(ARGV_EQUAL("ALL_OPEN")) 
-	{  
+	{
 	   for(i = 1;i < 57;i++) {
 		   motoDef.open_moto(i);
 		}
@@ -67,11 +67,11 @@ static void funControl(int argc, char* argv[]) {
 		 {
 		   motoDef.close_moto(i);
 		 }
-	}else if(ARGV_EQUAL("RUN")) 
+	}else if(ARGV_EQUAL("RUN"))
 	{
 		  motoDef.open_moto(uatoi(argv[1]));
-	}else if(ARGV_EQUAL("CLOSE")) 
-	{  
+	}else if(ARGV_EQUAL("CLOSE"))
+	{
 		  motoDef.close_moto(uatoi(argv[1]));
 	}else if(ARGV_EQUAL("motor_turn_off")) {
 		PUSH_MOTOR(LEFT);
