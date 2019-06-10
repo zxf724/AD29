@@ -4,7 +4,7 @@
  * @Version: V1.0
  * @Date: 2019-06-04 09:03:50
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-06 11:52:19
+ * @LastEditTime: 2019-06-10 10:38:19
  * @locale: zh-CN
  */
 #include "sys.h"
@@ -118,7 +118,7 @@ void USART2_IRQHandler(void)                	//串口2中断服务程序
 	{
 		Res =USART_ReceiveData(USART2);	//读取接收到的数据
 	  app_uart_put(Res,GUN); 
-  } 
+  }
 } 
 	
 void Gun_printf (char *fmt, ...)
