@@ -94,10 +94,6 @@ void Gun_CommandReceive_Poll(void)
 				data[i] =(data_tmp[i*2]*10)+data_tmp[i*2+1];
 				DBG_LOG("data[%d] = 0x%02x",i,data[i]);
 			}
-			static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
-			for(uint8_t i=0;i<=3;i++) {
-				Uart_Send_Data(GUN,start_screen,sizeof(start_screen)-1);
-			}
 			Report_State(0x05,data,sizeof(data));
 		}
 	}
@@ -129,17 +125,12 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 						// Uart_Send_Data(SCREEN, report_data,sizeof(dat_tmp));
 						break;
 					case CMD_GUN:
-            // Get_Gun_Data(&CmdRecBuf[2]);
-						// DBG_LOG("hello,world!");
-						// for(i=0;i<=2;i++) {
-						// 	delay_ms(100);
-						// 	Uart_Send_Data(SCREEN,start_screen,(sizeof(start_screen)-1));
-						// }
+            			static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
+						for(uint8_t i=0;i<=3;i++) {
+							Uart_Send_Data(GUN,start_screen,sizeof(start_screen)-1);
+						}
 						break;
 					case CMD_SCREEN_CLOSE:		//no use
-						// for(uint8_t i=0;i<=3;i++) {
-						// 	Uart_Send_Data(SCREEN,stop_screen,sizeof(stop_screen));
-						// }
 						break;
 					case CMD_CARGO:
                 Get_Cargo_Data(&CmdRecBuf[2]);

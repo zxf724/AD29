@@ -47,7 +47,7 @@ int main(void)
 	Start_Schedule();
 	open_all_door();
 	led_light();
-	test_fun();
+	// test_fun();
 	}
 }
 
