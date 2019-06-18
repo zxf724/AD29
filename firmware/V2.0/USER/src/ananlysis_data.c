@@ -105,7 +105,7 @@ void Report_State(uint8_t cmd,uint8_t* data,uint8_t len)
 	report_data[16] = crc_test>>8;
 	report_data[17] = FEND;
 	for(i=0;i<=17;i++) {
-		// // DBG_LOG("report_data[%d] = 0x%02x",i,report_data[i]);
+		// DBG_LOG("report_data[%d] = 0x%02x",i,report_data[i]);
 	}
 	Uart_Send_Data(SCREEN,(uint8_t*)report_data,17);
 

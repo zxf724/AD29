@@ -117,8 +117,7 @@
       (Path "Design Resources")
       (Path "Design Resources" ".\ad-29.dsn")
       (Path "Design Resources" ".\ad-29.dsn" "ÀÖºÐÖÇÄÜÍæ¾ß")
-      (Path "Outputs")
-      (Select "Design Resources" ".\ad-29.dsn" "ÀÖºÐÖÇÄÜÍæ¾ß" "02_MAIN"))
+      (Path "Outputs"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
@@ -139,8 +138,8 @@
       (Type "COrSchematicDoc")
       (Frame
         (Placement "44 2 3 -1 -1 -8 -31 52 1591 52 679")
-        (Scroll "0 131")
-        (Zoom "92")
+        (Scroll "1414 308")
+        (Zoom "228")
         (Occurrence "/"))
       (Path "D:\WORKSPACE\AD-29ÀÖºÐ\AD29\HARDWARE\V2.0\AD-29.DSN")
       (Schematic "ÀÖºÐÖÇÄÜÍæ¾ß")

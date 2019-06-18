@@ -85,17 +85,15 @@ void Gun_CommandReceive_Poll(void)
 		app_uart_get(&CmdRecBuf[i],GUN);   //one bit
 		len = 0;
 		data_tmp[0] = (uint8_t)(CmdRecBuf[0] - 48);
-		if (data_tmp[0] == 1) {
-			for(i=0;i<16;i++) {
-			data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
-			// DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
-			}
-			for(i=0;i<=7;i++) {
-				data[i] =(data_tmp[i*2]*10)+data_tmp[i*2+1];
-				// DBG_LOG("data[%d] = 0x%02x",i,data[i]);
-			}
-			Report_State(0x05,data,sizeof(data));
+		for(i=0;i<16;i++) {
+		data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
+		// DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
 		}
+		for(i=0;i<=7;i++) {
+			data[i] =(data_tmp[i*2]*10)+data_tmp[i*2+1];
+			// DBG_LOG("data[%d] = 0x%02x",i,data[i]);
+		}
+		Report_State(0x05,data,sizeof(data));
 	}
 }
 
