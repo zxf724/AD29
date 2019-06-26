@@ -35,6 +35,7 @@ int main(void)
 	TIM3_Int_Init(HEAR_BEAT_TIME,7199);//10Khz的计数频率，计数到5000为500ms
 	CLOSE_ELECTRIC_LOCK;
 	sound_control();
+	delay_ms_whx(1000);
 
 	// DBG_LOG("system start");
   if(RTC_Init())
@@ -81,9 +82,6 @@ static void funControl(int argc, char* argv[]) {
 
 void led_light(void) {
 	RTC_Get();
-	// delay_ms_whx(1000);
-	// DBG_LOG("calendar.hour = %d",calendar.hour);
-	// DBG_LOG("calendar.min = %d",calendar.min);
 	if(calendar.hour <= 6) {
 		// led turns off
 		GPIO_ResetBits(GPIOD,GPIO_Pin_0);
