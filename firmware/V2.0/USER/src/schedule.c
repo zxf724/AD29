@@ -102,7 +102,7 @@ void Start_Borrow()
 				machine.state = state_stop;
 			}
 			break;
-		case state_run_first: // input 
+		case state_run_first: // input
 				motoDef.open_moto(motoDef.num);
 				// DBG_LOG("hello,world!");
 			if(motoDef.read_moto(CHECK_TRACK)) {  // CHECK_TRACK
@@ -125,12 +125,11 @@ void Start_Borrow()
 			}
 		break;
 		case state_run_third:  // push motor
-			delay_ms_whx(1000);			
+			delay_ms_whx(1000);
 			if(motoDef.read_moto(INFRARED_SENSOR_TEST)) {
+				delay_ms_whx(5000);
 				IWDG_Feed();
 				PUSH_MOTOR(LEFT);
-				delay_ms_whx(1000);
-				IWDG_Feed();
 				CLOSE_ELECTRIC_LOCK;
 				flag_signal_transfer = 0;
 				// clear num

@@ -15,7 +15,7 @@
 #include "ananlysis_data.h"
 #include "prjlib.h"
 
-#define HEAR_BEAT_TIME	45000
+#define HEAR_BEAT_TIME	(500*90)
 
 static void funControl(int argc, char* argv[]);
 extern Moto motoDef;
@@ -34,13 +34,14 @@ int main(void)
 	Moto_Init();
 	TIM3_Int_Init(HEAR_BEAT_TIME,7199);//10Khz的计数频率，计数到5000为500ms
 	CLOSE_ELECTRIC_LOCK;
+	sound_control();
+	delay_ms_whx(1000);
 
 	// DBG_LOG("system start");
   if(RTC_Init())
 		// DBG_LOG("RTC Init fail");
 	IWDG_Init(6,1024);    //与分频数为64,重载值为625,溢出时间为1s	
-
-
+	
   while(1) {
 	IWDG_Feed();
 	Gun_CommandReceive_Poll();
@@ -48,7 +49,7 @@ int main(void)
 	Start_Schedule();
 	open_all_door();
 	led_light();
-	test_fun();
+	// test_fun();
 	}
 }
 
@@ -58,7 +59,7 @@ static void funControl(int argc, char* argv[]) {
   argv++;
   argc--;
   if(ARGV_EQUAL("ALL_OPEN")) 
-	{  
+	{
 	   for(i = 1;i < 57;i++) {
 		   motoDef.open_moto(i);
 		}
@@ -68,11 +69,11 @@ static void funControl(int argc, char* argv[]) {
 		 {
 		   motoDef.close_moto(i);
 		 }
-	}else if(ARGV_EQUAL("RUN")) 
+	}else if(ARGV_EQUAL("RUN"))
 	{
 		  motoDef.open_moto(uatoi(argv[1]));
-	}else if(ARGV_EQUAL("CLOSE")) 
-	{  
+	}else if(ARGV_EQUAL("CLOSE"))
+	{
 		  motoDef.close_moto(uatoi(argv[1]));
 	}else if(ARGV_EQUAL("motor_turn_off")) {
 		PUSH_MOTOR(LEFT);
@@ -81,9 +82,6 @@ static void funControl(int argc, char* argv[]) {
 
 void led_light(void) {
 	RTC_Get();
-	// delay_ms_whx(1000);
-	// DBG_LOG("calendar.hour = %d",calendar.hour);
-	// DBG_LOG("calendar.min = %d",calendar.min);
 	if(calendar.hour <= 6) {
 		// led turns off
 		GPIO_ResetBits(GPIOD,GPIO_Pin_0);
@@ -93,6 +91,11 @@ void led_light(void) {
 		GPIO_SetBits(GPIOD,GPIO_Pin_0);
 		GPIO_SetBits(GPIOD,GPIO_Pin_1);
 	}
+}
+
+void sound_control(void) {
+	// sound control
+	GPIO_SetBits(GPIOD,GPIO_Pin_3);
 }
 
 void test_fun() {
@@ -160,8 +163,13 @@ void test_fun() {
 	// PUSH_MOTOR(LEFT);
 	// PUSH_MOTOR_RIGHT;
 
-	// screen 
+	// // screen 
+	// static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
+	// delay_ms(100);
+	// Uart_Send_Data(GUN,start_screen,(sizeof(start_screen)-1));
+
+	// success!!
 	static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
-	delay_ms(100);
-	Uart_Send_Data(GUN,start_screen,(sizeof(start_screen)-1));
+	delay_ms_whx(1000);
+	Uart_Send_Data(GUN,start_screen,sizeof(start_screen)-1);
 }

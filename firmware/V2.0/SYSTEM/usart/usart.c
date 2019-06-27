@@ -1,3 +1,12 @@
+/*
+ * @Author: 黄施泓
+ * @Description: 
+ * @Version: V1.0
+ * @Date: 2019-06-04 09:03:50
+ * @LastEditors: OBKoro1
+ * @LastEditTime: 2019-06-10 16:38:18
+ * @locale: zh-CN
+ */
 #include "sys.h"
 #include "usart.h"	 
 #include <stdarg.h>
@@ -19,7 +28,7 @@ void uart1_init(u32 bound){
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1|RCC_APB2Periph_GPIOA, ENABLE);	//使能USART1，GPIOA时钟
   
 	//USART1_TX   GPIOA.9
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9; //PA.9
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9; //PA.9		// 平板
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;	//复用推挽输出
   GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化GPIOA.9
@@ -61,7 +70,7 @@ void uart2_init(u32 bound)
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	//使能USART1，GPIOA时钟
   RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2,ENABLE);
 	
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2; //PA.2
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2; //PA.2		识读器
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;	//复用推挽输出
   GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化GPIOA.9
@@ -109,7 +118,7 @@ void USART2_IRQHandler(void)                	//串口2中断服务程序
 	{
 		Res =USART_ReceiveData(USART2);	//读取接收到的数据
 	  app_uart_put(Res,GUN); 
-  } 
+  }
 } 
 	
 void Gun_printf (char *fmt, ...)

@@ -48,8 +48,8 @@ void Moto_Init()
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
 
-	//logo light gpio init 
-		GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_0|GPIO_Pin_1;
+	//logo light gpio init && sound control
+		GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3;
 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 		GPIO_Init(GPIOD, &GPIO_InitStructure);
 	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	

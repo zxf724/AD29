@@ -77,26 +77,25 @@ void Gun_CommandReceive_Poll(void)
 	uint8_t i = 0;
 	uint8_t data_tmp[16] = {0};
   len = fifo_length(&rx_fifo_Gun_Def);
-	if(len >= 16) {
+	if(len >= 10) {
 		IWDG_Feed();
 		delay_ms(100);
 		len = fifo_length(&rx_fifo_Gun_Def);
 		for(i=0;i<len;i++)
 		app_uart_get(&CmdRecBuf[i],GUN);   //one bit
 		len = 0;
-		for(i=0;i<16;i++) {
+		data_tmp[0] = (uint8_t)(CmdRecBuf[0] - 48);
+		if ((data_tmp[0]>=0) && (data_tmp[0]<=9)) {
+			for(i=0;i<16;i++) {
 			data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
 			// DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
-			static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
-			for(uint8_t i=0;i<=3;i++) {
-				Uart_Send_Data(GUN,start_screen,sizeof(start_screen));
 			}
+			for(i=0;i<=7;i++) {
+				data[i] =(data_tmp[i*2]*10)+data_tmp[i*2+1];
+				// DBG_LOG("data[%d] = 0x%02x",i,data[i]);
+			}
+			Report_State(0x05,data,sizeof(data));
 		}
-		for(i=0;i<=7;i++) {
-			data[i] =(data_tmp[i*2]*10)+data_tmp[i*2+1];
-			// DBG_LOG("data[%d] = 0x%02x",i,data[i]);
-		}
-		Report_State(0x05,data,sizeof(data));
 	}
 }
 
@@ -126,16 +125,17 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 						// Uart_Send_Data(SCREEN, report_data,sizeof(dat_tmp));
 						break;
 					case CMD_GUN:
-            // Get_Gun_Data(&CmdRecBuf[2]);
-						// DBG_LOG("hello,world!");
-						for(i=0;i<=2;i++) {
-							delay_ms(100);
-							Uart_Send_Data(SCREEN,start_screen,(sizeof(start_screen)-1));
+            			static uint8_t stop_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
+						for(uint8_t i=0;i<=3;i++) {
+							delay_ms(20);
+							Uart_Send_Data(GUN,stop_screen,sizeof(stop_screen)-1);
 						}
 						break;
-					case CMD_SCREEN_CLOSE:		//no use
+					case CMD_SCREEN_CLOSE:		//using
+						static uint8_t start_screen[6] = {0x04,0xE5,0x04,0x00,0xFF,0x13};
 						for(uint8_t i=0;i<=3;i++) {
-							Uart_Send_Data(SCREEN,stop_screen,sizeof(stop_screen));
+							delay_ms(20);
+							Uart_Send_Data(GUN,start_screen,sizeof(start_screen)-1);
 						}
 						break;
 					case CMD_CARGO:

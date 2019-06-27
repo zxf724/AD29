@@ -129,8 +129,8 @@
       (Type "COrSchematicDoc")
       (Frame
         (Placement "44 0 1 -1 -1 -8 -31 26 1565 26 653")
-        (Scroll "0 79")
-        (Zoom "100")
+        (Scroll "-61 0")
+        (Zoom "90")
         (Occurrence "/"))
       (Path "D:\WORKSPACE\AD-29¿÷∫–\AD29\HARDWARE\V2.0\AD-29.DSN")
       (Schematic "¿÷∫–÷«ƒ‹ÕÊæﬂ")
@@ -139,10 +139,30 @@
       (Type "COrSchematicDoc")
       (Frame
         (Placement "44 2 3 -1 -1 -8 -31 52 1591 52 679")
-        (Scroll "0 20")
+        (Scroll "1498 274")
+        (Zoom "228")
+        (Occurrence "/"))
+      (Path "D:\WORKSPACE\AD-29¿÷∫–\AD29\HARDWARE\V2.0\AD-29.DSN")
+      (Schematic "¿÷∫–÷«ƒ‹ÕÊæﬂ")
+      (Page "02_MAIN"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 78 1617 78 705")
+        (Scroll "0 0")
         (Zoom "100")
         (Occurrence "/"))
       (Path "D:\WORKSPACE\AD-29¿÷∫–\AD29\HARDWARE\V2.0\AD-29.DSN")
       (Schematic "¿÷∫–÷«ƒ‹ÕÊæﬂ")
-      (Page "02_MAIN")))
+      (Page "05_Tracked motor"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 104 1643 104 731")
+        (Scroll "2590 996")
+        (Zoom "200")
+        (Occurrence "/"))
+      (Path "D:\WORKSPACE\AD-29¿÷∫–\AD29\HARDWARE\V2.0\AD-29.DSN")
+      (Schematic "¿÷∫–÷«ƒ‹ÕÊæﬂ")
+      (Page "04_Locks")))
   (ISPCBBASICLICENSE "false"))

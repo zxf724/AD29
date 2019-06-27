@@ -231,7 +231,7 @@ void delay_ms_whx(u16 time)
    u16 i=0;  
    while(time--)
    {
-      i=12000;  //自己定义
+      i=10000;  //自己定义
       while(i--) ;    
    }
 }
