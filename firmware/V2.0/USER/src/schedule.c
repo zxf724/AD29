@@ -7,6 +7,7 @@
 #include "ananlysis_data.h"
 #include "delay.h"
 #include "gun.h"
+#include "wdg.h"
 
 extern uint8_t g_start_cmd[7];
 extern Moto motoDef;
@@ -92,8 +93,7 @@ void Start_Schedule() {
 void Start_Borrow()
 {
 	IWDG_Feed();
-	uint8_t state = 0;
-	static uint8_t flag_infrared = 0,flag_signal_transfer = 0;
+	static uint8_t flag_signal_transfer = 0;
 	switch(motoDef.state) {
 		case state_stop:
 			if(motoDef.num) {
@@ -114,34 +114,24 @@ void Start_Borrow()
 		case state_run_second:
 			//check infrared  output 0 signal when it cover
 			if(!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
-				flag_infrared = 1;
-				motoDef.state = state_run_third;
-			}
-		break;
-		case state_run_third:
-			if((flag_signal_transfer == 1) && (flag_infrared == 1)) {
-				delay_ms_whx(100);
-				flag_infrared = 0;
-				motoDef.state = state_run_third_again;
-			}
-		break;
-		case state_run_third_again:  // push motor
-			delay_ms_whx(1000);
-			if(!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
-				flag_infrared = 1;
-			}
-			if((flag_signal_transfer == 1) && (flag_infrared == 1)) {
+				if(flag_signal_transfer == 1) {
+					delay_ms_whx(100);
 					OPEN_ELECTRIC_LOCK;
 					PUSH_MOTOR(RIGHT);
-					flag_infrared = 0;
+					IWDG_Feed();
+					delay_ms_whx(1000);
+					motoDef.state = state_run_third;
+				}
 			}
+		break;
+		case state_run_third:  // push motor
+			delay_ms_whx(1000);			
 			if(motoDef.read_moto(INFRARED_SENSOR_TEST)) {
 				IWDG_Feed();
 				PUSH_MOTOR(LEFT);
-				delay_ms_whx(5000);
+				delay_ms_whx(1000);
 				IWDG_Feed();
 				CLOSE_ELECTRIC_LOCK;
-				flag_infrared = 0;
 				flag_signal_transfer = 0;
 				// clear num
 				motoDef.num = 0;
@@ -149,8 +139,7 @@ void Start_Borrow()
 			}
 			break;
 		case state_report:
-			state = 1;
-		  	Report_State(CMD_RECARGO,&state,1);  //出货信息上报
+		  	// Report_State(CMD_RECARGO,&state,1);  //出货信息上报
 		  	if(errorDef.android_state) { //收到ANDROID消息
 				errorDef.android_state = 0;
 				motoDef.state = state_stop;

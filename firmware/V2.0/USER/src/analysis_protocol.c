@@ -15,7 +15,6 @@
 uint8_t  CmdRecBuf[COMMAND_MAX] = {0};
 extern uint8_t     g_bar_code[50];
 extern mError errorDef;
-extern uint8_t g_begin_gun_shot;
 
 extern app_fifo_t  rx_fifo_Screen_Def;
 extern app_fifo_t  rx_fifo_Gun_Def; 
@@ -88,26 +87,30 @@ void Gun_CommandReceive_Poll(void)
 		for(i=0;i<16;i++) {
 			data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
 			// DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
+			static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
+			for(uint8_t i=0;i<=3;i++) {
+				Uart_Send_Data(GUN,start_screen,sizeof(start_screen));
+			}
 		}
 		for(i=0;i<=7;i++) {
 			data[i] =(data_tmp[i*2]*10)+data_tmp[i*2+1];
 			// DBG_LOG("data[%d] = 0x%02x",i,data[i]);
 		}
 		Report_State(0x05,data,sizeof(data));
-		g_begin_gun_shot = 0;
 	}
 }
 
 void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
-	static uint8_t i = 0;
+	uint8_t i = 0;
 	static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
+	static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
+	static uint8_t stop_screen[6] = {0x04,0xE5,0x04,0x00,0xFF,0x13};
 
 	for (i=0; i<=17; i++) {
 		 	//  // DBG_LOG("CmdRecBuf[%d] = 0x%02x",i,CmdRecBuf[i]);
 		}	
 	// crc16 test  already test 
 	uint16_t crc_data_count = CRC_16(0xffff,CmdRecBuf+1,14);
-	uint16_t crc_data = (CmdRecBuf[15] << 8) | CmdRecBuf[16];
 	//and crc16
   if((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[17] == FHEADER)) {
         switch(CmdRecBuf[1]) {
@@ -120,13 +123,20 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 						break;
 					case CMD_LOCK:
 						Get_Lock_Data(&CmdRecBuf[MOTOR_NUM]);
-						// DBG_LOG("error 1!")
 						// Uart_Send_Data(SCREEN, report_data,sizeof(dat_tmp));
-						// send_back(tmp);
 						break;
 					case CMD_GUN:
             // Get_Gun_Data(&CmdRecBuf[2]);
-						g_begin_gun_shot = 1;
+						// DBG_LOG("hello,world!");
+						for(i=0;i<=2;i++) {
+							delay_ms(100);
+							Uart_Send_Data(SCREEN,start_screen,(sizeof(start_screen)-1));
+						}
+						break;
+					case CMD_SCREEN_CLOSE:		//no use
+						for(uint8_t i=0;i<=3;i++) {
+							Uart_Send_Data(SCREEN,stop_screen,sizeof(stop_screen));
+						}
 						break;
 					case CMD_CARGO:
                 Get_Cargo_Data(&CmdRecBuf[2]);
@@ -141,7 +151,7 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 void open_all_door(void) {
 	//check the key
 	static uint8_t key = 0;
-	static uint8_t i = 0; 
+	static uint8_t i = 0;
 	key = KEY_Scan(1);
 	if(key) {
 		switch (key) {

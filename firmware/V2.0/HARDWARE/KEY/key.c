@@ -36,7 +36,7 @@ void KEY_Init(void) //IO初始化
 //3，KEY2按下 
 //4，KEY3按下 WK_UP
 //注意此函数有响应优先级,KEY0>KEY1>KEY2>KEY3!!
-u8 KEY_Scan(u8 mode)
+uint8_t KEY_Scan(u8 mode)
 {	 
 	static u8 key_up=1;//按键按松开标志
 	if(mode)key_up=1;  //支持连按		  
@@ -47,5 +47,6 @@ u8 KEY_Scan(u8 mode)
 		if(KEY_ALL==0)return KEY_ALL_NUM;
 	}else {
  		return 0;// 无按键按下
-	}	    
+	}
+	return 0;  
 }

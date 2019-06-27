@@ -4,6 +4,9 @@
 #include "rtc.h" 	
 #include "prjlib.h"
 #include "moto.h"
+#include "ananlysis_data.h"
+
+#define HERAD	0xFF
 
 extern _calendar_obj calendar;
 extern void timer0_backcall_func(void);
@@ -37,45 +40,21 @@ void TIM3_Int_Init(u16 arr,u16 psc)
 
 	TIM_Cmd(TIM3, ENABLE);  //使能TIMx					 
 }
+
 //定时器3中断服务程序
 void TIM3_IRQHandler(void)   //TIM3中断
 {
-	static int count = 0;
-	static int count1 = 0;
-	static uint8_t j = 0;
-	uint8_t i= 0;
 	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)  //检查TIM3更新中断发生与否
 	{
 			TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //清除TIMx更新中断标志 
 		  timer3_tick++;
       timer_task();
-			count++;
-			if(count < count1 )
-			{
-				for(i = 1;i < 57;i++)
-				 {
-					 motoDef.open_moto(i);
-				 }
-			}else
-			{
-				 for(i = 1;i < 57;i++)
-				 {
-					 motoDef.close_moto(i);
-				 }
-			
-			}
-			if(count == 200)
-			{			
-				count = 0;
-				if(!j)
-				 count1++;
-				else
-					 count1--;
-				if(count1 == 200) {j = 1;}
-				else if(count1 == 0) {j = 0;}
-			}
+			// DBG_LOG("hello,world!");
+			//heart beat data
+			static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
+			Report_State(HERAD,report_data,sizeof(report_data));
 		}
-	}
+	} 
 
 void timer_task()
 {

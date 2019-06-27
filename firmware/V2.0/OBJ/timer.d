@@ -40,3 +40,4 @@
 ..\obj\timer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
 ..\obj\timer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\timer.o: ..\HARDWARE\MOTO\moto.h
+..\obj\timer.o: .\inc\ananlysis_data.h

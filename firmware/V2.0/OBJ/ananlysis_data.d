@@ -39,3 +39,9 @@
 ..\obj\ananlysis_data.o: ..\SYSTEM\usart\usart.h
 ..\obj\ananlysis_data.o: .\inc\fifo.h
 ..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\ananlysis_data.o: ..\RTC\rtc.h
+..\obj\ananlysis_data.o: .\inc\prjlib.h
+..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
+..\obj\ananlysis_data.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\ananlysis_data.o: ..\HARDWARE\WDG\wdg.h
