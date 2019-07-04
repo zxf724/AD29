@@ -49,7 +49,7 @@ int main(void)
 	Start_Schedule();
 	open_all_door();
 	led_light();
-	// test_fun();
+	test_fun();
 	}
 }
 
@@ -169,7 +169,9 @@ void test_fun() {
 	// Uart_Send_Data(GUN,start_screen,(sizeof(start_screen)-1));
 
 	// success!!
-	static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
-	delay_ms_whx(1000);
-	Uart_Send_Data(GUN,start_screen,sizeof(start_screen)-1);
+	// static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
+	// delay_ms_whx(1000);
+	// Uart_Send_Data(GUN,start_screen,sizeof(start_screen)-1);
+
+	// motoDef.open_moto(1);
 }

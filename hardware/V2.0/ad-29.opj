@@ -139,8 +139,8 @@
       (Type "COrSchematicDoc")
       (Frame
         (Placement "44 2 3 -1 -1 -8 -31 52 1591 52 679")
-        (Scroll "1498 274")
-        (Zoom "228")
+        (Scroll "300 16")
+        (Zoom "114")
         (Occurrence "/"))
       (Path "D:\WORKSPACE\AD-29¿÷∫–\AD29\HARDWARE\V2.0\AD-29.DSN")
       (Schematic "¿÷∫–÷«ƒ‹ÕÊæﬂ")
@@ -149,7 +149,7 @@
       (Type "COrSchematicDoc")
       (Frame
         (Placement "44 0 1 -1 -1 -8 -31 78 1617 78 705")
-        (Scroll "0 0")
+        (Scroll "0 30")
         (Zoom "100")
         (Occurrence "/"))
       (Path "D:\WORKSPACE\AD-29¿÷∫–\AD29\HARDWARE\V2.0\AD-29.DSN")
@@ -159,10 +159,20 @@
       (Type "COrSchematicDoc")
       (Frame
         (Placement "44 0 1 -1 -1 -8 -31 104 1643 104 731")
-        (Scroll "2590 996")
+        (Scroll "2658 900")
         (Zoom "200")
         (Occurrence "/"))
       (Path "D:\WORKSPACE\AD-29¿÷∫–\AD29\HARDWARE\V2.0\AD-29.DSN")
       (Schematic "¿÷∫–÷«ƒ‹ÕÊæﬂ")
-      (Page "04_Locks")))
+      (Page "04_Locks"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 130 1669 130 757")
+        (Scroll "-163 55")
+        (Zoom "120")
+        (Occurrence "/"))
+      (Path "D:\WORKSPACE\AD-29¿÷∫–\AD29\HARDWARE\V2.0\AD-29.DSN")
+      (Schematic "¿÷∫–÷«ƒ‹ÕÊæﬂ")
+      (Page "01_BLOCK_DIAGRAM")))
   (ISPCBBASICLICENSE "false"))
