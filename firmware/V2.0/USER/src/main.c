@@ -9,96 +9,110 @@
 #include "prjlib.h"
 #include "rtc.h"
 #include "moto.h"
-#include "schedule.h" 
+#include "schedule.h"
 #include "wdg.h"
 #include "key.h"
 #include "ananlysis_data.h"
 #include "prjlib.h"
 
-#define HEAR_BEAT_TIME	(500*90)
+#define HEAR_BEAT_TIME (500 * 90)
 
-static void funControl(int argc, char* argv[]);
+static void funControl(int argc, char *argv[]);
 extern Moto motoDef;
 extern mPin Pin_Array[PINMAX];
 int time = 0;
-extern _calendar_obj calendar;//时钟结构体 
+extern _calendar_obj calendar; //时钟结构体
 
 int main(void)
-{		
+{
 	CMD_ENT_DEF(MOTO, funControl);
 	Cmd_AddEntrance(CMD_ENT(MOTO));
-	delay_init();	    	   
+	delay_init();
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
-  	uart1_init(115200);
+	uart1_init(115200);
 	uart2_init(115200);
 	Moto_Init();
-	TIM3_Int_Init(HEAR_BEAT_TIME,7199);//10Khz的计数频率，计数到5000为500ms
+	TIM3_Int_Init(HEAR_BEAT_TIME, 7199); //10Khz的计数频率，计数到5000为500ms
 	CLOSE_ELECTRIC_LOCK;
 	sound_control();
 	delay_ms_whx(1000);
 
 	// DBG_LOG("system start");
-  if(RTC_Init())
+	if (RTC_Init())
 		// DBG_LOG("RTC Init fail");
-	IWDG_Init(6,1024);    //与分频数为64,重载值为625,溢出时间为1s	
-	
-  while(1) {
-	IWDG_Feed();
-	Gun_CommandReceive_Poll();
-	Screen_CommandReceive_Poll();
-	Start_Schedule();
-	open_all_door();
-	led_light();
-	test_fun();
+		IWDG_Init(6, 1024); //与分频数为64,重载值为625,溢出时间为1s
+
+	while (1)
+	{
+		IWDG_Feed();
+		Gun_CommandReceive_Poll();
+		Screen_CommandReceive_Poll();
+		Start_Schedule();
+		open_all_door();
+		led_light();
+		test_fun();
 	}
 }
 
-static void funControl(int argc, char* argv[]) {
-	
+static void funControl(int argc, char *argv[])
+{
+
 	uint8_t i = 0;
-  argv++;
-  argc--;
-  if(ARGV_EQUAL("ALL_OPEN")) 
+	argv++;
+	argc--;
+	if (ARGV_EQUAL("ALL_OPEN"))
 	{
-	   for(i = 1;i < 57;i++) {
-		   motoDef.open_moto(i);
+		for (i = 1; i < 57; i++)
+		{
+			motoDef.open_moto(i);
 		}
-	}else if(ARGV_EQUAL("ALL_CLOSE")) 
-	{  
-	   for(i = 0;i < 57;i++)
-		 {
-		   motoDef.close_moto(i);
-		 }
-	}else if(ARGV_EQUAL("RUN"))
+	}
+	else if (ARGV_EQUAL("ALL_CLOSE"))
 	{
-		  motoDef.open_moto(uatoi(argv[1]));
-	}else if(ARGV_EQUAL("CLOSE"))
+		for (i = 0; i < 57; i++)
+		{
+			motoDef.close_moto(i);
+		}
+	}
+	else if (ARGV_EQUAL("RUN"))
 	{
-		  motoDef.close_moto(uatoi(argv[1]));
-	}else if(ARGV_EQUAL("motor_turn_off")) {
+		motoDef.open_moto(uatoi(argv[1]));
+	}
+	else if (ARGV_EQUAL("CLOSE"))
+	{
+		motoDef.close_moto(uatoi(argv[1]));
+	}
+	else if (ARGV_EQUAL("motor_turn_off"))
+	{
 		PUSH_MOTOR(LEFT);
 	}
 }
 
-void led_light(void) {
+void led_light(void)
+{
 	RTC_Get();
-	if(calendar.hour <= 6) {
+	if (calendar.hour <= 6)
+	{
 		// led turns off
-		GPIO_ResetBits(GPIOD,GPIO_Pin_0);
-		GPIO_ResetBits(GPIOD,GPIO_Pin_1);
-	} else {
+		GPIO_ResetBits(GPIOD, GPIO_Pin_0);
+		GPIO_ResetBits(GPIOD, GPIO_Pin_1);
+	}
+	else
+	{
 		// led turns on
-		GPIO_SetBits(GPIOD,GPIO_Pin_0);
-		GPIO_SetBits(GPIOD,GPIO_Pin_1);
+		GPIO_SetBits(GPIOD, GPIO_Pin_0);
+		GPIO_SetBits(GPIOD, GPIO_Pin_1);
 	}
 }
 
-void sound_control(void) {
+void sound_control(void)
+{
 	// sound control
-	GPIO_SetBits(GPIOD,GPIO_Pin_3);
+	GPIO_SetBits(GPIOD, GPIO_Pin_3);
 }
 
-void test_fun() {
+void test_fun()
+{
 	// // test borrow motor
 	// motoDef.open_moto(2);
 	// if(motoDef.read_moto(CHECK_TRACK)) {
@@ -118,7 +132,7 @@ void test_fun() {
 	// // test push motor
 	// GPIO_ResetBits(GPIOC,GPIO_Pin_11);
 	// GPIO_SetBits(GPIOC,GPIO_Pin_10);
-	// PUSH_MOTOR(RIGHT);  // out 
+	// PUSH_MOTOR(RIGHT);  // out
 	// PUSH_MOTOR(LEFT);		//in
 
 	// // test electric lock
@@ -134,7 +148,7 @@ void test_fun() {
 	// crc_test = CRC_16(0xffff,crc+2,5);
 	// // DBG_LOG("crc_test = 0x%04x",crc_test);
 
-	// // led bug 
+	// // led bug
 	// motoDef.open_moto(18);
 	// if(motoDef.read_moto(CHECK_TRACK)) {
 	// 	// DBG_LOG("test!");
@@ -153,7 +167,6 @@ void test_fun() {
 	// data15 = data;
 	// data16 = data>>8;
 
-
 	// // test input function
 	// delay_ms_whx(1000);
 	// static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
@@ -163,15 +176,16 @@ void test_fun() {
 	// PUSH_MOTOR(LEFT);
 	// PUSH_MOTOR_RIGHT;
 
-	// // screen 
+	// // screen
 	// static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
 	// delay_ms(100);
 	// Uart_Send_Data(GUN,start_screen,(sizeof(start_screen)-1));
 
 	// success!!
-	// static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
+	// static uint8_t start_screen[6] = {0x04, 0xE4, 0x04, 0x00, 0xFF, 0x14};
 	// delay_ms_whx(1000);
-	// Uart_Send_Data(GUN,start_screen,sizeof(start_screen)-1);
+	// Uart_Send_Data(GUN, start_screen, sizeof(start_screen) - 1);
 
+	//
 	// motoDef.open_moto(1);
 }
