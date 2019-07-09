@@ -187,5 +187,5 @@ void test_fun()
 	// Uart_Send_Data(GUN, start_screen, sizeof(start_screen) - 1);
 
 	//
-	motoDef.open_moto(1);
+	// motoDef.open_moto(1);
 }

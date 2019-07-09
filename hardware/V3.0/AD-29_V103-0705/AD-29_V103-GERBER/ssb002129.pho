@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *
 *
 G04 PADS VX.2.4 Build Number: 11282995 generated Gerber (RS-274-X) file*
@@ -76,3 +77,83 @@ X284252*
 Y1155512*
 X0Y0D02*
 M02*
+=======
+*
+*
+G04 PADS VX.2.4 Build Number: 11282995 generated Gerber (RS-274-X) file*
+G04 PC Version=2.1*
+*
+%IN "AD-29_V103-0702.pcb"*%
+*
+%MOIN*%
+*
+%FSLAX35Y35*%
+*
+*
+*
+*
+G04 PC Standard Apertures*
+*
+*
+G04 Thermal Relief Aperture macro.*
+%AMTER*
+1,1,$1,0,0*
+1,0,$1-$2,0,0*
+21,0,$3,$4,0,0,45*
+21,0,$3,$4,0,0,135*
+%
+*
+*
+G04 Annular Aperture macro.*
+%AMANN*
+1,1,$1,0,0*
+1,0,$2,0,0*
+%
+*
+*
+G04 Odd Aperture macro.*
+%AMODD*
+1,1,$1,0,0*
+1,0,$1-0.005,0,0*
+%
+*
+*
+G04 PC Custom Aperture Macros*
+*
+*
+*
+*
+*
+*
+G04 PC Aperture Table*
+*
+%ADD010C,0.001*%
+%ADD030C,0.01969*%
+*
+*
+*
+*
+G04 PC Circuitry*
+G04 Layer Name AD-29_V103-0702.pcb - circuitry*
+%LPD*%
+*
+*
+G04 PC Custom Flashes*
+G04 Layer Name AD-29_V103-0702.pcb - flashes*
+%LPD*%
+*
+*
+G04 PC Circuitry*
+G04 Layer Name AD-29_V103-0702.pcb - circuitry*
+%LPD*%
+*
+G54D10*
+G54D30*
+G01X284252Y1155512D02*
+X1071654D01*
+Y368110*
+X284252*
+Y1155512*
+X0Y0D02*
+M02*
+>>>>>>> 05aad6283dd0c1e3399c4b7b76cb30b53fcab442
