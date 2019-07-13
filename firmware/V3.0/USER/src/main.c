@@ -33,11 +33,9 @@ int main(void)
 	uart2_init(115200);
 	Moto_Init();
 	TIM3_Int_Init(HEAR_BEAT_TIME, 7199); //10Khz的计数频率，计数到5000为500ms
-	TIM2_PWM_Init(899,0);	 //不分频。PWM频率=72000000/900=80Khz
-	CLOSE_ELECTRIC_LOCK;
 	sound_control();
 	delay_ms_whx(1000);
-
+	
 	// DBG_LOG("system start");
 	if (RTC_Init())
 		// DBG_LOG("RTC Init fail");
@@ -188,5 +186,41 @@ void test_fun()
 	// Uart_Send_Data(GUN, start_screen, sizeof(start_screen) - 1);
 
 	//
+	// motoDef.open_moto(1);
+
+	// MicroStep Motro
+	// static uint8_t flag = 0;
+
+	// GPIO_SetBits(GPIOC,GPIO_Pin_10);  // EN
+	// GPIO_ResetBits(GPIOC,GPIO_Pin_11);	 // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+
+	// GPIO_SetBits(GPIOC,GPIO_Pin_12);  // EN
+	// GPIO_ResetBits(GPIOD,GPIO_Pin_0);	 // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+	// if(flag == 0) {
+	// 	flag = 1;
+	// 	MicroStep_Motro(740);
+	// }
+
+	// test tour switch
+	// if(GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_5) == 0) {
+	// 	DBG_LOG("hello,world!");
+	// }
+
+	// sensor
+	// if(GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_4) == 1) {
+	// 	DBG_LOG("hello,");
+	// } else if (GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_4) == 0)
+	// {
+	// 	DBG_LOG("world!");
+	// }
+	
+
+	// test road
+	static uint8_t flag = 0;
+	if(flag == 0) {
+		flag = 1;
+		motoDef.num = 1;
+	}
+
 	// motoDef.open_moto(1);
 }

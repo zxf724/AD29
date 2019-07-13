@@ -20,7 +20,7 @@
 //#define KEY2 PEin(2)	//PE2
 //#define WK_UP PAin(0)	//PA0  WK_UP
 
-#define KEY_ALL GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_2)
+#define KEY_ALL GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_0)
 
 #define KEY_ALL_NUM     1
 

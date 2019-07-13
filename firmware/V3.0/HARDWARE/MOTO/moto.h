@@ -6,10 +6,14 @@
 #define SUCCESS 1
 #define FAIL    0
 
-#define PINMAX	78//81
+#define PINMAX	81
 
 // check   tail of the cargo road
-#define CHECK_TRACK   55
+#define CHECK_TRACK_1   55
+#define CHECK_TRACK_2   79
+#define CHECK_TRACK_3   80
+#define CHECK_TRACK_4   81
+
 // infrared
 #define INFRARED_SENSOR_TEST  78
 
@@ -74,7 +78,7 @@
 #define LOCK_10  {GPIOB,GPIO_Pin_11,GPIO_Mode_Out_PP}	//42
 
 #define LOCK_11  {GPIOB,GPIO_Pin_14,GPIO_Mode_Out_PP}	//43
-#define LOCK_12  {GPIOB,GPIO_Pin_15,GPIO_Mode_Out_PP}	//44	
+#define LOCK_12  {GPIOB,GPIO_Pin_15,GPIO_Mode_Out_PP}	//44
 #define LOCK_13  {GPIOD,GPIO_Pin_10,GPIO_Mode_Out_PP}	//45
 #define LOCK_14  {GPIOD,GPIO_Pin_11,GPIO_Mode_Out_PP}	//46
 #define LOCK_15  {GPIOD,GPIO_Pin_14,GPIO_Mode_Out_PP}	//47
@@ -89,31 +93,35 @@
 
 // MOTO_FEEDBACK schematic 33-
 #define LOCK_FEEDBACK_1 {GPIOF,GPIO_Pin_13,GPIO_Mode_IPD}  //DEM33
-#define LOCK_FEEDBACK_2 {GPIOF,GPIO_Pin_14,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_3 {GPIOG,GPIO_Pin_0,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_4 {GPIOG,GPIO_Pin_1,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_5 {GPIOE,GPIO_Pin_10,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_6 {GPIOE,GPIO_Pin_11,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_7 {GPIOE,GPIO_Pin_11,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_8 {GPIOE,GPIO_Pin_11,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_9 {GPIOB,GPIO_Pin_12,GPIO_Mode_IPD}
+#define LOCK_FEEDBACK_2 {GPIOF,GPIO_Pin_14,GPIO_Mode_IPD}	//DEM34
+#define LOCK_FEEDBACK_3 {GPIOG,GPIO_Pin_0,GPIO_Mode_IPD}	//DEM35
+#define LOCK_FEEDBACK_4 {GPIOG,GPIO_Pin_1,GPIO_Mode_IPD}	//DEM36
+#define LOCK_FEEDBACK_5 {GPIOE,GPIO_Pin_10,GPIO_Mode_IPD}	//DEM37
+#define LOCK_FEEDBACK_6 {GPIOE,GPIO_Pin_11,GPIO_Mode_IPD}	//DEM38
+#define LOCK_FEEDBACK_7 {GPIOE,GPIO_Pin_14,GPIO_Mode_IPD}	//DEM39
+#define LOCK_FEEDBACK_8 {GPIOE,GPIO_Pin_15,GPIO_Mode_IPD}	//DEM40
+#define LOCK_FEEDBACK_9 {GPIOB,GPIO_Pin_12,GPIO_Mode_IPD}	//DEM41
 #define LOCK_FEEDBACK_10 {GPIOB,GPIO_Pin_13,GPIO_Mode_IPD}	//DEM42
 
 #define LOCK_FEEDBACK_11 {GPIOD,GPIO_Pin_8,GPIO_Mode_IPD}	//DEM43
-#define LOCK_FEEDBACK_12 {GPIOD,GPIO_Pin_9,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_13 {GPIOD,GPIO_Pin_12,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_14 {GPIOD,GPIO_Pin_13,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_15 {GPIOG,GPIO_Pin_2,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_16 {GPIOG,GPIO_Pin_3,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_17 {GPIOG,GPIO_Pin_6,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_18 {GPIOG,GPIO_Pin_7,GPIO_Mode_IPD}
-#define LOCK_FEEDBACK_19 {GPIOC,GPIO_Pin_7,GPIO_Mode_IPD}
+#define LOCK_FEEDBACK_12 {GPIOD,GPIO_Pin_9,GPIO_Mode_IPD}	//DEM44
+#define LOCK_FEEDBACK_13 {GPIOD,GPIO_Pin_12,GPIO_Mode_IPD}	//DEM45
+#define LOCK_FEEDBACK_14 {GPIOD,GPIO_Pin_13,GPIO_Mode_IPD}	//DEM46
+#define LOCK_FEEDBACK_15 {GPIOG,GPIO_Pin_2,GPIO_Mode_IPD}	//DEM47
+#define LOCK_FEEDBACK_16 {GPIOG,GPIO_Pin_3,GPIO_Mode_IPD}	//DEM48
+#define LOCK_FEEDBACK_17 {GPIOG,GPIO_Pin_6,GPIO_Mode_IPD}	//DEM49
+#define LOCK_FEEDBACK_18 {GPIOG,GPIO_Pin_7,GPIO_Mode_IPD}	//DEM50
+#define LOCK_FEEDBACK_19 {GPIOC,GPIO_Pin_7,GPIO_Mode_IPD}	//DEM51
 #define LOCK_FEEDBACK_20 {GPIOC,GPIO_Pin_8,GPIO_Mode_IPD}	//DEM52
 
 #define LOCK_FEEDBACK_21 {GPIOA,GPIO_Pin_11,GPIO_Mode_IPD}	//DEM53
 #define LOCK_FEEDBACK_22 {GPIOA,GPIO_Pin_12,GPIO_Mode_IPD}	//DEM54
+
 //motor feedback
-#define MOTO_FEEDBACK_1 {GPIOA,GPIO_Pin_15,GPIO_Mode_IPD}	//DEM55
+#define MOTO_FEEDBACK_1 {GPIOG,GPIO_Pin_12,GPIO_Mode_IPD}	//DEM55		DEM17-DEM24
+#define MOTO_FEEDBACK_2 {GPIOG,GPIO_Pin_14,GPIO_Mode_IPD}	//DEM56		DEM1-DEM8
+#define MOTO_FEEDBACK_3 {GPIOG,GPIO_Pin_13,GPIO_Mode_IPD}	//DEM57		DEM9-DEM16
+#define MOTO_FEEDBACK_4 {GPIOG,GPIO_Pin_11,GPIO_Mode_IPD}	//DEM58		DEM25-DEM32
 
 //infrared sensor
 #define INFRARED_SENSOR_1 {GPIOD,GPIO_Pin_4,GPIO_Mode_IPD}
@@ -129,8 +137,11 @@
 #define PUSH_MOTOR_CLEAR {GPIO_ResetBits(GPIOC,GPIO_Pin_11);GPIO_ResetBits(GPIOC,GPIO_Pin_10);}
 
 //electromagnetic lock
-#define OPEN_ELECTRIC_LOCK  GPIO_SetBits(GPIOC,GPIO_Pin_12)
-#define CLOSE_ELECTRIC_LOCK GPIO_ResetBits(GPIOC,GPIO_Pin_12)
+#define OPEN_ELECTRIC_LOCK  GPIO_SetBits(GPIOB,GPIO_Pin_7)
+#define CLOSE_ELECTRIC_LOCK GPIO_ResetBits(GPIOB,GPIO_Pin_7)
+
+#define TOUR_SWITCH GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_5)
+#define NEW_SENSOR	GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_4)
 
 	
 enum {
@@ -194,7 +205,7 @@ typedef struct
 	GPIO_TypeDef* port;
 	uint16_t pin;
 	GPIOMode_TypeDef mode;
-}mPin;
+}mPin; 
 
 void Moto_Init(void);
 void sound_control(void);
@@ -203,6 +214,6 @@ uint8_t Close_xMoto(uint8_t num);
 uint8_t Read_xMoto(uint8_t num);
 uint8_t Set_Moto(void);
 uint8_t Set_Lock(void);
-uint8_t Check_Moto(uint8_t num);
+uint8_t MicroStep_Motro(uint32_t Step);
 #endif
 

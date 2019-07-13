@@ -93,19 +93,29 @@ void Start_Schedule() {
 void Start_Borrow()
 {
 	IWDG_Feed();
+	uint8_t check_num = 0;
 	static uint8_t flag_signal_transfer = 0;
 	switch(motoDef.state) {
 		case state_stop:
 			if(motoDef.num) {
 				motoDef.state = state_run_first;
-			} else { 
+			} else {
 				machine.state = state_stop;
 			}
 			break;
 		case state_run_first: // input
-				motoDef.open_moto(motoDef.num);
 				// DBG_LOG("hello,world!");
-			if(motoDef.read_moto(CHECK_TRACK)) {  // CHECK_TRACK
+				motoDef.open_moto(motoDef.num);
+				if((motoDef.num >= 17) && (motoDef.num <= 24)) {
+					check_num = CHECK_TRACK_1;
+				} else if((motoDef.num >= 1) && (motoDef.num <= 8)) {
+					check_num = CHECK_TRACK_2;
+				} else if((motoDef.num>= 9) && (motoDef.num <= 16)) {
+					check_num = CHECK_TRACK_3;
+				} else if((motoDef.num>= 25) && (motoDef.num <= 32)) {
+					check_num = CHECK_TRACK_4;
+				}
+			if((motoDef.read_moto(check_num) == 0)) {  // CHECK_TRACK	change
 				flag_signal_transfer = 1;
 				motoDef.close_moto(motoDef.num);
 				motoDef.state = state_run_second;
@@ -113,23 +123,33 @@ void Start_Borrow()
 			break;
 		case state_run_second:
 			//check infrared  output 0 signal when it cover
-			if(!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
+				delay_ms_whx(100);
+				IWDG_Feed();
+				GPIO_SetBits(GPIOC,GPIO_Pin_10);  // EN1
+				GPIO_SetBits(GPIOC,GPIO_Pin_11);	 // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+				GPIO_SetBits(GPIOC,GPIO_Pin_12);  // EN2
+				GPIO_SetBits(GPIOD,GPIO_Pin_0);	 // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+				MicroStep_Motro(720);
+			if(TOUR_SWITCH == 0) {
 				if(flag_signal_transfer == 1) {
-					delay_ms_whx(100);
 					OPEN_ELECTRIC_LOCK;
-					PUSH_MOTOR(RIGHT);
-					IWDG_Feed();
-					delay_ms_whx(1000);
-					motoDef.state = state_run_third;
+					delay_ms_whx(100);
 				}
+			}
+			if(NEW_SENSOR == 1) {  // sensor 
+					motoDef.state = state_run_third;
 			}
 		break;
 		case state_run_third:  // push motor
-			delay_ms_whx(1000);
-			if(motoDef.read_moto(INFRARED_SENSOR_TEST)) {
-				delay_ms_whx(5000);
+				if(NEW_SENSOR == 0) {
+				delay_ms_whx(3000);
 				IWDG_Feed();
-				PUSH_MOTOR(LEFT);
+				// PUSH_MOTOR(LEFT);
+				GPIO_SetBits(GPIOC,GPIO_Pin_10);  // EN1
+				GPIO_ResetBits(GPIOC,GPIO_Pin_11);	 // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+				GPIO_SetBits(GPIOC,GPIO_Pin_12);  // EN2
+				GPIO_ResetBits(GPIOD,GPIO_Pin_0);	 // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+				MicroStep_Motro(720);
 				CLOSE_ELECTRIC_LOCK;
 				flag_signal_transfer = 0;
 				// clear num
