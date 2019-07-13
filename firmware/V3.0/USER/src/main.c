@@ -33,7 +33,9 @@ int main(void)
 	uart2_init(115200);
 	Moto_Init();
 	TIM3_Int_Init(HEAR_BEAT_TIME, 7199); //10Khz的计数频率，计数到5000为500ms
+	TIM4_Int_Init(5000, 7199); //10Khz的计数频率，计数到5000为500ms
 	sound_control();
+	CLOSE_ELECTRIC_LOCK;
 	delay_ms_whx(1000);
 	
 	// DBG_LOG("system start");
@@ -93,21 +95,22 @@ void led_light(void)
 	if (calendar.hour <= 6)
 	{
 		// led turns off
-		GPIO_ResetBits(GPIOD, GPIO_Pin_0);
-		GPIO_ResetBits(GPIOD, GPIO_Pin_1);
+		GPIO_ResetBits(GPIOB, GPIO_Pin_8);
+		GPIO_ResetBits(GPIOB, GPIO_Pin_9);
 	}
 	else
 	{
 		// led turns on
-		GPIO_SetBits(GPIOD, GPIO_Pin_0);
-		GPIO_SetBits(GPIOD, GPIO_Pin_1);
+		// DBG_LOG("calendar.hour = %d",calendar.hour);
+		GPIO_SetBits(GPIOB, GPIO_Pin_8);
+		GPIO_SetBits(GPIOB, GPIO_Pin_9);
 	}
 }
 
 void sound_control(void)
 {
 	// sound control
-	GPIO_SetBits(GPIOD, GPIO_Pin_3);
+	GPIO_SetBits(GPIOE, GPIO_Pin_1);
 }
 
 void test_fun()
@@ -216,11 +219,11 @@ void test_fun()
 	
 
 	// test road
-	static uint8_t flag = 0;
-	if(flag == 0) {
-		flag = 1;
-		motoDef.num = 1;
-	}
+	// static uint8_t flag = 0;
+	// if(flag == 0) {
+	// 	flag = 1;
+	// 	motoDef.num = 3;
+	// }
 
 	// motoDef.open_moto(1);
 }

@@ -118,9 +118,15 @@ void Moto_Init()
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
 
 	//logo light gpio init && sound control
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_3;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-	GPIO_Init(GPIOD, &GPIO_InitStructure);
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+
+	// sound control 
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 
 	// push motor gpio init begin
@@ -247,10 +253,10 @@ uint8_t MicroStep_Motro(uint32_t Step)
 	{
 		for (uint32_t j = 0; j <= 100; j++)
 		{
-			delay(1000);
+			delay(900);
 			GPIO_SetBits(GPIOB,GPIO_Pin_3);
 			GPIO_SetBits(GPIOB,GPIO_Pin_4);
-			delay(1000);
+			delay(900);
 			GPIO_ResetBits(GPIOB,GPIO_Pin_3);
 			GPIO_ResetBits(GPIOB,GPIO_Pin_4);
 		}

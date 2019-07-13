@@ -8,6 +8,7 @@
 #include "delay.h"
 #include "gun.h"
 #include "wdg.h"
+#include "stm32f10x_tim.h"
 
 extern uint8_t g_start_cmd[7];
 extern Moto motoDef;
@@ -92,6 +93,7 @@ void Start_Schedule() {
  */
 void Start_Borrow()
 {
+	static uint8_t flag_steper = 0;
 	IWDG_Feed();
 	uint8_t check_num = 0;
 	static uint8_t flag_signal_transfer = 0;
@@ -129,19 +131,15 @@ void Start_Borrow()
 				GPIO_SetBits(GPIOC,GPIO_Pin_11);	 // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
 				GPIO_SetBits(GPIOC,GPIO_Pin_12);  // EN2
 				GPIO_SetBits(GPIOD,GPIO_Pin_0);	 // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-				MicroStep_Motro(720);
-			if(TOUR_SWITCH == 0) {
-				if(flag_signal_transfer == 1) {
-					OPEN_ELECTRIC_LOCK;
-					delay_ms_whx(100);
+				if(flag_steper == 0) {
+					flag_steper = 1;
+					MicroStep_Motro(720);
 				}
-			}
 			if(NEW_SENSOR == 1) {  // sensor 
 					motoDef.state = state_run_third;
 			}
 		break;
 		case state_run_third:  // push motor
-				if(NEW_SENSOR == 0) {
 				delay_ms_whx(3000);
 				IWDG_Feed();
 				// PUSH_MOTOR(LEFT);
@@ -149,13 +147,16 @@ void Start_Borrow()
 				GPIO_ResetBits(GPIOC,GPIO_Pin_11);	 // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
 				GPIO_SetBits(GPIOC,GPIO_Pin_12);  // EN2
 				GPIO_ResetBits(GPIOD,GPIO_Pin_0);	 // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-				MicroStep_Motro(720);
-				CLOSE_ELECTRIC_LOCK;
+				flag_steper = 0;
+				if(flag_steper == 0) {
+					flag_steper = 1;
+					MicroStep_Motro(720);
+				}
 				flag_signal_transfer = 0;
 				// clear num
 				motoDef.num = 0;
+				flag_steper = 0;
 				motoDef.state = state_report;
-			}
 			break;
 		case state_report:
 		  	// Report_State(CMD_RECARGO,&state,1);  //出货信息上报
