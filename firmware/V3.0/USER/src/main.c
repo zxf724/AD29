@@ -196,10 +196,10 @@ void test_fun()
 	// static uint8_t flag = 0;
 
 	// GPIO_SetBits(GPIOC,GPIO_Pin_10);  // EN
-	// GPIO_ResetBits(GPIOC,GPIO_Pin_11);	 // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+	// GPIO_SetBits(GPIOC,GPIO_Pin_11);	 // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
 
 	// GPIO_SetBits(GPIOC,GPIO_Pin_12);  // EN
-	// GPIO_ResetBits(GPIOD,GPIO_Pin_0);	 // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+	// GPIO_SetBits(GPIOD,GPIO_Pin_0);	 // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
 	// if(flag == 0) {
 	// 	flag = 1;
 	// 	MicroStep_Motro(740);
@@ -223,7 +223,7 @@ void test_fun()
 	// static uint8_t flag = 0;
 	// if(flag == 0) {
 	// 	flag = 1;
-	// 	motoDef.num = 3;
+	// 	motoDef.num = 22;
 	// }
 
 	// motoDef.open_moto(1);

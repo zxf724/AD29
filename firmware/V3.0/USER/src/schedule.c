@@ -140,23 +140,25 @@ void Start_Borrow()
 			}
 		break;
 		case state_run_third:  // push motor
-				delay_ms_whx(3000);
-				IWDG_Feed();
-				// PUSH_MOTOR(LEFT);
-				GPIO_SetBits(GPIOC,GPIO_Pin_10);  // EN1
-				GPIO_ResetBits(GPIOC,GPIO_Pin_11);	 // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-				GPIO_SetBits(GPIOC,GPIO_Pin_12);  // EN2
-				GPIO_ResetBits(GPIOD,GPIO_Pin_0);	 // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-				flag_steper = 0;
-				if(flag_steper == 0) {
-					flag_steper = 1;
-					MicroStep_Motro(720);
-				}
-				flag_signal_transfer = 0;
-				// clear num
-				motoDef.num = 0;
-				flag_steper = 0;
-				motoDef.state = state_report;
+			if(NEW_SENSOR == 0) {
+					delay_ms_whx(3000);
+					IWDG_Feed();
+					// PUSH_MOTOR(LEFT);
+					GPIO_SetBits(GPIOC,GPIO_Pin_10);  // EN1
+					GPIO_ResetBits(GPIOC,GPIO_Pin_11);	 // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+					GPIO_SetBits(GPIOC,GPIO_Pin_12);  // EN2
+					GPIO_ResetBits(GPIOD,GPIO_Pin_0);	 // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+					flag_steper = 0;
+					if(flag_steper == 0) {
+						flag_steper = 1;
+						MicroStep_Motro(720);
+					}
+					flag_signal_transfer = 0;
+					// clear num
+					motoDef.num = 0;
+					flag_steper = 0;
+					motoDef.state = state_report;
+			}
 			break;
 		case state_report:
 		  	// Report_State(CMD_RECARGO,&state,1);  //出货信息上报

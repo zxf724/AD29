@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\AD-29.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\AD-29.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Mon Jul 15 14:03:08 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Mon Jul 15 17:40:08 2019
 <BR><P>
 <H3>Maximum Stack Usage =        116 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -509,20 +509,21 @@ Global Symbols
 
 <P><STRONG><a name="[62]"></a>GPIO_ResetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_ResetBits))
 <BR><BR>[Called By]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_light
 <LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 <LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Close_xMoto
 <LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM4_IRQHandler
 </UL>
 
 <P><STRONG><a name="[76]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_SetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sound_control
+<BR><BR>[Called By]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_fun
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sound_control
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_light
 <LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 <LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Open_xMoto
 <LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM4_IRQHandler
@@ -638,7 +639,8 @@ Global Symbols
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
+<BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_fun
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 </UL>
 
 <P><STRONG><a name="[77]"></a>Moto_Init</STRONG> (Thumb, 430 bytes, Stack size 16 bytes, moto.o(i.Moto_Init))
@@ -896,14 +898,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Schedule
 </UL>
 
-<P><STRONG><a name="[9c]"></a>Start_Borrow</STRONG> (Thumb, 418 bytes, Stack size 8 bytes, schedule.o(i.Start_Borrow))
+<P><STRONG><a name="[9c]"></a>Start_Borrow</STRONG> (Thumb, 428 bytes, Stack size 8 bytes, schedule.o(i.Start_Borrow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Start_Borrow &rArr; MicroStep_Motro &rArr; delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms_whx
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IWDG_Feed
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 </UL>
@@ -1282,8 +1284,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c9]"></a>test_fun</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, main.o(i.test_fun))
-<BR><BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[c9]"></a>test_fun</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, main.o(i.test_fun))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = test_fun &rArr; MicroStep_Motro &rArr; delay
+</UL>
+<BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[a3]"></a>timer_task</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, timer.o(i.timer_task))

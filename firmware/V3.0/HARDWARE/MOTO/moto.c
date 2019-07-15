@@ -253,10 +253,10 @@ uint8_t MicroStep_Motro(uint32_t Step)
 	{
 		for (uint32_t j = 0; j <= 100; j++)
 		{
-			delay(900);
+			delay(800);
 			GPIO_SetBits(GPIOB,GPIO_Pin_3);
 			GPIO_SetBits(GPIOB,GPIO_Pin_4);
-			delay(900);
+			delay(800);
 			GPIO_ResetBits(GPIOB,GPIO_Pin_3);
 			GPIO_ResetBits(GPIOB,GPIO_Pin_4);
 		}
