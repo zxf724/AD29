@@ -220,11 +220,14 @@ void test_fun()
 	
 
 	// test road
-	// static uint8_t flag = 0;
-	// if(flag == 0) {
-	// 	flag = 1;
-	// 	motoDef.num = 3;
-	// }
+	static uint8_t flag = 0;
+	for(uint8_t i=0;i<=32;i++) {
+		if(flag == 0) {
+			flag = 1;
+			motoDef.num = 6;
+		}
+	}
+	
 
 	// motoDef.open_moto(1);
 
