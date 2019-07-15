@@ -33,7 +33,8 @@ int main(void)
 	uart2_init(115200);
 	Moto_Init();
 	TIM3_Int_Init(HEAR_BEAT_TIME, 7199); //10Khz的计数频率，计数到5000为500ms
-	TIM4_Int_Init(5000, 7199); //10Khz的计数频率，计数到5000为500ms
+	TIM4_Int_Init(500, 7199); //10Khz的计数频率，计数到5000为500ms
+	// TIM2_Int_Init(10000, 7199); //10Khz的计数频率，计数到5000为500ms  hello,world!
 	sound_control();
 	CLOSE_ELECTRIC_LOCK;
 	delay_ms_whx(1000);
@@ -226,4 +227,14 @@ void test_fun()
 	// }
 
 	// motoDef.open_moto(1);
+
+	// get timestamp
+	// uint32_t time = RTC_GetCounter();
+	// uint8_t timestamp[4] = {0};
+	// DBG_LOG("time = 0x%08x",time);
+	// delay_ms_whx(1000);
+	// for(uint8_t i=0;i<=3;i++) {
+	// 	timestamp[i] = time >> (i*8);
+	// 	DBG_LOG("timestamp[%d] = 0x%02x",i,timestamp[i]);
+	// }
 }

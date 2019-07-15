@@ -19,6 +19,7 @@ void timer_enable(uint8_t num,uint16_t  val,void (* timer_backcall_func) (void))
 void timer_disable(uint8_t num);
 void TIM3_Int_Init(u16 arr,u16 psc);
 void TIM4_Int_Init(u16 arr,u16 psc);
+void TIM2_Int_Init(u16 arr,u16 psc);
 
 void timer_task(void);
 

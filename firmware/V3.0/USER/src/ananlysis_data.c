@@ -89,12 +89,13 @@ void Report_State(uint8_t cmd,uint8_t* data,uint8_t len)
 	uint8_t i = 0;
   uint8_t report_data[18] = {0};
 	uint16_t crc_test;
+	// get timestamp
+	uint32_t timestamp = RTC_GetCounter();
+	for(uint8_t i=0;i<=3;i++) {
+		report_data[i+2] = timestamp >> (i*8);
+	}
   report_data[0] = FHEADER;	
 	report_data[1] = cmd;
-	report_data[2] = 0x01;
-	report_data[3] = 0x02;
-	report_data[4] = 0x03;
-	report_data[5] = 0x04;
 	report_data[6] = len;
 	for(i = 0;i<len;i++)
 	{
