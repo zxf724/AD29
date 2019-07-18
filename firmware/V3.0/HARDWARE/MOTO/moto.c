@@ -6,6 +6,17 @@
 Machine machine = {0, 0, 0};
 Moto motoDef = {Open_xMoto, Close_xMoto, Read_xMoto, 0, 0};
 mError errorDef = {0, 0};
+uint16_t change_time = 0;
+
+typedef enum
+{
+	motor_start,
+	motor_start_fast,
+	motor_fast,
+	motor_slowdown,
+	motor_slow,
+	motor_stop
+} MotorStatusEnum;
 
 mPin Pin_Array[PINMAX] = {
 		//borrow motor array number:0-31
@@ -123,7 +134,7 @@ void Moto_Init()
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 
-	// sound control 
+	// sound control
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_Init(GPIOE, &GPIO_InitStructure);
@@ -173,7 +184,7 @@ void Moto_Init()
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	
+
 	// MicroStep Motor 2 DIR2-
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0; // DIR2-
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
@@ -247,20 +258,105 @@ uint8_t Set_Moto()
 	return 0;
 }
 
-uint8_t MicroStep_Motro(uint32_t Step)
+uint8_t MicroStep_Motro(uint32_t Step, uint16_t time)
 {
+	change_time = time;
 	for (uint32_t i = 0; i <= Step; i++)
 	{
 		for (uint32_t j = 0; j <= 100; j++)
 		{
-			delay(800);
-			GPIO_SetBits(GPIOB,GPIO_Pin_3);
-			GPIO_SetBits(GPIOB,GPIO_Pin_4);
-			delay(800);
-			GPIO_ResetBits(GPIOB,GPIO_Pin_3);
-			GPIO_ResetBits(GPIOB,GPIO_Pin_4);
+			delay(change_time);
+			GPIO_SetBits(GPIOB, GPIO_Pin_3);		// PUL1
+			GPIO_SetBits(GPIOB, GPIO_Pin_4);		// PUL2
+			delay(change_time);
+			GPIO_ResetBits(GPIOB, GPIO_Pin_3);
+			GPIO_ResetBits(GPIOB, GPIO_Pin_4);
 		}
 	}
 	return 1;
 }
 
+// new
+void MotorSetpperMove(uint32_t xstep)
+{
+	uint32_t iX = 0, iX_slow = xstep;
+	uint16_t plusX = MOTOR_X_START_PLUS;
+	uint16_t ipX = 0;
+	MotorStatusEnum statusX = motor_start;
+
+	xstep *= 2;
+
+	if (xstep > MOTOR_X_SPEED_SLOWDOWN_COUNT)
+	{
+		iX_slow = xstep - MOTOR_X_SPEED_SLOWDOWN_COUNT;
+	}
+
+	GPIO_SetBits(GPIOB, GPIO_Pin_3);
+	GPIO_SetBits(GPIOB, GPIO_Pin_4);
+
+	while (iX < xstep)
+	{
+		delay(1);
+
+		// X轴输出脉冲
+		if (ipX++ >= plusX && iX < xstep)
+		{
+			ipX = 0;
+			iX++;
+			if((iX % 2) == 0) {
+				GPIO_ResetBits(GPIOB, GPIO_Pin_3);
+				GPIO_ResetBits(GPIOB, GPIO_Pin_4);
+			} else {
+				GPIO_SetBits(GPIOB, GPIO_Pin_3);
+				GPIO_SetBits(GPIOB, GPIO_Pin_4);
+			}
+			
+			IWDG_Feed();
+
+			// X轴速度控制,确保脉冲完整
+			if (iX % 2 == 0)
+			{
+				switch (statusX)
+				{
+				case motor_start:
+					plusX = MOTOR_X_START_PLUS;
+					// 十分之一
+					if (iX >= 200)
+					{
+						statusX = motor_start_fast;
+					}
+					break;
+				case motor_start_fast:
+					plusX--;
+					if (plusX <= MOTOR_X_FAST_PLUS)
+					{
+						plusX = MOTOR_X_FAST_PLUS; 
+						statusX = motor_fast;
+					}
+					break;
+				case motor_fast:
+					break;
+				case motor_slowdown:
+					// plusX ++;
+					// if (plusX >= MOTOR_X_START_PLUS)
+					// {
+					// 	plusX = MOTOR_X_START_PLUS;
+					// 	statusX = motor_slow;
+					// }
+					break;
+				case motor_slow:
+					break;
+				case motor_stop:
+					break;
+				default:
+					break;
+				}
+				// X需要减速
+				if (iX > iX_slow && statusX < motor_slowdown)
+				{
+					statusX = motor_slowdown;
+				}
+			}
+		}
+	}
+}

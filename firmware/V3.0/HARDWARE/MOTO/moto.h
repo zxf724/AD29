@@ -159,6 +159,12 @@ enum {
   //new state
 };
 
+// ??????????????
+#define MOTOR_X_SPEED_SLOWDOWN_COUNT     700
+
+#define MOTOR_X_START_PLUS		190
+#define MOTOR_X_FAST_PLUS			162
+
 /*motor Structure
  * open_moto£º open motor function
  * close_moto£º close motor function
@@ -214,6 +220,7 @@ uint8_t Close_xMoto(uint8_t num);
 uint8_t Read_xMoto(uint8_t num);
 uint8_t Set_Moto(void);
 uint8_t Set_Lock(void);
-uint8_t MicroStep_Motro(uint32_t Step);
+uint8_t MicroStep_Motro(uint32_t Step,uint16_t time);
+void MotorSetpperMove(uint32_t xstep);
 #endif
 

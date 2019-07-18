@@ -133,7 +133,7 @@ void Start_Borrow()
 				GPIO_SetBits(GPIOD,GPIO_Pin_0);	 // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
 				if(flag_steper == 0) {
 					flag_steper = 1;
-					MicroStep_Motro(720);
+					MicroStep_Motro(720,1000);
 				}
 			if(NEW_SENSOR == 1) {  // sensor 
 					motoDef.state = state_run_third;
@@ -151,7 +151,7 @@ void Start_Borrow()
 					flag_steper = 0;
 					if(flag_steper == 0) {
 						flag_steper = 1;
-						MicroStep_Motro(720);
+						MicroStep_Motro(720,1000);
 					}
 					flag_signal_transfer = 0;
 					// clear num

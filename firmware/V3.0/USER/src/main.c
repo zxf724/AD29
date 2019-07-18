@@ -33,12 +33,12 @@ int main(void)
 	uart2_init(115200);
 	Moto_Init();
 	TIM3_Int_Init(HEAR_BEAT_TIME, 7199); //10Khz的计数频率，计数到5000为500ms
-	TIM4_Int_Init(500, 7199); //10Khz的计数频率，计数到5000为500ms
-	// TIM2_Int_Init(10000, 7199); //10Khz的计数频率，计数到5000为500ms  hello,world!
+	TIM4_Int_Init(500, 7199);						 //10Khz的计数频率，计数到5000为500ms
+	TIM2_Int_Init(20, 7199); //10Khz的计数频率，计数到5000为500ms  hello,world!
 	sound_control();
 	CLOSE_ELECTRIC_LOCK;
 	delay_ms_whx(1000);
-	
+
 	// DBG_LOG("system start");
 	if (RTC_Init())
 		// DBG_LOG("RTC Init fail");
@@ -184,15 +184,14 @@ void test_fun()
 	// delay_ms(100);
 	// Uart_Send_Data(GUN,start_screen,(sizeof(start_screen)-1));
 
-	// success!!
+	// // success!!
 	// static uint8_t start_screen[6] = {0x04, 0xE4, 0x04, 0x00, 0xFF, 0x14};
 	// delay_ms_whx(1000);
 	// Uart_Send_Data(GUN, start_screen, sizeof(start_screen) - 1);
 
-	//
 	// motoDef.open_moto(1);
 
-	// MicroStep Motro
+	// // MicroStep Motro
 	// static uint8_t flag = 0;
 
 	// GPIO_SetBits(GPIOC,GPIO_Pin_10);  // EN
@@ -202,30 +201,30 @@ void test_fun()
 	// GPIO_SetBits(GPIOD,GPIO_Pin_0);	 // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
 	// if(flag == 0) {
 	// 	flag = 1;
-	// 	MicroStep_Motro(740);
+	// 	// TIM_Cmd(TIM2, ENABLE);
+	// 	MicroStep_Motro(200,1050);
+	// 	// MotorSetpperMove(60000);
 	// }
 
-	// test tour switch
+	// // test tour switch
 	// if(GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_5) == 0) {
 	// 	DBG_LOG("hello,world!");
 	// }
 
-	// sensor
+	// // sensor
 	// if(GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_4) == 1) {
 	// 	DBG_LOG("hello,");
 	// } else if (GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_4) == 0)
 	// {
 	// 	DBG_LOG("world!");
 	// }
-	
 
-	// test road
+	// // test road
 	// static uint8_t flag = 0;
 	// if(flag == 0) {
 	// 	flag = 1;
-	// 	motoDef.num = 22;
+	// 	motoDef.num = 1;
 	// }
-
 	// motoDef.open_moto(1);
 
 	// get timestamp
@@ -236,5 +235,20 @@ void test_fun()
 	// for(uint8_t i=0;i<=3;i++) {
 	// 	timestamp[i] = time >> (i*8);
 	// 	DBG_LOG("timestamp[%d] = 0x%02x",i,timestamp[i]);
+	// }
+
+	// // x_sametime
+
+	// static uint8_t flag = 0;
+
+	// GPIO_SetBits(GPIOC, vGPIO_Pin_10);		// EN
+	// GPIO_SetBits(GPIOC, GPIO_Pin_11); // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+
+	// GPIO_SetBits(GPIOC, GPIO_Pin_12);	// EN
+	// GPIO_SetBits(GPIOD, GPIO_Pin_0); // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+	// if (flag == 0)
+	// {
+	// 	flag = 1;
+	// 	TIM_Cmd(TIM2, ENABLE);
 	// }
 }
