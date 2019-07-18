@@ -6,6 +6,7 @@
 Machine machine = {0, 0, 0};
 Moto motoDef = {Open_xMoto, Close_xMoto, Read_xMoto, 0, 0};
 mError errorDef = {0, 0};
+extern uint8_t moto_num_carry[32];
 
 mPin Pin_Array[PINMAX] = {
 		//borrow motor array number:0-31
@@ -247,6 +248,11 @@ uint8_t Set_Moto()
 	return 0;
 }
 
+/**
+ * open motor  
+ * @param argc 
+ * @param argv 
+ */
 uint8_t MicroStep_Motro(uint32_t Step)
 {
 	for (uint32_t i = 0; i <= Step; i++)
@@ -262,5 +268,22 @@ uint8_t MicroStep_Motro(uint32_t Step)
 		}
 	}
 	return 1;
+}
+
+/**
+ * open motor  
+ * @param argc 
+ * @param argv 
+ */
+uint8_t check_num(void) {
+	uint8_t i = 0, tmp = 0;
+	for(i=0;i<=32;i++) {
+		if(moto_num_carry[i] > 0) {
+			tmp = moto_num_carry[i];
+			moto_num_carry[i] = 0;
+			return tmp;
+			break;
+		}
+	}
 }
 

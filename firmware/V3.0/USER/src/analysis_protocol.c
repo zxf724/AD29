@@ -125,14 +125,14 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf,uint8_t length) {
 						// Uart_Send_Data(SCREEN, report_data,sizeof(dat_tmp));
 						break;
 					case CMD_GUN:
-            			static uint8_t stop_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
+            		uint8_t stop_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
 						for(uint8_t i=0;i<=3;i++) {
 							delay_ms(20); 
 							Uart_Send_Data(GUN,stop_screen,sizeof(stop_screen)-1);
 						}
 						break;
 					case CMD_SCREEN_CLOSE:		//using
-						static uint8_t start_screen[6] = {0x04,0xE5,0x04,0x00,0xFF,0x13};
+						 uint8_t start_screen[6] = {0x04,0xE5,0x04,0x00,0xFF,0x13};
 						for(uint8_t i=0;i<=3;i++) {
 							delay_ms(20);
 							Uart_Send_Data(GUN,start_screen,sizeof(start_screen)-1);

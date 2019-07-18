@@ -16,6 +16,7 @@ extern mError errorDef;
 	
 uint8_t g_start_cmd[7] = {0};
 uint8_t g_bar_code[50] = {'\0'};
+uint8_t moto_num_carry[32] = {0};
 
 void Get_Time(uint8_t data[]) {
 		uint32_t realtime = (data[2]<<24) | (data[3]<<16) | (data[4]<<8) | data[5];
@@ -32,7 +33,12 @@ void Get_Time(uint8_t data[]) {
 
 void Get_Mote_Data(uint8_t* data)
 {
-	motoDef.num = *data;
+	memset(moto_num_carry, 0, sizeof(moto_num_carry));
+	//motoDef.num = *data;
+	static uint8_t i = 0;
+	if(i == 32) i = 0;
+	moto_num_carry[i] = *data;
+	i++;
 	// DBG_LOG("motoDef.num is %d",motoDef.num);
 }
 
@@ -94,7 +100,7 @@ void Report_State(uint8_t cmd,uint8_t* data,uint8_t len)
 	for(uint8_t i=0;i<=3;i++) {
 		report_data[i+2] = timestamp >> (i*8);
 	}
-  report_data[0] = FHEADER;	
+  report_data[0] = FHEADER;
 	report_data[1] = cmd;
 	report_data[6] = len;
 	for(i = 0;i<len;i++)

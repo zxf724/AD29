@@ -26,7 +26,8 @@ void Start_Schedule() {
 				machine.state = state_report;
 				machine.gun_state = state_error;
 			}
-			if(Set_Moto() < 33 && Set_Moto() > 0) {		//出货电机
+			if(check_num() < 33 && check_num() > 0) {		//出货电机		// change to check the num
+			  motoDef.num = check_num();
 				machine.state = state_report;
 				machine.moto_state = state_report;
 			} else if(Set_Moto() >= 33)  {	//回收门锁电机
@@ -161,7 +162,8 @@ void Start_Borrow()
 			}
 			break;
 		case state_report:
-		  	// Report_State(CMD_RECARGO,&state,1);  //出货信息上报
+				static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
+		  	Report_State(CMD_RECARGO,report_data,sizeof(report_data));  //出货信息上报
 		  	if(errorDef.android_state) { //收到ANDROID消息
 				errorDef.android_state = 0;
 				motoDef.state = state_stop;
@@ -199,7 +201,7 @@ void Start_Repay()
 				machine.state = state_stop;
 			break;
 		case state_door_open:
-			delay_ms(3000);
+			delay_ms(1000);
 			motoDef.close_moto(motoDef.num);
 			// DBG_LOG("hello,world!");
 			motoDef.state = state_report;
