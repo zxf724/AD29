@@ -192,19 +192,19 @@ void test_fun()
 	// motoDef.open_moto(1);
 
 	// // MicroStep Motro
-	// static uint8_t flag = 0;
+	static uint8_t flag = 0;
 
-	// GPIO_SetBits(GPIOC,GPIO_Pin_10);  // EN
-	// GPIO_SetBits(GPIOC,GPIO_Pin_11);	 // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+	GPIO_SetBits(GPIOC,GPIO_Pin_10);  // EN
+	GPIO_SetBits(GPIOC,GPIO_Pin_11);	 // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
 
-	// GPIO_SetBits(GPIOC,GPIO_Pin_12);  // EN
-	// GPIO_SetBits(GPIOD,GPIO_Pin_0);	 // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-	// if(flag == 0) {
-	// 	flag = 1;
-	// 	// TIM_Cmd(TIM2, ENABLE);
-	// 	MicroStep_Motro(200,1050);
-	// 	// MotorSetpperMove(60000);
-	// }
+	GPIO_SetBits(GPIOC,GPIO_Pin_12);  // EN
+	GPIO_SetBits(GPIOD,GPIO_Pin_0);	 // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+	if(flag == 0) {
+		flag = 1;
+		// TIM_Cmd(TIM2, ENABLE);
+		// MicroStep_Motro(200,1050);
+		MotorSetpperMove(40000);			// 40000
+	}
 
 	// // test tour switch
 	// if(GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_5) == 0) {

@@ -162,8 +162,8 @@ enum {
 // ??????????????
 #define MOTOR_X_SPEED_SLOWDOWN_COUNT     700
 
-#define MOTOR_X_START_PLUS		190
-#define MOTOR_X_FAST_PLUS			162
+#define MOTOR_X_START_PLUS		300
+#define MOTOR_X_FAST_PLUS			180
 
 /*motor Structure
  * open_moto£º open motor function
