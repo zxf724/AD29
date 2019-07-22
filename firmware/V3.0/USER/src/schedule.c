@@ -13,7 +13,7 @@ extern uint8_t g_start_cmd[7];
 extern Moto motoDef;
 extern Machine machine;
 extern mError errorDef;
-uint8_t flag_finish = 0;
+uint8_t flag_finish = 1;
 
 void Start_Schedule() {
   uint8_t state = 0;
