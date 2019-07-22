@@ -98,9 +98,11 @@ void sound_control(void) {
 }
 
 void wait_fun(void) {
-  for (uint8_t i = 0; i <= 32; i++) {
+  for (uint8_t i = 0; i <= 31; i++) {
     if ((g_array_ML[i] > 0) && (flag_finish == 1)) {
       motoDef.num = g_array_ML[i];
+      // DBG_LOG("g_array_ML[%d] = %d, motoDef.num = %d", i, g_array_ML[i],
+      // motoDef.num);
       g_array_ML[i] = 0;
       flag_finish = 0;
     }
@@ -108,125 +110,126 @@ void wait_fun(void) {
 }
 
 void test_fun() {
-  // // test borrow motor
-  // motoDef.open_moto(2);
-  // if(motoDef.read_moto(CHECK_TRACK)) {
-  // 	DBG_LOG("signal feedback55");
-  // 	motoDef.close_moto(2);
-  // }
+#if TEST
+  // test borrow motor
+  motoDef.open_moto(2);
+  if (motoDef.read_moto(CHECK_TRACK)) {
+    DBG_LOG("signal feedback55");
+    motoDef.close_moto(2);
+  }
 
   // // test push motor
   // delay_ms(2000);
-  // // motoDef.open_moto();
-  // delay_ms(2000);
+  // motoDef.open_moto();
+  delay_ms(2000);
 
-  // // test infrared
-  // if (!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
-  // 	// DBG_LOG("infrared!");
-  // }
-  // // test push motor
-  // GPIO_ResetBits(GPIOC,GPIO_Pin_11);
-  // GPIO_SetBits(GPIOC,GPIO_Pin_10);
-  // PUSH_MOTOR(RIGHT);  // out
-  // PUSH_MOTOR(LEFT);		//in
+  // test infrared
+  if (!(motoDef.read_moto(INFRARED_SENSOR_TEST))) {
+    // DBG_LOG("infrared!");
+  }
+  // test push motor
+  GPIO_ResetBits(GPIOC, GPIO_Pin_11);
+  GPIO_SetBits(GPIOC, GPIO_Pin_10);
+  PUSH_MOTOR(RIGHT);  // out
+  PUSH_MOTOR(LEFT);   // in
 
-  // // test electric lock
-  // 	IWDG_Feed();
-  // 	OPEN_ELECTRIC_LOCK;
-  // 	delay_ms_whx(5000);
-  // 	IWDG_Feed();
-  // 	CLOSE_ELECTRIC_LOCK;
-  // 	delay_ms_whx(5000);
-  // // crc16 test!
-  // uint16_t crc_test;
-  // uint8_t crc[10] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0A};
-  // crc_test = CRC_16(0xffff,crc+2,5);
-  // // DBG_LOG("crc_test = 0x%04x",crc_test);
+  // test electric lock
+  IWDG_Feed();
+  OPEN_ELECTRIC_LOCK;
+  delay_ms_whx(5000);
+  IWDG_Feed();
+  CLOSE_ELECTRIC_LOCK;
+  delay_ms_whx(5000);
+  // crc16 test!
+  uint16_t crc_test;
+  uint8_t crc[10] = {0x01, 0x02, 0x03, 0x04, 0x05,
+                     0x06, 0x07, 0x08, 0x09, 0x0A};
+  crc_test = CRC_16(0xffff, crc + 2, 5);
+  // DBG_LOG("crc_test = 0x%04x",crc_test);
 
-  // // led bug
-  // motoDef.open_moto(18);
-  // if(motoDef.read_moto(CHECK_TRACK)) {
-  // 	// DBG_LOG("test!");
-  // 	// DBG_LOG("hello,world!");
-  // }
+  // led bug
+  motoDef.open_moto(18);
+  if (motoDef.read_moto(CHECK_TRACK)) {
+    // DBG_LOG("test!");
+    // DBG_LOG("hello,world!");
+  }
 
-  // // test unix time seting
-  // uint8_t CmdRecBuf[18] =
-  // {0x7E,0x00,0x5C,0xE4,0xA6,0x42,0X07,0x53,0x43,0x41,\
-	// 						 0x4E,0x20,0x4F,0x4E,0x00,0x63,0xBF,0x7E};
-  // Get_Time(CmdRecBuf);
-  // delay_ms_whx(1000);
-  // // DBG_LOG("calendar.sec is %d",calendar.hour);
+  // test unix time seting
+  uint8_t CmdRecBuf[18] = {0x7E, 0x00, 0x5C, 0xE4, 0xA6, 0x42,
+                           0X07, 0x53, 0x43, 0x41, 0x4E, 0x20,
+                           0x4F, 0x4E, 0x00, 0x63, 0xBF, 0x7E};
+  Get_Time(CmdRecBuf);
+  delay_ms_whx(1000);
+  // DBG_LOG("calendar.sec is %d",calendar.hour);
 
-  // uint16_t data = 0xe267;
-  // uint8_t data15 = 0, data16 = 0;
-  // data15 = data;
-  // data16 = data>>8;
+  uint16_t data = 0xe267;
+  uint8_t data15 = 0, data16 = 0;
+  data15 = data;
+  data16 = data >> 8;
 
   // // test input function
-  // delay_ms_whx(1000);
-  // static uint8_t report_data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
-  // Report_State(0x80,(char*)report_data,sizeof(report_data));
+  delay_ms_whx(1000);
+  static uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
+                                   0x05, 0x06, 0x07, 0x08};
+  Report_State(0x80, (char *)report_data, sizeof(report_data));
 
   // // test new push motor
-  // PUSH_MOTOR(LEFT);
-  // PUSH_MOTOR_RIGHT;
+  PUSH_MOTOR(LEFT);
+  PUSH_MOTOR_RIGHT;
 
   // // screen
-  // static uint8_t start_screen[6] = {0x04,0xE4,0x04,0x00,0xFF,0x14};
-  // delay_ms(100);
-  // Uart_Send_Data(GUN,start_screen,(sizeof(start_screen)-1));
+  static uint8_t start_screen[6] = {0x04, 0xE4, 0x04, 0x00, 0xFF, 0x14};
+  delay_ms(100);
+  Uart_Send_Data(GUN, start_screen, (sizeof(start_screen) - 1));
 
-  // success!!
-  // static uint8_t start_screen[6] = {0x04, 0xE4, 0x04, 0x00, 0xFF, 0x14};
-  // delay_ms_whx(1000);
-  // Uart_Send_Data(GUN, start_screen, sizeof(start_screen) - 1);
-
-  //
-  // motoDef.open_moto(1);
+  success !!static uint8_t start_screen[6] = {0x04, 0xE4, 0x04,
+                                              0x00, 0xFF, 0x14};
+  delay_ms_whx(1000);
+  Uart_Send_Data(GUN, start_screen, sizeof(start_screen) - 1);
 
   // MicroStep Motro
-  // static uint8_t flag = 0;
+  static uint8_t flag = 0;
 
-  // GPIO_SetBits(GPIOC,GPIO_Pin_10);  // EN
-  // GPIO_SetBits(GPIOC,GPIO_Pin_11);	 // DIR   GPIO_SetBits() -> out
-  // GPIO_ResetBits() -> in
+  GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN
+  GPIO_SetBits(GPIOC, GPIO_Pin_11);  // DIR   GPIO_SetBits() -> out
+  GPIO_ResetBits()->in
 
-  // GPIO_SetBits(GPIOC,GPIO_Pin_12);  // EN
-  // GPIO_SetBits(GPIOD,GPIO_Pin_0);	 // DIR   GPIO_SetBits() -> out
-  // GPIO_ResetBits() -> in if(flag == 0) { 	flag = 1;
-  // MicroStep_Motro(740);
-  // }
+      GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN
+  GPIO_SetBits(GPIOD, GPIO_Pin_0);       // DIR   GPIO_SetBits() -> out
+  GPIO_ResetBits()->in if (flag == 0) {
+    flag = 1;
+    MicroStep_Motro(740);
+  }
 
   // test tour switch
-  // if(GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_5) == 0) {
-  // 	DBG_LOG("hello,world!");
-  // }
+  if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_5) == 0) {
+    DBG_LOG("hello,world!");
+  }
 
   // sensor
-  // if(GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_4) == 1) {
-  // 	DBG_LOG("hello,");
-  // } else if (GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_4) == 0)
-  // {
-  // 	DBG_LOG("world!");
-  // }
+  if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_4) == 1) {
+    DBG_LOG("hello,");
+  } else if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_4) == 0) {
+    DBG_LOG("world!");
+  }
 
   // test road
-  // static uint8_t flag = 0;
-  // if(flag == 0) {
-  // 	flag = 1;
-  // 	motoDef.num = 22;
-  // }
+  static uint8_t flag = 0;
+  if (flag == 0) {
+    flag = 1;
+    motoDef.num = 22;
+  }
 
-  // motoDef.open_moto(1);
+  motoDef.open_moto(1);
 
   // get timestamp
-  // uint32_t time = RTC_GetCounter();
-  // uint8_t timestamp[4] = {0};
-  // DBG_LOG("time = 0x%08x",time);
-  // delay_ms_whx(1000);
-  // for(uint8_t i=0;i<=3;i++) {
-  // 	timestamp[i] = time >> (i*8);
-  // 	DBG_LOG("timestamp[%d] = 0x%02x",i,timestamp[i]);
-  // }
+  uint32_t time = RTC_GetCounter();
+  uint8_t timestamp[4] = {0};
+  DBG_LOG("time = 0x%08x", time);
+  delay_ms_whx(1000);
+  for (uint8_t i = 0; i <= 3; i++) {
+    timestamp[i] = time >> (i * 8);
+    DBG_LOG("timestamp[%d] = 0x%02x", i, timestamp[i]);
+  }
+#endif
 }

@@ -30,8 +30,8 @@
 ..\obj\gun.o: ..\STM32F10x_FWLib\inc\stm32f10x_usart.h
 ..\obj\gun.o: ..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h
 ..\obj\gun.o: ..\STM32F10x_FWLib\inc\misc.h
-..\obj\gun.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\gun.o: .\inc\ananlysis_data.h
-..\obj\gun.o: ..\HARDWARE\MOTO\moto.h
 ..\obj\gun.o: .\inc\analysis_protocol.h
+..\obj\gun.o: .\inc\ananlysis_data.h
 ..\obj\gun.o: ..\SYSTEM\delay\delay.h
+..\obj\gun.o: ..\HARDWARE\MOTO\moto.h
+..\obj\gun.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
