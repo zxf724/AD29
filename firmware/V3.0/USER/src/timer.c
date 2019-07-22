@@ -53,7 +53,6 @@ void TIM3_IRQHandler(void)  // TIM3中断
     TIM_ClearITPendingBit(TIM3, TIM_IT_Update);  //清除TIMx更新中断标志
     timer3_tick++;
     timer_task();
-    // DBG_LOG("hello,world!");
     // heart beat data
     static uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
                                      0x05, 0x06, 0x07, 0x08};
@@ -162,7 +161,6 @@ void TIM2_IRQHandler(void)  // TIM2中断
     TIM_ClearITPendingBit(TIM2, TIM_IT_Update);  //清除TIMx更新中断标志
     timer2_tick++;
     timer_task();
-    // DBG_LOG("hello,world!");
   }
 }
 

@@ -69,7 +69,6 @@ void Start_Schedule() {
         state = 1;
         Report_State(CMD_RELOCK, &state, 1);
         machine.state = state_repay;  //进入还物流程.
-        // DBG_LOG("machine.state = state_repay");
         machine.lock_state = state_stop;
       }
 
@@ -107,7 +106,6 @@ void Start_Borrow() {
       }
       break;
     case state_run_first:  // input
-      // DBG_LOG("hello,world!");
       motoDef.open_moto(motoDef.num);
       if ((motoDef.num >= 17) && (motoDef.num <= 24)) {
         check_num = CHECK_TRACK_1;
@@ -200,14 +198,12 @@ void Start_Repay() {
       if (motoDef.num) {
         motoDef.open_moto(motoDef.num);
         motoDef.state = state_door_open;
-        // DBG_LOG("hello,world!");
       } else
         machine.state = state_stop;
       break;
     case state_door_open:
-      delay_ms(3000);
+      delay_ms(1000);
       motoDef.close_moto(motoDef.num);
-      // DBG_LOG("hello,world!");
       motoDef.state = state_report;
       break;
     case state_report:

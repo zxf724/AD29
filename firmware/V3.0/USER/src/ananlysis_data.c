@@ -36,16 +36,11 @@ void Get_Time(uint8_t data[]) {
 void Get_Mote_Data(uint8_t* data) {
   static uint8_t i = 0;
   g_array_ML[i] = *data;
-  // DBG_LOG("g_array_ML[%d] = %d", i, g_array_ML[i]);
   i++;
   if (i == 32) i = 0;
-  // DBG_LOG("motoDef.num is %d",motoDef.num);
 }
 
-void Get_Lock_Data(uint8_t* data) {
-  motoDef.num = *data;
-  // DBG_LOG("rec lock %d",motoDef.num);
-}
+void Get_Lock_Data(uint8_t* data) { motoDef.num = *data; }
 
 void Get_Gun_Data(uint8_t* data) {
   uint8_t len = 0;
@@ -53,9 +48,7 @@ void Get_Gun_Data(uint8_t* data) {
   len = *(data + 4);
   for (i = 1; i < len + 1; i++) {
     g_start_cmd[i - 1] = *(data + 4 + i);
-    // DBG_LOG("g_start_cmd[%d] = %d",i-1,g_start_cmd[i-1]);
   }
-  // printf("rec Gun \r\n");
 }
 
 void Get_Cargo_Data(uint8_t* data) {
@@ -101,8 +94,6 @@ void Report_State(uint8_t cmd, uint8_t* data, uint8_t len) {
   report_data[15] = crc_test;
   report_data[16] = crc_test >> 8;
   report_data[17] = FEND;
-  for (i = 0; i <= 17; i++) {
-    // DBG_LOG("report_data[%d] = 0x%02x",i,report_data[i]);
-  }
+
   Uart_Send_Data(SCREEN, (uint8_t*)report_data, 17);
 }

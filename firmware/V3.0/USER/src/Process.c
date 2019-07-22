@@ -11,20 +11,19 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "Process.h"
-#include "MQTTClient.h"
-#include "usart.h"
-#include "mqtt_conn.h"
 #include <stdlib.h>
+#include "MQTTClient.h"
+#include "mqtt_conn.h"
+#include "usart.h"
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
 
-
 /* Private macros ------------------------------------------------------------*/
 
 /* Private variables ---------------------------------------------------------*/
-char subscribeTopic[36] = { 0 };
-char publishTopic[36] = { 0 };
+char subscribeTopic[36] = {0};
+char publishTopic[36] = {0};
 extern char Connect_deviceID[32];
 /* Private function prototypes -----------------------------------------------*/
 static uint8_t ArriveDataProc(char* cmd, cJSON* desired);
@@ -39,15 +38,13 @@ static void process_Console(int argc, char* argv[]);
  * Others: Add a command entry for uart control.
  */
 void Process_Init(void) {
-	CMD_ENT_DEF(process, process_Console);
+  CMD_ENT_DEF(process, process_Console);
   Cmd_AddEntrance(CMD_ENT(process));
   strcpy(publishTopic, "/AD-26");
   strcpy(subscribeTopic, "/AD-26/");
   strcat(subscribeTopic, "no imei");
 
   Subscribe_MQTT(subscribeTopic, QOS0, ArrivePath);
-
-  // DBG_LOG("Process Start.");
 }
 /**
  * Function: CMD_Updata
@@ -71,7 +68,7 @@ BOOL CMD_Updata(char* cmd, cJSON* desired) {
     /* Bulid the message frame. */
     uitoa(msgid++, msgidBuf);
     cJSON_AddStringToObject(root, "messageId", msgidBuf);
-   // cJSON_AddNumberToObject(root, "timestamp", RTC_ReadCount());
+    // cJSON_AddNumberToObject(root, "timestamp", RTC_ReadCount());
     cJSON_AddStringToObject(root, "deviceId", Connect_deviceID);
     cJSON_AddStringToObject(root, "cmd", cmd);
     cJSON_AddItemToObjectCS(root, "desired", desired);
@@ -124,7 +121,7 @@ void GeneralResponse(char* ack_cmd, char* ret, char* msgid) {
  */
 void ArrivePath(uint8_t* dat, uint16_t len) {
   uint8_t ret = 0;
-  static char msgIDold[32] = { 0 }, *retstr;
+  static char msgIDold[32] = {0}, *retstr;
 
   cJSON* root = NULL;
   cJSON* messageId = NULL;
@@ -141,10 +138,10 @@ void ArrivePath(uint8_t* dat, uint16_t len) {
     desired = cJSON_GetObjectItem(root, "desired");
     cmd = cJSON_GetObjectItem(root, "cmd");
 
-    if (messageId != NULL && messageId->type == cJSON_String
-        && strcmp(msgIDold, messageId->valuestring) != 0) {
-      if (deviceId != NULL && deviceId->type == cJSON_String
-          && (strcmp(Connect_deviceID, deviceId->valuestring) == 0)) {
+    if (messageId != NULL && messageId->type == cJSON_String &&
+        strcmp(msgIDold, messageId->valuestring) != 0) {
+      if (deviceId != NULL && deviceId->type == cJSON_String &&
+          (strcmp(Connect_deviceID, deviceId->valuestring) == 0)) {
         ret = ArriveDataProc(cmd->valuestring, desired);
       } else {
         ret = 2;
@@ -162,7 +159,7 @@ void ArrivePath(uint8_t* dat, uint16_t len) {
     } else if (ret == 3) {
       retstr = "Invaild messageid";
     }
-    GeneralResponse(cmd->valuestring, retstr,  messageId->valuestring);
+    GeneralResponse(cmd->valuestring, retstr, messageId->valuestring);
     cJSON_Delete(root);
   }
 }
@@ -177,15 +174,15 @@ void ArrivePath(uint8_t* dat, uint16_t len) {
  */
 static uint8_t ArriveDataProc(char* cmd, cJSON* desired) {
   uint8_t ret = 0;
-  cJSON* mac = NULL, *name = NULL, *time = NULL;
+  cJSON *mac = NULL, *name = NULL, *time = NULL;
 
   /* Login response */
   if (STR_EQUAL(cmd, "CMD-02")) {
     time = cJSON_GetObjectItem(desired, "chargeTime");
     name = cJSON_GetObjectItem(desired, "blename");
     mac = cJSON_GetObjectItem(desired, "macAddress");
-    if (time != NULL && time->type == cJSON_Number && (name != NULL || mac != NULL)) {
-      
+    if (time != NULL && time->type == cJSON_Number &&
+        (name != NULL || mac != NULL)) {
       ret = 1;
     }
   }
