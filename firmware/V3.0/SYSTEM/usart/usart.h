@@ -3,7 +3,7 @@
 #include "stdio.h"
 #include "sys.h"
 
-#define DBGLOG 0
+#define DBGLOG 1
 
 #if DBGLOG
 #define DBG_LOG(format, ...) printf("> " format "\r\n", ##__VA_ARGS__);

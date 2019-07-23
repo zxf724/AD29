@@ -38,6 +38,7 @@ int main(void) {
   // hello,world!
   sound_control();
   CLOSE_ELECTRIC_LOCK;
+  init_moto();
   delay_ms_whx(1000);
 
   // DBG_LOG("system start");
@@ -232,4 +233,14 @@ void test_fun() {
     DBG_LOG("timestamp[%d] = 0x%02x", i, timestamp[i]);
   }
 #endif
+
+  // GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
+  // GPIO_SetBits(
+  //     GPIOC,
+  //     GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+  // GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
+  // GPIO_SetBits(
+  //     GPIOD,
+  //     GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+  // MicroStep_Motro(1);
 }

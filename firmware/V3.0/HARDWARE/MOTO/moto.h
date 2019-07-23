@@ -311,4 +311,5 @@ uint8_t Set_Moto(void);
 uint8_t Set_Lock(void);
 uint8_t MicroStep_Motro(uint32_t Step);
 uint8_t check_num(void);
+void init_moto(void);
 #endif
