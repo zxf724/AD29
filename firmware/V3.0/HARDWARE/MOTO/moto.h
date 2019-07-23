@@ -310,4 +310,5 @@ uint8_t Read_xMoto(uint8_t num);
 uint8_t Set_Moto(void);
 uint8_t Set_Lock(void);
 uint8_t MicroStep_Motro(uint32_t Step);
+uint8_t check_num(void);
 #endif

@@ -7,6 +7,7 @@
 Machine machine = {0, 0, 0};
 Moto motoDef = {Open_xMoto, Close_xMoto, Read_xMoto, 0, 0};
 mError errorDef = {0, 0};
+extern uint8_t moto_num_carry[32];
 
 mPin Pin_Array[PINMAX] = {
     // borrow motor array number:0-31
