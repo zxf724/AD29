@@ -32,4 +32,9 @@
 ..\obj\moto.o: ..\STM32F10x_FWLib\inc\misc.h
 ..\obj\moto.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\moto.o: ..\SYSTEM\delay\delay.h
+..\obj\moto.o: .\inc\prjlib.h
+..\obj\moto.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\moto.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\moto.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
+..\obj\moto.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\moto.o: ..\SYSTEM\usart\usart.h

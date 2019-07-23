@@ -96,7 +96,6 @@ void Start_Borrow() {
   static uint8_t flag_steper = 0;
   IWDG_Feed();
   uint8_t check_num = 0;
-  static uint8_t flag_signal_transfer = 0;
   switch (motoDef.state) {
     case state_stop:
       if (motoDef.num) {
@@ -117,7 +116,6 @@ void Start_Borrow() {
         check_num = CHECK_TRACK_4;
       }
       if ((motoDef.read_moto(check_num) == 0)) {  // CHECK_TRACK	change
-        flag_signal_transfer = 1;
         motoDef.close_moto(motoDef.num);
         motoDef.state = state_run_second;
       }
@@ -158,7 +156,6 @@ void Start_Borrow() {
           flag_steper = 1;
           MicroStep_Motro(720);
         }
-        flag_signal_transfer = 0;
         // clear num
         motoDef.num = 0;
         flag_steper = 0;

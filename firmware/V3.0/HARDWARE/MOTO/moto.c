@@ -1,6 +1,7 @@
 #include "moto.h"
 #include <stdio.h>
 #include "delay.h"
+#include "prjlib.h"
 #include "usart.h"
 
 Machine machine = {0, 0, 0};
