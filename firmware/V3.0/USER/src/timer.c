@@ -114,11 +114,11 @@ void TIM4_IRQHandler(void)  // TIM4中断
     TIM_ClearITPendingBit(TIM4, TIM_IT_Update);  //清除TIMx更新中断标志
     timer4_tick++;
     timer_task();
-    if (TOUR_SWITCH == 0) {
-      OPEN_ELECTRIC_LOCK;
-    } else {
-      CLOSE_ELECTRIC_LOCK;
-    }
+    // if (TOUR_SWITCH == 0) {
+    //   OPEN_ELECTRIC_LOCK;
+    // } else {
+    //   CLOSE_ELECTRIC_LOCK;
+    // }
   }
 }
 

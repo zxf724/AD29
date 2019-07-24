@@ -278,8 +278,9 @@ void init_moto(void) {
                                  // GPIO_ResetBits() -> in
       while (TOUR_SWITCH != 1) {
         uint8_t i = 0;
-        MicroStep_Motro(1);
+        i++;
         if (i >= MAX_IN_PLUSE_NUM) break;
+        MicroStep_Motro(1);
       }
       //化方  in
       GPIO_ResetBits(GPIOD, GPIO_Pin_0);
@@ -298,8 +299,9 @@ void init_moto(void) {
           GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
       while (TOUR_SWITCH != 0) {
         uint8_t i = 0;
-        MicroStep_Motro(1);
+        i++;
         if (i >= MAX_IN_PLUSE_NUM) break;
+        MicroStep_Motro(1);
       }
       //化方
       GPIO_ResetBits(GPIOD, GPIO_Pin_0);
