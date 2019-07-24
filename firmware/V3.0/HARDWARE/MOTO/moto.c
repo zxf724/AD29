@@ -279,12 +279,12 @@ void init_moto(void) {
       while (TOUR_SWITCH != 1) {
         uint8_t i = 0;
         MicroStep_Motro(1);
-        if (i >= 10000) break;
+        if (i >= MAX_IN_PLUSE_NUM) break;
       }
       //步数  in
       GPIO_ResetBits(GPIOD, GPIO_Pin_0);
       GPIO_ResetBits(GPIOC, GPIO_Pin_11);
-      MicroStep_Motro(2000);
+      MicroStep_Motro(IN_PLUSE_NUM);
       break;
     case open:
       //常开，在外面那一段
@@ -299,12 +299,12 @@ void init_moto(void) {
       while (TOUR_SWITCH != 0) {
         uint8_t i = 0;
         MicroStep_Motro(1);
-        if (i >= 10000) break;
+        if (i >= MAX_IN_PLUSE_NUM) break;
       }
       //步数
       GPIO_ResetBits(GPIOD, GPIO_Pin_0);
       GPIO_ResetBits(GPIOC, GPIO_Pin_11);
-      MicroStep_Motro(2000);
+      MicroStep_Motro(IN_PLUSE_NUM);
 
     default:
       break;

@@ -14,6 +14,10 @@
 #define CHECK_TRACK_3 80
 #define CHECK_TRACK_4 81
 
+// define moto num
+#define IN_PLUSE_NUM 2000
+#define MAX_IN_PLUSE_NUM 40000
+
 #define TEST 0
 
 // infrared
