@@ -232,15 +232,21 @@ void test_fun() {
     timestamp[i] = time >> (i * 8);
     DBG_LOG("timestamp[%d] = 0x%02x", i, timestamp[i]);
   }
-#endif
 
-  // GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-  // GPIO_SetBits(
-  //     GPIOC,
-  //     GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-  // GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-  // GPIO_SetBits(
-  //     GPIOD,
-  //     GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-  // MicroStep_Motro(1);
+  GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
+  GPIO_SetBits(
+      GPIOC,
+      GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+  GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
+  GPIO_SetBits(
+      GPIOD,
+      GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+  MicroStep_Motro(1);
+
+  if (TOUR_SWITCH == 0) {
+    DBG_LOG("hello,world!");
+  } else if (TOUR_SWITCH == 1) {
+    DBG_LOG("test!");
+  }
+#endif
 }

@@ -256,36 +256,57 @@ uint8_t MicroStep_Motro(uint32_t Step) {
 }
 
 void init_moto(void) {
+  enum { open, close } switch_motor;
   // 如果检测到行程开关常闭，往外走，直到检测到行程开关断开。
   if (TOUR_SWITCH == 0) {
-    GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-    GPIO_SetBits(
-        GPIOC,
-        GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-    GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-    GPIO_SetBits(
-        GPIOD,
-        GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-    while (TOUR_SWITCH != 1) {
-      MicroStep_Motro(1);
-    }
-    //步数
-    MicroStep_Motro(2000);
+    switch_motor = close;
+  }  // 如果检测到行程开关常开，往内走，直到检测到行程开关闭合。
+  else if (TOUR_SWITCH == 1) {
+    switch_motor = open;
   }
-  // 如果检测到行程开关常开，往内走，直到检测到行程开关闭合。
-  if (TOUR_SWITCH == 1) {
-    GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-    GPIO_ResetBits(
-        GPIOC,
-        GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-    GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-    GPIO_ResetBits(
-        GPIOD,
-        GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-    while (TOUR_SWITCH != 0) {
-      MicroStep_Motro(1);
-    }
-    //步数
-    MicroStep_Motro(2000);
+
+  switch (switch_motor) {
+    case close:
+      //常闭，在里面那一段
+      GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
+      GPIO_SetBits(GPIOC,
+                   GPIO_Pin_11);         // DIR1   GPIO_SetBits() -> out
+                                         // GPIO_ResetBits() -> in
+      GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
+      GPIO_SetBits(GPIOD,
+                   GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out
+                                 // GPIO_ResetBits() -> in
+      while (TOUR_SWITCH != 1) {
+        uint8_t i = 0;
+        MicroStep_Motro(1);
+        if (i >= 10000) break;
+      }
+      //步数  in
+      GPIO_ResetBits(GPIOD, GPIO_Pin_0);
+      GPIO_ResetBits(GPIOC, GPIO_Pin_11);
+      MicroStep_Motro(2000);
+      break;
+    case open:
+      //常开，在外面那一段
+      GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
+      GPIO_ResetBits(
+          GPIOC,
+          GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+      GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
+      GPIO_ResetBits(
+          GPIOD,
+          GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+      while (TOUR_SWITCH != 0) {
+        uint8_t i = 0;
+        MicroStep_Motro(1);
+        if (i >= 10000) break;
+      }
+      //步数
+      GPIO_ResetBits(GPIOD, GPIO_Pin_0);
+      GPIO_ResetBits(GPIOC, GPIO_Pin_11);
+      MicroStep_Motro(2000);
+
+    default:
+      break;
   }
 }
