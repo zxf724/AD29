@@ -15,8 +15,8 @@
 #define CHECK_TRACK_4 81
 
 // define moto num
-#define IN_PLUSE_NUM 2000
-#define MAX_IN_PLUSE_NUM 40000
+#define IN_PLUSE_NUM 50
+#define MAX_IN_PLUSE_NUM 100
 
 #define TEST 0
 
@@ -315,5 +315,5 @@ uint8_t Set_Moto(void);
 uint8_t Set_Lock(void);
 uint8_t MicroStep_Motro(uint32_t Step);
 uint8_t check_num(void);
-void init_moto(void);
+uint8_t init_moto(void);
 #endif

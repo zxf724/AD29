@@ -244,10 +244,10 @@ uint8_t Set_Moto() {
 uint8_t MicroStep_Motro(uint32_t Step) {
   for (uint32_t i = 0; i <= Step; i++) {
     for (uint32_t j = 0; j <= 100; j++) {
-      delay(800);
+      delay(1000);
       GPIO_SetBits(GPIOB, GPIO_Pin_3);
       GPIO_SetBits(GPIOB, GPIO_Pin_4);
-      delay(800);
+      delay(1000);
       GPIO_ResetBits(GPIOB, GPIO_Pin_3);
       GPIO_ResetBits(GPIOB, GPIO_Pin_4);
     }
@@ -255,13 +255,15 @@ uint8_t MicroStep_Motro(uint32_t Step) {
   return 1;
 }
 
-void init_moto(void) {
-  enum { open, close } switch_motor;
+uint8_t init_moto(void) {
+  static uint8_t j = 0;
+  static uint8_t i = 0;
+  enum { stop, open, close } switch_motor;
   // 如果检测到行程开关常闭，往外走，直到检测到行程开关断开。
   if (TOUR_SWITCH == 0) {
     switch_motor = close;
   }  // 如果检测到行程开关常开，往内走，直到检测到行程开关闭合。
-  else if (TOUR_SWITCH == 1) {
+  if (TOUR_SWITCH == 1) {
     switch_motor = open;
   }
 
@@ -277,15 +279,15 @@ void init_moto(void) {
                    GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out
                                  // GPIO_ResetBits() -> in
       while (TOUR_SWITCH != 1) {
-        uint8_t i = 0;
+        MicroStep_Motro(1);
         i++;
         if (i >= MAX_IN_PLUSE_NUM) break;
-        MicroStep_Motro(1);
       }
       //步数  in
       GPIO_ResetBits(GPIOD, GPIO_Pin_0);
       GPIO_ResetBits(GPIOC, GPIO_Pin_11);
       MicroStep_Motro(IN_PLUSE_NUM);
+      switch_motor = stop;
       break;
     case open:
       //常开，在外面那一段
@@ -298,17 +300,20 @@ void init_moto(void) {
           GPIOD,
           GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
       while (TOUR_SWITCH != 0) {
-        uint8_t i = 0;
-        i++;
-        if (i >= MAX_IN_PLUSE_NUM) break;
         MicroStep_Motro(1);
+        j++;
+        if (j >= MAX_IN_PLUSE_NUM) break;
       }
       //步数
       GPIO_ResetBits(GPIOD, GPIO_Pin_0);
       GPIO_ResetBits(GPIOC, GPIO_Pin_11);
       MicroStep_Motro(IN_PLUSE_NUM);
-
+      switch_motor = stop;
+      break;
+    case stop:
+      break;
     default:
       break;
   }
+  return 0;
 }

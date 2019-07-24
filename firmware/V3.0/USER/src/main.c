@@ -35,7 +35,6 @@ int main(void) {
   TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
   TIM4_Int_Init(500, 7199);  // 10Khz的计数频率，计数到5000为500ms
   // TIM2_Int_Init(10000, 7199); //10Khz的计数频率，计数到5000为500ms
-  // hello,world!
   sound_control();
   CLOSE_ELECTRIC_LOCK;
   init_moto();
