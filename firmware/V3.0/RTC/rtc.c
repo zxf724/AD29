@@ -237,7 +237,7 @@ u8 RTC_Get_Week(u16 year,u8 month,u8 day)
 {	
 	u16 temp2;
 	u8 yearH,yearL;
-	
+	 
 	yearH=year/100;	yearL=year%100; 
 	// 如果为21世纪,年份数加100  
 	if (yearH>19)yearL+=100;

@@ -3,6 +3,7 @@
 #include "delay.h"
 #include "prjlib.h"
 #include "usart.h"
+#include "wdg.h"
 
 Machine machine = {0, 0, 0};
 Moto motoDef = {Open_xMoto, Close_xMoto, Read_xMoto, 0, 0};
@@ -244,10 +245,10 @@ uint8_t Set_Moto() {
 uint8_t MicroStep_Motro(uint32_t Step) {
   for (uint32_t i = 0; i <= Step; i++) {
     for (uint32_t j = 0; j <= 100; j++) {
-      delay(1000);
+      delay(150);
       GPIO_SetBits(GPIOB, GPIO_Pin_3);
       GPIO_SetBits(GPIOB, GPIO_Pin_4);
-      delay(1000);
+      delay(150);
       GPIO_ResetBits(GPIOB, GPIO_Pin_3);
       GPIO_ResetBits(GPIOB, GPIO_Pin_4);
     }
@@ -316,4 +317,90 @@ uint8_t init_moto(void) {
       break;
   }
   return 0;
+}
+
+typedef enum {
+  motor_start,
+  motor_start_fast,
+  motor_fast,
+  motor_slowdown,
+  motor_slow,
+  motor_stop
+} MotorStatusEnum;
+
+void MotorSetpperMove(uint32_t xstep) {
+  uint32_t iX = 0, iX_slow = xstep;
+  uint16_t plusX = MOTOR_X_START_PLUS;
+  uint16_t ipX = 0;
+  uint8_t slow_count = 3;
+  MotorStatusEnum statusX = motor_start;
+
+  xstep *= 2;
+
+  if (xstep > MOTOR_X_SPEED_SLOWDOWN_COUNT) {
+    iX_slow = xstep - MOTOR_X_SPEED_SLOWDOWN_COUNT;
+  }
+
+  GPIO_SetBits(GPIOB, GPIO_Pin_3);
+  GPIO_SetBits(GPIOB, GPIO_Pin_4);
+
+  while (iX < xstep) {
+    delay(1);
+
+    // X轴输出脉冲
+    if (ipX++ >= plusX && iX < xstep) {
+      ipX = 0;
+      iX++;
+      if ((iX % 2) == 0) {
+        GPIO_ResetBits(GPIOB, GPIO_Pin_3);
+        GPIO_ResetBits(GPIOB, GPIO_Pin_4);
+      } else {
+        GPIO_SetBits(GPIOB, GPIO_Pin_3);
+        GPIO_SetBits(GPIOB, GPIO_Pin_4);
+      }
+
+      IWDG_Feed();
+
+      // X轴速度控制,确保脉冲完整
+      switch (statusX) {
+        case motor_start:
+          plusX = MOTOR_X_START_PLUS;
+          // 十分之一
+          if (iX >= 100) {
+            statusX = motor_start_fast;
+          }
+          break;
+        case motor_start_fast:
+          if ((iX >= 2000) && (iX <= 5000)) {
+            slow_count = 2;
+          } else if ((iX >= 5000) && (iX <= 70000)) {
+            slow_count = 57;
+          } else if ((iX > 7000)&&(iX >= 10000)) {
+            slow_count = 185;
+          }else if (iX > 10000) {
+            slow_count = 245;
+          } 
+          if (iX % slow_count == 0) {
+            plusX--;
+          }
+          if (plusX <= MOTOR_X_FAST_PLUS) {
+            plusX = MOTOR_X_FAST_PLUS;
+            statusX = motor_fast;
+          }
+          break;
+        case motor_fast:
+          break;
+        case motor_slowdown:
+          break;
+        case motor_slow:
+          break;
+        case motor_stop:
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  GPIO_ResetBits(GPIOB, GPIO_Pin_3);
+  GPIO_ResetBits(GPIOB, GPIO_Pin_4);
 }

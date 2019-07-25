@@ -38,3 +38,4 @@
 ..\obj\moto.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
 ..\obj\moto.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\moto.o: ..\SYSTEM\usart\usart.h
+..\obj\moto.o: ..\HARDWARE\WDG\wdg.h
