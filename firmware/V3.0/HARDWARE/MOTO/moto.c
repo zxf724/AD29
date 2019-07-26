@@ -328,11 +328,13 @@ typedef enum {
   motor_stop
 } MotorStatusEnum;
 
+/*speed up */
 void MotorSetpperMove(uint32_t xstep) {
   uint32_t iX = 0, iX_slow = xstep;
-  uint16_t plusX = MOTOR_X_START_PLUS;
+  uint32_t plusX = MOTOR_X_START_PLUS;
   uint16_t ipX = 0;
-  uint16_t slow_count = 3, cut_down = 0;
+  uint16_t half, third, quarter;
+  uint16_t cut_down = 2, slow_count = 2;
   MotorStatusEnum statusX = motor_start;
 
   xstep *= 2;
@@ -357,51 +359,49 @@ void MotorSetpperMove(uint32_t xstep) {
       } else {
         GPIO_SetBits(GPIOB, GPIO_Pin_3);
         GPIO_SetBits(GPIOB, GPIO_Pin_4);
+        switch (statusX) {
+          case motor_start:
+            plusX = MOTOR_X_START_PLUS;
+            // 100个脉冲
+            if (iX >= 100) {
+              statusX = motor_start_fast;
+            }
+            break;
+          case motor_start_fast:
+            if (plusX > (MOTOR_X_FAST_PLUS + 50)) {
+            }
+            if (iX % slow_count) {
+              plusX -= cut_down;
+            }
+            if (plusX <= MOTOR_X_FAST_PLUS) {
+              plusX = MOTOR_X_FAST_PLUS;
+              statusX = motor_fast;
+            }
+            break;
+          case motor_fast:
+            break;
+          case motor_slowdown:
+            plusX += 5;
+            if (plusX >= MOTOR_X_START_PLUS) {
+              plusX = MOTOR_X_START_PLUS;
+              statusX = motor_slow;
+            }
+            break;
+          case motor_slow:
+            break;
+          case motor_stop:
+            break;
+          default:
+            break;
+        }
       }
 
       IWDG_Feed();
 
       // X轴速度控制,确保脉冲完整
-      switch (statusX) {
-        case motor_start:
-          plusX = MOTOR_X_START_PLUS;
-          // 十分之一
-          if (iX >= 100) {
-            statusX = motor_start_fast;
-          }
-          break;
-        case motor_start_fast:
-          if ((iX > 100) && (iX <= 500)) {
-            slow_count = 5;
-            cut_down = 5;
-          } else if ((iX > 500) && (iX < 7000)) {
-            slow_count = 20;
-            cut_down = 1;
-          } else if ((iX > 7000) && (iX >= 10000)) {
-            slow_count = 350;
-            cut_down = 1;
-          } else if (iX > 10000) {
-            slow_count = 580;
-            cut_down = 1;
-          }
-          if (iX % slow_count == 0) {
-            plusX -= cut_down;
-          }
-          if (plusX <= MOTOR_X_FAST_PLUS) {
-            plusX = MOTOR_X_FAST_PLUS;
-            statusX = motor_fast;
-          }
-          break;
-        case motor_fast:
-          break;
-        case motor_slowdown:
-          break;
-        case motor_slow:
-          break;
-        case motor_stop:
-          break;
-        default:
-          break;
+
+      if (iX > iX_slow && statusX < motor_slowdown) {
+        statusX = motor_slowdown;
       }
     }
   }
