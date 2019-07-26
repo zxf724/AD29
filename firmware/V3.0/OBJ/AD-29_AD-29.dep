@@ -70,7 +70,7 @@ I (.\inc\fifo.h)(0x5D2AE43D)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x54C245B8)
 I (..\HARDWARE\KEY\key.h)(0x5D382008)
 I (..\HARDWARE\LED\led.h)(0x5D382008)
-I (..\HARDWARE\MOTO\moto.h)(0x5D3A8645)
+I (..\HARDWARE\MOTO\moto.h)(0x5D3A8C75)
 I (.\inc\prjlib.h)(0x5D2AE43E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x54C245B8)
@@ -209,7 +209,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x5D2AE43D)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x5D2AE43D)
 I (.\inc\ananlysis_data.h)(0x5D2AE43D)
 I (..\HARDWARE\LED\led.h)(0x5D382008)
-I (..\HARDWARE\MOTO\moto.h)(0x5D3A8645)
+I (..\HARDWARE\MOTO\moto.h)(0x5D3A8C75)
 I (.\inc\prjlib.h)(0x5D2AE43E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x54C245B8)
@@ -254,7 +254,7 @@ I (..\SYSTEM\delay\delay.h)(0x5D2AE43D)
 I (.\inc\fifo.h)(0x5D2AE43D)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x54C245B8)
 I (..\HARDWARE\KEY\key.h)(0x5D382008)
-I (..\HARDWARE\MOTO\moto.h)(0x5D3A8645)
+I (..\HARDWARE\MOTO\moto.h)(0x5D3A8C75)
 I (.\inc\prjlib.h)(0x5D2AE43E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x54C245B8)
@@ -300,7 +300,7 @@ I (.\inc\analysis_protocol.h)(0x5D2AE43D)
 I (..\SYSTEM\delay\delay.h)(0x5D2AE43D)
 I (.\inc\fifo.h)(0x5D2AE43D)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x54C245B8)
-I (..\HARDWARE\MOTO\moto.h)(0x5D3A8645)
+I (..\HARDWARE\MOTO\moto.h)(0x5D3A8C75)
 I (.\inc\prjlib.h)(0x5D2AE43E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x54C245B8)
@@ -344,7 +344,7 @@ I (.\inc\analysis_protocol.h)(0x5D2AE43D)
 I (.\inc\ananlysis_data.h)(0x5D2AE43D)
 I (..\SYSTEM\delay\delay.h)(0x5D2AE43D)
 I (.\inc\gun.h)(0x5D2AE43D)
-I (..\HARDWARE\MOTO\moto.h)(0x5D3A8645)
+I (..\HARDWARE\MOTO\moto.h)(0x5D3A8C75)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (..\SYSTEM\usart\usart.h)(0x5D382008)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x54C245B8)
@@ -446,10 +446,10 @@ I (..\STM32F10x_FWLib\inc\misc.h)(0x5D2AE43D)
 I (.\inc\analysis_protocol.h)(0x5D2AE43D)
 I (.\inc\ananlysis_data.h)(0x5D2AE43D)
 I (..\SYSTEM\delay\delay.h)(0x5D2AE43D)
-I (..\HARDWARE\MOTO\moto.h)(0x5D3A8645)
+I (..\HARDWARE\MOTO\moto.h)(0x5D3A8C75)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54C245B8)
-F (..\HARDWARE\MOTO\moto.c)(0x5D3A8BEC)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\HARDWARE\LED -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\HARDWARE\KEY -I.\inc -I..\MQTT\MQTTPacket -I..\EC20 -I..\MQTT\nordic -I..\cJSON -I..\RTC -I..\HARDWARE\MOTO -I..\HARDWARE\WDG -I.\inc-I D:\file\job\afu\AD29\firmware\V3.0\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="515" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\moto.o --omf_browse ..\obj\moto.crf --depend ..\obj\moto.d)
-I (..\HARDWARE\MOTO\moto.h)(0x5D3A8645)
+F (..\HARDWARE\MOTO\moto.c)(0x5D3AAC48)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\HARDWARE\LED -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\HARDWARE\KEY -I.\inc -I..\MQTT\MQTTPacket -I..\EC20 -I..\MQTT\nordic -I..\cJSON -I..\RTC -I..\HARDWARE\MOTO -I..\HARDWARE\WDG -I.\inc-I D:\file\job\afu\AD29\firmware\V3.0\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="515" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\moto.o --omf_browse ..\obj\moto.crf --depend ..\obj\moto.d)
+I (..\HARDWARE\MOTO\moto.h)(0x5D3A8C75)
 I (..\SYSTEM\sys\sys.h)(0x5D2AE43D)
 I (.\inc\stm32f10x.h)(0x5D286007)
 I (..\CORE\core_cm3.h)(0x5D286007)

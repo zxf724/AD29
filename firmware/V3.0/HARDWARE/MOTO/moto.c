@@ -328,14 +328,16 @@ typedef enum {
   motor_stop
 } MotorStatusEnum;
 
+typedef enum { start, half, quoater, before } plus_iX;
+
 /*speed up */
 void MotorSetpperMove(uint32_t xstep) {
   uint32_t iX = 0, iX_slow = xstep;
   uint32_t plusX = MOTOR_X_START_PLUS;
   uint16_t ipX = 0;
-  uint16_t half, third, quarter;
-  uint16_t cut_down = 2, slow_count = 2;
+  static uint32_t cut_down = 2, slow_count = 2;
   MotorStatusEnum statusX = motor_start;
+  plus_iX statusPlus_iX = start;
 
   xstep *= 2;
 
@@ -368,14 +370,51 @@ void MotorSetpperMove(uint32_t xstep) {
             }
             break;
           case motor_start_fast:
-            if (plusX > (MOTOR_X_FAST_PLUS + 50)) {
+            // ÆµÂÊºÍÂö³å¼ÆËã£º
+            // Âö³å
+            uint32_t iX_totall = xstep - 100;
+            uint32_t half_iX_totall = iX_totall / 2;
+            uint32_t quoater_iX_totall = iX_totall / 4;
+            // ÆµÂÊ£º
+            uint32_t plux_totall = MOTOR_X_START_PLUS - MOTOR_X_FAST_PLUS;
+            uint32_t plux_half = plux_totall / 2;
+            uint32_t plux_quoater = plux_totall / 4;
+            switch (statusPlus_iX) {
+              case start:
+                if ((iX > 100) && (iX <= quoater_iX_totall)) {
+                  slow_count = 2;
+                  cut_down = 6;
+                }
+                if (plusX <= plux_half) {
+                  statusPlus_iX = half;
+                }
+                break;
+              case half:
+                if ((iX > quoater_iX_totall) && (iX <= half_iX_totall)) {
+                  slow_count = 20;
+                  cut_down = 6;
+                }
+                if (plusX <= plux_quoater) {
+                  statusPlus_iX = quoater;
+                }
+                break;
+              case quoater:
+                if (iX > half_iX_totall) {
+                  slow_count = 40;
+                  cut_down = 6;
+                }
+                if (plusX <= MOTOR_X_FAST_PLUS) {
+                  statusPlus_iX = before;
+                  plusX = MOTOR_X_FAST_PLUS;
+                  statusX = motor_fast;
+                }
+                break;
+              case before:
+                break;
             }
-            if (iX % slow_count) {
+            // test
+            if ((iX % slow_count) == 0) {
               plusX -= cut_down;
-            }
-            if (plusX <= MOTOR_X_FAST_PLUS) {
-              plusX = MOTOR_X_FAST_PLUS;
-              statusX = motor_fast;
             }
             break;
           case motor_fast:
