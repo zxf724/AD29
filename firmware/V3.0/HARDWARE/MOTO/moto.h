@@ -40,6 +40,13 @@
 #define INFRARED_SENSOR(x) INFRARED_SENSOR_##x  // infrared sensor
 #define PUSH_MOTOR(x) PUSH_MOTOR_##x
 
+// steper motor
+#define M_FRE_START 10000  //???????
+#define M_FRE_AA 6000      //?????????
+#define M_T_AA 2           //??????????
+#define M_T_UA 6           //??????????
+#define M_T_RA 2           //??????????
+
 // borrow motor
 #define MOTO_1 \
   { GPIOE, GPIO_Pin_2, GPIO_Mode_Out_PP }
@@ -324,4 +331,10 @@ uint8_t MicroStep_Motro(uint32_t Step);
 uint8_t check_num(void);
 uint8_t init_moto(void);
 void MotorSetpperMove(uint32_t xstep);
+void MotorRunParaInitial(void);
+void CalcMotorPeriStep_CPF(float fstart, float faa, float taa, float tua,
+                           float tra, uint16_t MotorTimeTable[],
+                           uint16_t MotorStepTable[]);
+float GetFreAtTime(float fstart, float faa, float taa, float tua, float tra,
+                   float t);
 #endif

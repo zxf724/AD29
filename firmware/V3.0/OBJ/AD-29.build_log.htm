@@ -27,20 +27,34 @@ Project File Date:  07/24/2019
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'AD-29'
+compiling fifo.c...
+compiling main.c...
+src\main.c(47): warning:  #223-D: function "Initial_Motor" declared implicitly
+    Initial_Motor(
+src\main.c(48): error:  #20: identifier "M1DIV" is undefined
+src\main.c(51): error:  #20: identifier "M2DIV" is undefined
+src\main.c: 1 warning, 2 errors
+compiling timer.c...
+compiling analysis_protocol.c...
+compiling ananlysis_data.c...
+compiling schedule.c...
+compiling gun.c...
 compiling moto.c...
-..\HARDWARE\MOTO\moto.c(332): warning:  #550-D: variable "iX_slow" was set but never used
+..\HARDWARE\MOTO\moto.c(355): warning:  #550-D: variable "iX_slow" was set but never used
     uint32_t iX = 0, iX_slow = xstep;
-..\HARDWARE\MOTO\moto.c: 1 warning, 0 errors
-linking...
-Program Size: Code=12424 RO-data=2064 RW-data=816 ZI-data=4344  
-FromELF: creating hex file...
-"..\OBJ\AD-29.axf" - 0 Error(s), 1 Warning(s).
+..\HARDWARE\MOTO\moto.c(523): warning:  #1-D: last line of file ends without a newline
+  }
+..\HARDWARE\MOTO\moto.c: 2 warnings, 0 errors
+compiling usart.c...
+compiling rtc.c...
+"..\OBJ\AD-29.axf" - 2 Error(s), 3 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\file\job\afu\AD29\firmware\V3.0\USER\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
+Target not created.
 </pre>
 </body>
 </html>

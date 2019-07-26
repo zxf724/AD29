@@ -32,13 +32,24 @@ int main(void) {
   uart1_init(115200);
   uart2_init(115200);
   Moto_Init();
-  TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
-  TIM4_Int_Init(500, 7199);  // 10Khz的计数频率，计数到5000为500ms
-  // TIM2_Int_Init(10000, 7199); //10Khz的计数频率，计数到5000为500ms
+  // TIM3_Int_Init(500, 7199);
+  TIM4_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
+  // TIM2_Int_Init(10000, 7199);
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  // init_moto();
+  init_moto();
   delay_ms_whx(1000);
+
+  // steper moto
+  Initial_PWM_Motor1();  // PUL1- PB3 TIM2_CH2
+  Initial_PWM_Motor2();  // PUL2- PB4 TIM3_CH1
+  MotorRunParaInitial();  //初始化电机运行参数，主要是根据S型曲线参数生成表格
+  Initial_Motor(
+      1, M1DIV,
+      73600);  //将电机的驱动细分，通过控制连接THB6128的GPIO引脚的电平实现
+  Initial_Motor(
+      2, M2DIV,
+      73600);  // 此外还有指定各个电机使用的定时器，GPIO，电机顺时针方向数值等参数
 
   // DBG_LOG("system start");
   if (RTC_Init())

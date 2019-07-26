@@ -100,6 +100,29 @@ mPin Pin_Array[PINMAX] = {
     MOTO_FEEDBACK(4),
 };
 
+/*正常S型曲线参数生成的表格*/
+uint16_t Motor1TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor1StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor2TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor2StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor3TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor3StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+
+/*将参数降为2/3 S型曲线参数生成的表格*/
+uint16_t Motor1_23TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor1_23StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor2_23TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor2_23StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor3_23TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor3_23StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+/*将参数降为1/3 S型曲线参数生成的表格*/
+uint16_t Motor1_13TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor1_13StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor2_13TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor2_13StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor3_13TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor3_13StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+
 void Moto_Init() {
   uint8_t i = 0;
   GPIO_InitTypeDef GPIO_InitStructure;
@@ -407,4 +430,94 @@ void MotorSetpperMove(uint32_t xstep) {
   }
   GPIO_ResetBits(GPIOB, GPIO_Pin_3);
   GPIO_ResetBits(GPIOB, GPIO_Pin_4);
+}
+
+/**************************************************************************************
+电机运行参数初始化*/
+void MotorRunParaInitial(void) {
+  /*FIXME:用户可以改变该参数实现S型曲线的升降特性*/
+  CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA,
+                        Motor1TimeTable, Motor1StepTable);
+  CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA,
+                        Motor2TimeTable, Motor2StepTable);
+  CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA,
+                        Motor3TimeTable, Motor3StepTable);
+
+  /*更改参数降为2/3生成的表格*/
+  CalcMotorPeriStep_CPF(M_FRE_START * 2.0 / 3, M_FRE_AA * 2.0 / 3,
+                        M_T_AA * 2.0 / 3, M_T_UA * 2.0 / 3, M_T_RA * 2.0 / 3,
+                        Motor1_23TimeTable, Motor1_23StepTable);
+  CalcMotorPeriStep_CPF(M_FRE_START * 2.0 / 3, M_FRE_AA * 2.0 / 3,
+                        M_T_AA * 2.0 / 3, M_T_UA * 2.0 / 3, M_T_RA * 2.0 / 3,
+                        Motor2_23TimeTable, Motor2_23StepTable);
+  CalcMotorPeriStep_CPF(M_FRE_START * 2.0 / 3, M_FRE_AA * 2.0 / 3,
+                        M_T_AA * 2.0 / 3, M_T_UA * 2.0 / 3, M_T_RA * 2.0 / 3,
+                        Motor3_23TimeTable, Motor3_23StepTable);
+
+  /*更改参数降为1/3生成的表格*/
+  CalcMotorPeriStep_CPF(M_FRE_START * 1.0 / 3, M_FRE_AA * 1.0 / 3,
+                        M_T_AA * 1.0 / 3, M_T_UA * 1.0 / 3, M_T_RA * 1.0 / 3,
+                        Motor1_13TimeTable, Motor1_13StepTable);
+  CalcMotorPeriStep_CPF(M_FRE_START * 1.0 / 3, M_FRE_AA * 1.0 / 3,
+                        M_T_AA * 1.0 / 3, M_T_UA * 1.0 / 3, M_T_RA * 1.0 / 3,
+                        Motor2_13TimeTable, Motor2_13StepTable);
+  CalcMotorPeriStep_CPF(M_FRE_START * 1.0 / 3, M_FRE_AA * 1.0 / 3,
+                        M_T_AA * 1.0 / 3, M_T_UA * 1.0 / 3, M_T_RA * 1.0 / 3,
+                        Motor3_13TimeTable, Motor3_13StepTable);
+}
+
+/*计算S型曲线算法的每一步定时器周期及步进数*/
+void CalcMotorPeriStep_CPF(float fstart, float faa, float taa, float tua,
+                           float tra, uint16_t MotorTimeTable[],
+                           uint16_t MotorStepTable[]) {
+  int i;
+  float fi;
+
+  for (i = 0; i < STEP_AA; i++) {
+    fi = GetFreAtTime(fstart, faa, taa, tua, tra, taa / STEP_AA * i);
+    MotorTimeTable[i] = F2TIME_PARA / fi;
+    MotorStepTable[i] = fi * (taa / STEP_AA) / STEP_PARA;
+  }
+  for (i = STEP_AA; i < STEP_AA + STEP_UA; i++) {
+    fi = GetFreAtTime(fstart, faa, taa, tua, tra,
+                      taa + (tua / STEP_UA) * (i - STEP_AA));
+    MotorTimeTable[i] = F2TIME_PARA / fi;
+    MotorStepTable[i] = fi * (tua / STEP_UA) / STEP_PARA;
+  }
+  for (i = STEP_AA + STEP_UA; i < STEP_AA + STEP_UA + STEP_RA; i++) {
+    fi = GetFreAtTime(fstart, faa, taa, tua, tra,
+                      taa + tua + tra / STEP_RA * (i - STEP_AA - STEP_UA));
+    MotorTimeTable[i] = F2TIME_PARA / fi;
+    MotorStepTable[i] = fi * (tra / STEP_RA) / STEP_PARA;
+  }
+  fi = GetFreAtTime(fstart, faa, taa, tua, tra, taa + tua + tra);
+  MotorTimeTable[STEP_AA + STEP_UA + STEP_RA] = F2TIME_PARA / fi;
+  MotorStepTable[STEP_AA + STEP_UA + STEP_RA] =
+      fi * (tra / STEP_RA) / STEP_PARA;
+
+  for (i = STEP_AA + STEP_UA + STEP_RA + 1;
+       i < 2 * (STEP_AA + STEP_UA + STEP_RA) + 1; i++) {
+    MotorTimeTable[i] = MotorTimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) - i];
+    MotorStepTable[i] = MotorStepTable[2 * (STEP_AA + STEP_UA + STEP_RA) - i];
+  }
+}
+
+/*根据S型曲线参数获取某个时刻的频率*/
+float GetFreAtTime(float fstart, float faa, float taa, float tua, float tra,
+                   float t) {
+  //根据公式计算从开始到最高速过冲中，t时刻的转动频率
+  if (t >= 0 && t <= taa) {
+    //加加速阶段
+    return fstart + 0.5 * faa * t * t;
+  } else if (taa < t && t <= (taa + tua)) {
+    //匀加速阶段
+    return fstart + 0.5 * faa * taa * taa + (t - taa) * faa * taa;
+  } else if ((taa + tua) < t && t <= (taa + tua + tra)) {
+    //减加速阶段
+    return fstart + 0.5 * faa * taa * taa + (tua)*faa * taa +
+           0.5 * faa * taa * tra -
+           0.5 * faa * taa * (taa + tua + tra - t) * (taa + tua + tra - t) /
+               (tra);
+  }
+  return 0;
 }

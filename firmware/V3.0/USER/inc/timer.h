@@ -3,6 +3,12 @@
 #include "sys.h"
 
 #define TIMER_LIST_MAX 5
+
+#define PWM1_PreemptionPriority 1  //論撰
+#define PWM1_SubPriority 0         //論脯
+#define PWM2_PreemptionPriority 1  //論撰
+#define PWM2_SubPriority 1         //論脯
+
 typedef void (*tmr_fnct_ptr)(void);
 typedef uint8_t TMR_STATE;
 
@@ -19,6 +25,9 @@ void timer_disable(uint8_t num);
 void TIM3_Int_Init(u16 arr, u16 psc);
 void TIM4_Int_Init(u16 arr, u16 psc);
 void TIM2_Int_Init(u16 arr, u16 psc);
+void Initial_PWM_Motor1(void);
+void Initial_PWM_Motor2(void);
+void MotorRunParaInitial(void);
 
 void timer_task(void);
 
