@@ -252,15 +252,15 @@ void test_fun() {
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
   //
-  GPIO_SetBits(
+  GPIO_ResetBits(
       GPIOD,
       GPIO_Pin_0);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-  GPIO_SetBits(
+  GPIO_ResetBits(
       GPIOC,
       GPIO_Pin_11);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
   if (flag == 0) {
     flag = 1;
-    MotorSetpperMove(80000);  // 160000
+    MotorSetpperMove(75000);  // 160000
   }
 
   //

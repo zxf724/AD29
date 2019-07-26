@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\AD-29.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\AD-29.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Thu Jul 25 14:41:43 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Fri Jul 26 11:38:59 2019
 <BR><P>
 <H3>Maximum Stack Usage =        116 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -509,6 +509,7 @@ Global Symbols
 <P><STRONG><a name="[62]"></a>GPIO_ResetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_ResetBits))
 <BR><BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_fun
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_light
 <LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
@@ -649,8 +650,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[7b]"></a>MotorSetpperMove</STRONG> (Thumb, 280 bytes, Stack size 32 bytes, moto.o(i.MotorSetpperMove))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = MotorSetpperMove &rArr; delay
+<P><STRONG><a name="[7b]"></a>MotorSetpperMove</STRONG> (Thumb, 298 bytes, Stack size 40 bytes, moto.o(i.MotorSetpperMove))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = MotorSetpperMove &rArr; delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IWDG_Feed
@@ -1287,10 +1288,11 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ca]"></a>test_fun</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, main.o(i.test_fun))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = test_fun &rArr; MotorSetpperMove &rArr; delay
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = test_fun &rArr; MotorSetpperMove &rArr; delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>

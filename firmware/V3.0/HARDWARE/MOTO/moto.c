@@ -332,7 +332,7 @@ void MotorSetpperMove(uint32_t xstep) {
   uint32_t iX = 0, iX_slow = xstep;
   uint16_t plusX = MOTOR_X_START_PLUS;
   uint16_t ipX = 0;
-  uint8_t slow_count = 3;
+  uint16_t slow_count = 3, cut_down = 0;
   MotorStatusEnum statusX = motor_start;
 
   xstep *= 2;
@@ -371,17 +371,21 @@ void MotorSetpperMove(uint32_t xstep) {
           }
           break;
         case motor_start_fast:
-          if ((iX >= 2000) && (iX <= 5000)) {
-            slow_count = 2;
-          } else if ((iX >= 5000) && (iX <= 70000)) {
-            slow_count = 57;
-          } else if ((iX > 7000)&&(iX >= 10000)) {
-            slow_count = 185;
-          }else if (iX > 10000) {
-            slow_count = 245;
-          } 
+          if ((iX > 100) && (iX <= 500)) {
+            slow_count = 5;
+            cut_down = 5;
+          } else if ((iX > 500) && (iX < 7000)) {
+            slow_count = 20;
+            cut_down = 1;
+          } else if ((iX > 7000) && (iX >= 10000)) {
+            slow_count = 350;
+            cut_down = 1;
+          } else if (iX > 10000) {
+            slow_count = 580;
+            cut_down = 1;
+          }
           if (iX % slow_count == 0) {
-            plusX--;
+            plusX -= cut_down;
           }
           if (plusX <= MOTOR_X_FAST_PLUS) {
             plusX = MOTOR_X_FAST_PLUS;
