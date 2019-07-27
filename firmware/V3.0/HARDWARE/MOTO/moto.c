@@ -383,7 +383,7 @@ void MotorSetpperMove(uint32_t xstep) {
           case motor_fast:
             break;
           case motor_slowdown:
-            if (iX % 100 == 0) {
+            if (iX % 5 == 0) {
               plusX++;
             }
             if (plusX >= MOTOR_X_START_PLUS) {
