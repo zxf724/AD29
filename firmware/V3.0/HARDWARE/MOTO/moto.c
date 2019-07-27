@@ -361,6 +361,8 @@ void MotorSetpperMove(uint32_t xstep) {
       } else {
         GPIO_SetBits(GPIOB, GPIO_Pin_3);
         GPIO_SetBits(GPIOB, GPIO_Pin_4);
+      }
+      if ((iX % 2) == 0) {
         switch (statusX) {
           case motor_start:
             plusX = MOTOR_X_START_PLUS;
@@ -370,51 +372,8 @@ void MotorSetpperMove(uint32_t xstep) {
             }
             break;
           case motor_start_fast:
-            // 频率和脉冲计算：
-            // 脉冲
-            uint32_t iX_totall = xstep - 100;
-            uint32_t half_iX_totall = iX_totall / 2;
-            uint32_t quoater_iX_totall = iX_totall / 4;
-            // 频率：
-            uint32_t plux_totall = MOTOR_X_START_PLUS - MOTOR_X_FAST_PLUS;
-            uint32_t plux_half = plux_totall / 2;
-            uint32_t plux_quoater = plux_totall / 4;
-            switch (statusPlus_iX) {
-              case start:
-                if ((iX > 100) && (iX <= quoater_iX_totall)) {
-                  slow_count = 2;
-                  cut_down = 1;
-                }
-                if (plusX <= plux_half) {
-                  statusPlus_iX = half;
-                }
-                break;
-              case half:
-                if ((iX > quoater_iX_totall) && (iX <= half_iX_totall)) {
-                  slow_count = 20;
-                  cut_down = 1;
-                }
-                if (plusX <= plux_quoater) {
-                  statusPlus_iX = quoater;
-                }
-                break;
-              case quoater:
-                if (iX > half_iX_totall) {
-                  slow_count = 40;
-                  cut_down = 1;
-                }
-                if (plusX <= MOTOR_X_FAST_PLUS) {
-                  statusPlus_iX = before;
-                  plusX = MOTOR_X_FAST_PLUS;
-                  statusX = motor_fast;
-                }
-                break;
-              case before:
-                break;
-            }
-            // test
-            if ((iX % slow_count) == 0) {
-              plusX -= cut_down;
+            if ((iX % 2) == 0) {
+              plusX--;
             }
             break;
           case motor_fast:
@@ -433,17 +392,11 @@ void MotorSetpperMove(uint32_t xstep) {
           default:
             break;
         }
-      }
-
-      IWDG_Feed();
-
-      // X轴速度控制,确保脉冲完整
-
-      if (iX > iX_slow && statusX < motor_slowdown) {
-        statusX = motor_slowdown;
+        IWDG_Feed();
+        if (iX > iX_slow && statusX < motor_slowdown) {
+          statusX = motor_slowdown;
+        }
       }
     }
   }
-  GPIO_ResetBits(GPIOB, GPIO_Pin_3);
-  GPIO_ResetBits(GPIOB, GPIO_Pin_4);
 }

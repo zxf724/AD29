@@ -22,12 +22,23 @@ Dialog DLL:      TARMSTM.DLL V1.64.0.0
  
 <h2>Project:</h2>
 D:\file\job\afu\AD29\firmware\V3.0\USER\AD-29.uvprojx
-Project File Date:  07/26/2019
+Project File Date:  07/27/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'AD-29'
-"..\OBJ\AD-29.axf" - 0 Error(s), 0 Warning(s).
+compiling moto.c...
+..\HARDWARE\MOTO\moto.c(338): warning:  #177-D: variable "cut_down" was declared but never referenced
+    static uint32_t cut_down = 2, slow_count = 2;
+..\HARDWARE\MOTO\moto.c(338): warning:  #177-D: variable "slow_count" was declared but never referenced
+    static uint32_t cut_down = 2, slow_count = 2;
+..\HARDWARE\MOTO\moto.c(340): warning:  #177-D: variable "statusPlus_iX" was declared but never referenced
+    plus_iX statusPlus_iX = start;
+..\HARDWARE\MOTO\moto.c: 3 warnings, 0 errors
+linking...
+Program Size: Code=12332 RO-data=2064 RW-data=828 ZI-data=4348  
+FromELF: creating hex file...
+"..\OBJ\AD-29.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\file\job\afu\AD29\firmware\V3.0\USER\RTE
