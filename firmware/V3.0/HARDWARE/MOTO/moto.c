@@ -383,7 +383,7 @@ void MotorSetpperMove(uint32_t xstep) {
               case start:
                 if ((iX > 100) && (iX <= quoater_iX_totall)) {
                   slow_count = 2;
-                  cut_down = 6;
+                  cut_down = 1;
                 }
                 if (plusX <= plux_half) {
                   statusPlus_iX = half;
@@ -392,7 +392,7 @@ void MotorSetpperMove(uint32_t xstep) {
               case half:
                 if ((iX > quoater_iX_totall) && (iX <= half_iX_totall)) {
                   slow_count = 20;
-                  cut_down = 6;
+                  cut_down = 1;
                 }
                 if (plusX <= plux_quoater) {
                   statusPlus_iX = quoater;
@@ -401,7 +401,7 @@ void MotorSetpperMove(uint32_t xstep) {
               case quoater:
                 if (iX > half_iX_totall) {
                   slow_count = 40;
-                  cut_down = 6;
+                  cut_down = 1;
                 }
                 if (plusX <= MOTOR_X_FAST_PLUS) {
                   statusPlus_iX = before;

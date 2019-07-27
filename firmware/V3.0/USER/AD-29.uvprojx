@@ -369,7 +369,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\HARDWARE\LED;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\KEY;.\inc;..\MQTT\MQTTPacket;..\EC20;..\MQTT\nordic;..\cJSON;..\RTC;..\HARDWARE\MOTO;..\HARDWARE\WDG</IncludePath>
+              <IncludePath>..\HARDWARE\LED;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\KEY;.\inc;..\MQTT\MQTTPacket;..\EC20;..\MQTT\nordic;..\cJSON;..\RTC;..\HARDWARE\MOTO;..\HARDWARE\WDG;.\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
