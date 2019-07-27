@@ -260,7 +260,7 @@ void test_fun() {
       GPIO_Pin_11);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
   if (flag == 0) {
     flag = 1;
-    MotorSetpperMove(160000);  // 160000
+    MotorSetpperMove(75000);  // 160000
   }
 
   //

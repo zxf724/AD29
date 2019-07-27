@@ -334,10 +334,8 @@ typedef enum { start, half, quoater, before } plus_iX;
 void MotorSetpperMove(uint32_t xstep) {
   uint32_t iX = 0, iX_slow = xstep;
   uint32_t plusX = MOTOR_X_START_PLUS;
-  uint16_t ipX = 0;
-  static uint32_t cut_down = 2, slow_count = 2;
+  uint32_t ipX = 0;
   MotorStatusEnum statusX = motor_start;
-  plus_iX statusPlus_iX = start;
 
   xstep *= 2;
 
@@ -367,19 +365,27 @@ void MotorSetpperMove(uint32_t xstep) {
           case motor_start:
             plusX = MOTOR_X_START_PLUS;
             // 100¸öÂö³å
-            if (iX >= 100) {
+            if (iX >= 1000) {
               statusX = motor_start_fast;
             }
             break;
           case motor_start_fast:
-            if ((iX % 2) == 0) {
+            if (plusX > 100) {
               plusX--;
+            } else if (iX % 100 == 0) {
+              plusX--;
+            }
+            if (plusX <= MOTOR_X_FAST_PLUS) {
+              plusX = MOTOR_X_FAST_PLUS;
+              statusX = motor_fast;
             }
             break;
           case motor_fast:
             break;
           case motor_slowdown:
-            plusX += 5;
+            if (iX % 100 == 0) {
+              plusX++;
+            }
             if (plusX >= MOTOR_X_START_PLUS) {
               plusX = MOTOR_X_START_PLUS;
               statusX = motor_slow;
@@ -393,7 +399,7 @@ void MotorSetpperMove(uint32_t xstep) {
             break;
         }
         IWDG_Feed();
-        if (iX > iX_slow && statusX < motor_slowdown) {
+        if (iX > 80000) {
           statusX = motor_slowdown;
         }
       }
