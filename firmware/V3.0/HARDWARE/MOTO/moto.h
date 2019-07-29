@@ -24,7 +24,7 @@
 #define MOTOR_X_SPEED_SLOWDOWN_COUNT 1000
 
 #define MOTOR_X_START_PLUS 100
-#define MOTOR_X_FAST_PLUS 50
+#define MOTOR_X_FAST_PLUS 40
 
 // infrared
 #define INFRARED_SENSOR_TEST 78
@@ -324,4 +324,5 @@ uint8_t MicroStep_Motro(uint32_t Step);
 uint8_t check_num(void);
 uint8_t init_moto(void);
 void MotorSetpperMove(uint32_t xstep);
+uint8_t init_MicroStep_Motro(uint32_t Step);
 #endif

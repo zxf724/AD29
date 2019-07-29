@@ -122,7 +122,8 @@ void Start_Borrow() {
       break;
     case state_run_second:
       // check infrared  output 0 signal when it cover
-      delay_ms_whx(100);
+      delay_ms_whx(2000);
+      OPEN_ELECTRIC_LOCK;
       IWDG_Feed();
       GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
       GPIO_SetBits(
@@ -134,7 +135,7 @@ void Start_Borrow() {
           GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
       if (flag_steper == 0) {
         flag_steper = 1;
-        MicroStep_Motro(720);
+        MicroStep_Motro(380);
       }
       if (NEW_SENSOR == 1) {  // sensor
         motoDef.state = state_run_third;
@@ -152,10 +153,10 @@ void Start_Borrow() {
         GPIO_ResetBits(GPIOD, GPIO_Pin_0);   // DIR2   GPIO_SetBits() -> out
                                              // GPIO_ResetBits() -> in
         flag_steper = 0;
-        if (flag_steper == 0) {
-          flag_steper = 1;
-          MicroStep_Motro(720);
+        while (TOUR_SWITCH != 0) {
+          init_MicroStep_Motro(10);
         }
+        CLOSE_ELECTRIC_LOCK;
         // clear num
         motoDef.num = 0;
         flag_steper = 0;
@@ -165,7 +166,7 @@ void Start_Borrow() {
     case state_report:
       // Report_State(CMD_RECARGO,&state,1);  //出货信息上报
       flag_finish = 1;
-      if (TOUR_SWITCH != 0) {
+      if (TOUR_SWITCH == 1) {
         // DBG_LOG("error");
       }
       if (errorDef.android_state) {  //收到ANDROID消息
@@ -207,11 +208,10 @@ void Start_Repay() {
       motoDef.state = state_report;
       break;
     case state_report:
+      flag_finish = 1;
       memset(g_start_cmd, 0, sizeof(g_start_cmd));
-      if (motoDef.num) {
-        motoDef.num = 0;
-        motoDef.state = state_stop;
-      }
+      motoDef.num = 0;
+      motoDef.state = state_stop;
       break;
   }
 }

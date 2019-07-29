@@ -245,15 +245,24 @@ uint8_t Set_Moto() {
 uint8_t MicroStep_Motro(uint32_t Step) {
   for (uint32_t i = 0; i <= Step; i++) {
     for (uint32_t j = 0; j <= 100; j++) {
-      delay(150);
+      delay(1000);
       GPIO_SetBits(GPIOB, GPIO_Pin_3);
       GPIO_SetBits(GPIOB, GPIO_Pin_4);
-      delay(150);
+      delay(1000);
       GPIO_ResetBits(GPIOB, GPIO_Pin_3);
       GPIO_ResetBits(GPIOB, GPIO_Pin_4);
     }
   }
   return 1;
+}
+
+uint8_t init_MicroStep_Motro(uint32_t Step) {
+  delay(1000);
+  GPIO_SetBits(GPIOB, GPIO_Pin_3);
+  GPIO_SetBits(GPIOB, GPIO_Pin_4);
+  delay(1000);
+  GPIO_ResetBits(GPIOB, GPIO_Pin_3);
+  GPIO_ResetBits(GPIOB, GPIO_Pin_4);
 }
 
 uint8_t init_moto(void) {
@@ -266,9 +275,9 @@ uint8_t init_moto(void) {
                  GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out
                                // GPIO_ResetBits() -> in
   while (TOUR_SWITCH != 0) {
-    MotorSetpperMove(2);
+    init_MicroStep_Motro(10);
   }
-	return 1;
+  return 1;
 }
 
 typedef enum {

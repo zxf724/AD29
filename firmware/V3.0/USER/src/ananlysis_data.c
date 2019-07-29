@@ -40,17 +40,6 @@ void Get_Mote_Data(uint8_t* data) {
   if (i == 32) i = 0;
 }
 
-void Get_Lock_Data(uint8_t* data) { motoDef.num = *data; }
-
-void Get_Gun_Data(uint8_t* data) {
-  uint8_t len = 0;
-  uint8_t i = 0;
-  len = *(data + 4);
-  for (i = 1; i < len + 1; i++) {
-    g_start_cmd[i - 1] = *(data + 4 + i);
-  }
-}
-
 void Get_Cargo_Data(uint8_t* data) {
   if (*(data + 5) == 1) {
     //收到出货信息
