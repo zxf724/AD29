@@ -165,6 +165,9 @@ void Start_Borrow() {
     case state_report:
       // Report_State(CMD_RECARGO,&state,1);  //出货信息上报
       flag_finish = 1;
+      if (TOUR_SWITCH != 0) {
+        // DBG_LOG("error");
+      }
       if (errorDef.android_state) {  //收到ANDROID消息
         errorDef.android_state = 0;
         motoDef.state = state_stop;

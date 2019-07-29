@@ -37,7 +37,7 @@ int main(void) {
   // TIM2_Int_Init(10000, 7199); //10Khz的计数频率，计数到5000为500ms
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  // init_moto();
+  init_moto();
   delay_ms_whx(1000);
 
   // DBG_LOG("system start");
@@ -110,6 +110,7 @@ void wait_fun(void) {
 }
 
 void test_fun() {
+#if TEST
   static uint8_t flag = 0;
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
@@ -124,6 +125,7 @@ void test_fun() {
     flag = 1;
     MotorSetpperMove(75000);  // 160000
   }
+#endif
 
   //
 }

@@ -257,66 +257,18 @@ uint8_t MicroStep_Motro(uint32_t Step) {
 }
 
 uint8_t init_moto(void) {
-  static uint8_t j = 0;
-  static uint8_t i = 0;
-  enum { stop, open, close } switch_motor;
-  // 如果检测到行程开关常闭，往外走，直到检测到行程开关断开。
-  if (TOUR_SWITCH == 0) {
-    switch_motor = close;
-  }  // 如果检测到行程开关常开，往内走，直到检测到行程开关闭合。
-  if (TOUR_SWITCH == 1) {
-    switch_motor = open;
+  GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
+  GPIO_ResetBits(GPIOC,
+                 GPIO_Pin_11);       // DIR1   GPIO_SetBits() -> out
+                                     // GPIO_ResetBits() -> in
+  GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
+  GPIO_ResetBits(GPIOD,
+                 GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out
+                               // GPIO_ResetBits() -> in
+  while (TOUR_SWITCH != 0) {
+    MotorSetpperMove(2);
   }
-
-  switch (switch_motor) {
-    case close:
-      //常闭，在里面那一段
-      GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-      GPIO_SetBits(GPIOC,
-                   GPIO_Pin_11);         // DIR1   GPIO_SetBits() -> out
-                                         // GPIO_ResetBits() -> in
-      GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-      GPIO_SetBits(GPIOD,
-                   GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out
-                                 // GPIO_ResetBits() -> in
-      while (TOUR_SWITCH != 1) {
-        MicroStep_Motro(1);
-        i++;
-        if (i >= MAX_IN_PLUSE_NUM) break;
-      }
-      //步数  in
-      GPIO_ResetBits(GPIOD, GPIO_Pin_0);
-      GPIO_ResetBits(GPIOC, GPIO_Pin_11);
-      MicroStep_Motro(IN_PLUSE_NUM);
-      switch_motor = stop;
-      break;
-    case open:
-      //常开，在外面那一段
-      GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-      GPIO_ResetBits(
-          GPIOC,
-          GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-      GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-      GPIO_ResetBits(
-          GPIOD,
-          GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-      while (TOUR_SWITCH != 0) {
-        MicroStep_Motro(1);
-        j++;
-        if (j >= MAX_IN_PLUSE_NUM) break;
-      }
-      //步数
-      GPIO_ResetBits(GPIOD, GPIO_Pin_0);
-      GPIO_ResetBits(GPIOC, GPIO_Pin_11);
-      MicroStep_Motro(IN_PLUSE_NUM);
-      switch_motor = stop;
-      break;
-    case stop:
-      break;
-    default:
-      break;
-  }
-  return 0;
+	return 1;
 }
 
 typedef enum {
@@ -332,7 +284,7 @@ typedef enum { start, half, quoater, before } plus_iX;
 
 /*speed up */
 void MotorSetpperMove(uint32_t xstep) {
-  uint32_t iX = 0, iX_slow = xstep;
+  uint32_t iX = 0, iX_slow = 0;
   uint32_t plusX = MOTOR_X_START_PLUS;
   uint32_t ipX = 0;
   MotorStatusEnum statusX = motor_start;
