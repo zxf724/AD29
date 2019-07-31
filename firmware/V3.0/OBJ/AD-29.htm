@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\AD-29.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\AD-29.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Mon Jul 29 14:28:56 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Wed Jul 31 23:20:13 2019
 <BR><P>
 <H3>Maximum Stack Usage =        116 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -486,18 +486,18 @@ Global Symbols
 <P><STRONG><a name="[b]"></a>DebugMon_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f10x_it.o(i.DebugMon_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[7a]"></a>GPIO_Init</STRONG> (Thumb, 278 bytes, Stack size 24 bytes, stm32f10x_gpio.o(i.GPIO_Init))
+<P><STRONG><a name="[7b]"></a>GPIO_Init</STRONG> (Thumb, 278 bytes, Stack size 24 bytes, stm32f10x_gpio.o(i.GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
-<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
+<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
 </UL>
 
-<P><STRONG><a name="[79]"></a>GPIO_PinRemapConfig</STRONG> (Thumb, 138 bytes, Stack size 20 bytes, stm32f10x_gpio.o(i.GPIO_PinRemapConfig))
+<P><STRONG><a name="[7a]"></a>GPIO_PinRemapConfig</STRONG> (Thumb, 138 bytes, Stack size 20 bytes, stm32f10x_gpio.o(i.GPIO_PinRemapConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = GPIO_PinRemapConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
+<BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
 </UL>
 
 <P><STRONG><a name="[73]"></a>GPIO_ReadInputDataBit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_ReadInputDataBit))
@@ -508,24 +508,25 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[62]"></a>GPIO_ResetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_ResetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
-<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
+<BR><BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_fun
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_light
 <LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro_init
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 <LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Close_xMoto
 </UL>
 
 <P><STRONG><a name="[76]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_SetBits))
 <BR><BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_fun
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sound_control
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_light
 <LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro_init
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 <LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Open_xMoto
 </UL>
@@ -579,7 +580,6 @@ Global Symbols
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Screen_CommandReceive_Poll
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gun_CommandReceive_Poll
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_State
 </UL>
@@ -630,36 +630,37 @@ Global Symbols
 <P><STRONG><a name="[7]"></a>MemManage_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_it.o(i.MemManage_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[74]"></a>MicroStep_Motro</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, moto.o(i.MicroStep_Motro))
+<P><STRONG><a name="[74]"></a>MicroStep_Motro</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, moto.o(i.MicroStep_Motro))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = MicroStep_Motro &rArr; delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_fun
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 </UL>
 
-<P><STRONG><a name="[77]"></a>Moto_Init</STRONG> (Thumb, 430 bytes, Stack size 16 bytes, moto.o(i.Moto_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Moto_Init &rArr; GPIO_Init
-</UL>
-<BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-</UL>
-<BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[7b]"></a>MotorSetpperMove</STRONG> (Thumb, 232 bytes, Stack size 32 bytes, moto.o(i.MotorSetpperMove))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = MotorSetpperMove &rArr; delay
+<P><STRONG><a name="[77]"></a>MicroStep_Motro_init</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, moto.o(i.MicroStep_Motro_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = MicroStep_Motro_init &rArr; delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IWDG_Feed
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
+</UL>
+
+<P><STRONG><a name="[78]"></a>Moto_Init</STRONG> (Thumb, 430 bytes, Stack size 16 bytes, moto.o(i.Moto_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Moto_Init &rArr; GPIO_Init
+</UL>
+<BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
+<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[5]"></a>NMI_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f10x_it.o(i.NMI_Handler))
@@ -708,10 +709,10 @@ Global Symbols
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_Set
 </UL>
 
-<P><STRONG><a name="[78]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd))
+<P><STRONG><a name="[79]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd))
 <BR><BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
-<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
+<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
 </UL>
 
 <P><STRONG><a name="[61]"></a>RCC_BackupResetCmd</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_BackupResetCmd))
@@ -906,14 +907,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Schedule
 </UL>
 
-<P><STRONG><a name="[9d]"></a>Start_Borrow</STRONG> (Thumb, 432 bytes, Stack size 8 bytes, schedule.o(i.Start_Borrow))
+<P><STRONG><a name="[9d]"></a>Start_Borrow</STRONG> (Thumb, 452 bytes, Stack size 8 bytes, schedule.o(i.Start_Borrow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Start_Borrow &rArr; MicroStep_Motro &rArr; delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms_whx
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IWDG_Feed
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro_init
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
@@ -1189,8 +1191,8 @@ Global Symbols
 <P><STRONG><a name="[75]"></a>delay</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, prjlib.o(i.delay))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
+<BR>[Called By]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro_init
 </UL>
 
 <P><STRONG><a name="[bf]"></a>delay_init</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, delay.o(i.delay_init))
@@ -1231,12 +1233,11 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> printfa.o(i.__0printf)
 </UL>
-<P><STRONG><a name="[c2]"></a>init_moto</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, moto.o(i.init_moto))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = init_moto &rArr; MotorSetpperMove &rArr; delay
+<P><STRONG><a name="[c2]"></a>init_moto</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, moto.o(i.init_moto))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = init_moto &rArr; MicroStep_Motro_init &rArr; delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro_init
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1267,7 +1268,7 @@ Global Symbols
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Screen_CommandReceive_Poll
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_Init
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
-<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
+<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IWDG_Init
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IWDG_Feed
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gun_CommandReceive_Poll
@@ -1300,8 +1301,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[cb]"></a>test_fun</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, main.o(i.test_fun))
-<BR><BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[cb]"></a>test_fun</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, main.o(i.test_fun))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = test_fun &rArr; MicroStep_Motro &rArr; delay
+</UL>
+<BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MicroStep_Motro
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[a4]"></a>timer_task</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, timer.o(i.timer_task))
@@ -1319,8 +1326,8 @@ Global Symbols
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1332,8 +1339,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>

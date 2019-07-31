@@ -143,10 +143,6 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
-          <Key>DLGUARM</Key>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
           <Key>ARMRTXEVENTFLAGS</Key>
           <Name>-L70 -Z18 -C0 -M0 -T1</Name>
         </SetRegEntry>
@@ -177,7 +173,7 @@
           <Type>0</Type>
           <LineNumber>55</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134228988</Address>
+          <Address>134228780</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -191,9 +187,9 @@
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>375</LineNumber>
+          <LineNumber>355</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134221670</Address>
+          <Address>134221746</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -202,14 +198,14 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\HARDWARE\MOTO\moto.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\AD_29\../HARDWARE/MOTO/moto.c\375</Expression>
+          <Expression>\\AD_29\../HARDWARE/MOTO/moto.c\355</Expression>
         </Bp>
         <Bp>
           <Number>2</Number>
           <Type>0</Type>
-          <LineNumber>389</LineNumber>
+          <LineNumber>338</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134221756</Address>
+          <Address>134221704</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -218,7 +214,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\HARDWARE\MOTO\moto.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\AD_29\../HARDWARE/MOTO/moto.c\389</Expression>
+          <Expression>\\AD_29\../HARDWARE/MOTO/moto.c\338</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -230,7 +226,12 @@
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>iX</ItemText>
+          <ItemText>iX,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>xstep</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

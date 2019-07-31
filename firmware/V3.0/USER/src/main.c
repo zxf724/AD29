@@ -37,6 +37,7 @@ int main(void) {
   // TIM2_Int_Init(10000, 7199); //10Khz的计数频率，计数到5000为500ms
   sound_control();
   CLOSE_ELECTRIC_LOCK;
+  // DBG_LOG("init_moto");
   init_moto();
   delay_ms_whx(1000);
 
@@ -110,7 +111,7 @@ void wait_fun(void) {
 }
 
 void test_fun() {
-#if TEST
+#if 1
   static uint8_t flag = 0;
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
@@ -123,9 +124,14 @@ void test_fun() {
       GPIO_Pin_11);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
   if (flag == 0) {
     flag = 1;
-    MotorSetpperMove(75000);  // 160000
+    // MotorSetpperMove(75000);  // 160000
+    MicroStep_Motro(380);
   }
 #endif
-
-  //
+  // if (TOUR_SWITCH == 0) {  // NEW_SENSOR  TOUR_SWITCH
+  //   DBG_LOG("hello,world!");
+  // }
+  // if (TOUR_SWITCH == 1) {
+  //   DBG_LOG("66666666666")
+  // }
 }

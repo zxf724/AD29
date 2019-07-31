@@ -245,10 +245,10 @@ uint8_t Set_Moto() {
 uint8_t MicroStep_Motro(uint32_t Step) {
   for (uint32_t i = 0; i <= Step; i++) {
     for (uint32_t j = 0; j <= 100; j++) {
-      delay(150);
+      delay(1000);
       GPIO_SetBits(GPIOB, GPIO_Pin_3);
       GPIO_SetBits(GPIOB, GPIO_Pin_4);
-      delay(150);
+      delay(1000);
       GPIO_ResetBits(GPIOB, GPIO_Pin_3);
       GPIO_ResetBits(GPIOB, GPIO_Pin_4);
     }
@@ -256,19 +256,38 @@ uint8_t MicroStep_Motro(uint32_t Step) {
   return 1;
 }
 
+uint8_t MicroStep_Motro_init(uint32_t Step) {
+  delay(1000);
+  GPIO_SetBits(GPIOB, GPIO_Pin_3);
+  GPIO_SetBits(GPIOB, GPIO_Pin_4);
+  delay(1000);
+  GPIO_ResetBits(GPIOB, GPIO_Pin_3);
+  GPIO_ResetBits(GPIOB, GPIO_Pin_4);
+}
+
 uint8_t init_moto(void) {
+  static uint8_t i = 0;
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-  GPIO_ResetBits(GPIOC,
-                 GPIO_Pin_11);       // DIR1   GPIO_SetBits() -> out
+  GPIO_SetBits(GPIOC,
+               GPIO_Pin_11);         // DIR1   GPIO_SetBits() -> out
                                      // GPIO_ResetBits() -> in
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-  GPIO_ResetBits(GPIOD,
-                 GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out
-                               // GPIO_ResetBits() -> in
-  while (TOUR_SWITCH != 0) {
-    MotorSetpperMove(2);
+  GPIO_SetBits(GPIOD,
+               GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out
+                             // GPIO_ResetBits() -> in
+  while (i <= 20) {
+    if (TOUR_SWITCH == 1) i++;
+    MicroStep_Motro_init(1);
   }
-	return 1;
+  // while (TOUR_SWITCH != 1) {
+  //   MicroStep_Motro_init(10);
+  // }
+  // delay_ms(10);
+  // while (TOUR_SWITCH != 1) {
+  //   MicroStep_Motro_init(10);
+  // }
+  // DBG_LOG("hello,wolrd!");
+  return 1;
 }
 
 typedef enum {
