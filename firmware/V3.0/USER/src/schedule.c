@@ -137,13 +137,15 @@ void Start_Borrow() {
         flag_steper = 1;
         MicroStep_Motro(380);
       }
-      if (NEW_SENSOR == 1) {  // sensor
+      if (NEW_SENSOR == 0) {  // sensor
         motoDef.state = state_run_third;
       }
       break;
     case state_run_third:  // push motor
-      if (NEW_SENSOR == 0) {
+      IWDG_Feed();
+      if (NEW_SENSOR == 1) {
         delay_ms_whx(3000);
+        CLOSE_ELECTRIC_LOCK;
         IWDG_Feed();
         // PUSH_MOTOR(LEFT);
         GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
@@ -153,10 +155,11 @@ void Start_Borrow() {
         GPIO_SetBits(GPIOD, GPIO_Pin_0);   // DIR2   GPIO_SetBits() -> out
                                            // GPIO_ResetBits() -> in
         flag_steper = 0;
-        while (TOUR_SWITCH != 0) {
-          MicroStep_Motro_init(10);
-        }
-        CLOSE_ELECTRIC_LOCK;
+        MicroStep_Motro(380);
+
+        // while (TOUR_SWITCH != 0) {
+        //   MicroStep_Motro_init(10);
+        // }
         // clear num
         motoDef.num = 0;
         flag_steper = 0;

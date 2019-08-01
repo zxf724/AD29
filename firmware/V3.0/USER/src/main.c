@@ -32,15 +32,16 @@ int main(void) {
   uart1_init(115200);
   uart2_init(115200);
   Moto_Init();
-  TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
   TIM4_Int_Init(500, 7199);  // 10Khz的计数频率，计数到5000为500ms
-  // TIM2_Int_Init(10000, 7199); //10Khz的计数频率，计数到5000为500ms
+  TIM2_Int_Init(20, 7199);   // 10Khz的计数频率，计数到5000为500ms
   sound_control();
   CLOSE_ELECTRIC_LOCK;
   // DBG_LOG("init_moto");
   init_moto();
-  delay_ms_whx(1000);
+  // TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
 
+  delay_ms_whx(1000);
+  //
   // DBG_LOG("system start");
   if (RTC_Init())
     // DBG_LOG("RTC Init fail");
@@ -111,7 +112,7 @@ void wait_fun(void) {
 }
 
 void test_fun() {
-#if 1
+#if 0
   static uint8_t flag = 0;
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
@@ -125,13 +126,14 @@ void test_fun() {
   if (flag == 0) {
     flag = 1;
     // MotorSetpperMove(75000);  // 160000
-    MicroStep_Motro(380);
+    MicroStep_Motro(400);
   }
+
 #endif
   // if (TOUR_SWITCH == 0) {  // NEW_SENSOR  TOUR_SWITCH
   //   DBG_LOG("hello,world!");
   // }
   // if (TOUR_SWITCH == 1) {
-  //   DBG_LOG("66666666666")
+  //   DBG_LOG("777777777")
   // }
 }

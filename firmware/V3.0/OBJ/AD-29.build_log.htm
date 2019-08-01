@@ -28,10 +28,18 @@ Project File Date:  07/30/2019
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'AD-29'
 compiling main.c...
+compiling moto.c...
+..\HARDWARE\MOTO\moto.c(267): warning:  #940-D: missing return statement at end of non-void function "MicroStep_Motro_init"
+  }
+..\HARDWARE\MOTO\moto.c(270): warning:  #177-D: variable "i" was declared but never referenced
+    static uint8_t i = 0;
+..\HARDWARE\MOTO\moto.c(313): warning:  #550-D: variable "iX_slow" was set but never used
+    uint32_t iX = 0, iX_slow = 0;
+..\HARDWARE\MOTO\moto.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=12296 RO-data=2064 RW-data=816 ZI-data=4344  
+Program Size: Code=12300 RO-data=2064 RW-data=812 ZI-data=4348  
 FromELF: creating hex file...
-"..\OBJ\AD-29.axf" - 0 Error(s), 0 Warning(s).
+"..\OBJ\AD-29.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\file\job\afu\AD29\firmware\V3.0\USER\RTE

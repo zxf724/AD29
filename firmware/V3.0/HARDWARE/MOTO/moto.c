@@ -9,6 +9,7 @@ Machine machine = {0, 0, 0};
 Moto motoDef = {Open_xMoto, Close_xMoto, Read_xMoto, 0, 0};
 mError errorDef = {0, 0};
 extern uint8_t moto_num_carry[32];
+uint8_t flag_stop = 1;
 
 mPin Pin_Array[PINMAX] = {
     // borrow motor array number:0-31
@@ -245,10 +246,10 @@ uint8_t Set_Moto() {
 uint8_t MicroStep_Motro(uint32_t Step) {
   for (uint32_t i = 0; i <= Step; i++) {
     for (uint32_t j = 0; j <= 100; j++) {
-      delay(1000);
+      delay(800);
       GPIO_SetBits(GPIOB, GPIO_Pin_3);
       GPIO_SetBits(GPIOB, GPIO_Pin_4);
-      delay(1000);
+      delay(800);
       GPIO_ResetBits(GPIOB, GPIO_Pin_3);
       GPIO_ResetBits(GPIOB, GPIO_Pin_4);
     }
@@ -275,10 +276,16 @@ uint8_t init_moto(void) {
   GPIO_SetBits(GPIOD,
                GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out
                              // GPIO_ResetBits() -> in
-  while (i <= 20) {
-    if (TOUR_SWITCH == 1) i++;
-    MicroStep_Motro_init(1);
+  while (flag_stop) {
+    // MicroStep_Motro_init(1);
+    delay(1000);
+    GPIO_SetBits(GPIOB, GPIO_Pin_3);
+    GPIO_SetBits(GPIOB, GPIO_Pin_4);
+    delay(1000);
+    GPIO_ResetBits(GPIOB, GPIO_Pin_3);
+    GPIO_ResetBits(GPIOB, GPIO_Pin_4);
   }
+  DBG_LOG("hello,world!");
   // while (TOUR_SWITCH != 1) {
   //   MicroStep_Motro_init(10);
   // }

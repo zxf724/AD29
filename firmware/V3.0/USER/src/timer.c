@@ -11,6 +11,7 @@
 extern _calendar_obj calendar;
 extern void timer0_backcall_func(void);
 extern Moto motoDef;
+extern uint8_t flag_stop;
 
 timer_t timerlist[TIMER_LIST_MAX];
 uint32_t timer3_tick = 0, timer4_tick = 0, timer2_tick = 0;
@@ -156,11 +157,21 @@ void TIM2_Int_Init(u16 arr, u16 psc) {
 //定时器2中断服务程序
 void TIM2_IRQHandler(void)  // TIM2中断
 {
+  static uint8_t i = 0, j = 0;
   if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)  //检查TIM2更新中断发生与否
   {
     TIM_ClearITPendingBit(TIM2, TIM_IT_Update);  //清除TIMx更新中断标志
-    timer2_tick++;
-    timer_task();
+    // timer2_tick++;
+    // timer_task();
+    if (TOUR_SWITCH == 1) {
+      i++;
+      if (i >= 5) {
+        flag_stop = 0;
+      } else if (TOUR_SWITCH == 0) {
+        j++;
+        DBG_LOG("j = %d", j);
+      }
+    }
   }
 }
 
