@@ -112,7 +112,7 @@ void wait_fun(void) {
 }
 
 void test_fun() {
-#if 0
+#if 1
   static uint8_t flag = 0;
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
@@ -125,8 +125,8 @@ void test_fun() {
       GPIO_Pin_11);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
   if (flag == 0) {
     flag = 1;
-    // MotorSetpperMove(75000);  // 160000
-    MicroStep_Motro(400);
+    MotorSetpperMove(160000);  // 160000
+    // MicroStep_Motro(400);
   }
 
 #endif

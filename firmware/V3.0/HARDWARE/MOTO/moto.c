@@ -348,7 +348,7 @@ void MotorSetpperMove(uint32_t xstep) {
             }
             break;
           case motor_start_fast:
-            if (plusX > 50) {
+            if (plusX > 200) {
               plusX--;
             } else if (iX % 100 == 0) {
               plusX--;
@@ -377,7 +377,7 @@ void MotorSetpperMove(uint32_t xstep) {
             break;
         }
         IWDG_Feed();
-        if (iX > 80000) {
+        if (iX > 150000) {
           statusX = motor_slowdown;
         }
       }

@@ -23,9 +23,8 @@
 // moto speed
 #define MOTOR_X_SPEED_SLOWDOWN_COUNT 1000
 
-#define MOTOR_X_START_PLUS 100
-#define MOTOR_X_FAST_PLUS 50
-
+#define MOTOR_X_START_PLUS 900
+#define MOTOR_X_FAST_PLUS 40
 // infrared
 #define INFRARED_SENSOR_TEST 78
 
