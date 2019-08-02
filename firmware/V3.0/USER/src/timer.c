@@ -6,8 +6,6 @@
 #include "rtc.h"
 #include "usart.h"
 
-#define HERAD 0xFF
-
 extern _calendar_obj calendar;
 extern void timer0_backcall_func(void);
 extern Moto motoDef;
@@ -15,6 +13,7 @@ extern uint8_t flag_stop;
 
 timer_t timerlist[TIMER_LIST_MAX];
 uint32_t timer3_tick = 0, timer4_tick = 0, timer2_tick = 0;
+uint8_t flag_hart = 0;
 
 void TIM3_Int_Init(u16 arr, u16 psc) {
   TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -52,12 +51,10 @@ void TIM3_IRQHandler(void)  // TIM3中断
   if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)  //检查TIM3更新中断发生与否
   {
     TIM_ClearITPendingBit(TIM3, TIM_IT_Update);  //清除TIMx更新中断标志
-    timer3_tick++;
-    timer_task();
+    // timer3_tick++;
+    // timer_task();
     // heart beat data
-    static uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
-                                     0x05, 0x06, 0x07, 0x08};
-    Report_State(HERAD, report_data, sizeof(report_data));
+    flag_hart = 1;
   }
 }
 
@@ -163,15 +160,6 @@ void TIM2_IRQHandler(void)  // TIM2中断
     TIM_ClearITPendingBit(TIM2, TIM_IT_Update);  //清除TIMx更新中断标志
     // timer2_tick++;
     // timer_task();
-    if (TOUR_SWITCH == 1) {
-      i++;
-      if (i >= 5) {
-        flag_stop = 0;
-      } else if (TOUR_SWITCH == 0) {
-        j++;
-        DBG_LOG("j = %d", j);
-      }
-    }
   }
 }
 

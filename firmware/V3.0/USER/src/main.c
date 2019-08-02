@@ -34,11 +34,12 @@ int main(void) {
   Moto_Init();
   TIM4_Int_Init(500, 7199);  // 10Khz的计数频率，计数到5000为500ms
   TIM2_Int_Init(20, 7199);   // 10Khz的计数频率，计数到5000为500ms
+  TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
+
   sound_control();
   CLOSE_ELECTRIC_LOCK;
   // DBG_LOG("init_moto");
   init_moto();
-  // TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
 
   delay_ms_whx(1000);
   //
@@ -56,6 +57,7 @@ int main(void) {
     led_light();
     wait_fun();
     test_fun();
+    send_hart();
   }
 }
 
@@ -112,7 +114,7 @@ void wait_fun(void) {
 }
 
 void test_fun() {
-#if 1
+#if TEST
   static uint8_t flag = 0;
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
@@ -125,7 +127,7 @@ void test_fun() {
       GPIO_Pin_11);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
   if (flag == 0) {
     flag = 1;
-    MotorSetpperMove(160000);  // 160000
+    MotorSetpperMove(40000);  // 160000
     // MicroStep_Motro(400);
   }
 

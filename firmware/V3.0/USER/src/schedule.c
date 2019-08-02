@@ -93,7 +93,7 @@ void Start_Schedule() {
  * @param argv
  */
 void Start_Borrow() {
-  static uint8_t flag_steper = 0;
+  static uint8_t flag_steper = 0, i = 0;
   IWDG_Feed();
   uint8_t check_num = 0;
   switch (motoDef.state) {
@@ -135,7 +135,7 @@ void Start_Borrow() {
           GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
       if (flag_steper == 0) {
         flag_steper = 1;
-        MicroStep_Motro(380);
+        MotorSetpperMove(40000);
       }
       if (NEW_SENSOR == 0) {  // sensor
         motoDef.state = state_run_third;
@@ -155,7 +155,19 @@ void Start_Borrow() {
         GPIO_SetBits(GPIOD, GPIO_Pin_0);   // DIR2   GPIO_SetBits() -> out
                                            // GPIO_ResetBits() -> in
         flag_steper = 0;
-        MicroStep_Motro(380);
+        while (i <= 5) {
+          if (TOUR_SWITCH == 1) {
+            DBG_LOG("i = %d", i);
+            i++;
+          }
+          // MicroStep_Motro_init(1);
+          delay(900);
+          GPIO_SetBits(GPIOB, GPIO_Pin_3);
+          GPIO_SetBits(GPIOB, GPIO_Pin_4);
+          delay(900);
+          GPIO_ResetBits(GPIOB, GPIO_Pin_3);
+          GPIO_ResetBits(GPIOB, GPIO_Pin_4);
+        }
 
         // while (TOUR_SWITCH != 0) {
         //   MicroStep_Motro_init(10);

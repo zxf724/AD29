@@ -13,12 +13,15 @@
 #define MOTOR_NUM 13
 
 uint8_t CmdRecBuf[COMMAND_MAX] = {0};
+static uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
+                                 0x05, 0x06, 0x07, 0x08};
 extern uint8_t g_bar_code[50];
 extern mError errorDef;
 
 extern app_fifo_t rx_fifo_Screen_Def;
 extern app_fifo_t rx_fifo_Gun_Def;
 extern uint8_t gs_screen_rx_buff[1024];
+extern uint8_t flag_hart;
 
 uint8_t data[8] = {0};
 
@@ -150,5 +153,12 @@ void open_all_door(void) {
       default:
         break;
     }  // end of switch
+  }
+}
+
+void send_hart(void) {
+  if (flag_hart) {
+    flag_hart = 0;
+    Report_State(HERAD, report_data, sizeof(report_data));
   }
 }
