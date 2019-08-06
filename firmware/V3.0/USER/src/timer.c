@@ -14,6 +14,7 @@ extern uint8_t flag_stop;
 timer_t timerlist[TIMER_LIST_MAX];
 uint32_t timer3_tick = 0, timer4_tick = 0, timer2_tick = 0;
 uint8_t flag_hart = 0;
+uint8_t flag_new_sensor = 0;
 
 void TIM3_Int_Init(u16 arr, u16 psc) {
   TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -158,8 +159,9 @@ void TIM2_IRQHandler(void)  // TIM2中断
   if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)  //检查TIM2更新中断发生与否
   {
     TIM_ClearITPendingBit(TIM2, TIM_IT_Update);  //清除TIMx更新中断标志
-    // timer2_tick++;
-    // timer_task();
+    if (NEW_SENSOR == 1) {
+      flag_new_sensor = 1;
+    }
   }
 }
 

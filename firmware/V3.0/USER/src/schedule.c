@@ -13,6 +13,7 @@ extern uint8_t g_start_cmd[7];
 extern Moto motoDef;
 extern Machine machine;
 extern mError errorDef;
+extern uint8_t flag_new_sensor;
 uint8_t flag_finish = 1;
 
 void Start_Schedule() {
@@ -122,7 +123,7 @@ void Start_Borrow() {
       break;
     case state_run_second:
       // check infrared  output 0 signal when it cover
-      delay_ms_whx(2000);
+      delay_ms_whx(500);
       OPEN_ELECTRIC_LOCK;
       IWDG_Feed();
       GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
@@ -135,16 +136,18 @@ void Start_Borrow() {
           GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
       if (flag_steper == 0) {
         flag_steper = 1;
-        MotorSetpperMove(40000);
+        MotorSetpperMove(35000);
       }
-      if (NEW_SENSOR == 0) {  // sensor
+      delay_ms_whx(100);
+      if (flag_new_sensor == 1) {  // sensor
         motoDef.state = state_run_third;
       }
       break;
     case state_run_third:  // push motor
       IWDG_Feed();
       if (NEW_SENSOR == 1) {
-        delay_ms_whx(3000);
+        flag_new_sensor = 0;
+        delay_ms_whx(500);
         CLOSE_ELECTRIC_LOCK;
         IWDG_Feed();
         // PUSH_MOTOR(LEFT);

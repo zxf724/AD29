@@ -114,7 +114,7 @@ void wait_fun(void) {
 }
 
 void test_fun() {
-#if TEST
+#if 0
   static uint8_t flag = 0;
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
@@ -127,15 +127,20 @@ void test_fun() {
       GPIO_Pin_11);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
   if (flag == 0) {
     flag = 1;
-    MotorSetpperMove(40000);  // 160000
+    MotorSetpperMove(35000);  // 40000
     // MicroStep_Motro(400);
   }
 
 #endif
-  // if (TOUR_SWITCH == 0) {  // NEW_SENSOR  TOUR_SWITCH
+  // if (NEW_SENSOR == 0) {  // NEW_SENSOR  TOUR_SWITCH
   //   DBG_LOG("hello,world!");
   // }
-  // if (TOUR_SWITCH == 1) {
-  //   DBG_LOG("777777777")
+  // if (NEW_SENSOR == 1) {
+  //   DBG_LOG("777777777");
+  // }
+  // uint8_t flag = 1;
+  // if (flag == 1) {
+  //   motoDef.num = 2;
+  //   flag = 0;
   // }
 }

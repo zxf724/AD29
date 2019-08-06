@@ -382,7 +382,7 @@ void MotorSetpperMove(uint32_t xstep) {
             break;
         }
         IWDG_Feed();
-        if (iX > 70000) {
+        if (iX > 62000) {
           statusX = motor_slowdown;
         }
       }
