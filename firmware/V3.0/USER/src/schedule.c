@@ -140,13 +140,14 @@ void Start_Borrow() {
       }
       delay_ms_whx(100);
       if (flag_new_sensor == 1) {  // sensor
+        DBG_LOG("flag_new_sensor == 1");
         motoDef.state = state_run_third;
       }
       break;
     case state_run_third:  // push motor
       IWDG_Feed();
       if (NEW_SENSOR == 1) {
-        flag_new_sensor = 0;
+        DBG_LOG("state_run_third");
         delay_ms_whx(500);
         CLOSE_ELECTRIC_LOCK;
         IWDG_Feed();
@@ -171,12 +172,13 @@ void Start_Borrow() {
           GPIO_ResetBits(GPIOB, GPIO_Pin_3);
           GPIO_ResetBits(GPIOB, GPIO_Pin_4);
         }
-
+        flag_new_sensor = 0;
         // while (TOUR_SWITCH != 0) {
         //   MicroStep_Motro_init(10);
         // }
         // clear num
         motoDef.num = 0;
+        i = 0;
         flag_steper = 0;
         motoDef.state = state_report;
       }
