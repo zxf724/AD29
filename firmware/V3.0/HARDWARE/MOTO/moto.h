@@ -258,6 +258,7 @@ enum {
   state_run_first,
   state_error,
   state_run_second,
+  state_run_second_half,
   state_run_third,
   //   state_run_fifth,
   state_report,

@@ -15,6 +15,8 @@ timer_t timerlist[TIMER_LIST_MAX];
 uint32_t timer3_tick = 0, timer4_tick = 0, timer2_tick = 0;
 uint8_t flag_hart = 0;
 uint8_t flag_new_sensor = 0;
+static uint16_t calc_times = 0;
+uint8_t flag_calc_times = 0;
 
 void TIM3_Int_Init(u16 arr, u16 psc) {
   TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -52,8 +54,6 @@ void TIM3_IRQHandler(void)  // TIM3中断
   if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)  //检查TIM3更新中断发生与否
   {
     TIM_ClearITPendingBit(TIM3, TIM_IT_Update);  //清除TIMx更新中断标志
-    // timer3_tick++;
-    // timer_task();
     // heart beat data
     flag_hart = 1;
   }
@@ -111,13 +111,9 @@ void TIM4_IRQHandler(void)  // TIM4中断
   if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)  //检查TIM4更新中断发生与否
   {
     TIM_ClearITPendingBit(TIM4, TIM_IT_Update);  //清除TIMx更新中断标志
-    timer4_tick++;
-    timer_task();
-    // if (TOUR_SWITCH == 0) {
-    //   OPEN_ELECTRIC_LOCK;
-    // } else {
-    //   CLOSE_ELECTRIC_LOCK;
-    // }
+    if (TOUR_SWITCH == 1) {
+      calc_times++;
+    }
   }
 }
 
@@ -155,12 +151,14 @@ void TIM2_Int_Init(u16 arr, u16 psc) {
 //定时器2中断服务程序
 void TIM2_IRQHandler(void)  // TIM2中断
 {
-  static uint8_t i = 0, j = 0;
   if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)  //检查TIM2更新中断发生与否
   {
     TIM_ClearITPendingBit(TIM2, TIM_IT_Update);  //清除TIMx更新中断标志
-    if (NEW_SENSOR == 1) {
-      flag_new_sensor = 1;
+    if (calc_times >= 50) {
+      flag_calc_times = 1;
+      calc_times = 0;
+    } else {
+      calc_times = 0;
     }
   }
 }

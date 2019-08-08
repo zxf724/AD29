@@ -14,6 +14,7 @@ extern Moto motoDef;
 extern Machine machine;
 extern mError errorDef;
 extern uint8_t flag_new_sensor;
+extern uint8_t flag_calc_times;
 uint8_t flag_finish = 1;
 
 void Start_Schedule() {
@@ -30,7 +31,7 @@ void Start_Schedule() {
       if (Set_Moto() < 33 && Set_Moto() > 0) {  //出货电机
         machine.state = state_report;
         machine.moto_state = state_report;
-      } else if (Set_Moto() >= 33) {  //回收门锁电机
+      } else if (Set_Moto() >= 33) {  // 回收门锁电机
         machine.state = state_report;
         machine.lock_state = state_report;
       } else if (Set_Moto() == 0xff) {
@@ -124,7 +125,6 @@ void Start_Borrow() {
     case state_run_second:
       // check infrared  output 0 signal when it cover
       delay_ms_whx(500);
-      OPEN_ELECTRIC_LOCK;
       IWDG_Feed();
       GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
       GPIO_ResetBits(
@@ -136,17 +136,32 @@ void Start_Borrow() {
           GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
       if (flag_steper == 0) {
         flag_steper = 1;
-        MotorSetpperMove(35000);
+        MotorSetpperMove(40000);
       }
       delay_ms_whx(100);
-      if (flag_new_sensor == 1) {  // sensor
-        DBG_LOG("flag_new_sensor == 1");
-        motoDef.state = state_run_third;
+      OPEN_ELECTRIC_LOCK;
+      if (NEW_SENSOR == 1) {  // sensor
+        // DBG_LOG("111111111111");
+        motoDef.state = state_run_second_half;
+      }
+      break;
+    case state_run_second_half:
+      IWDG_Feed();
+      if (NEW_SENSOR == 0) {
+        delay_ms_whx(4000);
+        IWDG_Feed();
+        if (NEW_SENSOR == 1) {
+          // DBG_LOG("222222222222");
+          motoDef.state = state_run_second;
+        } else if (NEW_SENSOR == 0) {
+          // DBG_LOG("333333333333");
+          motoDef.state = state_run_third;
+        }
       }
       break;
     case state_run_third:  // push motor
       IWDG_Feed();
-      if (NEW_SENSOR == 1) {
+      if (NEW_SENSOR == 0) {
         DBG_LOG("state_run_third");
         delay_ms_whx(500);
         CLOSE_ELECTRIC_LOCK;
@@ -159,11 +174,12 @@ void Start_Borrow() {
         GPIO_SetBits(GPIOD, GPIO_Pin_0);   // DIR2   GPIO_SetBits() -> out
                                            // GPIO_ResetBits() -> in
         flag_steper = 0;
-        while (i <= 5) {
-          if (TOUR_SWITCH == 1) {
-            DBG_LOG("i = %d", i);
-            i++;
-          }
+
+        TIM_Cmd(TIM2, ENABLE);  //使能TIMx
+        TIM_Cmd(TIM4, ENABLE);  //使能TIMx
+        flag_calc_times = 0;
+
+        while (flag_calc_times != 1) {
           // MicroStep_Motro_init(1);
           delay(900);
           GPIO_SetBits(GPIOB, GPIO_Pin_3);
@@ -177,6 +193,9 @@ void Start_Borrow() {
         //   MicroStep_Motro_init(10);
         // }
         // clear num
+        TIM_Cmd(TIM2, DISABLE);  //使能TIMx
+        TIM_Cmd(TIM4, DISABLE);  //使能TIMx
+
         motoDef.num = 0;
         i = 0;
         flag_steper = 0;

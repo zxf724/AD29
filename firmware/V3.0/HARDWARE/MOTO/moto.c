@@ -9,6 +9,7 @@ Machine machine = {0, 0, 0};
 Moto motoDef = {Open_xMoto, Close_xMoto, Read_xMoto, 0, 0};
 mError errorDef = {0, 0};
 extern uint8_t moto_num_carry[32];
+extern uint8_t flag_calc_times;
 
 mPin Pin_Array[PINMAX] = {
     // borrow motor array number:0-31
@@ -188,7 +189,7 @@ void Moto_Init() {
 
   //	tour switch
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
   GPIO_Init(GPIOD, &GPIO_InitStructure);
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 }
@@ -268,7 +269,6 @@ uint8_t MicroStep_Motro_init(uint32_t Step) {
 }
 
 uint8_t init_moto(void) {
-  static uint8_t i = 0;
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC,
                GPIO_Pin_11);         // DIR1   GPIO_SetBits() -> out
@@ -277,11 +277,7 @@ uint8_t init_moto(void) {
   GPIO_SetBits(GPIOD,
                GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out
                              // GPIO_ResetBits() -> in
-  while (i <= 3) {
-    if (TOUR_SWITCH == 1) {
-      DBG_LOG("i = %d", i);
-      i++;
-    }
+  while (flag_calc_times != 1) {
     // MicroStep_Motro_init(1);
     delay(900);
     GPIO_SetBits(GPIOB, GPIO_Pin_3);
@@ -290,15 +286,6 @@ uint8_t init_moto(void) {
     GPIO_ResetBits(GPIOB, GPIO_Pin_3);
     GPIO_ResetBits(GPIOB, GPIO_Pin_4);
   }
-  DBG_LOG("hello,world!");
-  // while (TOUR_SWITCH != 1) {
-  //   MicroStep_Motro_init(10);
-  // }
-  // delay_ms(10);
-  // while (TOUR_SWITCH != 1) {
-  //   MicroStep_Motro_init(10);
-  // }
-  // DBG_LOG("hello,wolrd!");
   return 1;
 }
 
@@ -382,7 +369,7 @@ void MotorSetpperMove(uint32_t xstep) {
             break;
         }
         IWDG_Feed();
-        if (iX > 62000) {
+        if (iX > 75000) {
           statusX = motor_slowdown;
         }
       }

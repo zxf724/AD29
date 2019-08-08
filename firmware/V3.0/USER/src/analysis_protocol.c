@@ -149,6 +149,14 @@ void open_all_door(void) {
           delay_ms(200);
           Close_xMoto(i);
         }
+        GPIO_ResetBits(GPIOB, GPIO_Pin_8);
+        delay_ms_whx(500);
+        GPIO_SetBits(GPIOB, GPIO_Pin_8);
+        delay_ms_whx(500);
+        GPIO_ResetBits(GPIOB, GPIO_Pin_8);
+        delay_ms_whx(500);
+        GPIO_SetBits(GPIOB, GPIO_Pin_8);
+        delay_ms_whx(500);
         break;
       default:
         break;

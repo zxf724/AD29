@@ -22,6 +22,7 @@ int time = 0;
 extern _calendar_obj calendar;  //时钟结构体
 extern uint8_t g_array_ML[32];
 extern uint8_t flag_finish;
+extern uint8_t flag_calc_times;
 
 int main(void) {
   CMD_ENT_DEF(MOTO, funControl);
@@ -32,20 +33,21 @@ int main(void) {
   uart1_init(115200);
   uart2_init(115200);
   Moto_Init();
-  TIM4_Int_Init(500, 7199);  // 10Khz的计数频率，计数到5000为500ms
-  TIM2_Int_Init(20, 7199);   // 10Khz的计数频率，计数到5000为500ms
+  TIM4_Int_Init(10, 7199);    // 10Khz的计数频率，计数到5000为500ms
+  TIM2_Int_Init(2000, 7199);  // 10Khz的计数频率，计数到5000为500ms
   TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
 
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  // DBG_LOG("init_moto");
+  DBG_LOG("init_moto");
   init_moto();
 
-  delay_ms_whx(1000);
+  // delay_ms_whx(1000);
   //
   // DBG_LOG("system start");
   if (RTC_Init())
     // DBG_LOG("RTC Init fail");
+
     IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
 
   while (1) {
@@ -56,8 +58,8 @@ int main(void) {
     open_all_door();
     led_light();
     wait_fun();
-    test_fun();
     send_hart();
+    test_fun();
   }
 }
 
@@ -114,11 +116,11 @@ void wait_fun(void) {
 }
 
 void test_fun() {
-#if 0
   static uint8_t flag = 0;
+#if 1
+
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-  //
   GPIO_ResetBits(
       GPIOD,
       GPIO_Pin_0);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
@@ -127,20 +129,42 @@ void test_fun() {
       GPIO_Pin_11);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
   if (flag == 0) {
     flag = 1;
-    MotorSetpperMove(35000);  // 40000
+    MotorSetpperMove(40000);  // 40000
     // MicroStep_Motro(400);
   }
+  flag_calc_times = 0;
+  GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
+  GPIO_SetBits(GPIOC, GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out
+                                     // GPIO_ResetBits() -> in
+  GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
+  GPIO_SetBits(GPIOD, GPIO_Pin_0);   // DIR2   GPIO_SetBits() -> out
+                                     // GPIO_ResetBits() -> in
+  while (flag_calc_times != 1) {
+    // MicroStep_Motro_init(1);
+    delay(900);
+    GPIO_SetBits(GPIOB, GPIO_Pin_3);
+    GPIO_SetBits(GPIOB, GPIO_Pin_4);
+    delay(900);
+    GPIO_ResetBits(GPIOB, GPIO_Pin_3);
+    GPIO_ResetBits(GPIOB, GPIO_Pin_4);
+  }
+  flag = 0;
 
 #endif
-  // if (NEW_SENSOR == 0) {  // NEW_SENSOR  TOUR_SWITCH
+
+  // if (TOUR_SWITCH == 0) {  // NEW_SENSOR  TOUR_SWITCH
   //   DBG_LOG("hello,world!");
   // }
-  // if (NEW_SENSOR == 1) {
+  // if (TOUR_SWITCH == 1) {
   //   DBG_LOG("777777777");
   // }
   // uint8_t flag = 1;
   // if (flag == 1) {
-  //   motoDef.num = 2;
+  //   motoDef.num = 24;
   //   flag = 0;
   // }
+  // delay_ms_whx(4000);
+  // DBG_LOG("hello,world!");
+  // delay_ms_whx(4000);
+  // DBG_LOG("hello,world!");
 }
