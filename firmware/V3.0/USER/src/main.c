@@ -33,13 +33,13 @@ int main(void) {
   uart1_init(115200);
   uart2_init(115200);
   Moto_Init();
-  TIM4_Int_Init(10, 7199);    // 10Khz的计数频率，计数到5000为500ms
-  TIM2_Int_Init(2000, 7199);  // 10Khz的计数频率，计数到5000为500ms
+  TIM4_Int_Init(5, 7199);     // 10Khz的计数频率，计数到5000为500ms
+  TIM2_Int_Init(1000, 7199);  // 10Khz的计数频率，计数到5000为500ms
   TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
 
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  DBG_LOG("init_moto");
+  // DBG_LOG("init_moto");
   init_moto();
 
   // delay_ms_whx(1000);
@@ -117,8 +117,7 @@ void wait_fun(void) {
 
 void test_fun() {
   static uint8_t flag = 0;
-#if 1
-
+#if 0
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
   GPIO_ResetBits(
@@ -132,6 +131,7 @@ void test_fun() {
     MotorSetpperMove(40000);  // 40000
     // MicroStep_Motro(400);
   }
+
   flag_calc_times = 0;
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out
@@ -160,11 +160,14 @@ void test_fun() {
   // }
   // uint8_t flag = 1;
   // if (flag == 1) {
-  //   motoDef.num = 24;
+  // motoDef.num = 2;
   //   flag = 0;
   // }
   // delay_ms_whx(4000);
   // DBG_LOG("hello,world!");
   // delay_ms_whx(4000);
   // DBG_LOG("hello,world!");
+  // motoDef.open_moto(31);
+  // motoDef.open_moto(32);
+  // motoDef.num = 4;
 }

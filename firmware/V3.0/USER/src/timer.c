@@ -111,7 +111,7 @@ void TIM4_IRQHandler(void)  // TIM4中断
   if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)  //检查TIM4更新中断发生与否
   {
     TIM_ClearITPendingBit(TIM4, TIM_IT_Update);  //清除TIMx更新中断标志
-    if (TOUR_SWITCH == 1) {
+    if (TOUR_SWITCH == 0) {
       calc_times++;
     }
   }

@@ -279,16 +279,18 @@ uint8_t init_moto(void) {
                              // GPIO_ResetBits() -> in
   while (flag_calc_times != 1) {
     // MicroStep_Motro_init(1);
-    delay(900);
-    GPIO_SetBits(GPIOB, GPIO_Pin_3);
-    GPIO_SetBits(GPIOB, GPIO_Pin_4);
-    delay(900);
-    GPIO_ResetBits(GPIOB, GPIO_Pin_3);
-    GPIO_ResetBits(GPIOB, GPIO_Pin_4);
+    delay_ms_whx(500);
+    while (flag_calc_times != 1) {
+      delay(900);
+      GPIO_SetBits(GPIOB, GPIO_Pin_3);
+      GPIO_SetBits(GPIOB, GPIO_Pin_4);
+      delay(900);
+      GPIO_ResetBits(GPIOB, GPIO_Pin_3);
+      GPIO_ResetBits(GPIOB, GPIO_Pin_4);
+    }
+    return 1;
   }
-  return 1;
 }
-
 typedef enum {
   motor_start,
   motor_start_fast,

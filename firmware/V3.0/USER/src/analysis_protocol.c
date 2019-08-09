@@ -22,6 +22,7 @@ extern app_fifo_t rx_fifo_Screen_Def;
 extern app_fifo_t rx_fifo_Gun_Def;
 extern uint8_t gs_screen_rx_buff[1024];
 extern uint8_t flag_hart;
+extern uint8_t flag_calc_times;
 
 uint8_t data[8] = {0};
 
@@ -139,6 +140,7 @@ void open_all_door(void) {
   // check the key
   static uint8_t key = 0;
   static uint8_t i = 0;
+  uint8_t flag = 0;
   key = KEY_Scan(1);
   if (key) {
     switch (key) {
@@ -157,6 +159,37 @@ void open_all_door(void) {
         delay_ms_whx(500);
         GPIO_SetBits(GPIOB, GPIO_Pin_8);
         delay_ms_whx(500);
+        GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
+        GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
+        // GPIO_ResetBits(
+        //     GPIOD,
+        //     GPIO_Pin_0);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() ->
+        //     in
+        // GPIO_ResetBits(GPIOC,
+        //                GPIO_Pin_11);  // DIR   GPIO_SetBits() -> out
+        //                               // GPIO_ResetBits() -> in
+        // if (flag == 0) {
+        //   flag = 1;
+        //   MotorSetpperMove(40000);  // 40000
+        //   // MicroStep_Motro(400);
+        // }
+
+        // flag_calc_times = 0;
+        // GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
+        // GPIO_SetBits(GPIOC, GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out
+        //                                    // GPIO_ResetBits() -> in
+        // GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
+        // GPIO_SetBits(GPIOD, GPIO_Pin_0);   // DIR2   GPIO_SetBits() -> out
+        //                                    // GPIO_ResetBits() -> in
+        // while (flag_calc_times != 1) {
+        //   // MicroStep_Motro_init(1);
+        //   delay(900);
+        //   GPIO_SetBits(GPIOB, GPIO_Pin_3);
+        //   GPIO_SetBits(GPIOB, GPIO_Pin_4);
+        //   delay(900);
+        //   GPIO_ResetBits(GPIOB, GPIO_Pin_3);
+        //   GPIO_ResetBits(GPIOB, GPIO_Pin_4);
+        // }
         break;
       default:
         break;
