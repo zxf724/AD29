@@ -15,6 +15,10 @@
 uint8_t CmdRecBuf[COMMAND_MAX] = {0};
 static uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
                                  0x05, 0x06, 0x07, 0x08};
+
+static uint8_t CMD_RecBuffer[CMD_BUF_SIZE];
+static uint16_t CMD_RecBufferIndex = 0;
+
 extern uint8_t g_bar_code[50];
 extern mError errorDef;
 
@@ -28,30 +32,17 @@ uint8_t data[8] = {0};
 
 void Screen_CommandReceive_Poll(void) {
   uint16_t index = 0;
-  uint32_t len = 0;
-  uint8_t i = 0;
-  len = fifo_length(&rx_fifo_Screen_Def);
-  if (len >= 12) {
-    IWDG_Feed();
-    delay_ms(100);
-    len = fifo_length(&rx_fifo_Screen_Def);
-    for (i = 0; i < len; i++) app_uart_get(&CmdRecBuf[i], SCREEN);  // one bit
-    len = 0;
-    Uart_Protocol_Cmd_Analy(CmdRecBuf, index);
-  }
+  uint8_t* p;
 
-  // while(app_uart_get(&CmdRecBuf[index],SCREEN) == NRF_SUCCESS)
-  if (0) {
-#if 1
+  while (app_uart_get(&CmdRecBuf[index], SCREEN) == NRF_SUCCESS) {
     if (index >= 8) {
-      // Uart_Protocol_Cmd_Analy(CmdRecBuf,index);
+      Uart_Protocol_Cmd_Analy(CmdRecBuf, index);
     } else {
       // if(index == 6)
       // 	len = CmdRecBuf[index];
       // index++;
       // delay_ms(2);
     }
-#else
     if (CmdRecBuf[index] == '\n' && CmdRecBuf[index - 1] == '\r') {
       CmdRecBuf[index + 1] = '\0';
       p = (char*)&CmdRecBuf[0];
@@ -64,7 +55,6 @@ void Screen_CommandReceive_Poll(void) {
       delay_ms(2);
       index++;
     }
-#endif
   }
 }
 
@@ -97,6 +87,9 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf, uint8_t length) {
                                    0x05, 0x06, 0x07, 0x08};
   static uint8_t start_screen[6] = {0x04, 0xE4, 0x04, 0x00, 0xFF, 0x14};
   static uint8_t stop_screen[6] = {0x04, 0xE5, 0x04, 0x00, 0xFF, 0x13};
+
+  char c = 0;
+  c = CMD_RecBuffer[CMD_RecBufferIndex - 1];
 
   // crc16 test  already test
   uint16_t crc_data_count = CRC_16(0xffff, CmdRecBuf + 1, 14);

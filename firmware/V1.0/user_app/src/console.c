@@ -74,7 +74,7 @@ void CMD_Init(void) {
 
 /**
  * @brief 控制台处理任务
- * 
+ *
  * @param argument  常量字符串？？
  */
 void CMD_Task(void const* argument) {
@@ -93,7 +93,7 @@ void CMD_Task(void const* argument) {
 
 /**
  * @brief 控制台管道注册
- * 
+ *
  * @param fun 该管道对应的数据发送函数指针
  * @return uint8_t 返回管道号
  */
@@ -116,7 +116,7 @@ uint8_t CMD_Pipe_Register(CMD_SendFun fun) {
 
 /**
  * @brief  控制台发送数据
- * 
+ *
  * @param dat 待发送的数据指针
  * @param len 数据的长度
  */
@@ -126,7 +126,7 @@ void CMD_SendData(uint8_t* dat, uint16_t len) {
 
 /**
  * @brief 从控制台缓存中读出数据
- * 
+ *
  * @param dat  数据读出保存的指针
  * @param len  读出数据的最大长度
  * @return uint16_t 数据读出的长度
@@ -139,7 +139,7 @@ uint16_t CMD_ReadData(uint8_t* dat, uint16_t len) {
 
 /**
  * @brief 获取CMD缓存数据的大小
- * 
+ *
  * @return uint16_t 返回数据长度
  */
 uint16_t CMD_DataSize(void) {
@@ -149,7 +149,7 @@ uint16_t CMD_DataSize(void) {
 
 /**
  * @brief 控制台打印可变参数字符串.
- * 
+ *
  * @param format  参数列表.
  * @param ...  可变参数
  */
@@ -168,7 +168,7 @@ void CMD_Printf(char* format, ...) {
 
 /**
  * @brief 控制台打印HEX数据
- * 
+ *
  * @param dat 数据指针
  * @param len 数据的长度
  */
@@ -198,7 +198,7 @@ void CMD_HEX_Print(uint8_t* dat, uint16_t len) {
 
 /**
  * @brief 控制台打印可变参数字符串,根据优先等级决定是否打印
- * 
+ *
  * @param level  优先等级
  * @param format 参数列表
  * @param ...    可变参数
@@ -221,7 +221,7 @@ void CMD_Printf_Level(uint8_t level, char* format, ...) {
 
 /**
  * @brief 控制台打印HEX数据,根据优先等级决定是否打印
- * 
+ *
  * @param level 优先等级
  * @param dat   数据指针
  * @param len   数据的长度
@@ -234,7 +234,7 @@ void CMD_HEX_Print_Level(uint8_t level, uint8_t* dat, uint16_t len) {
 
 /**
  * @brief 控制台设置回显开关
- * 
+ *
  * @param en 回显使能开关
  */
 void CMD_SetEchoEnable(BOOL en) {
@@ -247,7 +247,7 @@ void CMD_SetEchoEnable(BOOL en) {
 
 /**
  * @brief 控制台设置打印信息等级
- * 
+ *
  * @param level 等级
  */
 void CMD_SetDebugLevel(uint8_t level) {
@@ -260,7 +260,7 @@ void CMD_SetDebugLevel(uint8_t level) {
 
 /**
  * @brief 串口空闲数据读出.
- * 
+ *
  */
 void CMD_UART_Read_Poll(void) {
   int num = 0;
@@ -280,7 +280,7 @@ void CMD_UART_Read_Poll(void) {
           /*命令提取包*/
           Pack_Explain(buf, cbuf);
           buf[len] = 0;
-          cbuf[7] = 0x0A;  
+          cbuf[7] = 0x0A;
 
           printf("cbuf:%s,len:%d ", cbuf, len);
           CMD_NewData(num, cbuf, 8);
@@ -294,7 +294,7 @@ void CMD_UART_Read_Poll(void) {
 
 /**
  * @brief 控制台接收到新的数据
- * 
+ *
  * @param pipe 管道号
  * @param dat  数据指针
  * @param len  数据的长度
@@ -312,7 +312,7 @@ void CMD_NewData(uint8_t pipe, uint8_t* dat, uint16_t len) {
 
 /**
  * @brief 执行虚拟命令
- * 
+ *
  * @param cmd 数据指针
  */
 void CMD_Virtual(char* cmd) {
@@ -326,7 +326,7 @@ void CMD_Virtual(char* cmd) {
 
 /**
  * @brief 控制台处理函数，在任务中调用轮询处理新的消息.
- * 
+ *
  */
 static void CMD_ProcPoll(void) {
   uint16_t len = 0;
@@ -359,7 +359,7 @@ static void CMD_ProcPoll(void) {
 
 /**
  * @brief 控制台接收到新的数据
- * 
+ *
  * @param pipe 管道号
  * @param dat   数据指针
  * @param len   数据的长度
@@ -381,7 +381,7 @@ static void CMD_PipeSendData(uint8_t pipe, uint8_t* dat, uint16_t len) {
 
 /**
  * @brief 系统调试命令
- * 
+ *
  * @param argc 参数项数量
  * @param argv 参数列表
  */

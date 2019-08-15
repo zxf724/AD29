@@ -40,7 +40,7 @@ int main(void) {
   sound_control();
   CLOSE_ELECTRIC_LOCK;
   // DBG_LOG("init_moto");
-  init_moto();
+  // init_moto();
 
   // delay_ms_whx(1000);
   //
@@ -81,6 +81,8 @@ static void funControl(int argc, char *argv[]) {
     motoDef.close_moto(uatoi(argv[1]));
   } else if (ARGV_EQUAL("motor_turn_off")) {
     PUSH_MOTOR(LEFT);
+  } else if (ARGV_EQUAL("hello_world")) {
+    DBG_LOG("hello,world!");
   }
 }
 

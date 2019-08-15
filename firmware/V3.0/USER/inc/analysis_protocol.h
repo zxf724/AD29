@@ -4,6 +4,7 @@
 #include "stm32f10x.h"
 
 #define COMMAND_MAX 1024
+#define CMD_BUF_SIZE 512
 
 /*֡ͷβ*/
 #define FHEADER 0x7E
