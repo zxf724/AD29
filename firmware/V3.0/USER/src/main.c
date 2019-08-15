@@ -152,22 +152,23 @@ void test_fun() {
 
 #endif
 
-  // if (TOUR_SWITCH == 0) {  // NEW_SENSOR  TOUR_SWITCH
+  // if (NEW_SENSOR == 0) {  // NEW_SENSOR  TOUR_SWITCH
   //   DBG_LOG("hello,world!");
   // }
-  // if (TOUR_SWITCH == 1) {
+  // if (NEW_SENSOR == 1) {
   //   DBG_LOG("777777777");
   // }
   // uint8_t flag = 1;
   // if (flag == 1) {
-  // motoDef.num = 2;
+  // motoDef.num = 32;
   //   flag = 0;
   // }
   // delay_ms_whx(4000);
   // DBG_LOG("hello,world!");
   // delay_ms_whx(4000);
   // DBG_LOG("hello,world!");
-  // motoDef.open_moto(31);
-  // motoDef.open_moto(32);
-  // motoDef.num = 4;
+  // motoDef.open_moto(22);
+  // motoDef.open_moto(23);
+  // motoDef.open_moto(24);
+  // motoDef.num = 32;
 }

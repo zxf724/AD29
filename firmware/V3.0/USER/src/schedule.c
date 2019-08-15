@@ -44,7 +44,7 @@ void Start_Schedule() {
       // Report_Bar_Code();
       break;
     case state_repay:
-      Start_Repay();
+      Start_Repay(); 
       break;
     case state_borrow:
       Start_Borrow();
@@ -162,7 +162,7 @@ void Start_Borrow() {
     case state_run_third:  // push motor
       IWDG_Feed();
       if (NEW_SENSOR == 0) {
-        DBG_LOG("state_run_third");
+        // DBG_LOG("state_run_third");
         delay_ms_whx(500);
         CLOSE_ELECTRIC_LOCK;
         IWDG_Feed();
