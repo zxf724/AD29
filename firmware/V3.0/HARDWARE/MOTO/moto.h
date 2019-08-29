@@ -324,5 +324,5 @@ uint8_t MicroStep_Motro(uint32_t Step);
 uint8_t check_num(void);
 uint8_t init_moto(void);
 void MotorSetpperMove(uint32_t xstep);
-uint8_t MicroStep_Motro_init(uint32_t Step);
+void MicroStep_Motro_init(uint32_t Step);
 #endif

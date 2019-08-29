@@ -16,9 +16,6 @@ uint8_t CmdRecBuf[COMMAND_MAX] = {0};
 static uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
                                  0x05, 0x06, 0x07, 0x08};
 
-static uint8_t CMD_RecBuffer[CMD_BUF_SIZE];
-static uint16_t CMD_RecBufferIndex = 0;
-
 extern uint8_t g_bar_code[50];
 extern mError errorDef;
 
@@ -45,11 +42,11 @@ void Screen_CommandReceive_Poll(void) {
     }
     if (CmdRecBuf[index] == '\n' && CmdRecBuf[index - 1] == '\r') {
       CmdRecBuf[index + 1] = '\0';
-      p = (char*)&CmdRecBuf[0];
+      p = (uint8_t*)&CmdRecBuf[0];
       while (!isgraph(*p)) {
         p++;
       }
-      Cmd_Handle(p);
+      Cmd_Handle((char*)p);
       index = 0;
     } else {
       delay_ms(2);
@@ -87,9 +84,6 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf, uint8_t length) {
                                    0x05, 0x06, 0x07, 0x08};
   static uint8_t start_screen[6] = {0x04, 0xE4, 0x04, 0x00, 0xFF, 0x14};
   static uint8_t stop_screen[6] = {0x04, 0xE5, 0x04, 0x00, 0xFF, 0x13};
-
-  char c = 0;
-  c = CMD_RecBuffer[CMD_RecBufferIndex - 1];
 
   // crc16 test  already test
   uint16_t crc_data_count = CRC_16(0xffff, CmdRecBuf + 1, 14);
@@ -133,7 +127,6 @@ void open_all_door(void) {
   // check the key
   static uint8_t key = 0;
   static uint8_t i = 0;
-  uint8_t flag = 0;
   key = KEY_Scan(1);
   if (key) {
     switch (key) {
@@ -144,6 +137,7 @@ void open_all_door(void) {
           delay_ms(200);
           Close_xMoto(i);
         }
+        // TODO
         GPIO_ResetBits(GPIOB, GPIO_Pin_8);
         delay_ms_whx(500);
         GPIO_SetBits(GPIOB, GPIO_Pin_8);
@@ -154,35 +148,6 @@ void open_all_door(void) {
         delay_ms_whx(500);
         GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
         GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-        // GPIO_ResetBits(
-        //     GPIOD,
-        //     GPIO_Pin_0);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() ->
-        //     in
-        // GPIO_ResetBits(GPIOC,
-        //                GPIO_Pin_11);  // DIR   GPIO_SetBits() -> out
-        //                               // GPIO_ResetBits() -> in
-        // if (flag == 0) {
-        //   flag = 1;
-        //   MotorSetpperMove(40000);  // 40000
-        //   // MicroStep_Motro(400);
-        // }
-
-        // flag_calc_times = 0;
-        // GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-        // GPIO_SetBits(GPIOC, GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out
-        //                                    // GPIO_ResetBits() -> in
-        // GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-        // GPIO_SetBits(GPIOD, GPIO_Pin_0);   // DIR2   GPIO_SetBits() -> out
-        //                                    // GPIO_ResetBits() -> in
-        // while (flag_calc_times != 1) {
-        //   // MicroStep_Motro_init(1);
-        //   delay(900);
-        //   GPIO_SetBits(GPIOB, GPIO_Pin_3);
-        //   GPIO_SetBits(GPIOB, GPIO_Pin_4);
-        //   delay(900);
-        //   GPIO_ResetBits(GPIOB, GPIO_Pin_3);
-        //   GPIO_ResetBits(GPIOB, GPIO_Pin_4);
-        // }
         break;
       default:
         break;

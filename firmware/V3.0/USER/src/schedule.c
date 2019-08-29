@@ -95,7 +95,7 @@ void Start_Schedule() {
  * @param argv
  */
 void Start_Borrow() {
-  static uint8_t flag_steper = 0, i = 0;
+  static uint8_t flag_steper = 0;
   IWDG_Feed();
   uint8_t check_num = 0;
   switch (motoDef.state) {
@@ -180,24 +180,19 @@ void Start_Borrow() {
         flag_calc_times = 0;
 
         while (flag_calc_times != 1) {
-          // MicroStep_Motro_init(1);
-          delay(900);
+          delay_ms(900);
           GPIO_SetBits(GPIOB, GPIO_Pin_3);
           GPIO_SetBits(GPIOB, GPIO_Pin_4);
-          delay(900);
+          delay_ms(900);
           GPIO_ResetBits(GPIOB, GPIO_Pin_3);
           GPIO_ResetBits(GPIOB, GPIO_Pin_4);
         }
         flag_new_sensor = 0;
-        // while (TOUR_SWITCH != 0) {
-        //   MicroStep_Motro_init(10);
-        // }
         // clear num
         TIM_Cmd(TIM2, DISABLE);  //使能TIMx
         TIM_Cmd(TIM4, DISABLE);  //使能TIMx
 
         motoDef.num = 0;
-        i = 0;
         flag_steper = 0;
         motoDef.state = state_report;
       }

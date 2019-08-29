@@ -257,7 +257,7 @@ uint8_t MicroStep_Motro(uint32_t Step) {
   return 1;
 }
 
-uint8_t MicroStep_Motro_init(uint32_t Step) {
+void MicroStep_Motro_init(uint32_t Step) {
   if (TOUR_SWITCH == 1) {
     delay(1000);
     GPIO_SetBits(GPIOB, GPIO_Pin_3);
@@ -278,7 +278,6 @@ uint8_t init_moto(void) {
                GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out
                              // GPIO_ResetBits() -> in
   while (flag_calc_times != 1) {
-    // MicroStep_Motro_init(1);
     delay_ms_whx(500);
     while (flag_calc_times != 1) {
       delay(900);
@@ -290,6 +289,7 @@ uint8_t init_moto(void) {
     }
     return 1;
   }
+	return 1;
 }
 typedef enum {
   motor_start,
@@ -304,16 +304,12 @@ typedef enum { start, half, quoater, before } plus_iX;
 
 /*speed up */
 void MotorSetpperMove(uint32_t xstep) {
-  uint32_t iX = 0, iX_slow = 0;
+  uint32_t iX = 0;
   uint32_t plusX = MOTOR_X_START_PLUS;
   uint32_t ipX = 0;
   MotorStatusEnum statusX = motor_start;
 
   xstep *= 2;
-
-  if (xstep > MOTOR_X_SPEED_SLOWDOWN_COUNT) {
-    iX_slow = xstep - MOTOR_X_SPEED_SLOWDOWN_COUNT;
-  }
 
   GPIO_SetBits(GPIOB, GPIO_Pin_3);
   GPIO_SetBits(GPIOB, GPIO_Pin_4);

@@ -39,14 +39,8 @@ int main(void) {
 
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  // DBG_LOG("init_moto");
   // init_moto();
-
-  // delay_ms_whx(1000);
-  //
-  // DBG_LOG("system start");
-  if (RTC_Init())
-    // DBG_LOG("RTC Init fail");
+  RTC_Init();
 
     IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
 
@@ -59,7 +53,6 @@ int main(void) {
     led_light();
     wait_fun();
     send_hart();
-    test_fun();
   }
 }
 
@@ -115,62 +108,4 @@ void wait_fun(void) {
       flag_finish = 0;
     }
   }
-}
-
-void test_fun() {
-  static uint8_t flag = 0;
-#if 0
-  GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-  GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-  GPIO_ResetBits(
-      GPIOD,
-      GPIO_Pin_0);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-  GPIO_ResetBits(
-      GPIOC,
-      GPIO_Pin_11);  // DIR   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-  if (flag == 0) {
-    flag = 1;
-    MotorSetpperMove(40000);  // 40000
-    // MicroStep_Motro(400);
-  }
-
-  flag_calc_times = 0;
-  GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-  GPIO_SetBits(GPIOC, GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out
-                                     // GPIO_ResetBits() -> in
-  GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-  GPIO_SetBits(GPIOD, GPIO_Pin_0);   // DIR2   GPIO_SetBits() -> out
-                                     // GPIO_ResetBits() -> in
-  while (flag_calc_times != 1) {
-    // MicroStep_Motro_init(1);
-    delay(900);
-    GPIO_SetBits(GPIOB, GPIO_Pin_3);
-    GPIO_SetBits(GPIOB, GPIO_Pin_4);
-    delay(900);
-    GPIO_ResetBits(GPIOB, GPIO_Pin_3);
-    GPIO_ResetBits(GPIOB, GPIO_Pin_4);
-  }
-  flag = 0;
-
-#endif
-
-  // if (NEW_SENSOR == 0) {  // NEW_SENSOR  TOUR_SWITCH
-  //   DBG_LOG("hello,world!");
-  // }
-  // if (NEW_SENSOR == 1) {
-  //   DBG_LOG("777777777");
-  // }
-  // uint8_t flag = 1;
-  // if (flag == 1) {
-  // motoDef.num = 32;
-  //   flag = 0;
-  // }
-  // delay_ms_whx(4000);
-  // DBG_LOG("hello,world!");
-  // delay_ms_whx(4000);
-  // DBG_LOG("hello,world!");
-  // motoDef.open_moto(22);
-  // motoDef.open_moto(23);
-  // motoDef.open_moto(24);
-  // motoDef.num = 32;
 }
