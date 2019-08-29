@@ -180,6 +180,7 @@ void Start_Borrow() {
         flag_calc_times = 0;
 
         while (flag_calc_times != 1) {
+          IWDG_Feed();
           delay_ms(900);
           GPIO_SetBits(GPIOB, GPIO_Pin_3);
           GPIO_SetBits(GPIOB, GPIO_Pin_4);
