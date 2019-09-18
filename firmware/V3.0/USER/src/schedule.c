@@ -160,39 +160,27 @@ void Start_Borrow() {
       }
       break;
     case state_run_third:  // push motor
-      IWDG_Feed();
+       IWDG_Feed();
       if (NEW_SENSOR == 0) {
-        // DBG_LOG("state_run_third");
         delay_ms_whx(500);
         CLOSE_ELECTRIC_LOCK;
         IWDG_Feed();
-        // PUSH_MOTOR(LEFT);
-        GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-        GPIO_SetBits(GPIOC, GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out
-                                           // GPIO_ResetBits() -> in
-        GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-        GPIO_SetBits(GPIOD, GPIO_Pin_0);   // DIR2   GPIO_SetBits() -> out
-                                           // GPIO_ResetBits() -> in
+          GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
+  GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
+          GPIO_SetBits(GPIOC, GPIO_Pin_11);  // DIR1
+  GPIO_SetBits(GPIOD, GPIO_Pin_0);   // DIR2
         flag_steper = 0;
-
         TIM_Cmd(TIM2, ENABLE);  //使能TIMx
         TIM_Cmd(TIM4, ENABLE);  //使能TIMx
         flag_calc_times = 0;
 
-        while (flag_calc_times != 1) {
-          IWDG_Feed();
-          delay_ms(900);
-          GPIO_SetBits(GPIOB, GPIO_Pin_3);
-          GPIO_SetBits(GPIOB, GPIO_Pin_4);
-          delay_ms(900);
-          GPIO_ResetBits(GPIOB, GPIO_Pin_3);
-          GPIO_ResetBits(GPIOB, GPIO_Pin_4);
-        }
+        init_moto();
+          GPIO_ResetBits(GPIOC, GPIO_Pin_10);  // EN1
+  GPIO_ResetBits(GPIOC, GPIO_Pin_12);  // EN2
         flag_new_sensor = 0;
         // clear num
         TIM_Cmd(TIM2, DISABLE);  //使能TIMx
         TIM_Cmd(TIM4, DISABLE);  //使能TIMx
-
         motoDef.num = 0;
         flag_steper = 0;
         motoDef.state = state_report;

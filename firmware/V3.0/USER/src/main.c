@@ -39,7 +39,7 @@ int main(void) {
 
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  // init_moto();
+  init_moto();
   RTC_Init();
 
     IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
@@ -76,6 +76,9 @@ static void funControl(int argc, char *argv[]) {
     PUSH_MOTOR(LEFT);
   } else if (ARGV_EQUAL("hello_world")) {
     DBG_LOG("hello,world!");
+  } else if (ARGV_EQUAL("TEST_NUM")) {
+    DBG_LOG("hello,world!");
+    motoDef.num = uatoi(argv[1]);
   }
 }
 
@@ -89,7 +92,7 @@ void led_light(void) {
     // led turns on
     // DBG_LOG("calendar.hour = %d",calendar.hour);
     GPIO_SetBits(GPIOB, GPIO_Pin_8);
-    GPIO_SetBits(GPIOB, GPIO_Pin_9);
+     GPIO_SetBits(GPIOB, GPIO_Pin_9);
   }
 }
 
