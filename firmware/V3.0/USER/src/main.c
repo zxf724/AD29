@@ -39,14 +39,13 @@ int main(void) {
 
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  init_moto();
+  // init_moto();
   RTC_Init();
 
     IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
 
   while (1) {
     IWDG_Feed();
-    Gun_CommandReceive_Poll();
     Screen_CommandReceive_Poll();
     Start_Schedule();
     open_all_door();
@@ -87,7 +86,7 @@ void led_light(void) {
   if (calendar.hour <= 6) {
     // led turns off
     GPIO_ResetBits(GPIOB, GPIO_Pin_8);
-    GPIO_ResetBits(GPIOB, GPIO_Pin_9);
+    GPIO_ResetBits(GPIOB, GPIO_Pin_9);	
   } else {
     // led turns on
     // DBG_LOG("calendar.hour = %d",calendar.hour);

@@ -35,7 +35,7 @@ void Get_Time(uint8_t data[]) {
 
 void Get_Mote_Data(uint8_t* data) {
   static uint8_t i = 0;
-  g_array_ML[i] = *data;
+  motoDef.num = *data;
   i++;
   if (i == 32) i = 0;
 }

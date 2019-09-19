@@ -62,7 +62,6 @@ void Gun_CommandReceive_Poll(void) {
   len = fifo_length(&rx_fifo_Gun_Def);
   if (len >= 10) {
     IWDG_Feed();
-    delay_ms(100);
     len = fifo_length(&rx_fifo_Gun_Def);
     for (i = 0; i < len; i++) app_uart_get(&CmdRecBuf[i], GUN);  // one bit
     len = 0;
