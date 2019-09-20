@@ -130,23 +130,14 @@ void open_all_door(void) {
   if (key) {
     switch (key) {
       case KEY_ALL_NUM:
-        for (i = 33; i <= 54; i++) {
+        for (i = 0; i <= LOCK_MAX; i++) {
           IWDG_Feed();
-          Open_xMoto(i);
+          open_lock(i);
           delay_ms(200);
-          Close_xMoto(i);
+          close_lock(i);
         }
         // TODO
-        GPIO_ResetBits(GPIOB, GPIO_Pin_8);
-        delay_ms_whx(500);
-        GPIO_SetBits(GPIOB, GPIO_Pin_8);
-        delay_ms_whx(500);
-        GPIO_ResetBits(GPIOB, GPIO_Pin_8);
-        delay_ms_whx(500);
-        GPIO_SetBits(GPIOB, GPIO_Pin_8);
-        delay_ms_whx(500);
-        GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-        GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
+        // moto 
         break;
       default:
         break;

@@ -55,39 +55,6 @@ int main(void) {
   }
 }
 
-static void funControl(int argc, char *argv[]) {
-  uint8_t i = 0;
-  argv++;
-  argc--;
-  if (ARGV_EQUAL("ALL_OPEN")) {
-    for (i = 1; i < 57; i++) {
-      motoDef.open_moto(i);
-    }
-  } else if (ARGV_EQUAL("ALL_CLOSE")) {
-    for (i = 0; i < 57; i++) {
-      motoDef.close_moto(i);
-    }
-  } else if (ARGV_EQUAL("RUN")) {
-    motoDef.open_moto(uatoi(argv[1]));
-  } else if (ARGV_EQUAL("CLOSE")) {
-    motoDef.close_moto(uatoi(argv[1]));
-  } else if (ARGV_EQUAL("motor_turn_off")) {
-    PUSH_MOTOR(LEFT);
-  } else if (ARGV_EQUAL("hello_world")) {
-    DBG_LOG("hello,world!");
-  } else if (ARGV_EQUAL("TEST_NUM")) {
-    DBG_LOG("hello,world!");
-    motoDef.num = uatoi(argv[1]);
-  } else if (ARGV_EQUAL("FEETBACK")) {
-    DBG_LOG("FEETBACK");
-    if (motoDef.get_moto_feetback(uatoi(argv[1])) == 0) {
-      DBG_LOG("get the signal");
-    } else if (motoDef.get_moto_feetback(uatoi(argv[1])) == 1) {
-      DBG_LOG("have no signal");
-    }
-  }
-}
-
 void led_light(void) {
   RTC_Get();
   if (calendar.hour <= 6) {
@@ -115,6 +82,88 @@ void wait_fun(void) {
       // motoDef.num);
       g_array_ML[i] = 0;
       flag_finish = 0;
+    }
+  }
+}
+
+
+
+static void funControl(int argc, char *argv[]) {
+  uint8_t i = 0;
+  argv++;
+  argc--;
+  if (ARGV_EQUAL("CHECK_ALL_MOTO")) {   // check all moto 
+    for (i = 0; i <= PINMAX; i++) {
+      IWDG_Feed();
+      DBG_LOG("open moto num %d",i);
+      motoDef.open_moto(i);
+      delay_ms_whx(100);
+      motoDef.close_moto(i);
+    }
+  } else if (ARGV_EQUAL("OPEN_LOCK")) {   // open clock 
+      DBG_LOG("open lock num %d",uatoi(argv[1]));
+      open_lock(uatoi(argv[1]));
+  } else if (ARGV_EQUAL("CHECK_ALL_LOCK")) {  // check all lock 
+      for(uint8_t i=0;i<=LOCK_MAX;i++) {
+        IWDG_Feed();
+        DBG_LOG("open lock num %d",i);
+        open_lock(i);
+        delay_ms_whx(100);
+        close_lock(i);
+      }
+  } else if (ARGV_EQUAL("CLOCK_LOCK")) {    // close lock
+      DBG_LOG("close lock num %d",uatoi(argv[1]));
+      close_lock(uatoi(argv[1]));
+  } else if (ARGV_EQUAL("RUN")) {   // run moto 
+    motoDef.open_moto(uatoi(argv[1]));
+  } else if (ARGV_EQUAL("CLOSE")) { // close moto 
+    motoDef.close_moto(uatoi(argv[1]));
+  } else if (ARGV_EQUAL("motor_turn_off")) {  // moto turn left
+    PUSH_MOTOR(LEFT);
+  } else if (ARGV_EQUAL("hello_world")) {   // hello,world
+    DBG_LOG("hello,world!");
+  } else if (ARGV_EQUAL("TEST_NUM")) {  // test num 
+    DBG_LOG("hello,world!");
+    motoDef.num = uatoi(argv[1]);
+  } else if (ARGV_EQUAL("FEETBACK")) {  // feetback signal
+    DBG_LOG("FEETBACK");
+    if (motoDef.get_moto_feetback(uatoi(argv[1])) == 0) {
+      DBG_LOG("get the signal");
+    } else if (motoDef.get_moto_feetback(uatoi(argv[1])) == 1) {
+      DBG_LOG("have no signal");
+    }
+  } else if (ARGV_EQUAL("CHECK_SENSOR_A")) {  // check notch sensor a
+     DBG_LOG("sensor A test!");
+     for (uint16_t i=0;i<=500;i++) {
+       IWDG_Feed();
+       if((GPIO_ReadInputDataBit(GPIOF, GPIO_Pin_14)) == 0) {   // signal A
+         DBG_LOG("sensor A equal 0");
+       } else if ((GPIO_ReadInputDataBit(GPIOF, GPIO_Pin_14)) == 1) {
+         DBG_LOG("sensor A equal 1");
+       }
+     } 
+  } else if (ARGV_EQUAL("CHECK_SENSOR_B")) {    // check notch sensor b
+     DBG_LOG("sensor B test!");
+     for (uint16_t i=0;i<=500;i++) {
+       IWDG_Feed();
+       if((GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_5)) == 0) {   // signal  B
+         DBG_LOG("sensor B equal 0");
+       } else if ((GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_5)) == 1) {
+         DBG_LOG("sensor B equal 1");
+       }
+     }
+  } else if (ARGV_EQUAL("CHECK_SENSOR_C")) {      // other notch
+     DBG_LOG("sensor C test!");
+  } else if (ARGV_EQUAL("CHECK_MOTO_SIGNAL")) {
+    motoDef.open_moto(uatoi(argv[1]));
+    while (1) {
+      IWDG_Feed();
+      if (motoDef.get_moto_feetback(uatoi(argv[1])) == 0) {
+        motoDef.close_moto(uatoi(argv[1]));
+        DBG_LOG("get the signal");
+      } else if (motoDef.get_moto_feetback(uatoi(argv[1])) == 1) {
+        DBG_LOG("no signal");
+      }
     }
   }
 }

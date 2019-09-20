@@ -28,7 +28,7 @@ void Start_Schedule() {
         machine.state = state_report;
         machine.gun_state = state_error;
       }
-      if (Set_Moto() < 33 && Set_Moto() > 0) {  //出货电机
+      if (motoDef.num < 33 && motoDef.num > 0) {  //出货电机
         machine.state = state_report;
         machine.moto_state = state_report;
       } else if (Set_Moto() >= 33) {  // 回收门锁电机
@@ -108,16 +108,7 @@ void Start_Borrow() {
       break;
     case state_run_first:  // input
       motoDef.open_moto(motoDef.num);
-      if ((motoDef.num >= 17) && (motoDef.num <= 24)) {
-        check_num = CHECK_TRACK_1;
-      } else if ((motoDef.num >= 1) && (motoDef.num <= 8)) {
-        check_num = CHECK_TRACK_2;
-      } else if ((motoDef.num >= 9) && (motoDef.num <= 16)) {
-        check_num = CHECK_TRACK_3;
-      } else if ((motoDef.num >= 25) && (motoDef.num <= 32)) {
-        check_num = CHECK_TRACK_4;
-      }
-      if ((motoDef.read_moto(check_num) == 0)) {  // CHECK_TRACK	change
+      if (motoDef.get_moto_feetback(motoDef.num) == 0) {
         motoDef.close_moto(motoDef.num);
         motoDef.state = state_run_second;
       }

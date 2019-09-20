@@ -8,6 +8,7 @@
 
 #define PINMAX 32
 #define FEETBACK_MAX  32
+#define LOCK_MAX  22
 
 // check   tail of the cargo road
 #define CHECK_TRACK_1 55
@@ -110,72 +111,121 @@
 
 // MOTO_FEEDBACK schematic 1-32
 #define MOTO_FEEDBACK_1 \
-  { GPIOD, GPIO_Pin_10, GPIO_Mode_Out_PP }  // DEM1
+  { GPIOD, GPIO_Pin_10, GPIO_Mode_IN_FLOATING }  // DEM1
 #define MOTO_FEEDBACK_2 \
-  { GPIOD, GPIO_Pin_11, GPIO_Mode_Out_PP }  // DEM2
+  { GPIOD, GPIO_Pin_11, GPIO_Mode_IN_FLOATING }  // DEM2
 #define MOTO_FEEDBACK_3 \
-  { GPIOD, GPIO_Pin_12, GPIO_Mode_Out_PP }  // DEM3
+  { GPIOD, GPIO_Pin_12, GPIO_Mode_IN_FLOATING }  // DEM3
 #define MOTO_FEEDBACK_4 \
-  { GPIOD, GPIO_Pin_13, GPIO_Mode_Out_PP }  // DEM4
+  { GPIOD, GPIO_Pin_13, GPIO_Mode_IN_FLOATING }  // DEM4
 #define MOTO_FEEDBACK_5 \
-  { GPIOD, GPIO_Pin_14, GPIO_Mode_Out_PP }  // DEM5
+  { GPIOD, GPIO_Pin_14, GPIO_Mode_IN_FLOATING }  // DEM5
 #define MOTO_FEEDBACK_6 \
-  { GPIOD, GPIO_Pin_15, GPIO_Mode_Out_PP }  // DEM6
+  { GPIOD, GPIO_Pin_15, GPIO_Mode_IN_FLOATING }  // DEM6
 #define MOTO_FEEDBACK_7 \
-  { GPIOG, GPIO_Pin_2, GPIO_Mode_Out_PP }  // DEM7
+  { GPIOG, GPIO_Pin_2, GPIO_Mode_IN_FLOATING }  // DEM7
 #define MOTO_FEEDBACK_8 \
-  { GPIOG, GPIO_Pin_3, GPIO_Mode_Out_PP }  // DEM8
+  { GPIOG, GPIO_Pin_3, GPIO_Mode_IN_FLOATING }  // DEM8
 #define MOTO_FEEDBACK_9 \
-  { GPIOG, GPIO_Pin_4, GPIO_Mode_Out_PP }  // DEM9
+  { GPIOG, GPIO_Pin_4, GPIO_Mode_IN_FLOATING }  // DEM9
 #define MOTO_FEEDBACK_10 \
-  { GPIOG, GPIO_Pin_5, GPIO_Mode_Out_PP }  // DEM10
+  { GPIOG, GPIO_Pin_5, GPIO_Mode_IN_FLOATING }  // DEM10
 
 #define MOTO_FEEDBACK_11 \
-  { GPIOG, GPIO_Pin_6, GPIO_Mode_Out_PP }  // DEM11
+  { GPIOG, GPIO_Pin_6, GPIO_Mode_IN_FLOATING }  // DEM11
 #define MOTO_FEEDBACK_12 \
-  { GPIOG, GPIO_Pin_7, GPIO_Mode_Out_PP }  // DEM12
+  { GPIOG, GPIO_Pin_7, GPIO_Mode_IN_FLOATING }  // DEM12
 #define MOTO_FEEDBACK_13 \
-  { GPIOD, GPIO_Pin_8, GPIO_Mode_Out_PP }  // DEM13
+  { GPIOD, GPIO_Pin_8, GPIO_Mode_IN_FLOATING }  // DEM13
 #define MOTO_FEEDBACK_14 \
-  { GPIOC, GPIO_Pin_6, GPIO_Mode_Out_PP }  // DEM14
+  { GPIOC, GPIO_Pin_6, GPIO_Mode_IN_FLOATING }  // DEM14
 #define MOTO_FEEDBACK_15 \
-  { GPIOC, GPIO_Pin_7, GPIO_Mode_Out_PP }  // DEM15
+  { GPIOC, GPIO_Pin_7, GPIO_Mode_IN_FLOATING }  // DEM15
 #define MOTO_FEEDBACK_16 \
-  { GPIOC, GPIO_Pin_8, GPIO_Mode_Out_PP }  // DEM16
+  { GPIOC, GPIO_Pin_8, GPIO_Mode_IN_FLOATING }  // DEM16
 #define MOTO_FEEDBACK_17 \
-  { GPIOC, GPIO_Pin_9, GPIO_Mode_Out_PP }  // DEM17
+  { GPIOC, GPIO_Pin_9, GPIO_Mode_IN_FLOATING }  // DEM17
 #define MOTO_FEEDBACK_18 \
-  { GPIOA, GPIO_Pin_8, GPIO_Mode_Out_PP }  // DEM18
+  { GPIOA, GPIO_Pin_8, GPIO_Mode_IN_FLOATING }  // DEM18
 #define MOTO_FEEDBACK_19 \
-  { GPIOA, GPIO_Pin_8, GPIO_Mode_Out_PP }  // DEM19 -- DEM18
+  { GPIOA, GPIO_Pin_8, GPIO_Mode_IN_FLOATING }  // DEM19 -- DEM18
 #define MOTO_FEEDBACK_20 \
-  { GPIOA, GPIO_Pin_15, GPIO_Mode_Out_PP }  // DEM20
+  { GPIOA, GPIO_Pin_15, GPIO_Mode_IN_FLOATING }  // DEM20
 
 #define MOTO_FEEDBACK_21 \
-  { GPIOD, GPIO_Pin_1, GPIO_Mode_Out_PP }  // DEM21
+  { GPIOD, GPIO_Pin_1, GPIO_Mode_IN_FLOATING }  // DEM21
 #define MOTO_FEEDBACK_22 \
-  { GPIOD, GPIO_Pin_2, GPIO_Mode_Out_PP }  // DEM22
+  { GPIOD, GPIO_Pin_2, GPIO_Mode_IN_FLOATING }  // DEM22
 #define MOTO_FEEDBACK_23 \
-  { GPIOD, GPIO_Pin_3, GPIO_Mode_Out_PP }  // DEM23
+  { GPIOD, GPIO_Pin_3, GPIO_Mode_IN_FLOATING }  // DEM23
 #define MOTO_FEEDBACK_24 \
-  { GPIOD, GPIO_Pin_6, GPIO_Mode_Out_PP }  // DEM24
+  { GPIOD, GPIO_Pin_6, GPIO_Mode_IN_FLOATING }  // DEM24
 #define MOTO_FEEDBACK_25 \
-  { GPIOD, GPIO_Pin_7, GPIO_Mode_Out_PP }  // DEM25
+  { GPIOD, GPIO_Pin_7, GPIO_Mode_IN_FLOATING }  // DEM25
 #define MOTO_FEEDBACK_26 \
-  { GPIOG, GPIO_Pin_9, GPIO_Mode_Out_PP }  // DEM26
+  { GPIOG, GPIO_Pin_9, GPIO_Mode_IN_FLOATING }  // DEM26
 #define MOTO_FEEDBACK_27 \
-  { GPIOG, GPIO_Pin_10, GPIO_Mode_Out_PP }  // DEM27
+  { GPIOG, GPIO_Pin_10, GPIO_Mode_IN_FLOATING }  // DEM27
 #define MOTO_FEEDBACK_28 \
-  { GPIOG, GPIO_Pin_11, GPIO_Mode_Out_PP }  // DEM28
+  { GPIOG, GPIO_Pin_11, GPIO_Mode_IN_FLOATING }  // DEM28
 #define MOTO_FEEDBACK_29 \
-  { GPIOG, GPIO_Pin_12, GPIO_Mode_Out_PP }  // DEM29
+  { GPIOG, GPIO_Pin_12, GPIO_Mode_IN_FLOATING }  // DEM29
 #define MOTO_FEEDBACK_30 \
-  { GPIOG, GPIO_Pin_13, GPIO_Mode_Out_PP }  // DEM30
+  { GPIOG, GPIO_Pin_13, GPIO_Mode_IN_FLOATING }  // DEM30
 
 #define MOTO_FEEDBACK_31 \
-  { GPIOG, GPIO_Pin_14, GPIO_Mode_Out_PP }  // DEM31
+  { GPIOG, GPIO_Pin_14, GPIO_Mode_IN_FLOATING }  // DEM31
 #define MOTO_FEEDBACK_32 \
-  { GPIOB, GPIO_Pin_5, GPIO_Mode_Out_PP }  // DEM32
+  { GPIOB, GPIO_Pin_5, GPIO_Mode_IN_FLOATING }  // DEM32
+
+// LOCK1-22  --> schematic  MOTOR 33-54
+#define LOCK_1 \
+  { GPIOF, GPIO_Pin_11, GPIO_Mode_Out_PP }  // 33
+#define LOCK_2 \
+  { GPIOF, GPIO_Pin_12, GPIO_Mode_Out_PP }  // 34
+#define LOCK_3 \
+  { GPIOF, GPIO_Pin_15, GPIO_Mode_Out_PP }  // 35
+#define LOCK_4 \
+  { GPIOG, GPIO_Pin_0, GPIO_Mode_Out_PP }  // 36
+#define LOCK_5 \
+  { GPIOG, GPIO_Pin_1, GPIO_Mode_Out_PP }  // 37
+#define LOCK_6 \
+  { GPIOE, GPIO_Pin_7, GPIO_Mode_Out_PP }  // 38
+#define LOCK_7 \
+  { GPIOE, GPIO_Pin_8, GPIO_Mode_Out_PP }  // 39
+#define LOCK_8 \
+  { GPIOE, GPIO_Pin_9, GPIO_Mode_Out_PP }  // 40
+#define LOCK_9 \
+  { GPIOE, GPIO_Pin_10, GPIO_Mode_Out_PP }  // 41
+#define LOCK_10 \
+  { GPIOE, GPIO_Pin_11, GPIO_Mode_Out_PP }  // 42
+
+#define LOCK_11 \
+  { GPIOE, GPIO_Pin_12, GPIO_Mode_Out_PP }  // 43
+#define LOCK_12 \
+  { GPIOE, GPIO_Pin_13, GPIO_Mode_Out_PP }  // 44
+#define LOCK_13 \
+  { GPIOE, GPIO_Pin_14, GPIO_Mode_Out_PP }  // 45
+#define LOCK_14 \
+  { GPIOE, GPIO_Pin_15, GPIO_Mode_Out_PP }  // 46
+#define LOCK_15 \
+  { GPIOB, GPIO_Pin_10, GPIO_Mode_Out_PP }  // 47
+#define LOCK_16 \
+  { GPIOB, GPIO_Pin_11, GPIO_Mode_Out_PP }  // 48
+#define LOCK_17 \
+  { GPIOB, GPIO_Pin_12, GPIO_Mode_Out_PP }  // 49
+#define LOCK_18 \
+  { GPIOB, GPIO_Pin_13, GPIO_Mode_Out_PP }  // 50
+#define LOCK_19 \
+  { GPIOB, GPIO_Pin_14, GPIO_Mode_Out_PP }  // 51
+#define LOCK_20 \
+  { GPIOB, GPIO_Pin_15, GPIO_Mode_Out_PP }  // 52
+
+#define LOCK_21 \
+  { GPIOD, GPIO_Pin_8, GPIO_Mode_Out_PP }  // 53
+#define LOCK_22 \
+  { GPIOD, GPIO_Pin_9, GPIO_Mode_Out_PP }  // 54
+
 
 // infrared sensor
 #define INFRARED_SENSOR_1 \
@@ -244,6 +294,7 @@ typedef struct {
   uint8_t num;
   uint8_t state;
   uint8_t (*get_moto_feetback)(uint8_t);
+  uint8_t (*open_lock)(uint8_t);
 } Moto;
 
 /*all the machine state Structure
@@ -283,6 +334,8 @@ uint8_t Open_xMoto(uint8_t num);
 uint8_t Close_xMoto(uint8_t num);
 uint8_t Read_xMoto(uint8_t num);
 uint8_t get_moto_feetback(uint8_t num);
+uint8_t open_lock(uint8_t num);
+uint8_t close_lock(uint8_t num);
 uint8_t Set_Moto(void);
 uint8_t Set_Lock(void);
 uint8_t MicroStep_Motro(uint32_t Step);

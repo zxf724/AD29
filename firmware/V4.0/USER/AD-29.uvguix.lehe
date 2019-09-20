@@ -1855,9 +1855,9 @@
       <ActiveTab>0</ActiveTab>
       <Doc>
         <Name>.\src\main.c</Name>
-        <ColumnNumber>32</ColumnNumber>
-        <TopLine>45</TopLine>
-        <CurrentLine>84</CurrentLine>
+        <ColumnNumber>24</ColumnNumber>
+        <TopLine>116</TopLine>
+        <CurrentLine>151</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
@@ -1882,18 +1882,18 @@
       </Doc>
       <Doc>
         <Name>..\HARDWARE\MOTO\moto.c</Name>
-        <ColumnNumber>22</ColumnNumber>
-        <TopLine>46</TopLine>
-        <CurrentLine>81</CurrentLine>
+        <ColumnNumber>9</ColumnNumber>
+        <TopLine>229</TopLine>
+        <CurrentLine>258</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
       </Doc>
       <Doc>
         <Name>..\HARDWARE\MOTO\moto.h</Name>
-        <ColumnNumber>1</ColumnNumber>
-        <TopLine>228</TopLine>
-        <CurrentLine>249</CurrentLine>
+        <ColumnNumber>41</ColumnNumber>
+        <TopLine>19</TopLine>
+        <CurrentLine>26</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
