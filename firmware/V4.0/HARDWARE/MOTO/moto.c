@@ -6,105 +6,38 @@
 #include "wdg.h"
 
 Machine machine = {0, 0, 0};
-Moto motoDef = {Open_xMoto, Close_xMoto, Read_xMoto, 0, 0, get_moto_feetback,open_lock};
+Moto motoDef = {Open_xMoto, Close_xMoto,       Read_xMoto, 0,
+                0,          get_moto_feetback, open_lock};
 mError errorDef = {0, 0};
 extern uint8_t moto_num_carry[32];
 extern uint8_t flag_calc_times;
+extern uint16_t delay_time;
 
 mPin Pin_Array[PINMAX] = {
     // borrow motor array number:0-31
-    MOTO(1),
-    MOTO(2),
-    MOTO(3),
-    MOTO(4),
-    MOTO(5),
-    MOTO(6),
-    MOTO(7),
-    MOTO(8),
-    MOTO(9),
-    MOTO(10),
-    MOTO(11),
-    MOTO(12),
-    MOTO(13),
-    MOTO(14),
-    MOTO(15),
-    MOTO(16),
-    MOTO(17),
-    MOTO(18),
-    MOTO(19),
-    MOTO(20),
-    MOTO(21),
-    MOTO(22),
-    MOTO(23),
-    MOTO(24),
-    MOTO(25),
-    MOTO(26),
-    MOTO(27),
-    MOTO(28),
-    MOTO(29),
-    MOTO(30),
-    MOTO(31),
-    MOTO(32),
+    MOTO(1),  MOTO(2),  MOTO(3),  MOTO(4),  MOTO(5),  MOTO(6),  MOTO(7),
+    MOTO(8),  MOTO(9),  MOTO(10), MOTO(11), MOTO(12), MOTO(13), MOTO(14),
+    MOTO(15), MOTO(16), MOTO(17), MOTO(18), MOTO(19), MOTO(20), MOTO(21),
+    MOTO(22), MOTO(23), MOTO(24), MOTO(25), MOTO(26), MOTO(27), MOTO(28),
+    MOTO(29), MOTO(30), MOTO(31), MOTO(32),
 };
 
 mPin Pin_Array_FEEDBACK[FEETBACK_MAX] = {
-    MOTO_FEEDBACK(1),
-    MOTO_FEEDBACK(2),
-    MOTO_FEEDBACK(3),
-    MOTO_FEEDBACK(4),
-    MOTO_FEEDBACK(5),
-    MOTO_FEEDBACK(6),
-    MOTO_FEEDBACK(7),
-    MOTO_FEEDBACK(8),
-    MOTO_FEEDBACK(9),
-    MOTO_FEEDBACK(10),
-    MOTO_FEEDBACK(11),
-    MOTO_FEEDBACK(12),
-    MOTO_FEEDBACK(13),
-    MOTO_FEEDBACK(14),
-    MOTO_FEEDBACK(15),
-    MOTO_FEEDBACK(16),
-    MOTO_FEEDBACK(17),
-    MOTO_FEEDBACK(18),
-    MOTO_FEEDBACK(19),
-    MOTO_FEEDBACK(20),
-    MOTO_FEEDBACK(21),
-    MOTO_FEEDBACK(22),
-    MOTO_FEEDBACK(23),
-    MOTO_FEEDBACK(24),
-    MOTO_FEEDBACK(25),
-    MOTO_FEEDBACK(26),
-    MOTO_FEEDBACK(27),
-    MOTO_FEEDBACK(28),
-    MOTO_FEEDBACK(29),
-    MOTO_FEEDBACK(30),
-    MOTO_FEEDBACK(31),
-    MOTO_FEEDBACK(32),
+    MOTO_FEEDBACK(1),  MOTO_FEEDBACK(2),  MOTO_FEEDBACK(3),  MOTO_FEEDBACK(4),
+    MOTO_FEEDBACK(5),  MOTO_FEEDBACK(6),  MOTO_FEEDBACK(7),  MOTO_FEEDBACK(8),
+    MOTO_FEEDBACK(9),  MOTO_FEEDBACK(10), MOTO_FEEDBACK(11), MOTO_FEEDBACK(12),
+    MOTO_FEEDBACK(13), MOTO_FEEDBACK(14), MOTO_FEEDBACK(15), MOTO_FEEDBACK(16),
+    MOTO_FEEDBACK(17), MOTO_FEEDBACK(18), MOTO_FEEDBACK(19), MOTO_FEEDBACK(20),
+    MOTO_FEEDBACK(21), MOTO_FEEDBACK(22), MOTO_FEEDBACK(23), MOTO_FEEDBACK(24),
+    MOTO_FEEDBACK(25), MOTO_FEEDBACK(26), MOTO_FEEDBACK(27), MOTO_FEEDBACK(28),
+    MOTO_FEEDBACK(29), MOTO_FEEDBACK(30), MOTO_FEEDBACK(31), MOTO_FEEDBACK(32),
 };
 
 mPin Pin_Array_LOCK[LOCK_MAX] = {
-    LOCK(1),
-    LOCK(2),
-    LOCK(3),
-    LOCK(4),
-    LOCK(5),
-    LOCK(6),
-    LOCK(7),
-    LOCK(8),
-    LOCK(9),
-    LOCK(10),
-    LOCK(11),
-    LOCK(12),
-    LOCK(13),
-    LOCK(14),
-    LOCK(15),
-    LOCK(16),
-    LOCK(17),
-    LOCK(18),
-    LOCK(19),
-    LOCK(20),
-    LOCK(21),
-    LOCK(22),
+    LOCK(1),  LOCK(2),  LOCK(3),  LOCK(4),  LOCK(5),  LOCK(6),
+    LOCK(7),  LOCK(8),  LOCK(9),  LOCK(10), LOCK(11), LOCK(12),
+    LOCK(13), LOCK(14), LOCK(15), LOCK(16), LOCK(17), LOCK(18),
+    LOCK(19), LOCK(20), LOCK(21), LOCK(22),
 };
 
 void Moto_Init() {
@@ -258,8 +191,8 @@ uint8_t Close_xMoto(uint8_t num) {
 uint8_t get_moto_feetback(uint8_t num) {
   uint8_t bit;
   if ((num < 1) || num > 32) return 0;
-  bit = GPIO_ReadInputDataBit(Pin_Array_FEEDBACK[num - 1].port, \
-  Pin_Array_FEEDBACK[num - 1].pin);
+  bit = GPIO_ReadInputDataBit(Pin_Array_FEEDBACK[num - 1].port,
+                              Pin_Array_FEEDBACK[num - 1].pin);
   return bit;
 }
 
@@ -337,27 +270,22 @@ void MicroStep_Motro_init(uint32_t Step) {
 
 uint8_t init_moto(void) {
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-  GPIO_SetBits(GPIOC,
-               GPIO_Pin_11);         // DIR1   GPIO_SetBits() -> out
-                                     // GPIO_ResetBits() -> in
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-  GPIO_SetBits(GPIOD,
-               GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out
-                             // GPIO_ResetBits() -> in
+  steper_moto_out();
   while (flag_calc_times != 1) {
-    delay_ms_whx(500);
+    delay_ms_whx(100);
     while (flag_calc_times != 1) {
-            IWDG_Feed();
-      delay(900);
+      IWDG_Feed();
+      delay(delay_time);
       GPIO_SetBits(GPIOB, GPIO_Pin_3);
       GPIO_SetBits(GPIOB, GPIO_Pin_4);
-      delay(900);
+      delay(delay_time);
       GPIO_ResetBits(GPIOB, GPIO_Pin_3);
       GPIO_ResetBits(GPIOB, GPIO_Pin_4);
     }
     return 1;
   }
-	return 1;
+  return 1;
 }
 typedef enum {
   motor_start,
@@ -441,4 +369,14 @@ void MotorSetpperMove(uint32_t xstep) {
       }
     }
   }
+}
+
+void steper_moto_in(void) {
+  GPIO_SetBits(GPIOD, GPIO_Pin_0);
+  GPIO_SetBits(GPIOC, GPIO_Pin_11);
+}
+
+void steper_moto_out(void) {
+  GPIO_ResetBits(GPIOD, GPIO_Pin_0);
+  GPIO_ResetBits(GPIOC, GPIO_Pin_11);
 }

@@ -39,10 +39,11 @@ int main(void) {
 
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  // init_moto();
+  init_moto();
   RTC_Init();
+  DBG_LOG("system start!")
 
-    IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
+  IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
 
   while (1) {
     IWDG_Feed();
@@ -165,5 +166,19 @@ static void funControl(int argc, char *argv[]) {
         DBG_LOG("no signal");
       }
     }
+  } else if (ARGV_EQUAL("RUN_LEFT")) {      // moto steper left  out 
+     DBG_LOG("run left %d",uatoi(argv[1]));
+     steper_moto_in();
+     MotorSetpperMove(uatoi(argv[1]));
+  } else if (ARGV_EQUAL("RUN_RIGHT")) {      // moto steper right in
+     DBG_LOG("run right %d",uatoi(argv[1]));
+     steper_moto_out();
+     MotorSetpperMove(uatoi(argv[1]));
+  } else if (ARGV_EQUAL("RUN_BACK")) {      // moto steper run back
+      init_moto();
+  } else if (ARGV_EQUAL("CHECK_LOCK_OPEN")) {      // door lock open 
+      OPEN_ELECTRIC_LOCK;
+      delay_ms_whx(200);
+      CLOSE_ELECTRIC_LOCK;
   }
 }

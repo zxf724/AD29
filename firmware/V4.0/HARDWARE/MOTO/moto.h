@@ -261,8 +261,9 @@
 #define OPEN_ELECTRIC_LOCK GPIO_SetBits(GPIOB, GPIO_Pin_7)
 #define CLOSE_ELECTRIC_LOCK GPIO_ResetBits(GPIOB, GPIO_Pin_7)
 
-#define TOUR_SWITCH GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_5)
-#define NEW_SENSOR GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_4)
+#define TOUR_SWITCH (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_5))
+// #define NEW_SENSOR GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_4)
+#define NEW_SENSOR (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_5))
 
 enum {
   state_stop = 0,
@@ -343,4 +344,6 @@ uint8_t check_num(void);
 uint8_t init_moto(void);
 void MotorSetpperMove(uint32_t xstep);
 void MicroStep_Motro_init(uint32_t Step);
+void steper_moto_in(void);
+void steper_moto_out(void);
 #endif
