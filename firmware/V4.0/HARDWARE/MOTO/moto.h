@@ -227,6 +227,7 @@
   { GPIOD, GPIO_Pin_9, GPIO_Mode_Out_PP }  // 54
 
 
+
 // infrared sensor
 #define INFRARED_SENSOR_1 \
   { GPIOD, GPIO_Pin_4, GPIO_Mode_IPD }

@@ -16,6 +16,9 @@ extern mError errorDef;
 extern uint8_t flag_new_sensor;
 extern uint8_t flag_calc_times;
 uint8_t flag_finish = 1;
+extern uint16_t  calc_times;
+extern uint16_t delay_time;
+
 
 void Start_Schedule() {
   uint8_t state = 0;
@@ -95,6 +98,7 @@ void Start_Schedule() {
  * @param argv
  */
 void Start_Borrow() {
+  static uint8_t flag_one_time=1;
   IWDG_Feed();
   uint8_t check_num = 0;
   switch (motoDef.state) {
@@ -119,39 +123,46 @@ void Start_Borrow() {
       GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
       GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
       steper_moto_in();
-      MotorSetpperMove(38000);
+      if(flag_one_time == 1) {
+        MotorSetpperMove(38000);
+        flag_one_time = 0;
+      }
       delay_ms_whx(100);
       OPEN_ELECTRIC_LOCK;
-      if (NEW_SENSOR == 1) {  // sensor
-        motoDef.state = state_run_second_half;
-      }
-      break;
-    case state_run_second_half:
-      IWDG_Feed();
-      if (NEW_SENSOR == 0) {
-        delay_ms_whx(4000);
-        IWDG_Feed();
-        if (NEW_SENSOR == 1) {
-          motoDef.state = state_run_second;
-        } else if (NEW_SENSOR == 0) {
-          motoDef.state = state_run_third;
-        }
-      }
+      // if (NEW_SENSOR == 1) {  // sensor
+      delay_ms_whx(2000);
+        // motoDef.state = state_run_second_half;
+        motoDef.state = state_run_third;
+    //   }
+    //   break;
+    // case state_run_second_half:
+    //   IWDG_Feed();
+    //   flag_one_time = 1;
+    //   if (NEW_SENSOR == 0) {
+    //     delay_ms_whx(4000);
+    //     IWDG_Feed();
+    //     if (NEW_SENSOR == 1) {
+    //       motoDef.state = state_run_second;
+    //     } else if (NEW_SENSOR == 0) {
+    //       motoDef.state = state_run_third;
+    //     }
+    //   }
       break;
     case state_run_third:  // push motor
       IWDG_Feed();
-      if (NEW_SENSOR == 0) {
+      flag_one_time = 1;
+      // if (NEW_SENSOR == 0) {
         delay_ms_whx(500);
         CLOSE_ELECTRIC_LOCK;
         IWDG_Feed();
-        GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-        GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
         flag_calc_times = 0;
         flag_new_sensor = 0;
+        calc_times = 0;
+        delay_time = 900;
         init_moto();
         motoDef.num = 0;
         motoDef.state = state_report;
-      }
+      // }
       break;
     case state_report:
       // Report_State(CMD_RECARGO,&state,1);  //出货信息上报

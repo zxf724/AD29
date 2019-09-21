@@ -12,6 +12,7 @@
 #include "timer.h"
 #include "usart.h"
 #include "wdg.h"
+#include "core_cm3.h"
 
 #define HEAR_BEAT_TIME (500 * 90)
 
@@ -50,7 +51,6 @@ int main(void) {
     Screen_CommandReceive_Poll();
     Start_Schedule();
     open_all_door();
-    led_light();
     wait_fun();
     send_hart();
   }
@@ -62,11 +62,15 @@ void led_light(void) {
     // led turns off
     GPIO_ResetBits(GPIOB, GPIO_Pin_8);
     GPIO_ResetBits(GPIOB, GPIO_Pin_9);	
+    GPIO_ResetBits(GPIOB, GPIO_Pin_6);	
+    GPIO_ResetBits(GPIOG, GPIO_Pin_15);
   } else {
     // led turns on
     // DBG_LOG("calendar.hour = %d",calendar.hour);
     GPIO_SetBits(GPIOB, GPIO_Pin_8);
      GPIO_SetBits(GPIOB, GPIO_Pin_9);
+     GPIO_SetBits(GPIOB, GPIO_Pin_6);
+     GPIO_SetBits(GPIOG, GPIO_Pin_15);
   }
 }
 
@@ -124,7 +128,7 @@ static void funControl(int argc, char *argv[]) {
   } else if (ARGV_EQUAL("hello_world")) {   // hello,world
     DBG_LOG("hello,world!");
   } else if (ARGV_EQUAL("TEST_NUM")) {  // test num 
-    DBG_LOG("hello,world!");
+    DBG_LOG("test num %d",uatoi(argv[1]));
     motoDef.num = uatoi(argv[1]);
   } else if (ARGV_EQUAL("FEETBACK")) {  // feetback signal
     DBG_LOG("FEETBACK");
@@ -174,11 +178,17 @@ static void funControl(int argc, char *argv[]) {
      DBG_LOG("run right %d",uatoi(argv[1]));
      steper_moto_out();
      MotorSetpperMove(uatoi(argv[1]));
-  } else if (ARGV_EQUAL("RUN_BACK")) {      // moto steper run back
+  } else if (ARGV_EQUAL("RUN_BACK")) {      // moto steper run back 
       init_moto();
   } else if (ARGV_EQUAL("CHECK_LOCK_OPEN")) {      // door lock open 
       OPEN_ELECTRIC_LOCK;
       delay_ms_whx(200);
       CLOSE_ELECTRIC_LOCK;
+  } else if (ARGV_EQUAL("GET_TIME")) {
+      DBG_LOG("calendar.hour = %d\ncalendar.min = %d",\
+      calendar.hour,calendar.min);
+  } else if (ARGV_EQUAL("RESTART")) {
+      DBG_LOG("restart");
+      NVIC_SystemReset();
   }
 }

@@ -16,7 +16,7 @@ timer_t timerlist[TIMER_LIST_MAX];
 uint32_t timer3_tick = 0, timer4_tick = 0, timer2_tick = 0;
 uint8_t flag_hart = 0;
 uint8_t flag_new_sensor = 0;
-static uint16_t calc_times = 0;
+uint16_t calc_times = 0;
 uint8_t flag_calc_times = 0;
 uint16_t delay_time = 900;
 
@@ -163,6 +163,7 @@ void TIM2_IRQHandler(void)  // TIM2ÖÐ¶Ï
       calc_times = 0;
     }
     Gun_CommandReceive_Poll();
+    led_light();
     if(delay_time>=300) delay_time-=4;
   }
 }

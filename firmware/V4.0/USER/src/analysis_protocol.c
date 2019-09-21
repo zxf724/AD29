@@ -83,6 +83,7 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf, uint8_t length) {
                                    0x05, 0x06, 0x07, 0x08};
   static uint8_t start_screen[6] = {0x04, 0xE4, 0x04, 0x00, 0xFF, 0x14};
   static uint8_t stop_screen[6] = {0x04, 0xE5, 0x04, 0x00, 0xFF, 0x13};
+  static uint8_t get_time = 1;
 
   // crc16 test  already test
   uint16_t crc_data_count = CRC_16(0xffff, CmdRecBuf + 1, 14);
@@ -90,7 +91,10 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf, uint8_t length) {
   if ((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[17] == FHEADER)) {
     switch (CmdRecBuf[1]) {
       case CMD_TIME:
-        Get_Time(CmdRecBuf);
+        if (get_time == 1) {
+          Get_Time(CmdRecBuf);
+          get_time = 0;
+        }
         Report_State(0x80, (uint8_t*)report_data, sizeof(report_data));
         break;
       case CMD_MOTO:
