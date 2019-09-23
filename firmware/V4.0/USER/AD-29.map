@@ -1240,29 +1240,29 @@ Image Symbol Table
     fifo_put                                 0x08002ecf   Thumb Code    18  fifo.o(i.fifo_put)
     i.fputc                                  0x08002ee0   Section        0  usart.o(i.fputc)
     i.funControl                             0x08002f04   Section        0  main.o(i.funControl)
-    funControl                               0x08002f05   Thumb Code   904  main.o(i.funControl)
-    i.get_moto_feetback                      0x0800355c   Section        0  moto.o(i.get_moto_feetback)
-    i.init_moto                              0x0800358c   Section        0  moto.o(i.init_moto)
-    i.led_light                              0x0800360c   Section        0  main.o(i.led_light)
-    i.main                                   0x08003678   Section        0  main.o(i.main)
-    i.open_all_door                          0x0800371c   Section        0  analysis_protocol.o(i.open_all_door)
-    i.open_lock                              0x0800377c   Section        0  moto.o(i.open_lock)
-    i.send_hart                              0x080037a8   Section        0  analysis_protocol.o(i.send_hart)
-    i.sound_control                          0x080037cc   Section        0  main.o(i.sound_control)
-    i.steper_moto_in                         0x080037dc   Section        0  moto.o(i.steper_moto_in)
-    i.steper_moto_out                        0x080037fc   Section        0  moto.o(i.steper_moto_out)
-    i.uart1_init                             0x0800381c   Section        0  usart.o(i.uart1_init)
-    i.uart2_init                             0x080038e4   Section        0  usart.o(i.uart2_init)
-    i.uatoi                                  0x08003988   Section        0  prjlib.o(i.uatoi)
-    i.wait_fun                               0x080039b4   Section        0  main.o(i.wait_fun)
-    .constdata                               0x080039f0   Section     1536  prjlib.o(.constdata)
-    .constdata                               0x08003ff0   Section       36  rtc.o(.constdata)
-    .constdata                               0x08004014   Section      129  ctype_o.o(.constdata)
-    .constdata                               0x08004098   Section        4  ctype_o.o(.constdata)
-    table                                    0x08004098   Data           4  ctype_o.o(.constdata)
-    .constdata                               0x0800409c   Section       12  localtime.o(.constdata)
-    monlen                                   0x0800409c   Data          12  localtime.o(.constdata)
-    .conststring                             0x080040a8   Section        5  main.o(.conststring)
+    funControl                               0x08002f05   Thumb Code   906  main.o(i.funControl)
+    i.get_moto_feetback                      0x08003560   Section        0  moto.o(i.get_moto_feetback)
+    i.init_moto                              0x08003590   Section        0  moto.o(i.init_moto)
+    i.led_light                              0x08003610   Section        0  main.o(i.led_light)
+    i.main                                   0x0800367c   Section        0  main.o(i.main)
+    i.open_all_door                          0x08003720   Section        0  analysis_protocol.o(i.open_all_door)
+    i.open_lock                              0x08003780   Section        0  moto.o(i.open_lock)
+    i.send_hart                              0x080037ac   Section        0  analysis_protocol.o(i.send_hart)
+    i.sound_control                          0x080037d0   Section        0  main.o(i.sound_control)
+    i.steper_moto_in                         0x080037e0   Section        0  moto.o(i.steper_moto_in)
+    i.steper_moto_out                        0x08003800   Section        0  moto.o(i.steper_moto_out)
+    i.uart1_init                             0x08003820   Section        0  usart.o(i.uart1_init)
+    i.uart2_init                             0x080038e8   Section        0  usart.o(i.uart2_init)
+    i.uatoi                                  0x0800398c   Section        0  prjlib.o(i.uatoi)
+    i.wait_fun                               0x080039b8   Section        0  main.o(i.wait_fun)
+    .constdata                               0x080039f4   Section     1536  prjlib.o(.constdata)
+    .constdata                               0x08003ff4   Section       36  rtc.o(.constdata)
+    .constdata                               0x08004018   Section      129  ctype_o.o(.constdata)
+    .constdata                               0x0800409c   Section        4  ctype_o.o(.constdata)
+    table                                    0x0800409c   Data           4  ctype_o.o(.constdata)
+    .constdata                               0x080040a0   Section       12  localtime.o(.constdata)
+    monlen                                   0x080040a0   Data          12  localtime.o(.constdata)
+    .conststring                             0x080040ac   Section        5  main.o(.conststring)
     .data                                    0x20000000   Section       16  main.o(.data)
     CmdEntrance_MOTO                         0x20000004   Data          12  main.o(.data)
     .data                                    0x20000010   Section        8  prjlib.o(.data)
@@ -1570,28 +1570,28 @@ Image Symbol Table
     delay_ms_whx                             0x08002e91   Thumb Code    32  delay.o(i.delay_ms_whx)
     fifo_length                              0x08002ec5   Thumb Code    10  fifo.o(i.fifo_length)
     fputc                                    0x08002ee1   Thumb Code    32  usart.o(i.fputc)
-    get_moto_feetback                        0x0800355d   Thumb Code    42  moto.o(i.get_moto_feetback)
-    init_moto                                0x0800358d   Thumb Code   110  moto.o(i.init_moto)
-    led_light                                0x0800360d   Thumb Code    94  main.o(i.led_light)
-    main                                     0x08003679   Thumb Code   136  main.o(i.main)
-    open_all_door                            0x0800371d   Thumb Code    86  analysis_protocol.o(i.open_all_door)
-    open_lock                                0x0800377d   Thumb Code    40  moto.o(i.open_lock)
-    send_hart                                0x080037a9   Thumb Code    26  analysis_protocol.o(i.send_hart)
-    sound_control                            0x080037cd   Thumb Code    12  main.o(i.sound_control)
-    steper_moto_in                           0x080037dd   Thumb Code    22  moto.o(i.steper_moto_in)
-    steper_moto_out                          0x080037fd   Thumb Code    22  moto.o(i.steper_moto_out)
-    uart1_init                               0x0800381d   Thumb Code   176  usart.o(i.uart1_init)
-    uart2_init                               0x080038e5   Thumb Code   154  usart.o(i.uart2_init)
-    uatoi                                    0x08003989   Thumb Code    42  prjlib.o(i.uatoi)
-    wait_fun                                 0x080039b5   Thumb Code    48  main.o(i.wait_fun)
-    crc16tab                                 0x080039f0   Data         512  prjlib.o(.constdata)
-    crc32tab                                 0x08003bf0   Data        1024  prjlib.o(.constdata)
-    g_day_per_mon                            0x08003ff0   Data          12  rtc.o(.constdata)
-    table_week                               0x08003ffc   Data          12  rtc.o(.constdata)
-    mon_table                                0x08004008   Data          12  rtc.o(.constdata)
-    __ctype_table                            0x08004014   Data         129  ctype_o.o(.constdata)
-    Region$$Table$$Base                      0x080040b0   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080040d0   Number         0  anon$$obj.o(Region$$Table)
+    get_moto_feetback                        0x08003561   Thumb Code    42  moto.o(i.get_moto_feetback)
+    init_moto                                0x08003591   Thumb Code   110  moto.o(i.init_moto)
+    led_light                                0x08003611   Thumb Code    94  main.o(i.led_light)
+    main                                     0x0800367d   Thumb Code   136  main.o(i.main)
+    open_all_door                            0x08003721   Thumb Code    86  analysis_protocol.o(i.open_all_door)
+    open_lock                                0x08003781   Thumb Code    40  moto.o(i.open_lock)
+    send_hart                                0x080037ad   Thumb Code    26  analysis_protocol.o(i.send_hart)
+    sound_control                            0x080037d1   Thumb Code    12  main.o(i.sound_control)
+    steper_moto_in                           0x080037e1   Thumb Code    22  moto.o(i.steper_moto_in)
+    steper_moto_out                          0x08003801   Thumb Code    22  moto.o(i.steper_moto_out)
+    uart1_init                               0x08003821   Thumb Code   176  usart.o(i.uart1_init)
+    uart2_init                               0x080038e9   Thumb Code   154  usart.o(i.uart2_init)
+    uatoi                                    0x0800398d   Thumb Code    42  prjlib.o(i.uatoi)
+    wait_fun                                 0x080039b9   Thumb Code    48  main.o(i.wait_fun)
+    crc16tab                                 0x080039f4   Data         512  prjlib.o(.constdata)
+    crc32tab                                 0x08003bf4   Data        1024  prjlib.o(.constdata)
+    g_day_per_mon                            0x08003ff4   Data          12  rtc.o(.constdata)
+    table_week                               0x08004000   Data          12  rtc.o(.constdata)
+    mon_table                                0x0800400c   Data          12  rtc.o(.constdata)
+    __ctype_table                            0x08004018   Data         129  ctype_o.o(.constdata)
+    Region$$Table$$Base                      0x080040b4   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x080040d4   Number         0  anon$$obj.o(Region$$Table)
     time                                     0x20000000   Data           4  main.o(.data)
     SystemCoreClock                          0x20000018   Data           4  system_stm32f10x.o(.data)
     AHBPrescTable                            0x2000001c   Data          16  system_stm32f10x.o(.data)
@@ -1630,9 +1630,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000131
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00004434, Max: 0x00080000, ABSOLUTE, COMPRESSED[0x00004250])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00004438, Max: 0x00080000, ABSOLUTE, COMPRESSED[0x0000424c])
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x000040d0, Max: 0x00080000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x000040d4, Max: 0x00080000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1798,34 +1798,34 @@ Memory Map of the image
     0x08002ec4   0x08002ec4   0x0000000a   Code   RO           11    i.fifo_length       fifo.o
     0x08002ece   0x08002ece   0x00000012   Code   RO           12    i.fifo_put          fifo.o
     0x08002ee0   0x08002ee0   0x00000024   Code   RO         1204    i.fputc             usart.o
-    0x08002f04   0x08002f04   0x00000658   Code   RO          184    i.funControl        main.o
-    0x0800355c   0x0800355c   0x00000030   Code   RO         1035    i.get_moto_feetback  moto.o
-    0x0800358c   0x0800358c   0x00000080   Code   RO         1036    i.init_moto         moto.o
-    0x0800360c   0x0800360c   0x0000006c   Code   RO          185    i.led_light         main.o
-    0x08003678   0x08003678   0x000000a4   Code   RO          186    i.main              main.o
-    0x0800371c   0x0800371c   0x00000060   Code   RO          819    i.open_all_door     analysis_protocol.o
-    0x0800377c   0x0800377c   0x0000002c   Code   RO         1037    i.open_lock         moto.o
-    0x080037a8   0x080037a8   0x00000024   Code   RO          820    i.send_hart         analysis_protocol.o
-    0x080037cc   0x080037cc   0x00000010   Code   RO          187    i.sound_control     main.o
-    0x080037dc   0x080037dc   0x00000020   Code   RO         1038    i.steper_moto_in    moto.o
-    0x080037fc   0x080037fc   0x00000020   Code   RO         1039    i.steper_moto_out   moto.o
-    0x0800381c   0x0800381c   0x000000c8   Code   RO         1205    i.uart1_init        usart.o
-    0x080038e4   0x080038e4   0x000000a4   Code   RO         1206    i.uart2_init        usart.o
-    0x08003988   0x08003988   0x0000002a   Code   RO          331    i.uatoi             prjlib.o
-    0x080039b2   0x080039b2   0x00000002   PAD
-    0x080039b4   0x080039b4   0x0000003c   Code   RO          188    i.wait_fun          main.o
-    0x080039f0   0x080039f0   0x00000600   Data   RO          339    .constdata          prjlib.o
-    0x08003ff0   0x08003ff0   0x00000024   Data   RO         2641    .constdata          rtc.o
-    0x08004014   0x08004014   0x00000081   Data   RO         2712    .constdata          mc_w.l(ctype_o.o)
-    0x08004095   0x08004095   0x00000003   PAD
-    0x08004098   0x08004098   0x00000004   Data   RO         2713    .constdata          mc_w.l(ctype_o.o)
-    0x0800409c   0x0800409c   0x0000000c   Data   RO         2741    .constdata          mc_w.l(localtime.o)
-    0x080040a8   0x080040a8   0x00000005   Data   RO          189    .conststring        main.o
-    0x080040ad   0x080040ad   0x00000003   PAD
-    0x080040b0   0x080040b0   0x00000020   Data   RO         3060    Region$$Table       anon$$obj.o
+    0x08002f04   0x08002f04   0x0000065c   Code   RO          184    i.funControl        main.o
+    0x08003560   0x08003560   0x00000030   Code   RO         1035    i.get_moto_feetback  moto.o
+    0x08003590   0x08003590   0x00000080   Code   RO         1036    i.init_moto         moto.o
+    0x08003610   0x08003610   0x0000006c   Code   RO          185    i.led_light         main.o
+    0x0800367c   0x0800367c   0x000000a4   Code   RO          186    i.main              main.o
+    0x08003720   0x08003720   0x00000060   Code   RO          819    i.open_all_door     analysis_protocol.o
+    0x08003780   0x08003780   0x0000002c   Code   RO         1037    i.open_lock         moto.o
+    0x080037ac   0x080037ac   0x00000024   Code   RO          820    i.send_hart         analysis_protocol.o
+    0x080037d0   0x080037d0   0x00000010   Code   RO          187    i.sound_control     main.o
+    0x080037e0   0x080037e0   0x00000020   Code   RO         1038    i.steper_moto_in    moto.o
+    0x08003800   0x08003800   0x00000020   Code   RO         1039    i.steper_moto_out   moto.o
+    0x08003820   0x08003820   0x000000c8   Code   RO         1205    i.uart1_init        usart.o
+    0x080038e8   0x080038e8   0x000000a4   Code   RO         1206    i.uart2_init        usart.o
+    0x0800398c   0x0800398c   0x0000002a   Code   RO          331    i.uatoi             prjlib.o
+    0x080039b6   0x080039b6   0x00000002   PAD
+    0x080039b8   0x080039b8   0x0000003c   Code   RO          188    i.wait_fun          main.o
+    0x080039f4   0x080039f4   0x00000600   Data   RO          339    .constdata          prjlib.o
+    0x08003ff4   0x08003ff4   0x00000024   Data   RO         2641    .constdata          rtc.o
+    0x08004018   0x08004018   0x00000081   Data   RO         2712    .constdata          mc_w.l(ctype_o.o)
+    0x08004099   0x08004099   0x00000003   PAD
+    0x0800409c   0x0800409c   0x00000004   Data   RO         2713    .constdata          mc_w.l(ctype_o.o)
+    0x080040a0   0x080040a0   0x0000000c   Data   RO         2741    .constdata          mc_w.l(localtime.o)
+    0x080040ac   0x080040ac   0x00000005   Data   RO          189    .conststring        main.o
+    0x080040b1   0x080040b1   0x00000003   PAD
+    0x080040b4   0x080040b4   0x00000020   Data   RO         3060    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x080040d0, Size: 0x00001410, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x00000180])
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x080040d4, Size: 0x00001410, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x00000178])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1867,7 +1867,7 @@ Image component sizes
        248         16          0          0         32     259039   fifo.o
         56         14          0          0          0       1415   gun.o
         72         10          0          1          0        575   key.o
-      1972        778          5         16          0      28016   main.o
+      1976        780          5         16          0      28016   main.o
        172         22          0          0          0       1953   misc.o
       1444        124          0        720          0       7953   moto.o
        344         14       1536          8          0       5740   prjlib.o
@@ -1890,7 +1890,7 @@ Image component sizes
         44          0          0          0          0        944   wdg.o
 
     ----------------------------------------------------------------------
-     10560       1582       1916        864       4220     369867   Object Totals
+     10564       1584       1916        864       4220     369867   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         24          0          3          4          0          0   (incl. Padding)
 
@@ -1949,15 +1949,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     14528       1702       2064        868       4268     364699   Grand Totals
-     14528       1702       2064        384       4268     364699   ELF Image Totals (compressed)
-     14528       1702       2064        384          0          0   ROM Totals
+     14532       1704       2064        868       4268     364699   Grand Totals
+     14532       1704       2064        376       4268     364699   ELF Image Totals (compressed)
+     14532       1704       2064        376          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                16592 (  16.20kB)
+    Total RO  Size (Code + RO Data)                16596 (  16.21kB)
     Total RW  Size (RW Data + ZI Data)              5136 (   5.02kB)
-    Total ROM Size (Code + RO Data + RW Data)      16976 (  16.58kB)
+    Total ROM Size (Code + RO Data + RW Data)      16972 (  16.57kB)
 
 ==============================================================================
 

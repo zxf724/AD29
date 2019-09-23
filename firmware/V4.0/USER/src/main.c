@@ -102,7 +102,7 @@ static void funControl(int argc, char *argv[]) {
       IWDG_Feed();
       DBG_LOG("open moto num %d",i);
       motoDef.open_moto(i);
-      delay_ms_whx(100);
+      delay_ms_whx(1000);
       motoDef.close_moto(i);
     }
   } else if (ARGV_EQUAL("OPEN_LOCK")) {   // open clock 
@@ -119,7 +119,7 @@ static void funControl(int argc, char *argv[]) {
   } else if (ARGV_EQUAL("CLOCK_LOCK")) {    // close lock
       DBG_LOG("close lock num %d",uatoi(argv[1]));
       close_lock(uatoi(argv[1]));
-  } else if (ARGV_EQUAL("RUN")) {   // run moto 
+  } else if (ARGV_EQUAL("RUN")) {   // run moto
     motoDef.open_moto(uatoi(argv[1]));
   } else if (ARGV_EQUAL("CLOSE")) { // close moto 
     motoDef.close_moto(uatoi(argv[1]));
