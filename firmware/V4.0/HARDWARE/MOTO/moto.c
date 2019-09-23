@@ -265,7 +265,7 @@ uint8_t MicroStep_Motro(uint32_t Step) {
 }
 
 void MicroStep_Motro_init(uint32_t Step) {
-  if (TOUR_SWITCH == 1) {
+  if (NORCH_SENSOR_A_MOTO == 1) {
     delay(1000);
     GPIO_SetBits(GPIOB, GPIO_Pin_3);
     GPIO_SetBits(GPIOB, GPIO_Pin_4);

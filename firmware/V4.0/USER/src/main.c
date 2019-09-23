@@ -41,7 +41,7 @@ int main(void) {
 
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  // init_moto();
+  init_moto();
   RTC_Init();
   DBG_LOG("system start!")
 
@@ -192,5 +192,5 @@ static void funControl(int argc, char *argv[]) {
   } else if (ARGV_EQUAL("RESTART")) {
       DBG_LOG("restart");
       NVIC_SystemReset();
-  } 
+  }
 }

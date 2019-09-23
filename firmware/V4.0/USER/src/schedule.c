@@ -128,30 +128,32 @@ void Start_Borrow() {
         flag_one_time = 0;
       }
       delay_ms_whx(100);
+            IWDG_Feed();
       OPEN_ELECTRIC_LOCK;
-      // if (NEW_SENSOR == 1) {  // sensor
-      delay_ms_whx(2000);
-        // motoDef.state = state_run_second_half;
-        motoDef.state = state_run_third;
-    //   }
-    //   break;
-    // case state_run_second_half:
-    //   IWDG_Feed();
-    //   flag_one_time = 1;
-    //   if (NEW_SENSOR == 0) {
-    //     delay_ms_whx(4000);
-    //     IWDG_Feed();
-    //     if (NEW_SENSOR == 1) {
-    //       motoDef.state = state_run_second;
-    //     } else if (NEW_SENSOR == 0) {
-    //       motoDef.state = state_run_third;
-    //     }
-    //   }
+      if (NORCH_SENSOR_B_DOOR == 1) {  // sensor
+        delay_ms(100);
+        if (NORCH_SENSOR_B_DOOR == 1) {  // sensor
+          motoDef.state = state_run_second_half;
+        }
+      }
+      break;
+    case state_run_second_half:
+      IWDG_Feed();
+      flag_one_time = 1;
+      if (NORCH_SENSOR_B_DOOR == 0) {
+        delay_ms_whx(5000);
+        IWDG_Feed();
+        if (NORCH_SENSOR_B_DOOR == 1) {
+          motoDef.state = state_run_second;
+        } else if (NORCH_SENSOR_B_DOOR == 0) {
+          motoDef.state = state_run_third;
+        }
+      }
       break;
     case state_run_third:  // push motor
       IWDG_Feed();
       flag_one_time = 1;
-      // if (NEW_SENSOR == 0) {
+      if (NORCH_SENSOR_B_DOOR == 0) {
         delay_ms_whx(500);
         CLOSE_ELECTRIC_LOCK;
         IWDG_Feed();
@@ -167,7 +169,7 @@ void Start_Borrow() {
     case state_report:
       // Report_State(CMD_RECARGO,&state,1);  //出货信息上报
       flag_finish = 1;
-      if (TOUR_SWITCH == 1) {
+      if (NORCH_SENSOR_A_MOTO == 1) {
         // DBG_LOG("error");
       }
       if (errorDef.android_state) {  //收到ANDROID消息
@@ -185,7 +187,8 @@ void Start_Borrow() {
         }
       }
       break;
-  }
+    }
+  } 
 }
 
 /**

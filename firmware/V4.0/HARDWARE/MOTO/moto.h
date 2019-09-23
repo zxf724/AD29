@@ -262,9 +262,8 @@
 #define OPEN_ELECTRIC_LOCK GPIO_SetBits(GPIOB, GPIO_Pin_7)
 #define CLOSE_ELECTRIC_LOCK GPIO_ResetBits(GPIOB, GPIO_Pin_7)
 
-#define TOUR_SWITCH (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_5))
-// #define NEW_SENSOR GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_4)
-#define NEW_SENSOR (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_5))
+#define NORCH_SENSOR_A_MOTO (GPIO_ReadInputDataBit(GPIOF, GPIO_Pin_14))
+#define NORCH_SENSOR_B_DOOR (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_5))
 
 enum {
   state_stop = 0,

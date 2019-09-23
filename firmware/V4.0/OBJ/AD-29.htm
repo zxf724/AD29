@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\AD-29.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\AD-29.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Sep 23 14:51:41 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Sep 23 16:24:46 2019
 <BR><P>
 <H3>Maximum Stack Usage =        116 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -913,7 +913,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Schedule
 </UL>
 
-<P><STRONG><a name="[a0]"></a>Start_Borrow</STRONG> (Thumb, 322 bytes, Stack size 8 bytes, schedule.o(i.Start_Borrow))
+<P><STRONG><a name="[a0]"></a>Start_Borrow</STRONG> (Thumb, 430 bytes, Stack size 8 bytes, schedule.o(i.Start_Borrow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Start_Borrow &rArr; MotorSetpperMove &rArr; delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_out
@@ -1004,7 +1004,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[2e]"></a>TIM4_IRQHandler</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, timer.o(i.TIM4_IRQHandler))
+<P><STRONG><a name="[2e]"></a>TIM4_IRQHandler</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, timer.o(i.TIM4_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = TIM4_IRQHandler &rArr; TIM_GetITStatus
 </UL>
 <BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
@@ -1280,7 +1280,8 @@ Global Symbols
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
+<BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 </UL>
 
@@ -1294,13 +1295,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[4c]"></a>main</STRONG> (Thumb, 146 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[4c]"></a>main</STRONG> (Thumb, 150 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = main &rArr; Screen_CommandReceive_Poll &rArr; Uart_Protocol_Cmd_Analy &rArr; Get_Time &rArr; RTC_Set &rArr; RTC_SetCounter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_hart
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;open_all_door
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_init
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM4_Int_Init
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Int_Init
