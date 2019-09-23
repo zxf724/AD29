@@ -60,15 +60,16 @@ void Gun_CommandReceive_Poll(void) {
   uint8_t i = 0;
   uint8_t data_tmp[16] = {0};
   len = fifo_length(&rx_fifo_Gun_Def);
-  if (len >= 10) {
+  if (len >= 16) {
     IWDG_Feed();
     len = fifo_length(&rx_fifo_Gun_Def);
     for (i = 0; i < len; i++) app_uart_get(&CmdRecBuf[i], GUN);  // one bit
     len = 0;
     data_tmp[0] = (uint8_t)(CmdRecBuf[0] - 48);
     if ((data_tmp[0] > 0) && (data_tmp[0] <= 9)) {
-      for (i = 0; i < 16; i++) {
+      for (i = 0; i < 16; i++) {  
         data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
+        // DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
       }
       for (i = 0; i <= 7; i++) {
         data[i] = (data_tmp[i * 2] * 10) + data_tmp[i * 2 + 1];

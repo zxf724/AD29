@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\AD-29.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\AD-29.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Sep 23 10:08:51 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Sep 23 14:51:41 2019
 <BR><P>
 <H3>Maximum Stack Usage =        116 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -522,7 +522,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[64]"></a>GPIO_ResetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_ResetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_out
+<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_out
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;close_lock
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
@@ -535,7 +535,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[7e]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_SetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_in
+<BR><BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_in
 <LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;open_lock
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
@@ -575,7 +575,7 @@ Global Symbols
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_uart_get
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_State
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[8]"></a>HardFault_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_it.o(i.HardFault_Handler))
@@ -593,11 +593,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;open_all_door
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gun_CommandReceive_Poll
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_State
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gun_CommandReceive_Poll
 </UL>
 
 <P><STRONG><a name="[71]"></a>IWDG_Init</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, wdg.o(i.IWDG_Init))
@@ -879,8 +879,8 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_hart
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Schedule
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart_Protocol_Cmd_Analy
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gun_CommandReceive_Poll
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart_Protocol_Cmd_Analy
 </UL>
 
 <P><STRONG><a name="[c]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f10x_it.o(i.SVC_Handler))
@@ -916,7 +916,7 @@ Global Symbols
 <P><STRONG><a name="[a0]"></a>Start_Borrow</STRONG> (Thumb, 322 bytes, Stack size 8 bytes, schedule.o(i.Start_Borrow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Start_Borrow &rArr; MotorSetpperMove &rArr; delay
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_in
+<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_out
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms_whx
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
@@ -963,13 +963,12 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(.text)
 </UL>
-<P><STRONG><a name="[2c]"></a>TIM2_IRQHandler</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, timer.o(i.TIM2_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = TIM2_IRQHandler &rArr; Gun_CommandReceive_Poll &rArr; Report_State &rArr; Uart_Send_Data
+<P><STRONG><a name="[2c]"></a>TIM2_IRQHandler</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, timer.o(i.TIM2_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = TIM2_IRQHandler &rArr; led_light &rArr; RTC_Get &rArr; RTC_Get_Week
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_light
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gun_CommandReceive_Poll
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
@@ -1251,9 +1250,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[6c]"></a>fifo_length</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, fifo.o(i.fifo_length))
-<BR><BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_fifo_put
+<BR><BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gun_CommandReceive_Poll
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_fifo_put
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_fifo_get
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gun_CommandReceive_Poll
 </UL>
 
 <P><STRONG><a name="[4f]"></a>fputc</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, usart.o(i.fputc))
@@ -1275,14 +1274,13 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = init_moto &rArr; delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_out
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_in
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms_whx
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IWDG_Feed
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
+<BR>[Called By]<UL><LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 </UL>
 
@@ -1296,14 +1294,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[4c]"></a>main</STRONG> (Thumb, 136 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[4c]"></a>main</STRONG> (Thumb, 146 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = main &rArr; Screen_CommandReceive_Poll &rArr; Uart_Protocol_Cmd_Analy &rArr; Get_Time &rArr; RTC_Set &rArr; RTC_SetCounter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_init
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_hart
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;open_all_door
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_init
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM4_Int_Init
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Int_Init
@@ -1315,6 +1312,7 @@ Global Symbols
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moto_Init
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IWDG_Init
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IWDG_Feed
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gun_CommandReceive_Poll
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_AddEntrance
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_fun
@@ -1361,22 +1359,22 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a2]"></a>steper_moto_in</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, moto.o(i.steper_moto_in))
+<P><STRONG><a name="[c9]"></a>steper_moto_in</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, moto.o(i.steper_moto_in))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = steper_moto_in
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
+<LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
 </UL>
 
-<P><STRONG><a name="[c9]"></a>steper_moto_out</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, moto.o(i.steper_moto_out))
+<P><STRONG><a name="[a2]"></a>steper_moto_out</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, moto.o(i.steper_moto_out))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = steper_moto_out
 </UL>
 <BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
-<LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
+<BR>[Called By]<UL><LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 </UL>
 
 <P><STRONG><a name="[cc]"></a>uart1_init</STRONG> (Thumb, 176 bytes, Stack size 32 bytes, usart.o(i.uart1_init))
@@ -1434,8 +1432,8 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = funControl &rArr; MotorSetpperMove &rArr; delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uatoi
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_out
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_in
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_out
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_in
 <LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;open_lock
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms_whx

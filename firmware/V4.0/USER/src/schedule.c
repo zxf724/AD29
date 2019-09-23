@@ -122,7 +122,7 @@ void Start_Borrow() {
       IWDG_Feed();
       GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
       GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-      steper_moto_in();
+      steper_moto_out();
       if(flag_one_time == 1) {
         MotorSetpperMove(38000);
         flag_one_time = 0;

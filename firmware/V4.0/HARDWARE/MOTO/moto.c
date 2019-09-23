@@ -278,7 +278,7 @@ void MicroStep_Motro_init(uint32_t Step) {
 uint8_t init_moto(void) {
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-  steper_moto_out();
+  steper_moto_in();
   while (flag_calc_times != 1) {
     delay_ms_whx(100);
     while (flag_calc_times != 1) {

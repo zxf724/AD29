@@ -37,10 +37,11 @@ int main(void) {
   TIM4_Int_Init(5, 7199);     // 10Khz的计数频率，计数到5000为500ms
   TIM2_Int_Init(1000, 7199);  // 10Khz的计数频率，计数到5000为500ms
   TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
+  LED_ON;
 
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  init_moto();
+  // init_moto();
   RTC_Init();
   DBG_LOG("system start!")
 
@@ -49,6 +50,7 @@ int main(void) {
   while (1) {
     IWDG_Feed();
     Screen_CommandReceive_Poll();
+    Gun_CommandReceive_Poll();
     Start_Schedule();
     open_all_door();
     wait_fun();
@@ -190,5 +192,5 @@ static void funControl(int argc, char *argv[]) {
   } else if (ARGV_EQUAL("RESTART")) {
       DBG_LOG("restart");
       NVIC_SystemReset();
-  }
+  } 
 }

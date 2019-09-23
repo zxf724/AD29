@@ -67,8 +67,9 @@ void Gun_CommandReceive_Poll(void) {
     len = 0;
     data_tmp[0] = (uint8_t)(CmdRecBuf[0] - 48);
     if ((data_tmp[0] > 0) && (data_tmp[0] <= 9)) {
-      for (i = 0; i < 16; i++) {
+      for (i = 0; i < 16; i++) {  
         data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
+        DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
       }
       for (i = 0; i <= 7; i++) {
         data[i] = (data_tmp[i * 2] * 10) + data_tmp[i * 2 + 1];

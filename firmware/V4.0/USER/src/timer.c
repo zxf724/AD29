@@ -162,7 +162,6 @@ void TIM2_IRQHandler(void)  // TIM2ÖÐ¶Ï
     } else {
       calc_times = 0;
     }
-    Gun_CommandReceive_Poll();
     led_light();
     if(delay_time>=300) delay_time-=4;
   }
