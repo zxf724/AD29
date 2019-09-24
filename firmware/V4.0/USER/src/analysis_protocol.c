@@ -16,6 +16,9 @@ uint8_t CmdRecBuf[COMMAND_MAX] = {0};
 static uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
                                  0x05, 0x06, 0x07, 0x08};
 
+uint8_t start_screen[6] = {0x04, 0xE4, 0x04, 0x00, 0xFF, 0x14};
+uint8_t stop_screen[6] = {0x04, 0xE5, 0x04, 0x00, 0xFF, 0x13};
+
 extern uint8_t g_bar_code[50];
 extern mError errorDef;
 
@@ -67,7 +70,7 @@ void Gun_CommandReceive_Poll(void) {
     len = 0;
     data_tmp[0] = (uint8_t)(CmdRecBuf[0] - 48);
     if ((data_tmp[0] > 0) && (data_tmp[0] <= 9)) {
-      for (i = 0; i < 16; i++) {  
+      for (i = 0; i < 16; i++) {
         data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
         // DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
       }
@@ -82,49 +85,40 @@ void Gun_CommandReceive_Poll(void) {
 void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf, uint8_t length) {
   static uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
                                    0x05, 0x06, 0x07, 0x08};
-  static uint8_t start_screen[6] = {0x04, 0xE4, 0x04, 0x00, 0xFF, 0x14};
-  static uint8_t stop_screen[6] = {0x04, 0xE5, 0x04, 0x00, 0xFF, 0x13};
-  static uint8_t get_time = 1;
-
   // crc16 test  already test
   uint16_t crc_data_count = CRC_16(0xffff, CmdRecBuf + 1, 14);
   // and crc16
   if ((CmdRecBuf[0] == FHEADER) && (CmdRecBuf[17] == FHEADER)) {
     switch (CmdRecBuf[1]) {
       case CMD_TIME:
-        if (get_time == 1) {
-          Get_Time(CmdRecBuf);
-          get_time = 0;
-        }
-        Report_State(0x80, (uint8_t*)report_data, sizeof(report_data));
-        break;
-      case CMD_MOTO:
-        Get_Mote_Data(&CmdRecBuf[MOTOR_NUM]);
-        break;
-      case CMD_LOCK:
-        Get_Mote_Data(&CmdRecBuf[MOTOR_NUM]);
-        // Uart_Send_Data(SCREEN, report_data,sizeof(dat_tmp));
-        break;
-      case CMD_GUN:
-        for (uint8_t i = 0; i <= 3; i++) {
-          delay_ms(20);
-          Uart_Send_Data(GUN, start_screen, sizeof(stop_screen) - 1);
-        }
-        break;
-      case CMD_SCREEN_CLOSE:  // using
-        for (uint8_t i = 0; i <= 3; i++) {
-          delay_ms(20);
-          Uart_Send_Data(GUN, stop_screen, sizeof(start_screen) - 1);
-        }
-        break;
-      case CMD_CARGO:
-        Get_Cargo_Data(&CmdRecBuf[2]);
-        break;
-      case CMD_BACK:
-        Get_Back_Data(&CmdRecBuf[2]);
-        break;
-    }
+        Get_Time(CmdRecBuf);
+    Report_State(0x80, (uint8_t*)report_data, sizeof(report_data));
+    break;
+    case CMD_MOTO:
+      Get_Mote_Data(&CmdRecBuf[MOTOR_NUM]);
+      break;
+    case CMD_LOCK:
+      Get_Mote_Data(&CmdRecBuf[MOTOR_NUM]);
+      // Uart_Send_Data(SCREEN, report_data,sizeof(dat_tmp));
+      break;
+    case CMD_GUN:
+      for (uint8_t i = 0; i <= 3; i++) {
+        Uart_Send_Data(GUN, start_screen, sizeof(stop_screen) - 1);
+      }
+      break;
+    case CMD_SCREEN_CLOSE:  // using
+      for (uint8_t i = 0; i <= 3; i++) {
+        Uart_Send_Data(GUN, stop_screen, sizeof(start_screen) - 1);
+      }
+      break;
+    case CMD_CARGO:
+      Get_Cargo_Data(&CmdRecBuf[2]);
+      break;
+    case CMD_BACK:
+      Get_Back_Data(&CmdRecBuf[2]);
+      break;
   }
+}
 }
 
 void open_all_door(void) {
@@ -142,7 +136,7 @@ void open_all_door(void) {
           close_lock(i);
         }
         // TODO
-        // moto 
+        // moto
         break;
       default:
         break;

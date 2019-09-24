@@ -114,6 +114,8 @@ void TIM4_IRQHandler(void)  // TIM4ÖÐ¶Ï
     if (TOUR_SWITCH == 0) {
       calc_times++;
     }
+    wait_fun();
+    led_light();
   }
 }
 
@@ -160,7 +162,6 @@ void TIM2_IRQHandler(void)  // TIM2ÖÐ¶Ï
     } else {
       calc_times = 0;
     }
-    Gun_CommandReceive_Poll();
   }
 }
 

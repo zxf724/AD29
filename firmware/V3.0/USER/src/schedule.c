@@ -170,17 +170,12 @@ void Start_Borrow() {
           GPIO_SetBits(GPIOC, GPIO_Pin_11);  // DIR1
   GPIO_SetBits(GPIOD, GPIO_Pin_0);   // DIR2
         flag_steper = 0;
-        TIM_Cmd(TIM2, ENABLE);  //使能TIMx
-        TIM_Cmd(TIM4, ENABLE);  //使能TIMx
         flag_calc_times = 0;
 
         init_moto();
           GPIO_ResetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_ResetBits(GPIOC, GPIO_Pin_12);  // EN2
         flag_new_sensor = 0;
-        // clear num
-        TIM_Cmd(TIM2, DISABLE);  //使能TIMx
-        TIM_Cmd(TIM4, DISABLE);  //使能TIMx
         motoDef.num = 0;
         flag_steper = 0;
         motoDef.state = state_report;

@@ -25,7 +25,7 @@ void Get_Time(uint8_t data[]) {
   struct tm* now_time = localtime(&time_seconds);
   // DBG_LOG("time seconds is %d", realtime);
   // DBG_LOG("%d-%d-%d %d:%d:%d\n", now_time->tm_year + 1900, now_time->tm_mon + 1,
-  //         now_time->tm_mday, now_time->tm_hour + 8, now_time->tm_min,
+  //         now_time->tm_mday, now_time->tm_hour + 9, now_time->tm_min,
   //         now_time->tm_sec);
   RTC_Set(now_time->tm_year + 1900, now_time->tm_mon + 1,
                        now_time->tm_mday, now_time->tm_hour + 9,
@@ -34,20 +34,23 @@ void Get_Time(uint8_t data[]) {
 
 void Get_Mote_Data(uint8_t* data) {
   static uint8_t i = 0;
-  motoDef.num = *data;
+  // motoDef.num = *data;
+  // DBG_LOG("motoDef.num = %d",motoDef.num);
+  g_array_ML[i] = *data;
+  *data = 0;
   i++;
-  if (i == 32) i = 0;
+  if (i == 31) i = 0;
 }
 
 void Get_Lock_Data(uint8_t* data) { motoDef.num = *data; }
 
 void Get_Gun_Data(uint8_t* data) {
-  uint8_t len = 0;
-  uint8_t i = 0;
-  len = *(data + 4);
-  for (i = 1; i < len + 1; i++) {
-    g_start_cmd[i - 1] = *(data + 4 + i);
-  }
+  static uint8_t i = 0;
+  g_array_ML[i] = *data;
+  *data = 0;
+  i++;
+  if (i == 31) i = 0;
+    // motoDef.num = *data;
 }
 
 void Get_Cargo_Data(uint8_t* data) {

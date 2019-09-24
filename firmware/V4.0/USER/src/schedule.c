@@ -141,7 +141,7 @@ void Start_Borrow() {
       IWDG_Feed();
       flag_one_time = 1;
       if (NORCH_SENSOR_B_DOOR == 0) {
-        delay_ms_whx(5000);
+        delay_ms_whx(1000);
         IWDG_Feed();
         if (NORCH_SENSOR_B_DOOR == 1) {
           motoDef.state = state_run_second;
@@ -160,7 +160,7 @@ void Start_Borrow() {
         flag_calc_times = 0;
         flag_new_sensor = 0;
         calc_times = 0;
-        delay_time = 900;
+        delay_time = 400;
         init_moto();
         motoDef.num = 0;
         motoDef.state = state_report;
@@ -201,14 +201,14 @@ void Start_Repay() {
   switch (motoDef.state) {
     case state_stop:
       if (motoDef.num) {
-        motoDef.open_moto(motoDef.num);
+        open_lock((motoDef.num-32));
         motoDef.state = state_door_open;
       } else
         machine.state = state_stop;
       break;
     case state_door_open:
       delay_ms(1000);
-      motoDef.close_moto(motoDef.num);
+      close_lock((motoDef.num-32));
       motoDef.state = state_report;
       break;
     case state_report:

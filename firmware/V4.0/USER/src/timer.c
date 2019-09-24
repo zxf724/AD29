@@ -18,7 +18,7 @@ uint8_t flag_hart = 0;
 uint8_t flag_new_sensor = 0;
 uint16_t calc_times = 0;
 uint8_t flag_calc_times = 0;
-uint16_t delay_time = 900;
+uint16_t delay_time = 400;
 
 void TIM3_Int_Init(u16 arr, u16 psc) {
   TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -116,6 +116,7 @@ void TIM4_IRQHandler(void)  // TIM4ÖÐ¶Ï
     if (NORCH_SENSOR_A_MOTO == 0) {
       calc_times++;
     }
+    wait_fun();
   }
 }
 

@@ -24,6 +24,8 @@ extern _calendar_obj calendar;  //时钟结构体
 extern uint8_t g_array_ML[32];
 extern uint8_t flag_finish;
 extern uint8_t flag_calc_times;
+extern uint8_t start_screen[6];
+extern uint8_t stop_screen[6];
 
 int main(void) {
   CMD_ENT_DEF(MOTO, funControl);
@@ -41,8 +43,9 @@ int main(void) {
 
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  init_moto();
   RTC_Init();
+
+  // init_moto();
   DBG_LOG("system start!")
 
   IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
@@ -50,10 +53,9 @@ int main(void) {
   while (1) {
     IWDG_Feed();
     Screen_CommandReceive_Poll();
-    Gun_CommandReceive_Poll();
     Start_Schedule();
     open_all_door();
-    wait_fun();
+    Gun_CommandReceive_Poll();
     send_hart();
   }
 }
@@ -85,7 +87,7 @@ void wait_fun(void) {
   for (uint8_t i = 0; i <= 31; i++) {
     if ((g_array_ML[i] > 0) && (flag_finish == 1)) {
       motoDef.num = g_array_ML[i];
-      // DBG_LOG("g_array_ML[%d] = %d, motoDef.num = %d", i, g_array_ML[i],
+      // DBG_LOG("g_array_ML[%d] = %d, motoDef.num = %d", i, g_array_ML[i],\
       // motoDef.num);
       g_array_ML[i] = 0;
       flag_finish = 0;
@@ -110,6 +112,8 @@ static void funControl(int argc, char *argv[]) {
   } else if (ARGV_EQUAL("OPEN_LOCK")) {   // open clock 
       DBG_LOG("open lock num %d",uatoi(argv[1]));
       open_lock(uatoi(argv[1]));
+      delay_ms(500);
+      close_lock(uatoi(argv[1]));
   } else if (ARGV_EQUAL("CHECK_ALL_LOCK")) {  // check all lock 
       for(uint8_t i=0;i<=LOCK_MAX;i++) {
         IWDG_Feed();
@@ -186,11 +190,17 @@ static void funControl(int argc, char *argv[]) {
       OPEN_ELECTRIC_LOCK;
       delay_ms_whx(200);
       CLOSE_ELECTRIC_LOCK;
-  } else if (ARGV_EQUAL("GET_TIME")) {
+  } else if (ARGV_EQUAL("GET_TIME")) {    // get time 
       DBG_LOG("calendar.hour = %d\ncalendar.min = %d",\
       calendar.hour,calendar.min);
-  } else if (ARGV_EQUAL("RESTART")) {
+  } else if (ARGV_EQUAL("RESTART")) {     // restart
       DBG_LOG("restart");
       NVIC_SystemReset();
+  } else if (ARGV_EQUAL("GUN_OPEN")) {    // gun open 
+      DBG_LOG("gun open");
+      Uart_Send_Data(GUN, start_screen, sizeof(stop_screen) - 1);
+  } else if (ARGV_EQUAL("GUN_CLOSE")) {   // gun close
+      DBG_LOG("gun close");
+      Uart_Send_Data(GUN, stop_screen, sizeof(start_screen) - 1);
   }
 }

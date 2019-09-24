@@ -39,7 +39,7 @@ int main(void) {
 
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  // init_moto();
+  init_moto(); 
   RTC_Init();
 
     IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
@@ -47,10 +47,9 @@ int main(void) {
   while (1) {
     IWDG_Feed();
     Screen_CommandReceive_Poll();
+    Gun_CommandReceive_Poll();
     Start_Schedule();
     open_all_door();
-    led_light();
-    wait_fun();
     send_hart();
   }
 }
@@ -78,6 +77,24 @@ static void funControl(int argc, char *argv[]) {
   } else if (ARGV_EQUAL("TEST_NUM")) {
     DBG_LOG("hello,world!");
     motoDef.num = uatoi(argv[1]);
+  } else if (ARGV_EQUAL("run_left")) {
+    DBG_LOG("run_left");
+    GPIO_ResetBits(
+          GPIOD,
+          GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+    GPIO_ResetBits(
+          GPIOC,
+          GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+    MotorSetpperMove(uatoi(argv[1]));
+  } else if (ARGV_EQUAL("run_right")) {
+    DBG_LOG("run_right");
+    GPIO_SetBits(
+          GPIOD,
+          GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+    GPIO_SetBits(
+          GPIOC,
+          GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
+    MotorSetpperMove(uatoi(argv[1]));
   }
 }
 
