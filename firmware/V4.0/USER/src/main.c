@@ -21,7 +21,7 @@ extern Moto motoDef;
 extern mPin Pin_Array[PINMAX];
 int time = 0;
 extern _calendar_obj calendar;  //时钟结构体
-extern uint8_t g_array_ML[32];
+extern uint8_t g_array_ML[8];
 extern uint8_t flag_finish;
 extern uint8_t flag_calc_times;
 extern uint8_t start_screen[6];
@@ -39,9 +39,8 @@ int main(void) {
   TIM4_Int_Init(5, 7199);     // 10Khz的计数频率，计数到5000为500ms
   TIM2_Int_Init(1000, 7199);  // 10Khz的计数频率，计数到5000为500ms
   TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
-  LED_ON;
 
-  sound_control();
+  // sound_control();
   CLOSE_ELECTRIC_LOCK;
   RTC_Init();
 
@@ -53,10 +52,12 @@ int main(void) {
   while (1) {
     IWDG_Feed();
     Screen_CommandReceive_Poll();
+    Gun_CommandReceive_Poll();
     Start_Schedule();
     open_all_door();
-    Gun_CommandReceive_Poll();
     send_hart();
+    LED_ON;
+    wait_fun();
   }
 }
 
@@ -83,16 +84,19 @@ void sound_control(void) {
   GPIO_SetBits(GPIOE, GPIO_Pin_1);
 }
 
-void wait_fun(void) {
-  for (uint8_t i = 0; i <= 31; i++) {
-    if ((g_array_ML[i] > 0) && (flag_finish == 1)) {
-      motoDef.num = g_array_ML[i];
-      // DBG_LOG("g_array_ML[%d] = %d, motoDef.num = %d", i, g_array_ML[i],\
-      // motoDef.num);
-      g_array_ML[i] = 0;
-      flag_finish = 0;
-    }
+uint8_t wait_fun(void) {
+  static uint8_t i = 0;
+  if ((g_array_ML[i] > 0) && (flag_finish == 1)) {
+    DBG_LOG("flag_finish begin = %d",flag_finish);
+    motoDef.num = g_array_ML[i];
+    DBG_LOG("g_array_ML[%d] = %d, motoDef.num = %d", i, g_array_ML[i],\
+    motoDef.num);
+    g_array_ML[i] = 0;
+    flag_finish = 0;
+    DBG_LOG("flag_finish end = %d",flag_finish);
   }
+  i++;
+  if(i>=7) i=0;
 }
 
 
@@ -202,5 +206,11 @@ static void funControl(int argc, char *argv[]) {
   } else if (ARGV_EQUAL("GUN_CLOSE")) {   // gun close
       DBG_LOG("gun close");
       Uart_Send_Data(GUN, stop_screen, sizeof(start_screen) - 1);
+  }  else if (ARGV_EQUAL("ARRAY")) {   // array test
+      static uint8_t i=0;
+      DBG_LOG("array test");
+      g_array_ML[i] = uatoi(argv[1]);
+      i++;
+      DBG_LOG("g_array_ML[%d] = %d",i,g_array_ML[i]);
   }
 }

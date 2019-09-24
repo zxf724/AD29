@@ -15,8 +15,8 @@ extern Moto motoDef;
 extern mError errorDef;
 
 uint8_t g_start_cmd[7] = {0};
-uint8_t g_bar_code[50] = {'\0'};
-uint8_t g_array_ML[32] = {0};
+uint8_t g_bar_code[25] = {'\0'};
+uint8_t g_array_ML[8] = {0};
 
 void Get_Time(uint8_t data[]) {
   uint32_t realtime =
@@ -35,11 +35,13 @@ void Get_Time(uint8_t data[]) {
 void Get_Mote_Data(uint8_t* data) {
   static uint8_t i = 0;
   // motoDef.num = *data;
-  // DBG_LOG("motoDef.num = %d",motoDef.num);
-  g_array_ML[i] = *data;
-  *data = 0;
-  i++;
-  if (i == 31) i = 0;
+ if(*data > 0) {
+    g_array_ML[i] = *data;
+    DBG_LOG("g_array_ML[%d] = %d",i,g_array_ML[i]);
+    *data = 0;
+    i++;
+    if (i == 7) i = 0;
+  }
 }
 
 void Get_Lock_Data(uint8_t* data) { motoDef.num = *data; }
@@ -49,7 +51,7 @@ void Get_Gun_Data(uint8_t* data) {
   g_array_ML[i] = *data;
   *data = 0;
   i++;
-  if (i == 31) i = 0;
+  if (i == 7) i = 0;
     // motoDef.num = *data;
 }
 

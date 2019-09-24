@@ -23,5 +23,6 @@
 void led_light_times(uint8_t num);
 
 void LED_Init(void);  //≥ı ºªØ
+void led_light(void);
 
 #endif

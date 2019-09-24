@@ -13,13 +13,13 @@
 #define MOTOR_NUM 13
 
 uint8_t CmdRecBuf[COMMAND_MAX] = {0};
-static uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
+uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
                                  0x05, 0x06, 0x07, 0x08};
 
 uint8_t start_screen[6] = {0x04, 0xE4, 0x04, 0x00, 0xFF, 0x14};
 uint8_t stop_screen[6] = {0x04, 0xE5, 0x04, 0x00, 0xFF, 0x13};
 
-extern uint8_t g_bar_code[50];
+extern uint8_t g_bar_code[25];
 extern mError errorDef;
 
 extern app_fifo_t rx_fifo_Screen_Def;

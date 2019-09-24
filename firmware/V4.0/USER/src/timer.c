@@ -116,7 +116,6 @@ void TIM4_IRQHandler(void)  // TIM4ÖÐ¶Ï
     if (NORCH_SENSOR_A_MOTO == 0) {
       calc_times++;
     }
-    wait_fun();
   }
 }
 
