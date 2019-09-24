@@ -39,8 +39,7 @@ int main(void) {
   TIM4_Int_Init(5, 7199);     // 10Khz的计数频率，计数到5000为500ms
   TIM2_Int_Init(1000, 7199);  // 10Khz的计数频率，计数到5000为500ms
   TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
-
-  // sound_control();
+  sound_control();
   CLOSE_ELECTRIC_LOCK;
   RTC_Init();
 
@@ -87,13 +86,10 @@ void sound_control(void) {
 uint8_t wait_fun(void) {
   static uint8_t i = 0;
   if ((g_array_ML[i] > 0) && (flag_finish == 1)) {
-    DBG_LOG("flag_finish begin = %d",flag_finish);
     motoDef.num = g_array_ML[i];
-    DBG_LOG("g_array_ML[%d] = %d, motoDef.num = %d", i, g_array_ML[i],\
     motoDef.num);
     g_array_ML[i] = 0;
     flag_finish = 0;
-    DBG_LOG("flag_finish end = %d",flag_finish);
   }
   i++;
   if(i>=7) i=0;

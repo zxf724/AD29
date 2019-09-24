@@ -37,7 +37,7 @@ void Get_Mote_Data(uint8_t* data) {
   // motoDef.num = *data;
  if(*data > 0) {
     g_array_ML[i] = *data;
-    DBG_LOG("g_array_ML[%d] = %d",i,g_array_ML[i]);
+    // DBG_LOG("g_array_ML[%d] = %d",i,g_array_ML[i]);
     *data = 0;
     i++;
     if (i == 7) i = 0;
