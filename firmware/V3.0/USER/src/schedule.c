@@ -15,6 +15,7 @@ extern Machine machine;
 extern mError errorDef;
 extern uint8_t flag_new_sensor;
 extern uint8_t flag_calc_times;
+extern uint8_t report_data[8];
 uint8_t flag_finish = 1;
 
 void Start_Schedule() {
@@ -178,12 +179,15 @@ void Start_Borrow() {
         flag_new_sensor = 0;
         motoDef.num = 0;
         flag_steper = 0;
+    Report_State(CMD_FINISH, report_data, sizeof(report_data));
+    delay_ms_whx(100);
+    Report_State(HERAD, report_data, sizeof(report_data));
+      flag_finish = 1;
         motoDef.state = state_report;
       }
       break;
     case state_report:
       // Report_State(CMD_RECARGO,&state,1);  //出货信息上报
-      flag_finish = 1;
       if (TOUR_SWITCH == 1) {
         // DBG_LOG("error");
       }

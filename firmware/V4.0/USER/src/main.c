@@ -87,7 +87,6 @@ uint8_t wait_fun(void) {
   static uint8_t i = 0;
   if ((g_array_ML[i] > 0) && (flag_finish == 1)) {
     motoDef.num = g_array_ML[i];
-    motoDef.num);
     g_array_ML[i] = 0;
     flag_finish = 0;
   }

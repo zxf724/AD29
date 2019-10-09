@@ -13,7 +13,7 @@
 #define MOTOR_NUM 13
 
 uint8_t CmdRecBuf[COMMAND_MAX] = {0};
-static uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
+uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
                                  0x05, 0x06, 0x07, 0x08};
 
 extern uint8_t g_bar_code[50];

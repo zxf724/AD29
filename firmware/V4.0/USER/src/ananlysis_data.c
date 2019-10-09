@@ -20,7 +20,7 @@ uint8_t g_array_ML[8] = {0};
 
 void Get_Time(uint8_t data[]) {
   uint32_t realtime =
-      (data[2] << 24) | (data[3] << 16) | (data[4] << 8) | data[5];
+      (data[2] << 24) | (data[3] << 16) | (data[4] << 8) | data[5]; 
   time_t time_seconds = (int)realtime; 
   struct tm* now_time = localtime(&time_seconds);
   // DBG_LOG("time seconds is %d", realtime);

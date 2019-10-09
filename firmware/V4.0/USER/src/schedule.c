@@ -15,6 +15,7 @@ extern Machine machine;
 extern mError errorDef;
 extern uint8_t flag_new_sensor;
 extern uint8_t flag_calc_times;
+extern uint8_t report_data[8];
 uint8_t flag_finish = 1;
 extern uint16_t  calc_times;
 extern uint16_t delay_time;
@@ -165,6 +166,8 @@ void Start_Borrow() {
         motoDef.num = 0;
         motoDef.state = state_report;
         flag_finish = 1;
+          Report_State(FINISH, report_data, sizeof(report_data));
+          delay_ms_whx(100);
       // }
       break;
     case state_report:
@@ -213,7 +216,6 @@ void Start_Repay() {
       break;
     case state_report:
       flag_finish = 1;
-      DBG_LOG("456");
       memset(g_start_cmd, 0, sizeof(g_start_cmd));
       motoDef.num = 0;
       motoDef.state = state_stop;

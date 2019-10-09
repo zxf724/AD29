@@ -23,7 +23,7 @@ mPin Pin_Array[PINMAX] = {
     MOTO(8),
     MOTO(9),
     MOTO(10),
-    MOTO(11),
+    MOTO(11) 			,
     MOTO(12),
     MOTO(13),
     MOTO(14),
