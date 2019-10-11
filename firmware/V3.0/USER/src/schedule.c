@@ -17,6 +17,9 @@ extern uint8_t flag_new_sensor;
 extern uint8_t flag_calc_times;
 extern uint8_t report_data[8];
 uint8_t flag_finish = 1;
+extern uint16_t  calc_times;
+extern uint16_t delay_time;
+
 
 void Start_Schedule() {
   uint8_t state = 0;
@@ -29,7 +32,7 @@ void Start_Schedule() {
         machine.state = state_report;
         machine.gun_state = state_error;
       }
-      if (Set_Moto() < 33 && Set_Moto() > 0) {  //出货电机
+      if (motoDef.num < 33 && motoDef.num > 0) {  //出货电机
         machine.state = state_report;
         machine.moto_state = state_report;
       } else if (Set_Moto() >= 33) {  // 回收门锁电机
@@ -45,7 +48,7 @@ void Start_Schedule() {
       // Report_Bar_Code();
       break;
     case state_repay:
-      Start_Repay(); 
+      Start_Repay();
       break;
     case state_borrow:
       Start_Borrow();
@@ -96,7 +99,7 @@ void Start_Schedule() {
  * @param argv
  */
 void Start_Borrow() {
-  static uint8_t flag_steper = 0;
+  static uint8_t flag_one_time=1;
   IWDG_Feed();
   uint8_t check_num = 0;
   switch (motoDef.state) {
@@ -109,16 +112,7 @@ void Start_Borrow() {
       break;
     case state_run_first:  // input
       motoDef.open_moto(motoDef.num);
-      if ((motoDef.num >= 17) && (motoDef.num <= 24)) {
-        check_num = CHECK_TRACK_1;
-      } else if ((motoDef.num >= 1) && (motoDef.num <= 8)) {
-        check_num = CHECK_TRACK_2;
-      } else if ((motoDef.num >= 9) && (motoDef.num <= 16)) {
-        check_num = CHECK_TRACK_3;
-      } else if ((motoDef.num >= 25) && (motoDef.num <= 32)) {
-        check_num = CHECK_TRACK_4;
-      }
-      if ((motoDef.read_moto(check_num) == 0)) {  // CHECK_TRACK	change
+      if (motoDef.get_moto_feetback(motoDef.num) == 0) {
         motoDef.close_moto(motoDef.num);
         motoDef.state = state_run_second;
       }
@@ -128,67 +122,57 @@ void Start_Borrow() {
       delay_ms_whx(500);
       IWDG_Feed();
       GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-      GPIO_ResetBits(
-          GPIOC,
-          GPIO_Pin_11);  // DIR1   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
       GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-      GPIO_ResetBits(
-          GPIOD,
-          GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out  GPIO_ResetBits() -> in
-      if (flag_steper == 0) {
-        flag_steper = 1;
-        MotorSetpperMove(40000);
+      steper_moto_out();
+      if(flag_one_time == 1) {
+        MotorSetpperMove(38000);
+        flag_one_time = 0;
       }
       delay_ms_whx(100);
+            IWDG_Feed();
       OPEN_ELECTRIC_LOCK;
-      if (NEW_SENSOR == 1) {  // sensor
-        // DBG_LOG("111111111111");
-        motoDef.state = state_run_second_half;
+      if (NORCH_SENSOR_B_DOOR == 1) {  // sensor
+        delay_ms(100);
+        if (NORCH_SENSOR_B_DOOR == 1) {  // sensor
+          motoDef.state = state_run_second_half;
+        }
       }
       break;
     case state_run_second_half:
       IWDG_Feed();
-      if (NEW_SENSOR == 0) {
-        delay_ms_whx(4000);
+      flag_one_time = 1;
+      if (NORCH_SENSOR_B_DOOR == 0) {
+        delay_ms_whx(1000);
         IWDG_Feed();
-        if (NEW_SENSOR == 1) {
-          // DBG_LOG("222222222222");
+        if (NORCH_SENSOR_B_DOOR == 1) {
           motoDef.state = state_run_second;
-        } else if (NEW_SENSOR == 0) {
-          // DBG_LOG("333333333333");
+        } else if (NORCH_SENSOR_B_DOOR == 0) {
           motoDef.state = state_run_third;
         }
       }
       break;
     case state_run_third:  // push motor
-       IWDG_Feed();
-      if (NEW_SENSOR == 0) {
+      IWDG_Feed();
+      flag_one_time = 1;
+      if (NORCH_SENSOR_B_DOOR == 0) {
         delay_ms_whx(500);
         CLOSE_ELECTRIC_LOCK;
         IWDG_Feed();
-          GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-  GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-          GPIO_SetBits(GPIOC, GPIO_Pin_11);  // DIR1
-  GPIO_SetBits(GPIOD, GPIO_Pin_0);   // DIR2
-        flag_steper = 0;
         flag_calc_times = 0;
-
-        init_moto();
-          GPIO_ResetBits(GPIOC, GPIO_Pin_10);  // EN1
-  GPIO_ResetBits(GPIOC, GPIO_Pin_12);  // EN2
         flag_new_sensor = 0;
+        calc_times = 0;
+        delay_time = 400;
+        init_moto();
         motoDef.num = 0;
-        flag_steper = 0;
-    Report_State(CMD_FINISH, report_data, sizeof(report_data));
-    delay_ms_whx(100);
-    Report_State(HERAD, report_data, sizeof(report_data));
-      flag_finish = 1;
         motoDef.state = state_report;
-      }
+        flag_finish = 1;
+          Report_State(FINISH, report_data, sizeof(report_data));
+          delay_ms_whx(100);
+      // }
       break;
     case state_report:
       // Report_State(CMD_RECARGO,&state,1);  //出货信息上报
-      if (TOUR_SWITCH == 1) {
+      if (NORCH_SENSOR_A_MOTO == 1) {
         // DBG_LOG("error");
       }
       if (errorDef.android_state) {  //收到ANDROID消息
@@ -206,7 +190,8 @@ void Start_Borrow() {
         }
       }
       break;
-  }
+    }
+  } 
 }
 
 /**
@@ -219,14 +204,14 @@ void Start_Repay() {
   switch (motoDef.state) {
     case state_stop:
       if (motoDef.num) {
-        motoDef.open_moto(motoDef.num);
+        open_lock((motoDef.num-32));
         motoDef.state = state_door_open;
       } else
         machine.state = state_stop;
       break;
     case state_door_open:
       delay_ms(1000);
-      motoDef.close_moto(motoDef.num);
+      close_lock((motoDef.num-32));
       motoDef.state = state_report;
       break;
     case state_report:

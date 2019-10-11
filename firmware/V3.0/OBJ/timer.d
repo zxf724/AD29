@@ -41,3 +41,4 @@
 ..\obj\timer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\timer.o: ..\RTC\rtc.h
 ..\obj\timer.o: ..\SYSTEM\usart\usart.h
+..\obj\timer.o: .\inc\analysis_protocol.h

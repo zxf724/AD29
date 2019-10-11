@@ -6,99 +6,38 @@
 #include "wdg.h"
 
 Machine machine = {0, 0, 0};
-Moto motoDef = {Open_xMoto, Close_xMoto, Read_xMoto, 0, 0};
+Moto motoDef = {Open_xMoto, Close_xMoto,       Read_xMoto, 0,
+                0,          get_moto_feetback, open_lock};
 mError errorDef = {0, 0};
 extern uint8_t moto_num_carry[32];
 extern uint8_t flag_calc_times;
+extern uint16_t delay_time;
 
 mPin Pin_Array[PINMAX] = {
     // borrow motor array number:0-31
-    MOTO(1),
-    MOTO(2),
-    MOTO(3),
-    MOTO(4),
-    MOTO(5),
-    MOTO(6),
-    MOTO(7),
-    MOTO(8),
-    MOTO(9),
-    MOTO(10),
-    MOTO(11) 			,
-    MOTO(12),
-    MOTO(13),
-    MOTO(14),
-    MOTO(15),
-    MOTO(16),
-    MOTO(17),
-    MOTO(18),
-    MOTO(19),
-    MOTO(20),
-    MOTO(21),
-    MOTO(22),
-    MOTO(23),
-    MOTO(24),
-    MOTO(25),
-    MOTO(26),
-    MOTO(27),
-    MOTO(28),
-    MOTO(29),
-    MOTO(30),
-    MOTO(31),
-    MOTO(32),
-    // repay lock,array number: 32-53
-    LOCK(1),
-    LOCK(2),
-    LOCK(3),
-    LOCK(4),
-    LOCK(5),
-    LOCK(6),
-    LOCK(7),
-    LOCK(8),
-    LOCK(9),
-    LOCK(10),
-    LOCK(11),
-    LOCK(12),
-    LOCK(13),
-    LOCK(14),
-    LOCK(15),
-    LOCK(16),
-    LOCK(17),
-    LOCK(18),
-    LOCK(19),
-    LOCK(20),
-    LOCK(21),
-    LOCK(22),
-    // borrow motor feedback signal, array num 54
-    MOTO_FEEDBACK(1),
-    // lock feedback signal, array num 55-76
-    LOCK_FEEDBACK(1),
-    LOCK_FEEDBACK(2),
-    LOCK_FEEDBACK(3),
-    LOCK_FEEDBACK(4),
-    LOCK_FEEDBACK(5),
-    LOCK_FEEDBACK(6),
-    LOCK_FEEDBACK(7),
-    LOCK_FEEDBACK(8),
-    LOCK_FEEDBACK(9),
-    LOCK_FEEDBACK(10),
-    LOCK_FEEDBACK(11),
-    LOCK_FEEDBACK(12),
-    LOCK_FEEDBACK(13),
-    LOCK_FEEDBACK(14),
-    LOCK_FEEDBACK(15),
-    LOCK_FEEDBACK(16),
-    LOCK_FEEDBACK(17),
-    LOCK_FEEDBACK(18),
-    LOCK_FEEDBACK(19),
-    LOCK_FEEDBACK(20),
-    LOCK_FEEDBACK(21),
-    LOCK_FEEDBACK(22),
-    // infrared sensor init num is 77
-    INFRARED_SENSOR(1),
-    // add 3 lock feedbacks 78 79 80
-    MOTO_FEEDBACK(2),
-    MOTO_FEEDBACK(3),
-    MOTO_FEEDBACK(4),
+    MOTO(1),  MOTO(2),  MOTO(3),  MOTO(4),  MOTO(5),  MOTO(6),  MOTO(7),
+    MOTO(8),  MOTO(9),  MOTO(10), MOTO(11), MOTO(12), MOTO(13), MOTO(14),
+    MOTO(15), MOTO(16), MOTO(17), MOTO(18), MOTO(19), MOTO(20), MOTO(21),
+    MOTO(22), MOTO(23), MOTO(24), MOTO(25), MOTO(26), MOTO(27), MOTO(28),
+    MOTO(29), MOTO(30), MOTO(31), MOTO(32),
+};
+
+mPin Pin_Array_FEEDBACK[FEETBACK_MAX] = {
+    MOTO_FEEDBACK(1),  MOTO_FEEDBACK(2),  MOTO_FEEDBACK(3),  MOTO_FEEDBACK(4),
+    MOTO_FEEDBACK(5),  MOTO_FEEDBACK(6),  MOTO_FEEDBACK(7),  MOTO_FEEDBACK(8),
+    MOTO_FEEDBACK(9),  MOTO_FEEDBACK(10), MOTO_FEEDBACK(11), MOTO_FEEDBACK(12),
+    MOTO_FEEDBACK(13), MOTO_FEEDBACK(14), MOTO_FEEDBACK(15), MOTO_FEEDBACK(16),
+    MOTO_FEEDBACK(17), MOTO_FEEDBACK(18), MOTO_FEEDBACK(19), MOTO_FEEDBACK(20),
+    MOTO_FEEDBACK(21), MOTO_FEEDBACK(22), MOTO_FEEDBACK(23), MOTO_FEEDBACK(24),
+    MOTO_FEEDBACK(25), MOTO_FEEDBACK(26), MOTO_FEEDBACK(27), MOTO_FEEDBACK(28),
+    MOTO_FEEDBACK(29), MOTO_FEEDBACK(30), MOTO_FEEDBACK(31), MOTO_FEEDBACK(32),
+};
+
+mPin Pin_Array_LOCK[LOCK_MAX] = {
+    LOCK(1),  LOCK(2),  LOCK(3),  LOCK(4),  LOCK(5),  LOCK(6),
+    LOCK(7),  LOCK(8),  LOCK(9),  LOCK(10), LOCK(11), LOCK(12),
+    LOCK(13), LOCK(14), LOCK(15), LOCK(16), LOCK(17), LOCK(18),
+    LOCK(19), LOCK(20), LOCK(21), LOCK(22),
 };
 
 void Moto_Init() {
@@ -125,10 +64,17 @@ void Moto_Init() {
   GPIO_Init(GPIOC, &GPIO_InitStructure);
 
   // logo light gpio init && sound control
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_6;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
   GPIO_Init(GPIOB, &GPIO_InitStructure);
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+
+  // other light 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_Init(GPIOG, &GPIO_InitStructure);
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+
 
   // sound control
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
@@ -168,6 +114,22 @@ void Moto_Init() {
     GPIO_ResetBits(Pin_Array[i].port, Pin_Array[i].pin);
   }
 
+  for (i = 0; i < FEETBACK_MAX; i++) {
+    GPIO_InitStructure.GPIO_Pin = Pin_Array_FEEDBACK[i].pin;
+    GPIO_InitStructure.GPIO_Mode = Pin_Array_FEEDBACK[i].mode;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(Pin_Array_FEEDBACK[i].port, &GPIO_InitStructure);
+    GPIO_ResetBits(Pin_Array_FEEDBACK[i].port, Pin_Array_FEEDBACK[i].pin);
+  }
+
+  for (i = 0; i < LOCK_MAX; i++) {
+    GPIO_InitStructure.GPIO_Pin = Pin_Array_LOCK[i].pin;
+    GPIO_InitStructure.GPIO_Mode = Pin_Array_LOCK[i].mode;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(Pin_Array_LOCK[i].port, &GPIO_InitStructure);
+    GPIO_ResetBits(Pin_Array_LOCK[i].port, Pin_Array_LOCK[i].pin);
+  }
+
   // MicroStep Motor 1 2 PUL-
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 | GPIO_Pin_4;  // PUL1-  PUL2-
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
@@ -192,6 +154,23 @@ void Moto_Init() {
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
   GPIO_Init(GPIOD, &GPIO_InitStructure);
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+  GPIO_Init(GPIOF, &GPIO_InitStructure);
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+
+  // notch sensor
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14;  // PUL1-  PUL2-
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+
+  // notch sensor
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;  // PUL1-  PUL2-
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;
+  GPIO_Init(GPIOF, &GPIO_InitStructure);
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 }
 
 /**
@@ -214,6 +193,34 @@ uint8_t Close_xMoto(uint8_t num) {
   if (num < 1 || num > 56) return 1;
   GPIO_ResetBits(Pin_Array[num - 1].port, Pin_Array[num - 1].pin);
   return 0;
+}
+
+uint8_t get_moto_feetback(uint8_t num) {
+  uint8_t bit;
+  if ((num < 1) || num > 32) return 0;
+  bit = GPIO_ReadInputDataBit(Pin_Array_FEEDBACK[num - 1].port,
+                              Pin_Array_FEEDBACK[num - 1].pin);
+  return bit;
+}
+
+/**
+ * open motor  success return 0 not success return 1
+ * @param argc
+ * @param argv
+ */
+uint8_t close_lock(uint8_t num) {
+  if (num < 1 || num > 56) return 0;
+  GPIO_ResetBits(Pin_Array_LOCK[num - 1].port, Pin_Array_LOCK[num - 1].pin);
+}
+
+/**
+ * close motor success return 0 not success return 1
+ * @param argc
+ * @param argv
+ */
+uint8_t open_lock(uint8_t num) {
+  if (num < 1 || num > 56) return 0;
+  GPIO_SetBits(Pin_Array_LOCK[num - 1].port, Pin_Array_LOCK[num - 1].pin);
 }
 
 /**
@@ -258,7 +265,7 @@ uint8_t MicroStep_Motro(uint32_t Step) {
 }
 
 void MicroStep_Motro_init(uint32_t Step) {
-  if (TOUR_SWITCH == 1) {
+  if (NORCH_SENSOR_A_MOTO == 1) {
     delay(1000);
     GPIO_SetBits(GPIOB, GPIO_Pin_3);
     GPIO_SetBits(GPIOB, GPIO_Pin_4);
@@ -270,27 +277,22 @@ void MicroStep_Motro_init(uint32_t Step) {
 
 uint8_t init_moto(void) {
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
-  GPIO_SetBits(GPIOC,
-               GPIO_Pin_11);         // DIR1   GPIO_SetBits() -> out
-                                     // GPIO_ResetBits() -> in
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
-  GPIO_SetBits(GPIOD,
-               GPIO_Pin_0);  // DIR2   GPIO_SetBits() -> out
-                             // GPIO_ResetBits() -> in
+  steper_moto_in();
   while (flag_calc_times != 1) {
-    delay_ms_whx(500);
+    delay_ms_whx(100);
     while (flag_calc_times != 1) {
-            IWDG_Feed();
-      delay(900);
+      IWDG_Feed();
+      delay(delay_time);
       GPIO_SetBits(GPIOB, GPIO_Pin_3);
       GPIO_SetBits(GPIOB, GPIO_Pin_4);
-      delay(900);
+      delay(delay_time);
       GPIO_ResetBits(GPIOB, GPIO_Pin_3);
       GPIO_ResetBits(GPIOB, GPIO_Pin_4);
     }
     return 1;
   }
-	return 1;
+  return 1;
 }
 typedef enum {
   motor_start,
@@ -374,4 +376,14 @@ void MotorSetpperMove(uint32_t xstep) {
       }
     }
   }
+}
+
+void steper_moto_in(void) {
+  GPIO_SetBits(GPIOD, GPIO_Pin_0);
+  GPIO_SetBits(GPIOC, GPIO_Pin_11);
+}
+
+void steper_moto_out(void) {
+  GPIO_ResetBits(GPIOD, GPIO_Pin_0);
+  GPIO_ResetBits(GPIOC, GPIO_Pin_11);
 }

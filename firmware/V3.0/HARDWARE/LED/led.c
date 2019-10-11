@@ -26,3 +26,10 @@ void LED_Init(void) {
   GPIO_Init(GPIOA, &GPIO_InitStructure);  //根据设定参数初始化GPIOB.5
   GPIO_ResetBits(GPIOA, GPIO_Pin_15);     // PB.5 输出高
 }
+
+void led_light_times(uint8_t num) {
+  for (uint8_t i=0;i<=num;i++) {  
+    LED_TOGGLE;
+    delay_ms_whx(300);
+  }
+}

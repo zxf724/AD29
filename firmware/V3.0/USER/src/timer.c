@@ -5,6 +5,7 @@
 #include "prjlib.h"
 #include "rtc.h"
 #include "usart.h"
+#include "analysis_protocol.h"
 
 extern _calendar_obj calendar;
 extern void timer0_backcall_func(void);
@@ -15,8 +16,9 @@ timer_t timerlist[TIMER_LIST_MAX];
 uint32_t timer3_tick = 0, timer4_tick = 0, timer2_tick = 0;
 uint8_t flag_hart = 0;
 uint8_t flag_new_sensor = 0;
-static uint16_t calc_times = 0;
+uint16_t calc_times = 0;
 uint8_t flag_calc_times = 0;
+uint16_t delay_time = 400;
 
 void TIM3_Int_Init(u16 arr, u16 psc) {
   TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -111,11 +113,9 @@ void TIM4_IRQHandler(void)  // TIM4中断
   if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)  //检查TIM4更新中断发生与否
   {
     TIM_ClearITPendingBit(TIM4, TIM_IT_Update);  //清除TIMx更新中断标志
-    if (TOUR_SWITCH == 0) {
+    if (NORCH_SENSOR_A_MOTO == 0) {
       calc_times++;
     }
-    wait_fun();
-    led_light();
   }
 }
 
@@ -162,6 +162,8 @@ void TIM2_IRQHandler(void)  // TIM2中断
     } else {
       calc_times = 0;
     }
+    led_light();
+    if(delay_time>=300) delay_time-=4;
   }
 }
 

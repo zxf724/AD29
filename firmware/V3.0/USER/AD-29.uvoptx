@@ -149,48 +149,16 @@
           <Type>0</Type>
           <LineNumber>55</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134228780</Address>
+          <Address>134229428</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\src\fifo.c</Filename>
+          <Filename>D:\job\涔愮洅\鐩掑瓙\firmware\V4.0\USER\src\fifo.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\AD_29\src/fifo.c\55</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>355</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134221746</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\HARDWARE\MOTO\moto.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\AD_29\../HARDWARE/MOTO/moto.c\355</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>338</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134221704</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\HARDWARE\MOTO\moto.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\AD_29\../HARDWARE/MOTO/moto.c\338</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -208,6 +176,11 @@
           <count>2</count>
           <WinNumber>1</WinNumber>
           <ItemText>xstep</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>g_array_ML</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

@@ -16,11 +16,11 @@
 #define CMD_MOTO 0x01
 #define CMD_LOCK 0x02
 #define CMD_GUN 0x03
-#define CMD_FINISH 0x09
 #define CMD_SCREEN_CLOSE 0x04
 #define CMD_CARGO 0x84
 #define CMD_BACK 0x85
 #define CMD_BACK_SUCCESS 0x86
+#define FINISH 0x09
 /*上传协议命令*/
 #define CMD_RETIME 0x80
 #define CMD_REMOTO 0x81
