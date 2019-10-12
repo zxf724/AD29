@@ -173,7 +173,7 @@ void Start_Borrow() {
     case state_report:
       // Report_State(CMD_RECARGO,&state,1);  //出货信息上报
       if (NORCH_SENSOR_A_MOTO == 1) {
-        // DBG_LOG("error");
+        // DBG_LOG("error");  
       }
       if (errorDef.android_state) {  //收到ANDROID消息
         errorDef.android_state = 0;

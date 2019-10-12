@@ -201,11 +201,43 @@ static void funControl(int argc, char *argv[]) {
   } else if (ARGV_EQUAL("GUN_CLOSE")) {   // gun close
       DBG_LOG("gun close");
       Uart_Send_Data(GUN, stop_screen, sizeof(start_screen) - 1);
-  }  else if (ARGV_EQUAL("ARRAY")) {   // array test
+  } else if (ARGV_EQUAL("ARRAY")) {   // array test
       static uint8_t i=0;
       DBG_LOG("array test");
       g_array_ML[i] = uatoi(argv[1]);
       i++;
       DBG_LOG("g_array_ML[%d] = %d",i,g_array_ML[i]);
+  } else if (ARGV_EQUAL("GET_CRC")) {   // get report data
+      DBG_LOG("get crc");
+      uint8_t report_data[18] = {0};
+      uint16_t crc_test;
+      uint8_t report_data_new[8] = {0x01, 0x02, 0x03, 0x04,
+                                 0x05, 0x06};      
+      i++;
+      DBG_LOG("g_array_ML[%d] = %d",i,g_array_ML[i]);
+      report_data[0] = FHEADER;
+      report_data[1] = uatoi(argv[1]);
+      // get timestamp
+      uint32_t timestamp = RTC_GetCounter();
+      for (uint8_t i = 0; i <= 3; i++) {
+        report_data[i + 2] = timestamp >> (i * 8);
+      }
+ 
+      report_data[6] = sizeof(report_data_new);
+      for (i = 0; i < sizeof(report_data_new); i++) {
+        report_data[7 + i] = *(report_data_new + i);
+      }
+      // out moto 
+      report_data[13] =  uatoi(argv[2]);
+      crc_test = CRC_16(0xffff, report_data + 1, 13);
+      report_data[14] = crc_test;
+      report_data[15] = crc_test >> 8;
+      DBG_LOG("report_data[14] = 0x%02x\n\
+      report_data[15] = 0x%02x",report_data[14],report_data[15]);
+      report_data[16] = 0x00;
+      report_data[17] = FEND;
+      for(uint8_t i=0;i<=17;i++) {
+        printf(" %02x ",report_data[i]);
+      }
   }
 }
