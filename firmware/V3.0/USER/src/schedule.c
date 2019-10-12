@@ -113,8 +113,19 @@ void Start_Borrow() {
     case state_run_first:  // input
       motoDef.open_moto(motoDef.num);
       if (motoDef.get_moto_feetback(motoDef.num) == 0) {
-        motoDef.close_moto(motoDef.num);
-        motoDef.state = state_run_second;
+        if((motoDef.num>=1) && (motoDef.num<=4)) {
+          delay_ms_whx(2500);
+          motoDef.close_moto(motoDef.num);
+          motoDef.state = state_run_second;
+        } else if((motoDef.num>=5) && (motoDef.num<=16)) {
+          delay_ms_whx(1500);
+          motoDef.close_moto(motoDef.num);
+          motoDef.state = state_run_second;
+        } else if((motoDef.num>=17) && (motoDef.num<=32)) {
+          delay_ms_whx(500);
+          motoDef.close_moto(motoDef.num);
+          motoDef.state = state_run_second;
+        }
       }
       break;
     case state_run_second:
@@ -154,8 +165,6 @@ void Start_Borrow() {
     case state_run_third:  // push motor
       IWDG_Feed();
       flag_one_time = 1;
-      if (NORCH_SENSOR_B_DOOR == 0) {
-        delay_ms_whx(500);
         CLOSE_ELECTRIC_LOCK;
         IWDG_Feed();
         flag_calc_times = 0;
@@ -168,7 +177,6 @@ void Start_Borrow() {
         flag_finish = 1;
           Report_State(FINISH, report_data, sizeof(report_data));
           delay_ms_whx(100);
-      // }
       break;
     case state_report:
       // Report_State(CMD_RECARGO,&state,1);  //出货信息上报
