@@ -16,6 +16,9 @@
 #define CHECK_TRACK_3 80
 #define CHECK_TRACK_4 81
 
+#define DELAY_MOTO_STOP 3
+#define DELAY_CARGO_STILL 40
+
 // define moto num
 #define IN_PLUSE_NUM 50
 #define MAX_IN_PLUSE_NUM 100

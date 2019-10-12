@@ -44,7 +44,7 @@ int main(void) {
   RTC_Init();
 
   // init_moto();
-  DBG_LOG("system start!")
+  DBG_LOG("system start!");
 
   IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
 

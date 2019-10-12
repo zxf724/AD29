@@ -4,6 +4,7 @@
       "moto.h": "c",
       "led.h": "c",
       "analysis_protocol.h": "c",
-      "ananlysis_data.h": "c"
+      "ananlysis_data.h": "c",
+      "delay.h": "c"
     }
 }

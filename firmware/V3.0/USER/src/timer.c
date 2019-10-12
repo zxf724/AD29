@@ -11,6 +11,8 @@ extern _calendar_obj calendar;
 extern void timer0_backcall_func(void);
 extern Moto motoDef;
 extern uint8_t flag_stop;
+extern uint8_t close_800mm_moto;
+extern uint8_t flag_finish;
 
 timer_t timerlist[TIMER_LIST_MAX];
 uint32_t timer3_tick = 0, timer4_tick = 0, timer2_tick = 0;
@@ -58,6 +60,8 @@ void TIM3_IRQHandler(void)  // TIM3中断
     TIM_ClearITPendingBit(TIM3, TIM_IT_Update);  //清除TIMx更新中断标志
     // heart beat data
     flag_hart = 1;
+    close_800mm_moto++;
+    close_3min_cargo++;
   }
 }
 

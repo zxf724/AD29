@@ -16,10 +16,12 @@ extern mError errorDef;
 extern uint8_t flag_new_sensor;
 extern uint8_t flag_calc_times;
 extern uint8_t report_data[8];
-uint8_t flag_finish = 1;
 extern uint16_t  calc_times;
 extern uint16_t delay_time;
 
+uint8_t close_800mm_moto = 0;
+uint8_t close_3min_cargo = 0;
+uint8_t flag_finish = 1;
 
 void Start_Schedule() {
   uint8_t state = 0;
@@ -106,6 +108,7 @@ void Start_Borrow() {
     case state_stop:
       if (motoDef.num) {
         motoDef.state = state_run_first;
+        close_800mm_moto = 0;
       } else {
         machine.state = state_stop;
       }
@@ -127,6 +130,10 @@ void Start_Borrow() {
           motoDef.state = state_run_second;
         }
       }
+      if (close_800mm_moto >= DELAY_MOTO_STOP) {
+          motoDef.close_moto(motoDef.num);
+          motoDef.state = state_run_second;
+      }
       break;
     case state_run_second:
       // check infrared  output 0 signal when it cover
@@ -138,6 +145,7 @@ void Start_Borrow() {
       if(flag_one_time == 1) {
         MotorSetpperMove(38000);
         flag_one_time = 0;
+        close_3min_cargo = 0;
       }
       delay_ms_whx(100);
             IWDG_Feed();
@@ -147,6 +155,9 @@ void Start_Borrow() {
         if (NORCH_SENSOR_B_DOOR == 1) {  // sensor
           motoDef.state = state_run_second_half;
         }
+      }
+      if (close_3min_cargo >= DELAY_CARGO_STILL) {
+          motoDef.state = state_run_third;
       }
       break;
     case state_run_second_half:
