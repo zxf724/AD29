@@ -172,22 +172,25 @@ void Start_Borrow() {
           motoDef.state = state_run_third;
         }
       }
+      if (close_3min_cargo >= DELAY_CARGO_STILL) {
+         motoDef.state = state_run_third;
+      }
       break;
     case state_run_third:  // push motor
       IWDG_Feed();
       flag_one_time = 1;
-        CLOSE_ELECTRIC_LOCK;
-        IWDG_Feed();
-        flag_calc_times = 0;
-        flag_new_sensor = 0;
-        calc_times = 0;
-        delay_time = 400;
-        init_moto();
-        motoDef.num = 0;
-        motoDef.state = state_report;
-        flag_finish = 1;
-          Report_State(FINISH, report_data, sizeof(report_data));
-          delay_ms_whx(100);
+      CLOSE_ELECTRIC_LOCK;
+      IWDG_Feed();
+      flag_calc_times = 0;
+      flag_new_sensor = 0;
+      calc_times = 0;
+      delay_time = 400;
+      init_moto();
+      motoDef.num = 0;
+      motoDef.state = state_report;
+      flag_finish = 1;
+      Report_State(FINISH, report_data, sizeof(report_data));
+      delay_ms_whx(100);
       break;
     case state_report:
       // Report_State(CMD_RECARGO,&state,1);  //出货信息上报
@@ -209,7 +212,7 @@ void Start_Borrow() {
         }
       }
       break;
-  } 
+  }
 }
 
 /**

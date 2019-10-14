@@ -26,6 +26,7 @@ extern uint8_t flag_finish;
 extern uint8_t flag_calc_times;
 extern uint8_t start_screen[6];
 extern uint8_t stop_screen[6];
+extern uint8_t report_data[8];
 
 int main(void) {
   CMD_ENT_DEF(MOTO, funControl);
@@ -41,6 +42,7 @@ int main(void) {
   TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
   sound_control();
   CLOSE_ELECTRIC_LOCK;
+  Report_State(FINISH, report_data, sizeof(report_data));
   RTC_Init();
 
   // init_moto();
@@ -239,5 +241,7 @@ static void funControl(int argc, char *argv[]) {
       for(uint8_t i=0;i<=17;i++) {
         printf(" %02x ",report_data[i]);
       }
+  } else if (ARGV_EQUAL("send_return_code")) {   // array test
+      DBG_LOG("send return code");
   }
 }

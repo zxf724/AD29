@@ -12,6 +12,7 @@ extern void timer0_backcall_func(void);
 extern Moto motoDef;
 extern uint8_t flag_stop;
 extern uint8_t close_800mm_moto;
+extern uint8_t close_3min_cargo;
 extern uint8_t flag_finish;
 
 timer_t timerlist[TIMER_LIST_MAX];
