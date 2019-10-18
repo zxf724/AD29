@@ -243,5 +243,14 @@ static void funControl(int argc, char *argv[]) {
       }
   } else if (ARGV_EQUAL("send_return_code")) {   // array test
       DBG_LOG("send return code");
+  } else if (ARGV_EQUAL("CHECK_RED_SIGNAL")) {  // check red signal
+    DBG_LOG("CHECK_RED_SIGNAL");
+    for(uint8_t i=0;i<=100;i++) {
+      if((GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_4)) == 1) {
+        DBG_LOG("signal equal 1");
+      } else if((GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_4)) == 0) {
+        DBG_LOG("signal equal 0");
+      }
+    }
   }
 }

@@ -163,8 +163,8 @@ void Start_Borrow() {
     case state_run_second_half:
       IWDG_Feed();
       flag_one_time = 1;
-      if (NORCH_SENSOR_B_DOOR == 0) {
-        delay_ms_whx(1000);
+      if (NORCH_SENSOR_B_DOOR == 0) {    // 0 close, 1 open
+        delay_ms_whx(3000);
         IWDG_Feed();
         if (NORCH_SENSOR_B_DOOR == 1) {
           motoDef.state = state_run_second;
