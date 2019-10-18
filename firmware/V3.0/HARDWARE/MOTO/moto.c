@@ -283,10 +283,10 @@ uint8_t init_moto(void) {
     delay_ms_whx(100);
     while (flag_calc_times != 1) {
       IWDG_Feed();
-      delay(delay_time);
+      delay(800);
       GPIO_SetBits(GPIOB, GPIO_Pin_3);
       GPIO_SetBits(GPIOB, GPIO_Pin_4);
-      delay(delay_time);
+      delay(800);
       GPIO_ResetBits(GPIOB, GPIO_Pin_3);
       GPIO_ResetBits(GPIOB, GPIO_Pin_4);
     }

@@ -45,7 +45,7 @@ int main(void) {
   Report_State(FINISH, report_data, sizeof(report_data));
   RTC_Init();
 
-  // init_moto();
+  init_moto();
   DBG_LOG("system start!");
 
   IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
@@ -206,7 +206,7 @@ static void funControl(int argc, char *argv[]) {
   } else if (ARGV_EQUAL("ARRAY")) {   // array test
       static uint8_t i=0;
       DBG_LOG("array test");
-      g_array_ML[i] = uatoi(argv[1]);
+      g_array_ML[i] = uatoi(argv[1]); 
       i++;
       DBG_LOG("g_array_ML[%d] = %d",i,g_array_ML[i]);
   } else if (ARGV_EQUAL("GET_CRC")) {   // get report data

@@ -150,9 +150,9 @@ void Start_Borrow() {
       delay_ms_whx(100);
             IWDG_Feed();
       OPEN_ELECTRIC_LOCK;
-      if (NORCH_SENSOR_B_DOOR == 1) {  // sensor
+      if (CHECK_RED_SIGNAL == 1) {  // sensor
         delay_ms(100);
-        if (NORCH_SENSOR_B_DOOR == 1) {  // sensor
+        if (CHECK_RED_SIGNAL == 1) {  // sensor
           motoDef.state = state_run_second_half;
         }
       }
@@ -163,12 +163,12 @@ void Start_Borrow() {
     case state_run_second_half:
       IWDG_Feed();
       flag_one_time = 1;
-      if (NORCH_SENSOR_B_DOOR == 0) {    // 0 close, 1 open
+      if (CHECK_RED_SIGNAL == 0) {    // 0 close, 1 open
         delay_ms_whx(3000);
         IWDG_Feed();
-        if (NORCH_SENSOR_B_DOOR == 1) {
+        if (CHECK_RED_SIGNAL == 1) {
           motoDef.state = state_run_second;
-        } else if (NORCH_SENSOR_B_DOOR == 0) {
+        } else if (CHECK_RED_SIGNAL == 0) {
           motoDef.state = state_run_third;
         }
       }
