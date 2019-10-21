@@ -3,7 +3,7 @@
 
 #include "stm32f10x.h"
 
-#define COMMAND_MAX 1024
+#define COMMAND_MAX  512
 #define CMD_BUF_SIZE 512
 
 /*֡ͷβ*/

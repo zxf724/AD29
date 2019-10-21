@@ -77,7 +77,8 @@ void Gun_CommandReceive_Poll(void) {
       for (i = 0; i <= 7; i++) {
         data[i] = (data_tmp[i * 2] * 10) + data_tmp[i * 2 + 1];
       }
-      Report_State(0x05, data, sizeof(data));
+      Report_State(0x05, (uint8_t*)data, sizeof(data));
+      memset(CmdRecBuf, 0, sizeof(CmdRecBuf));
     }
   }
 }
