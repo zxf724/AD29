@@ -254,5 +254,28 @@ static void funControl(int argc, char *argv[]) {
         DBG_LOG("signal equal 0");
       }
     }
+  } else if("SEND_FINISH_CODE") {
+      uint8_t i = 0;
+      uint8_t report_data[18] = {0};
+      uint16_t crc_test;
+      uint8_t data[8] = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
+      // get timestamp
+      uint32_t timestamp = RTC_GetCounter();
+      for (uint8_t i = 0; i <= 3; i++) {
+        report_data[i + 2] = timestamp >> (i * 8);
+      }
+      report_data[0] = FHEADER;
+      report_data[1] = 0x09;
+      report_data[6] = sizeof(report_data);
+      for (i = 0; i < sizeof(report_data); i++) {
+        report_data[7 + i] = *(data + i);
+      }
+      crc_test = CRC_16(0xffff, report_data + 1, 14);
+      report_data[15] = crc_test;
+      report_data[16] = crc_test >> 8;
+      report_data[17] = FEND;
+      for(uint8_t i=0;i<=17;i++) {
+        DBG_LOG("report_data[%d] = %d",i,report_data[i]);
+      }
   }
 }
