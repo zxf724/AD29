@@ -117,11 +117,11 @@ void Start_Borrow() {
       motoDef.open_moto(motoDef.num);
       if (motoDef.get_moto_feetback(motoDef.num) == 0) {
         if((motoDef.num>=1) && (motoDef.num<=4)) {
-          delay_ms_whx(2500);
+          delay_ms_whx(1700);
           motoDef.close_moto(motoDef.num);
           motoDef.state = state_run_second;
         } else if((motoDef.num>=5) && (motoDef.num<=16)) {
-          delay_ms_whx(1500);
+          delay_ms_whx(700);
           motoDef.close_moto(motoDef.num);
           motoDef.state = state_run_second;
         } else if((motoDef.num>=17) && (motoDef.num<=32)) {

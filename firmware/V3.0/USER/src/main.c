@@ -42,7 +42,10 @@ int main(void) {
   TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
   sound_control();
   CLOSE_ELECTRIC_LOCK;
+  delay_ms_whx(100);
   Report_State(FINISH, report_data, sizeof(report_data));
+  delay_ms_whx(100);  
+  LED_ON;
   RTC_Init();
 
   init_moto();
@@ -57,7 +60,6 @@ int main(void) {
     Start_Schedule();
     open_all_door();
     send_hart();
-    LED_ON;
     wait_fun();
   }
 }
