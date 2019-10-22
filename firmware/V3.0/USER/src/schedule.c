@@ -18,6 +18,7 @@ extern uint8_t flag_calc_times;
 extern uint8_t report_data[8];
 extern uint16_t  calc_times;
 extern uint16_t delay_time;
+extern uint8_t flag_door_time;
 
 uint8_t close_800mm_moto = 0;
 uint8_t close_3min_cargo = 0;
@@ -163,14 +164,11 @@ void Start_Borrow() {
     case state_run_second_half:
       IWDG_Feed();
       flag_one_time = 1;
-      if (CHECK_RED_SIGNAL == 0) {    // 0 close, 1 open
-        delay_ms_whx(3000);
-        IWDG_Feed();
-        if (CHECK_RED_SIGNAL == 1) {
+      if ((CHECK_RED_SIGNAL == 1) && (flag_door_time < 50)) {
           motoDef.state = state_run_second;
-        } else if (CHECK_RED_SIGNAL == 0) {
-          motoDef.state = state_run_third;
         }
+      if ((CHECK_RED_SIGNAL == 0) && (flag_door_time >= 50)) {
+        motoDef.state = state_run_third;
       }
       if (close_3min_cargo >= DELAY_CARGO_STILL) {
          motoDef.state = state_run_third;
