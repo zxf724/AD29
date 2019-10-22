@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\AD-29.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\AD-29.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Oct 21 17:34:05 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Oct 22 18:51:07 2019
 <BR><P>
 <H3>Maximum Stack Usage =        116 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1129,10 +1129,11 @@ Global Symbols
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
 </UL>
 
-<P><STRONG><a name="[9b]"></a>Uart_Protocol_Cmd_Analy</STRONG> (Thumb, 176 bytes, Stack size 24 bytes, analysis_protocol.o(i.Uart_Protocol_Cmd_Analy))
+<P><STRONG><a name="[9b]"></a>Uart_Protocol_Cmd_Analy</STRONG> (Thumb, 188 bytes, Stack size 24 bytes, analysis_protocol.o(i.Uart_Protocol_Cmd_Analy))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = Uart_Protocol_Cmd_Analy &rArr; Get_Time &rArr; RTC_Set &rArr; RTC_SetCounter
 </UL>
-<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart_Send_Data
+<BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart_Send_Data
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_State
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRC_16
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Time
@@ -1253,6 +1254,7 @@ Global Symbols
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Repay
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Scan
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart_Protocol_Cmd_Analy
 </UL>
 
 <P><STRONG><a name="[a1]"></a>delay_ms_whx</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, delay.o(i.delay_ms_whx))

@@ -277,5 +277,7 @@ static void funControl(int argc, char *argv[]) {
       for(uint8_t i=0;i<=17;i++) {
         DBG_LOG("report_data[%d] = %d",i,report_data[i]);
       }
+  } else if("GET_SEC") {
+    DBG_LOG("calendar.sec = %d",calendar.sec);
   }
 }
