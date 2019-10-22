@@ -155,6 +155,7 @@ void Start_Borrow() {
         delay_ms(100);
         if (CHECK_RED_SIGNAL == 1) {  // sensor
           motoDef.state = state_run_second_half;
+          flag_door_time = 0;
         }
       }
       if (close_3min_cargo >= DELAY_CARGO_STILL) {
