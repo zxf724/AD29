@@ -128,7 +128,7 @@
 #define MOTO_FEEDBACK_7 \
   { GPIOA, GPIO_Pin_15, GPIO_Mode_IN_FLOATING }  // DEM20
 #define MOTO_FEEDBACK_8 \
-  { GPIOA, GPIO_Pin_8, GPIO_Mode_IN_FLOATING }  // DEM19 -- DEM18
+  { GPIOA, GPIO_Pin_12, GPIO_Mode_IN_FLOATING }  // DEM19 -- DEM18
 #define MOTO_FEEDBACK_9 \
   { GPIOD, GPIO_Pin_2, GPIO_Mode_IN_FLOATING }  // DEM22
 #define MOTO_FEEDBACK_10 \
@@ -276,6 +276,7 @@ enum {
   state_run_first,
   state_error,
   state_run_second,
+  state_run_out_finish,
   state_run_second_half,
   state_run_third,
   //   state_run_fifth,

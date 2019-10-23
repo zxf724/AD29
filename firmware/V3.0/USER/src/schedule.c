@@ -143,19 +143,17 @@ void Start_Borrow() {
       GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
       GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
       steper_moto_out();
-      if(flag_one_time == 1) {
-        MotorSetpperMove(38000);
-        flag_one_time = 0;
-        close_3min_cargo = 0;
-      }
-      delay_ms_whx(100);
-            IWDG_Feed();
+      MotorSetpperMove(38000);
+      motoDef.state = state_run_out_finish;
+      close_3min_cargo = 0;
+    case state_run_out_finish:
+      IWDG_Feed();
       OPEN_ELECTRIC_LOCK;
       if (CHECK_RED_SIGNAL == 1) {  // sensor
         delay_ms(100);
         if (CHECK_RED_SIGNAL == 1) {  // sensor
-          motoDef.state = state_run_second_half;
           flag_door_time = 0;
+          motoDef.state = state_run_second_half;
         }
       }
       if (close_3min_cargo >= DELAY_CARGO_STILL) {
@@ -165,8 +163,9 @@ void Start_Borrow() {
     case state_run_second_half:
       IWDG_Feed();
       flag_one_time = 1;
+              DBG_LOG("flag_door_time = %d",flag_door_time);
       if ((CHECK_RED_SIGNAL == 1) && (flag_door_time < 50)) {
-          motoDef.state = state_run_second;
+          motoDef.state = state_run_out_finish;
         }
       if ((CHECK_RED_SIGNAL == 0) && (flag_door_time >= 50)) {
         motoDef.state = state_run_third;
@@ -181,7 +180,7 @@ void Start_Borrow() {
       CLOSE_ELECTRIC_LOCK;
       IWDG_Feed();
       flag_calc_times = 0;
-      flag_new_sensor = 0;
+					flag_new_sensor = 0;
       calc_times = 0;
       delay_time = 400;
       init_moto();
