@@ -163,8 +163,8 @@ void Start_Borrow() {
     case state_run_second_half:
       IWDG_Feed();
       flag_one_time = 1;
-              DBG_LOG("flag_door_time = %d",flag_door_time);
-      if ((CHECK_RED_SIGNAL == 1) && (flag_door_time < 50)) {
+              // DBG_LOG("flag_door_time = %d",flag_door_time);
+      if ((CHECK_RED_SIGNAL == 1) && (flag_door_time < 50) && (flag_door_time >=10)) {
           motoDef.state = state_run_out_finish;
         }
       if ((CHECK_RED_SIGNAL == 0) && (flag_door_time >= 50)) {
