@@ -276,12 +276,15 @@ void MicroStep_Motro_init(uint32_t Step) {
 }
 
 uint8_t init_moto(void) {
+  uint32_t sent_over_38000 = 0;
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
   steper_moto_in();
+  sent_over_38000 = 0; 
   while (flag_calc_times != 1) {
     delay_ms_whx(100);
     while (flag_calc_times != 1) {
+      sent_over_38000++;
       IWDG_Feed();
       delay(800);
       GPIO_SetBits(GPIOB, GPIO_Pin_3);
@@ -289,6 +292,7 @@ uint8_t init_moto(void) {
       delay(800);
       GPIO_ResetBits(GPIOB, GPIO_Pin_3);
       GPIO_ResetBits(GPIOB, GPIO_Pin_4);
+      if(sent_over_38000 >= SENT_OVER_38000) break;
     }
     return 1;
   }
