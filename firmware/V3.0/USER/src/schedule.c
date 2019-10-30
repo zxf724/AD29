@@ -140,10 +140,14 @@ void Start_Borrow() {
       // check infrared  output 0 signal when it cover
       delay_ms_whx(500);
       IWDG_Feed();
+      Report_State(HERAD, report_data, sizeof(report_data));
+      delay_ms_whx(100);
       GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
       GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
       steper_moto_out();
       MotorSetpperMove(38000);
+      Report_State(HERAD, report_data, sizeof(report_data));
+      delay_ms_whx(100);
       motoDef.state = state_run_out_finish;
       close_3min_cargo = 0;
     case state_run_out_finish:
@@ -188,6 +192,8 @@ void Start_Borrow() {
       motoDef.state = state_report;
       flag_finish = 1;
       Report_State(FINISH, report_data, sizeof(report_data));
+      delay_ms_whx(100);
+      Report_State(HERAD, report_data, sizeof(report_data));
       delay_ms_whx(100);
       break;
     case state_report:
