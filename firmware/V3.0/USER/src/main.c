@@ -279,5 +279,17 @@ static void funControl(int argc, char *argv[]) {
       }
   } else if("GET_SEC") {
     DBG_LOG("calendar.sec = %d",calendar.sec);
+  } else if("TEST_ALL_MOTO_ONE_BY_ONE") {
+    DBG_LOG("test all the feetback signal");
+    uint8_t i = 1;
+    while (1) {
+      IWDG_Feed();
+      motoDef.open_moto(i);
+      if(motoDef.get_moto_feetback(i) == 0) {
+        motoDef.close_moto(i);
+        i++;
+      }
+      if(i > 32) break;
+    }
   }
 }
