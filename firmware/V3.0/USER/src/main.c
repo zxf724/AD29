@@ -254,7 +254,7 @@ static void funControl(int argc, char *argv[]) {
         DBG_LOG("signal equal 0");
       }
     }
-  } else if("SEND_FINISH_CODE") {
+  } else if(ARGV_EQUAL("SEND_FINISH_CODE")) {
       uint8_t i = 0;
       uint8_t report_data[18] = {0};
       uint16_t crc_test;
@@ -277,9 +277,9 @@ static void funControl(int argc, char *argv[]) {
       for(uint8_t i=0;i<=17;i++) {
         DBG_LOG("report_data[%d] = %d",i,report_data[i]);
       }
-  } else if("GET_SEC") {
+  } else if(ARGV_EQUAL("GET_SEC")) {
     DBG_LOG("calendar.sec = %d",calendar.sec);
-  } else if("TEST_ALL_MOTO_ONE_BY_ONE") {
+  } else if(ARGV_EQUAL("TEST_ALL_MOTO_ONE_BY_ONE")) {
     DBG_LOG("test all the feetback signal");
     uint8_t i = 1;
     while (1) {
