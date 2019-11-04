@@ -291,5 +291,15 @@ static void funControl(int argc, char *argv[]) {
       }
       if(i > 32) break;
     }
+  } else if(ARGV_EQUAL("TEST_SIGNAL_MOTO_ONE_BY_ONE")) {
+    DBG_LOG("test");
+    motoDef.open_moto(uatoi(argv[1]));
+    while (1){
+      IWDG_Feed();
+      if(motoDef.get_moto_feetback(uatoi(argv[1])) == 0) {
+        motoDef.close_moto(uatoi(argv[1]));
+        break;
+      }    
+    }
   }
 }
