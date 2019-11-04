@@ -30,7 +30,7 @@ extern uint8_t report_data[8];
 
 int main(void) {
   CMD_ENT_DEF(MOTO, funControl);
-  Cmd_AddEntrance(CMD_ENT(MOTO));
+   Cmd_AddEntrance(CMD_ENT(MOTO));
   delay_init();
   NVIC_PriorityGroupConfig(
       NVIC_PriorityGroup_2);  //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
@@ -300,6 +300,16 @@ static void funControl(int argc, char *argv[]) {
         motoDef.close_moto(uatoi(argv[1]));
         break;
       }    
+    }
+  } else if(ARGV_EQUAL("TEST_SENSOR_B")) {
+    while(1) {
+      IWDG_Feed();
+       if((GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_5)) == 0) {
+         DBG_LOG("equal 0");
+       }
+       if((GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_5)) == 1) {
+         DBG_LOG("equal 1");
+       }
     }
   }
 }

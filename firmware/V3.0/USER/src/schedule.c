@@ -23,6 +23,7 @@ extern uint8_t flag_door_time;
 uint8_t close_800mm_moto = 0;
 uint8_t close_3min_cargo = 0;
 uint8_t flag_finish = 1;
+uint8_t sensor_B_num = 0;
 
 void Start_Schedule() {
   uint8_t state = 0;
@@ -118,7 +119,7 @@ void Start_Borrow() {
       motoDef.open_moto(motoDef.num);
       if (motoDef.get_moto_feetback(motoDef.num) == 0) {
         if((motoDef.num>=1) && (motoDef.num<=4)) {
-          delay_ms_whx(1700);
+          delay_ms_whx(1300);
           motoDef.close_moto(motoDef.num);
           motoDef.state = state_run_second;
         } else if((motoDef.num>=5) && (motoDef.num<=16)) {
@@ -145,7 +146,7 @@ void Start_Borrow() {
       GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
       GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
       steper_moto_out();
-      MotorSetpperMove(38000);
+      MotorSetpperMove(26000);
       Report_State(HERAD, report_data, sizeof(report_data));
       delay_ms_whx(100);
       motoDef.state = state_run_out_finish;
@@ -156,8 +157,10 @@ void Start_Borrow() {
       if (NORCH_SENSOR_B_DOOR == 1) {  // sensor
         delay_ms(100);
         if (NORCH_SENSOR_B_DOOR == 1) {  // sensor 
-          flag_door_time = 0;
           motoDef.state = state_run_second_half;
+          flag_door_time = 0;
+          DBG_LOG("again");
+          sensor_B_num = 0;
         }
       }
       if (close_3min_cargo >= DELAY_CARGO_STILL) {
@@ -167,9 +170,11 @@ void Start_Borrow() {
     case state_run_second_half:
       IWDG_Feed();
       flag_one_time = 1;
-              // DBG_LOG("flag_door_time = %d",flag_door_time);
       if ((NORCH_SENSOR_B_DOOR == 1) && (flag_door_time < 50) && (flag_door_time >=10)) {
+        sensor_B_num++;
+        if ((sensor_B_num >= 150) && (flag_door_time < 50) && (flag_door_time >=10)) {
           motoDef.state = state_run_out_finish;
+          }
         }
       if ((NORCH_SENSOR_B_DOOR == 0) && (flag_door_time >= 50)) {
         motoDef.state = state_run_third;
