@@ -268,6 +268,7 @@
 
 #define NORCH_SENSOR_A_MOTO (GPIO_ReadInputDataBit(GPIOF, GPIO_Pin_14))
 #define NORCH_SENSOR_B_DOOR (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_5))
+#define NORCH_SENSOR_C_DOOR (GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_11))
 #define CHECK_RED_SIGNAL    (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_4))
 
 enum {

@@ -30,7 +30,7 @@ extern uint8_t report_data[8];
 
 int main(void) {
   CMD_ENT_DEF(MOTO, funControl);
-   Cmd_AddEntrance(CMD_ENT(MOTO));
+  Cmd_AddEntrance(CMD_ENT(MOTO));
   delay_init();
   NVIC_PriorityGroupConfig(
       NVIC_PriorityGroup_2);  //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
@@ -58,6 +58,7 @@ int main(void) {
     Screen_CommandReceive_Poll();
     Gun_CommandReceive_Poll();
     Start_Schedule();
+    led_light();
     open_all_door();
     send_hart();
     wait_fun();
@@ -66,7 +67,7 @@ int main(void) {
 
 void led_light(void) {
   RTC_Get();
-  if (calendar.hour <= 6) {
+  if (calendar.hour >= 6) {
     // led turns off
     GPIO_ResetBits(GPIOB, GPIO_Pin_8);
     GPIO_ResetBits(GPIOB, GPIO_Pin_9);	

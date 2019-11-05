@@ -23,7 +23,9 @@ extern uint8_t flag_door_time;
 uint8_t close_800mm_moto = 0;
 uint8_t close_3min_cargo = 0;
 uint8_t flag_finish = 1;
-uint8_t sensor_B_num = 0;
+uint16_t sensor_B_num = 0;
+uint16_t pluse_hight = 500;
+uint16_t pluse_low = 0;
 
 void Start_Schedule() {
   uint8_t state = 0;
@@ -151,17 +153,22 @@ void Start_Borrow() {
       delay_ms_whx(100);
       motoDef.state = state_run_out_finish;
       close_3min_cargo = 0;
+      sensor_B_num = 0;
     case state_run_out_finish:
       IWDG_Feed();
       OPEN_ELECTRIC_LOCK;
-      if (NORCH_SENSOR_B_DOOR == 1) {  // sensor
-        delay_ms(100);
-        if (NORCH_SENSOR_B_DOOR == 1) {  // sensor 
+      if(NORCH_SENSOR_B_DOOR == 1) {
+        pluse_hight++;
+        if(NORCH_SENSOR_B_DOOR == 0) {
+          pluse_hight == 500;
+        }
+      }
+      if (pluse_hight >= 2000) {  // sensor
           motoDef.state = state_run_second_half;
           flag_door_time = 0;
           DBG_LOG("again");
           sensor_B_num = 0;
-        }
+          pluse_hight = 500;
       }
       if (close_3min_cargo >= DELAY_CARGO_STILL) {
           motoDef.state = state_run_third;
@@ -170,12 +177,15 @@ void Start_Borrow() {
     case state_run_second_half:
       IWDG_Feed();
       flag_one_time = 1;
-      if ((NORCH_SENSOR_B_DOOR == 1) && (flag_door_time < 50) && (flag_door_time >=10)) {
-        sensor_B_num++;
-        if ((sensor_B_num >= 150) && (flag_door_time < 50) && (flag_door_time >=10)) {
-          motoDef.state = state_run_out_finish;
-          }
+      if(NORCH_SENSOR_B_DOOR == 1) {
+        pluse_hight++;
+        if(NORCH_SENSOR_B_DOOR == 0) {
+          pluse_hight = 500;
         }
+      }
+      if(pluse_hight >= 2000) {
+          motoDef.state = state_run_out_finish;
+      }
       if ((NORCH_SENSOR_B_DOOR == 0) && (flag_door_time >= 50)) {
         motoDef.state = state_run_third;
       }

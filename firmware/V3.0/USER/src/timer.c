@@ -171,9 +171,8 @@ void TIM2_IRQHandler(void)  // TIM2ÖÐ¶Ï
     } else {
       calc_times = 0;
     }
-    led_light();
-    if(delay_time>=500) delay_time-=4;
     flag_door_time++;
+    if(delay_time>=500) delay_time-=4;
     flag_0_5_num++;
     // if(flag_open_door_led == 1) {
     //   if(flag_0_5_num % 5 == 0) {
