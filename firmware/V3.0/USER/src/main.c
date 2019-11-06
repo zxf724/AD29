@@ -291,5 +291,7 @@ static void funControl(int argc, char *argv[]) {
       }
       if(i > 32) break;
     }
+  } else if(ARGV_EQUAL("TEST_STATUE_NUM")) {
+    DBG_LOG("motoDef.state = %d",motoDef.state);
   }
 }
