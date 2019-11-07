@@ -47,7 +47,6 @@ int main(void) {
   delay_ms_whx(100);  
   LED_ON;
   RTC_Init();
-
   init_moto();
   DBG_LOG("system start!");
 

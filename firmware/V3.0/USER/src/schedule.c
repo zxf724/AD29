@@ -25,73 +25,21 @@ uint8_t close_3min_cargo = 0;
 uint8_t flag_finish = 1;
 
 void Start_Schedule() {
-  uint8_t state = 0;
   switch (machine.state) {
     case state_stop:
-      if (!Set_Gun()) {  //开扫码枪
-        machine.state = state_report;
-        machine.gun_state = state_report;
-      } else if (Set_Gun() == 0xff) {
-        machine.state = state_report;
-        machine.gun_state = state_error;
-      }
       if (motoDef.num < 33 && motoDef.num > 0) {  //出货电机
-        machine.state = state_report;
-        machine.moto_state = state_report;
-      } else if (Set_Moto() >= 33) {  // 回收门锁电机
-        machine.state = state_report;
-        machine.lock_state = state_report;
-      } else if (Set_Moto() == 0xff) {
-        if (motoDef.num >= 33)
-          machine.lock_state = state_error;
-        else
-          machine.moto_state = state_error;
-        machine.state = state_report;
+        machine.state = state_borrow;
+      } else if ((motoDef.num >= 33) && (motoDef.num <= 54)) {
+        machine.state = state_repay;  //进入借物流程
+      } else if (motoDef.num > 54) {
+        DBG_LOG("error!");
       }
-      // Report_Bar_Code();
       break;
     case state_repay:
       Start_Repay();
       break;
     case state_borrow:
       Start_Borrow();
-      break;
-    case state_report:
-      machine.state = state_stop;
-      if (machine.moto_state == state_error) {
-        state = 0;
-        Report_State(CMD_REMOTO, &state, 1);  //上报出货电机错误
-        machine.moto_state = state_stop;
-        motoDef.num = 0;
-      } else if (machine.moto_state == state_report) {
-        state = 1;
-        // Report_State(CMD_REMOTO,&state,1);
-        machine.state = state_borrow;  //进入借物流程
-        machine.moto_state = state_stop;
-      }
-      if (machine.lock_state == state_error) {
-        state = 0;
-        Report_State(CMD_RELOCK, &state, 1);  //上报门锁错误
-        machine.moto_state = state_stop;
-        motoDef.num = 0;
-      } else if (machine.lock_state == state_report) {
-        state = 1;
-        Report_State(CMD_RELOCK, &state, 1);
-        machine.state = state_repay;  //进入还物流程.
-        machine.lock_state = state_stop;
-      }
-
-      if (machine.gun_state == state_error) {
-        state = 0;
-        Report_State(CMD_REGUN, &state, 1);  //上报扫码枪错误
-        machine.gun_state = state_stop;
-        memset(g_start_cmd, 0, sizeof(g_start_cmd));
-      } else if (machine.gun_state == state_report) {
-        state = 1;
-        Report_State(CMD_REGUN, &state, 1);  //上报扫码枪正确
-        machine.gun_state = state_stop;
-        memset(g_start_cmd, 0, sizeof(g_start_cmd));
-      }
       break;
   }
 }
@@ -102,9 +50,7 @@ void Start_Schedule() {
  * @param argv
  */
 void Start_Borrow() {
-  static uint8_t flag_one_time=1;
   IWDG_Feed();
-  uint8_t check_num = 0;
   switch (motoDef.state) {
     case state_stop:
       if (motoDef.num) {
@@ -139,6 +85,7 @@ void Start_Borrow() {
     case state_run_second:
       // check infrared  output 0 signal when it cover
       delay_ms_whx(500);
+      motoDef.num = 0;
       IWDG_Feed();
       Report_State(HERAD, report_data, sizeof(report_data));
       delay_ms_whx(100);
@@ -166,8 +113,6 @@ void Start_Borrow() {
       break;
     case state_run_second_half:
       IWDG_Feed();
-      flag_one_time = 1;
-              // DBG_LOG("flag_door_time = %d",flag_door_time);
       if ((CHECK_RED_SIGNAL == 1) && (flag_door_time < 50) && (flag_door_time >=10)) {
           motoDef.state = state_run_out_finish;
         }
@@ -180,7 +125,6 @@ void Start_Borrow() {
       break;
     case state_run_third:  // push motor
       IWDG_Feed();
-      flag_one_time = 1;
       CLOSE_ELECTRIC_LOCK;
       IWDG_Feed();
       flag_calc_times = 0;
@@ -204,6 +148,7 @@ void Start_Borrow() {
       if (errorDef.android_state) {  //收到ANDROID消息
         errorDef.android_state = 0;
         motoDef.state = state_stop;
+        machine.state = state_stop;
         errorDef.error_count = 0;
         errorDef.android_state = 0;
       } else {
@@ -211,6 +156,7 @@ void Start_Borrow() {
         delay_ms(5);
         if (errorDef.error_count >= 10) {
           motoDef.state = state_stop;
+          machine.state = state_stop;
           errorDef.android_state = 0;
           errorDef.error_count = 0;
         }
