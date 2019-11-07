@@ -27,6 +27,7 @@ extern uint8_t flag_calc_times;
 extern uint8_t start_screen[6];
 extern uint8_t stop_screen[6];
 extern uint8_t report_data[8];
+extern uint8_t led_times;
 
 int main(void) {
   CMD_ENT_DEF(MOTO, funControl);
@@ -47,7 +48,7 @@ int main(void) {
   delay_ms_whx(100);  
   LED_ON;
   RTC_Init();
-  init_moto();
+  // init_moto();
   DBG_LOG("system start!");
 
   IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
@@ -292,5 +293,10 @@ static void funControl(int argc, char *argv[]) {
     }
   } else if(ARGV_EQUAL("TEST_STATUE_NUM")) {
     DBG_LOG("motoDef.state = %d",motoDef.state);
+  } else if(ARGV_EQUAL("LED_TEST")) {
+    DBG_LOG("led times %d",uatoi(argv[1]));
+    led_light_times(uatoi(argv[1]));
+  } else if(ARGV_EQUAL("LED_TOGGLE")) {
+    LED_TOGGLE;
   }
 }

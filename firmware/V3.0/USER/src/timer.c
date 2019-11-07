@@ -24,6 +24,9 @@ uint8_t flag_calc_times = 0;
 uint16_t delay_time = 700;
 uint8_t time_close_door = 1;
 uint8_t flag_door_time = 0;
+uint8_t flag_led = 0;
+uint8_t flag_led_count = 1;
+uint8_t led_times = 0;
 
 void TIM3_Int_Init(u16 arr, u16 psc) {
   TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -172,6 +175,18 @@ void TIM2_IRQHandler(void)  // TIM2ÖÐ¶Ï
     led_light();
     if(delay_time>=500) delay_time-=4;
     flag_door_time++;
+    // led times
+    if(flag_led == 1) {
+      flag_led_count++;
+      if((flag_led_count % 2 == 0) && led_times) {
+        LED_TOGGLE;
+        led_times--;
+        flag_led_count = 0;
+      }
+      if(led_times == 0) {
+        flag_led = 0;
+      }
+    }
   }
 }
 
