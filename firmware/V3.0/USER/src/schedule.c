@@ -181,10 +181,10 @@ void Start_Repay() {
         machine.state = state_stop;
       break;
     case state_door_open:
-      delay_ms(1000);
+      delay_ms(200);
       close_lock((motoDef.num-32));
       motoDef.state = state_report;
-      break;
+       break;
     case state_report:
       flag_finish = 1;
       memset(g_start_cmd, 0, sizeof(g_start_cmd));
