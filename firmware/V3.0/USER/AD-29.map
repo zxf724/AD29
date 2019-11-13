@@ -294,8 +294,8 @@ Section Cross References
     moto.o(i.init_moto) refers to timer.o(.data) for flag_calc_times
     moto.o(i.open_lock) refers to stm32f10x_gpio.o(i.GPIO_SetBits) for GPIO_SetBits
     moto.o(i.open_lock) refers to moto.o(.data) for Pin_Array_LOCK
-    moto.o(i.steper_moto_in) refers to stm32f10x_gpio.o(i.GPIO_SetBits) for GPIO_SetBits
-    moto.o(i.steper_moto_out) refers to stm32f10x_gpio.o(i.GPIO_ResetBits) for GPIO_ResetBits
+    moto.o(i.steper_moto_in) refers to stm32f10x_gpio.o(i.GPIO_ResetBits) for GPIO_ResetBits
+    moto.o(i.steper_moto_out) refers to stm32f10x_gpio.o(i.GPIO_SetBits) for GPIO_SetBits
     moto.o(.data) refers to moto.o(i.Open_xMoto) for Open_xMoto
     moto.o(.data) refers to moto.o(i.Close_xMoto) for Close_xMoto
     moto.o(.data) refers to moto.o(i.Read_xMoto) for Read_xMoto

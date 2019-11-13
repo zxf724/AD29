@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\AD-29.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\AD-29.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Nov 05 02:59:23 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Nov 13 21:45:44 2019
 <BR><P>
 <H3>Maximum Stack Usage =        116 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -526,7 +526,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[64]"></a>GPIO_ResetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_ResetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_out
+<BR><BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_in
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;close_lock
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
@@ -539,7 +539,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[7e]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_SetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_in
+<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_out
 <LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;open_lock
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetpperMove
@@ -1384,7 +1384,7 @@ Global Symbols
 <P><STRONG><a name="[c8]"></a>steper_moto_in</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, moto.o(i.steper_moto_in))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = steper_moto_in
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_moto
 <LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
@@ -1393,7 +1393,7 @@ Global Symbols
 <P><STRONG><a name="[a2]"></a>steper_moto_out</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, moto.o(i.steper_moto_out))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = steper_moto_out
 </UL>
-<BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
+<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow

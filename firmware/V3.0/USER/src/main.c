@@ -67,7 +67,7 @@ int main(void) {
 
 void led_light(void) {
   RTC_Get();
-  if (calendar.hour >= 6) {
+  if (calendar.hour <= 6) {
     // led turns off
     GPIO_ResetBits(GPIOB, GPIO_Pin_8);
     GPIO_ResetBits(GPIOB, GPIO_Pin_9);	

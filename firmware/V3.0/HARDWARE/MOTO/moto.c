@@ -385,12 +385,12 @@ void MotorSetpperMove(uint32_t xstep) {
   }
 }
 
-void steper_moto_in(void) {
-  GPIO_SetBits(GPIOD, GPIO_Pin_0);
-  GPIO_SetBits(GPIOC, GPIO_Pin_11);
+void steper_moto_in(void) {  
+  GPIO_ResetBits(GPIOD, GPIO_Pin_0);
+  GPIO_ResetBits(GPIOC, GPIO_Pin_11);
 }
 
 void steper_moto_out(void) {
-  GPIO_ResetBits(GPIOD, GPIO_Pin_0);
-  GPIO_ResetBits(GPIOC, GPIO_Pin_11);
+  GPIO_SetBits(GPIOD, GPIO_Pin_0);
+  GPIO_SetBits(GPIOC, GPIO_Pin_11);
 }
