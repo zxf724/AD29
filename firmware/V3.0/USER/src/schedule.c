@@ -19,6 +19,7 @@ extern uint8_t report_data[8];
 extern uint16_t  calc_times;
 extern uint16_t delay_time;
 extern uint8_t flag_door_time;
+extern uint8_t flag_calc_c_times;
 
 uint8_t close_800mm_moto = 0;
 uint8_t close_3min_cargo = 0;
@@ -149,26 +150,27 @@ void Start_Borrow() {
       GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
       steper_moto_out();
       MotorSetpperMove(26000);
+      // init  
+      GPIO_ResetBits(GPIOC, GPIO_Pin_10);  // EN1
+      GPIO_ResetBits(GPIOC, GPIO_Pin_12);  // EN2
+      GPIO_SetBits(GPIOB, GPIO_Pin_3);
+      GPIO_SetBits(GPIOB, GPIO_Pin_4);
+      steper_moto_in();
       Report_State(HERAD, report_data, sizeof(report_data));
       delay_ms_whx(100);
       motoDef.state = state_run_out_finish;
       close_3min_cargo = 0;
       sensor_B_num = 0;
+      flag_calc_c_times = 0;
     case state_run_out_finish:
       IWDG_Feed();
       OPEN_ELECTRIC_LOCK;
-      if(NORCH_SENSOR_B_DOOR == 1) {
-        pluse_hight++;
-        if(NORCH_SENSOR_B_DOOR == 0) {
-          pluse_hight == 500;
-        }
-      }
-      if (pluse_hight >= 2000) {  // sensor
-          motoDef.state = state_run_second_half;
-          flag_door_time = 0;
-          DBG_LOG("again");
-          sensor_B_num = 0;
-          pluse_hight = 500;
+      if(flag_calc_c_times == 1) {
+        flag_calc_c_times = 0;
+        // pluse_hight = 500;
+        flag_door_time == 0;
+        close_3min_cargo = 0;
+        motoDef.state = state_run_second_half;
       }
       if (close_3min_cargo >= DELAY_CARGO_STILL) {
           motoDef.state = state_run_third;
@@ -177,16 +179,17 @@ void Start_Borrow() {
     case state_run_second_half:
       IWDG_Feed();
       flag_one_time = 1;
-      if(NORCH_SENSOR_B_DOOR == 1) {
+      if(NORCH_SENSOR_C_DOOR == 1) {
         pluse_hight++;
-        if(NORCH_SENSOR_B_DOOR == 0) {
+        if(NORCH_SENSOR_C_DOOR == 0) {
           pluse_hight = 500;
-        }
+        } 
       }
-      if(pluse_hight >= 2000) {
+      if(pluse_hight >= 700) {
           motoDef.state = state_run_out_finish;
       }
-      if ((NORCH_SENSOR_B_DOOR == 0) && (flag_door_time >= 50)) {
+      if ((NORCH_SENSOR_C_DOOR == 0) && (flag_door_time >= 50)) {
+        DBG_LOG("flag_door_time = %d",flag_door_time);
         motoDef.state = state_run_third;
       }
       if (close_3min_cargo >= DELAY_CARGO_STILL) {

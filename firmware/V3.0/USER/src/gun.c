@@ -18,7 +18,7 @@ uint8_t Set_Gun() {
       return 0xff;
     }
   }
-  return 1;
+			return 1;
 }
 
 uint8_t Open_Gun() { return 0; }

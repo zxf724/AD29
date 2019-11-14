@@ -26,6 +26,8 @@ uint8_t time_close_door = 1;
 uint8_t flag_door_time = 0;
 uint8_t flag_open_door_led = 1;
 uint8_t flag_0_5_num = 0;
+uint16_t calc_c_times = 0;
+uint8_t flag_calc_c_times = 0;
 
 void TIM3_Int_Init(u16 arr, u16 psc) {
   TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -125,6 +127,9 @@ void TIM4_IRQHandler(void)  // TIM4ÖÐ¶Ï
     if (NORCH_SENSOR_A_MOTO == 0) {
       calc_times++;
     }
+    if (NORCH_SENSOR_C_DOOR == 1) {
+      calc_c_times++;
+    }
   }
 }
 
@@ -170,6 +175,12 @@ void TIM2_IRQHandler(void)  // TIM2ÖÐ¶Ï
       calc_times = 0;
     } else {
       calc_times = 0;
+    }
+    if (calc_c_times >= 50) {
+      flag_calc_c_times = 1;
+      calc_c_times = 0;
+    } else {
+      calc_c_times = 0;
     }
     flag_door_time++;
     if(delay_time>=500) delay_time-=4;

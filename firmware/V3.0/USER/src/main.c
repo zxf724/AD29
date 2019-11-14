@@ -27,6 +27,7 @@ extern uint8_t flag_calc_times;
 extern uint8_t start_screen[6];
 extern uint8_t stop_screen[6];
 extern uint8_t report_data[8];
+uint8_t flag_send_success = 1;
 
 int main(void) {
   CMD_ENT_DEF(MOTO, funControl);
@@ -42,9 +43,6 @@ int main(void) {
   TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
   sound_control();
   CLOSE_ELECTRIC_LOCK;
-  delay_ms_whx(100);
-  Report_State(FINISH, report_data, sizeof(report_data));
-  delay_ms_whx(100);  
   LED_ON;
   RTC_Init();
 
@@ -55,6 +53,11 @@ int main(void) {
 
   while (1) {
     IWDG_Feed();
+    //send 
+    if(flag_send_success) {
+      Report_State(FINISH, report_data, sizeof(report_data));
+      flag_send_success = 0;
+    }
     Screen_CommandReceive_Poll();
     Gun_CommandReceive_Poll();
     Start_Schedule();
@@ -169,6 +172,14 @@ static void funControl(int argc, char *argv[]) {
      }
   } else if (ARGV_EQUAL("CHECK_SENSOR_C")) {      // other notch
      DBG_LOG("sensor C test!");
+     for (uint16_t i=0;i<=500;i++) {
+       IWDG_Feed();
+       if(NORCH_SENSOR_C_DOOR == 0) {   // signal  c
+         DBG_LOG("sensor C equal 0");
+       } else if (NORCH_SENSOR_C_DOOR == 1) {
+         DBG_LOG("sensor C equal 1");
+       }
+     }
   } else if (ARGV_EQUAL("CHECK_MOTO_SIGNAL")) {
     motoDef.open_moto(uatoi(argv[1]));
     while (1) {
