@@ -280,6 +280,7 @@ enum {
   state_run_second,
   state_run_second_half,
   state_run_out_finish,
+  state_run_out_finish_again,
   state_run_third,
   //   state_run_fifth,
   state_report,
