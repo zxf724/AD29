@@ -9,6 +9,7 @@ Machine machine = {0, 0, 0};
 Moto motoDef = {Open_xMoto, Close_xMoto,       Read_xMoto, 0,
                 0,          get_moto_feetback, open_lock};
 mError errorDef = {0, 0};
+extern uint16_t calc_times;
 extern uint8_t moto_num_carry[32];
 extern uint8_t flag_calc_times;
 extern uint16_t delay_time;
@@ -283,10 +284,9 @@ uint8_t init_moto(void) {
   GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
   GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
   steper_moto_in();
+  calc_times = 0;
   sent_over_38000 = 0; 
-  while (flag_calc_times != 1) {
-    delay_ms_whx(100);
-    while (flag_calc_times != 1) {
+  while (calc_times <= 20) {
       sent_over_38000++;
       IWDG_Feed();
       delay(600);
@@ -296,8 +296,6 @@ uint8_t init_moto(void) {
       GPIO_ResetBits(GPIOB, GPIO_Pin_3);
       GPIO_ResetBits(GPIOB, GPIO_Pin_4);
       if(sent_over_38000 >= SENT_OVER_38000) break;
-    }
-    return 1;
   }
   return 1;
 }

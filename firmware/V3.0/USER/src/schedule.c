@@ -156,6 +156,7 @@ void Start_Borrow() {
       GPIO_ResetBits(GPIOC, GPIO_Pin_12);  // EN2
       GPIO_SetBits(GPIOB, GPIO_Pin_3);
       GPIO_SetBits(GPIOB, GPIO_Pin_4);
+      OPEN_ELECTRIC_LOCK;
       steper_moto_in();
       Report_State(HERAD, report_data, sizeof(report_data));
       delay_ms_whx(100);
@@ -165,7 +166,6 @@ void Start_Borrow() {
       flag_calc_c_times = 0;
     case state_run_out_finish:
       IWDG_Feed();
-      OPEN_ELECTRIC_LOCK;
       if(flag_calc_c_times == 1) {
         flag_calc_c_times = 0;
         // pluse_hight = 500;
