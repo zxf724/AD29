@@ -29,10 +29,9 @@ void Start_Schedule() {
     case state_stop:
       if (motoDef.num < 33 && motoDef.num > 0) {  //出货电机
         machine.state = state_borrow;
-      } else if ((motoDef.num >= 33) && (motoDef.num <= 54)) {
+      }
+      if ((motoDef.lock_num >= 33) && (motoDef.lock_num <= 54)) {
         machine.state = state_repay;  //进入借物流程
-      } else if (motoDef.num > 54) {
-        DBG_LOG("error!");
       }
       break;
     case state_repay:
@@ -171,25 +170,12 @@ void Start_Borrow() {
  * @param argv
  */
 void Start_Repay() {
-  // static uint8_t check_flag = 0;
-  switch (motoDef.state) {
-    case state_stop:
-      if (motoDef.num) {
-        open_lock((motoDef.num-32));
-        motoDef.state = state_door_open;
-      } else
-        machine.state = state_stop;
-      break;
-    case state_door_open:
-      delay_ms(200);
-      close_lock((motoDef.num-32));
-      motoDef.state = state_report;
-       break;
-    case state_report:
-      flag_finish = 1;
-      memset(g_start_cmd, 0, sizeof(g_start_cmd));
-      motoDef.num = 0;
-      motoDef.state = state_stop;
-      break;
+  if(motoDef.lock_num >= 32) {
+    open_lock(motoDef.lock_num-32);
+    delay_ms_whx(50);
+    close_lock(motoDef.lock_num-32);
+    motoDef.lock_num = 0;
+    flag_finish = 1;
+    memset(g_start_cmd, 0, sizeof(g_start_cmd));
   }
 }

@@ -36,7 +36,9 @@ void Get_Mote_Data(uint8_t* data) {
     motoDef.num = *data;
 }
 
-void Get_Lock_Data(uint8_t* data) { motoDef.num = *data; }
+void Get_Lock_Data(uint8_t* data) { 
+  motoDef.lock_num = *data; 
+}
 
 void Get_Gun_Data(uint8_t* data) {
   motoDef.num = *data;

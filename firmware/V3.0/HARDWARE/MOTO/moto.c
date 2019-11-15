@@ -6,7 +6,7 @@
 #include "wdg.h"
 
 Machine machine = {0, 0, 0};
-Moto motoDef = {Open_xMoto, Close_xMoto,       Read_xMoto, 0,
+Moto motoDef = {Open_xMoto, Close_xMoto,       Read_xMoto, 0,0,
                 0,          get_moto_feetback, open_lock};
 mError errorDef = {0, 0};
 extern uint8_t moto_num_carry[32];

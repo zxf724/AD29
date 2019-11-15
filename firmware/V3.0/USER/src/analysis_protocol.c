@@ -99,7 +99,7 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf, uint8_t length) {
       Get_Mote_Data(&CmdRecBuf[MOTOR_NUM]);
       break;
     case CMD_LOCK:
-      Get_Mote_Data(&CmdRecBuf[MOTOR_NUM]);
+      Get_Lock_Data(&CmdRecBuf[MOTOR_NUM]);
       // Uart_Send_Data(SCREEN, report_data,sizeof(dat_tmp));
       break;
     case CMD_GUN:

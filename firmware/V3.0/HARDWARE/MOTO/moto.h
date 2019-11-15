@@ -299,6 +299,7 @@ typedef struct {
   uint8_t (*close_moto)(uint8_t);
   uint8_t (*read_moto)(uint8_t);
   uint8_t num;
+  uint8_t lock_num;
   uint8_t state;
   uint8_t (*get_moto_feetback)(uint8_t);
   uint8_t (*open_lock)(uint8_t);
