@@ -30,7 +30,7 @@
 #define SENT_OVER_38000 76000
 
 #define MOTOR_X_START_PLUS 600
-#define MOTOR_X_FAST_PLUS 80  
+#define MOTOR_X_FAST_PLUS 60
 // infrared
 #define INFRARED_SENSOR_TEST 78
 
