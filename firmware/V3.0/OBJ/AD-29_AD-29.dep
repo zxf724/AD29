@@ -1,5 +1,5 @@
 Dependencies for Project 'AD-29', Target 'AD-29': (DO NOT MODIFY !)
-F (.\src\fifo.c)(0x5DC3DF18)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\fifo.o --omf_browse ..\obj\fifo.crf --depend ..\obj\fifo.d)
+F (.\src\fifo.c)(0x5DD23058)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\fifo.o --omf_browse ..\obj\fifo.crf --depend ..\obj\fifo.d)
 I (.\inc\fifo.h)(0x5D8ACF74)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599ECD2E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599ECD2C)
@@ -33,7 +33,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x5D8ACF74)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x5D8ACF74)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x5D8ACF74)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x5D8ACF74)
-F (.\src\main.c)(0x5DCE7CFD)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\src\main.c)(0x5DD22FC5)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (.\inc\analysis_protocol.h)(0x5DCE7378)
 I (.\inc\stm32f10x.h)(0x5D8ACF74)
 I (..\CORE\core_cm3.h)(0x5D8ACF73)
@@ -79,7 +79,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\ctype.h)(0x599ECD2E)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599ECD2E)
 I (..\RTC\rtc.h)(0x5D8ACF74)
 I (.\inc\schedule.h)(0x5DCE158F)
-I (.\inc\timer.h)(0x5DCE568F)
+I (.\inc\timer.h)(0x5DD22FC5)
 I (..\SYSTEM\usart\usart.h)(0x5D8ACF74)
 I (..\HARDWARE\WDG\wdg.h)(0x5D8ACF73)
 F (.\src\prjlib.c)(0x5D8ACF74)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\prjlib.o --omf_browse ..\obj\prjlib.crf --depend ..\obj\prjlib.d)
@@ -176,8 +176,8 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x5D8ACF74)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x5D8ACF74)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x5D8ACF74)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x5D8ACF74)
-F (.\src\timer.c)(0x5DCE568F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\timer.o --omf_browse ..\obj\timer.crf --depend ..\obj\timer.d)
-I (.\inc\timer.h)(0x5DCE568F)
+F (.\src\timer.c)(0x5DD22FC5)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\timer.o --omf_browse ..\obj\timer.crf --depend ..\obj\timer.d)
+I (.\inc\timer.h)(0x5DD22FC5)
 I (..\SYSTEM\sys\sys.h)(0x5DCE1583)
 I (.\inc\stm32f10x.h)(0x5D8ACF74)
 I (..\CORE\core_cm3.h)(0x5D8ACF73)
@@ -219,7 +219,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599ECD2E)
 I (..\RTC\rtc.h)(0x5D8ACF74)
 I (..\SYSTEM\usart\usart.h)(0x5D8ACF74)
 I (.\inc\analysis_protocol.h)(0x5DCE7378)
-F (.\src\analysis_protocol.c)(0x5DCE7DEB)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\analysis_protocol.o --omf_browse ..\obj\analysis_protocol.crf --depend ..\obj\analysis_protocol.d)
+F (.\src\analysis_protocol.c)(0x5DD23203)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\analysis_protocol.o --omf_browse ..\obj\analysis_protocol.crf --depend ..\obj\analysis_protocol.d)
 I (.\inc\analysis_protocol.h)(0x5DCE7378)
 I (.\inc\stm32f10x.h)(0x5D8ACF74)
 I (..\CORE\core_cm3.h)(0x5D8ACF73)
@@ -264,7 +264,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\ctype.h)(0x599ECD2E)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599ECD2E)
 I (..\SYSTEM\usart\usart.h)(0x5D8ACF74)
 I (..\HARDWARE\WDG\wdg.h)(0x5D8ACF73)
-F (.\src\ananlysis_data.c)(0x5DCE7DE3)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\ananlysis_data.o --omf_browse ..\obj\ananlysis_data.crf --depend ..\obj\ananlysis_data.d)
+F (.\src\ananlysis_data.c)(0x5DD22FC5)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\ananlysis_data.o --omf_browse ..\obj\ananlysis_data.crf --depend ..\obj\ananlysis_data.d)
 I (.\inc\ananlysis_data.h)(0x5D8B4616)
 I (..\SYSTEM\sys\sys.h)(0x5DCE1583)
 I (.\inc\stm32f10x.h)(0x5D8ACF74)
@@ -310,7 +310,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599ECD2E)
 I (..\RTC\rtc.h)(0x5D8ACF74)
 I (..\SYSTEM\usart\usart.h)(0x5D8ACF74)
 I (..\HARDWARE\WDG\wdg.h)(0x5D8ACF73)
-F (.\src\schedule.c)(0x5DCE7F65)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\schedule.o --omf_browse ..\obj\schedule.crf --depend ..\obj\schedule.d)
+F (.\src\schedule.c)(0x5DD23135)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\schedule.o --omf_browse ..\obj\schedule.crf --depend ..\obj\schedule.d)
 I (.\inc\schedule.h)(0x5DCE158F)
 I (..\SYSTEM\sys\sys.h)(0x5DCE1583)
 I (.\inc\stm32f10x.h)(0x5D8ACF74)
@@ -350,6 +350,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599ECD2C)
 I (..\SYSTEM\usart\usart.h)(0x5D8ACF74)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\HARDWARE\WDG\wdg.h)(0x5D8ACF73)
+I (.\inc\fifo.h)(0x5D8ACF74)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599ECD2C)
 F (..\HARDWARE\LED\led.c)(0x5DCDFB51)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\led.o --omf_browse ..\obj\led.crf --depend ..\obj\led.d)
 I (..\HARDWARE\LED\led.h)(0x5DC668FF)
 I (..\SYSTEM\sys\sys.h)(0x5DCE1583)
@@ -449,7 +451,7 @@ I (.\inc\ananlysis_data.h)(0x5D8B4616)
 I (..\SYSTEM\delay\delay.h)(0x5DCE1583)
 I (..\HARDWARE\MOTO\moto.h)(0x5DCE7DA1)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599ECD2C)
-F (..\HARDWARE\MOTO\moto.c)(0x5DCE7D8D)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\moto.o --omf_browse ..\obj\moto.crf --depend ..\obj\moto.d)
+F (..\HARDWARE\MOTO\moto.c)(0x5DD22FC5)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\HARDWARE\LED -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\HARDWARE\KEY -I .\inc -I ..\MQTT\MQTTPacket -I ..\EC20 -I ..\MQTT\nordic -I ..\cJSON -I ..\RTC -I ..\HARDWARE\MOTO -I ..\HARDWARE\WDG -I .\inc-I.\RTE\_AD-29-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\lehe\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0-D__UVISION_VERSION="525" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\moto.o --omf_browse ..\obj\moto.crf --depend ..\obj\moto.d)
 I (..\HARDWARE\MOTO\moto.h)(0x5DCE7DA1)
 I (..\SYSTEM\sys\sys.h)(0x5DCE1583)
 I (.\inc\stm32f10x.h)(0x5D8ACF74)

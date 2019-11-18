@@ -8,6 +8,7 @@
 #include "string.h"
 #include "usart.h"
 #include "wdg.h"
+#include "fifo.h"
 
 extern uint8_t g_start_cmd[7];
 extern Moto motoDef;
@@ -176,6 +177,7 @@ void Start_Repay() {
     close_lock(motoDef.lock_num-32);
     motoDef.lock_num = 0;
     flag_finish = 1;
-    memset(g_start_cmd, 0, sizeof(g_start_cmd));
-  }
+    app_uart_flush(SCREEN);
+    app_uart_flush(GUN);  
+    }
 }
