@@ -72,7 +72,7 @@ void Gun_CommandReceive_Poll(void) {
     if ((data_tmp[0] > 0) && (data_tmp[0] <= 9)) {
       for (i = 0; i < 16; i++) {
         data_tmp[i] = (uint8_t)(CmdRecBuf[i] - 48);
-        DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
+        // DBG_LOG("data_tmp[%d] = %d",i,data_tmp[i]);
       }
       for (i = 0; i <= 7; i++) {
         data[i] = (data_tmp[i * 2] * 10) + data_tmp[i * 2 + 1];
@@ -94,7 +94,7 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf, uint8_t length) {
     switch (CmdRecBuf[1]) {
       case CMD_TIME:
         Get_Time(CmdRecBuf);
-    Report_State(0x80, (uint8_t*)report_data, sizeof(report_data));
+    // Report_State(0x80, (uint8_t*)report_data, sizeof(report_data));
     break;
     case CMD_MOTO:
       Get_Mote_Data(&CmdRecBuf[MOTOR_NUM]);
@@ -104,14 +104,14 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf, uint8_t length) {
       // Uart_Send_Data(SCREEN, report_data,sizeof(dat_tmp));
       break;
     case CMD_GUN:
-      for (uint8_t i = 0; i <= 3; i++) {
-        delay_ms(5);        // 串口延时，不能删除
+      for (uint8_t i = 0; i <= 1; i++) {
+        delay_ms(2);        // 串口延时，不能删除
         Uart_Send_Data(GUN, start_screen, sizeof(stop_screen) - 1);
       }
       break;
     case CMD_SCREEN_CLOSE:  // using
-      for (uint8_t i = 0; i <= 3; i++) {
-        delay_ms(5);        // 串口延时，不能删除
+      for (uint8_t i = 0; i <= 1; i++) {
+        delay_ms(2);        // 串口延时，不能删除
         Uart_Send_Data(GUN, stop_screen, sizeof(start_screen) - 1);
       }
       break;

@@ -48,7 +48,7 @@ int main(void) {
   delay_ms_whx(100);
   LED_ON;
   RTC_Init();
-  // init_moto();
+  init_moto();
   DBG_LOG("system start!");
 
   IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
@@ -56,6 +56,7 @@ int main(void) {
   while (1) {
     IWDG_Feed();
     Screen_CommandReceive_Poll();
+    Start_Repay();
     Gun_CommandReceive_Poll();
     Start_Schedule();
     open_all_door();
@@ -80,7 +81,7 @@ void led_light(void) {
      GPIO_SetBits(GPIOB, GPIO_Pin_6);
      GPIO_SetBits(GPIOG, GPIO_Pin_15);
   }
-}
+} 
 
 void sound_control(void) {
   // sound control

@@ -31,13 +31,6 @@ void Start_Schedule() {
       if (motoDef.num < 33 && motoDef.num > 0) {  //出货电机
         machine.state = state_borrow;
       }
-      if ((motoDef.lock_num >= 33) && (motoDef.lock_num <= 54)) {
-        machine.state = state_repay;  //进入借物流程
-      }
-      break;
-    case state_repay:
-      Start_Repay();
-      break;
     case state_borrow:
       Start_Borrow();
       break;
@@ -54,6 +47,10 @@ void Start_Borrow() {
   switch (motoDef.state) {
     case state_stop:
       if (motoDef.num) {
+        motoDef.open_moto(motoDef.num);
+        delay_ms_whx(100);
+        motoDef.close_moto(motoDef.num);
+        Report_State(FINISH, report_data, sizeof(report_data));
         motoDef.state = state_run_first;
         close_800mm_moto = 0;
       } else {
