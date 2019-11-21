@@ -77,7 +77,9 @@ void Gun_CommandReceive_Poll(void) {
       for (i = 0; i <= 7; i++) {
         data[i] = (data_tmp[i * 2] * 10) + data_tmp[i * 2 + 1];
       }
-      Report_State(0x05, (uint8_t*)data, sizeof(data));
+      delay_ms_whx(100);  // 添加延时保证串口连续发送的数据
+      Report_State(CMD_REBACK, (uint8_t*)data, sizeof(data));
+      delay_ms_whx(100);  // 添加延时保证串口连续发送的数据
       app_uart_flush(SCREEN);
       app_uart_flush(GUN);
     }
@@ -151,6 +153,8 @@ void open_all_door(void) {
 void send_hart(void) {
   if (flag_hart) {
     flag_hart = 0;
+    delay_ms_whx(100);  // 添加延时保证串口连续发送的数据
     Report_State(HERAD, report_data, sizeof(report_data));
+    delay_ms_whx(100);  // 添加延时保证串口连续发送的数据
   }
 }

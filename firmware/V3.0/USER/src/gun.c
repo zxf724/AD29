@@ -25,8 +25,9 @@ uint8_t Open_Gun() { return 0; }
 
 void Report_Bar_Code() {
   if (errorDef.bar_code_state) {
+    delay_ms_whx(100);  // 添加延时保证串口连续发送的数据
     Report_State(CMD_REBACK, g_bar_code, strlen((const char*)g_bar_code));
-    delay_ms(5);
+    delay_ms(100);
     if (!errorDef.android_state)
       errorDef.error_count++;
     else {

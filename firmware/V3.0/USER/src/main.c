@@ -61,7 +61,7 @@ int main(void) {
     Start_Schedule();
     open_all_door();
     send_hart();
-    wait_fun();
+    // wait_fun();
   }
 }
 
@@ -293,11 +293,14 @@ static void funControl(int argc, char *argv[]) {
       if(i > 32) break;
     }
   } else if(ARGV_EQUAL("TEST_STATUE_NUM")) {
-    DBG_LOG("motoDef.state = %d",motoDef.state);
+      DBG_LOG("motoDef.state = %d",motoDef.state);
   } else if(ARGV_EQUAL("LED_TEST")) {
-    DBG_LOG("led times %d",uatoi(argv[1]));
-    led_light_times(uatoi(argv[1]));
+      DBG_LOG("led times %d",uatoi(argv[1]));
+      led_light_times(uatoi(argv[1]));
   } else if(ARGV_EQUAL("LED_TOGGLE")) {
-    LED_TOGGLE;
+      LED_TOGGLE;
+  } else if (ARGV_EQUAL("SEND_MOTO_PUSH")) {
+      Report_State(CMD_PUSH_OUT, report_data, sizeof(report_data));
+      delay_ms_whx(100);  
   }
 }

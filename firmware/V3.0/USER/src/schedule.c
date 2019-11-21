@@ -47,10 +47,11 @@ void Start_Borrow() {
   switch (motoDef.state) {
     case state_stop:
       if (motoDef.num) {
-        motoDef.open_moto(motoDef.num);
         delay_ms_whx(100);
         motoDef.close_moto(motoDef.num);
+        delay_ms_whx(20);  // 添加延时保证串口连续发送的数据
         Report_State(FINISH, report_data, sizeof(report_data));
+        delay_ms_whx(20);  // 添加延时保证串口连续发送的数据
         motoDef.state = state_run_first;
         close_800mm_moto = 0;
       } else {
@@ -84,12 +85,17 @@ void Start_Borrow() {
       delay_ms_whx(500);
       motoDef.num = 0;
       IWDG_Feed();
+      delay_ms_whx(10);  // 添加延时保证串口连续发送的数据
       Report_State(HERAD, report_data, sizeof(report_data));
       delay_ms_whx(100);
       GPIO_SetBits(GPIOC, GPIO_Pin_10);  // EN1
       GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
       steper_moto_out();
+      delay_ms_whx(10);  // 添加延时保证串口连续发送的数据
+      Report_State(CMD_PUSH_OUT, report_data, sizeof(report_data));
+      delay_ms_whx(100);
       MotorSetpperMove(38000);
+      delay_ms_whx(10);  // 添加延时保证串口连续发送的数据
       Report_State(HERAD, report_data, sizeof(report_data));
       delay_ms_whx(100);
       motoDef.state = state_run_out_finish;
@@ -132,6 +138,9 @@ void Start_Borrow() {
       motoDef.num = 0;
       motoDef.state = state_report;
       flag_finish = 1;
+      delay_ms_whx(10);  // 添加延时保证串口连续发送的数据
+      Report_State(CMD_PUSH_OUT, report_data, sizeof(report_data));
+      delay_ms_whx(100);
       Report_State(FINISH, report_data, sizeof(report_data));
       delay_ms_whx(100);
       Report_State(HERAD, report_data, sizeof(report_data));
