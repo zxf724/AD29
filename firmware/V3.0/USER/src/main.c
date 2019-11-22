@@ -39,9 +39,10 @@ int main(void) {
   uart1_init(115200);
   uart2_init(115200);
   Moto_Init();
-  TIM4_Int_Init(5, 7199);     // 10Khz的计数频率，计数到5000为500ms
   TIM2_Int_Init(1000, 7199);  // 10Khz的计数频率，计数到5000为500ms
   TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
+  TIM4_Int_Init(5, 7199);     // 10Khz的计数频率，计数到5000为500ms
+  TIM5_Int_Init(100, 65535);  // 10Khz的计数频率，计数到5000为500ms  
   sound_control();
   CLOSE_ELECTRIC_LOCK;
   delay_ms_whx(100);
@@ -61,9 +62,6 @@ int main(void) {
       Report_State(FINISH, report_data, sizeof(report_data));
       flag_send_success = 0;
     }
-    Screen_CommandReceive_Poll();
-    Start_Repay();
-    Gun_CommandReceive_Poll();
     Start_Schedule();
     led_light();
     open_all_door();
