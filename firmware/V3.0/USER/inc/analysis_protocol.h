@@ -21,6 +21,7 @@
 #define CMD_BACK 0x85
 #define CMD_BACK_SUCCESS 0x86
 #define FINISH 0x09
+#define CMD_PUSH_OUT 0x10
 /*上传协议命令*/
 #define CMD_RETIME 0x80
 #define CMD_REMOTO 0x81

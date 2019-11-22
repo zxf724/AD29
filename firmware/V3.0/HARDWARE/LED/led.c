@@ -13,6 +13,10 @@
 // All rights reserved
 //////////////////////////////////////////////////////////////////////////////////
 
+extern uint8_t flag_led;
+extern uint8_t led_times;
+
+
 //初始化PB5和PE5为输出口.并使能这两个口的时钟
 // LED IO初始化
 void LED_Init(void) {
@@ -28,8 +32,6 @@ void LED_Init(void) {
 }
 
 void led_light_times(uint8_t num) {
-  for (uint8_t i=0;i<=num;i++) {  
-    LED_TOGGLE;
-    delay_ms_whx(300);
-  }
-}
+  flag_led = 1;
+  led_times = num*2;
+} 

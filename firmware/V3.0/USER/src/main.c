@@ -28,6 +28,7 @@ extern uint8_t start_screen[6];
 extern uint8_t stop_screen[6];
 extern uint8_t report_data[8];
 uint8_t flag_send_success = 1;
+extern uint8_t led_times;
 
 int main(void) {
   CMD_ENT_DEF(MOTO, funControl);
@@ -43,9 +44,11 @@ int main(void) {
   TIM3_Int_Init(HEAR_BEAT_TIME, 7199);  // 10Khz的计数频率，计数到5000为500ms
   sound_control();
   CLOSE_ELECTRIC_LOCK;
+  delay_ms_whx(100);
+  Report_State(FINISH, report_data, sizeof(report_data));
+  delay_ms_whx(100);
   LED_ON;
   RTC_Init();
-
   init_moto();
   DBG_LOG("system start!");
 
@@ -59,12 +62,13 @@ int main(void) {
       flag_send_success = 0;
     }
     Screen_CommandReceive_Poll();
+    Start_Repay();
     Gun_CommandReceive_Poll();
     Start_Schedule();
     led_light();
     open_all_door();
     send_hart();
-    wait_fun();
+    // wait_fun();
   }
 }
 
@@ -84,7 +88,7 @@ void led_light(void) {
      GPIO_SetBits(GPIOB, GPIO_Pin_6);
      GPIO_SetBits(GPIOG, GPIO_Pin_15);
   }
-}
+} 
 
 void sound_control(void) {
   // sound control

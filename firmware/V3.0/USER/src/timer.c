@@ -30,6 +30,9 @@ uint16_t calc_c_times = 0;
 uint8_t flag_calc_c_times = 0;
 uint16_t calc_c_times_out = 0;
 uint8_t flag_calc_c_times_out = 0;
+uint8_t flag_led = 0;
+uint8_t flag_led_count = 1;
+uint8_t led_times = 0;
 
 void TIM3_Int_Init(u16 arr, u16 psc) {
   TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -200,6 +203,18 @@ void TIM2_IRQHandler(void)  // TIM2ÖÐ¶Ï
     //     DBG_LOG("hello,world");
     //   }
     // }
+    // led times
+    if(flag_led == 1) {
+      flag_led_count++;
+      if((flag_led_count % 2 == 0) && led_times) {
+        LED_TOGGLE;
+        led_times--;
+        flag_led_count = 0;
+      }
+      if(led_times == 0) {
+        flag_led = 0;
+      }
+    }
   }
 }
 

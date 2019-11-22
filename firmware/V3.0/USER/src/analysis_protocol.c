@@ -77,8 +77,11 @@ void Gun_CommandReceive_Poll(void) {
       for (i = 0; i <= 7; i++) {
         data[i] = (data_tmp[i * 2] * 10) + data_tmp[i * 2 + 1];
       }
-      Report_State(0x05, (uint8_t*)data, sizeof(data));
-      memset(CmdRecBuf, 0, sizeof(CmdRecBuf));
+      delay_ms_whx(100);  // 添加延时保证串口连续发送的数据
+      Report_State(CMD_REBACK, (uint8_t*)data, sizeof(data));
+      delay_ms_whx(100);  // 添加延时保证串口连续发送的数据
+      app_uart_flush(SCREEN);
+      app_uart_flush(GUN);
     }
   }
 }
@@ -93,24 +96,24 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf, uint8_t length) {
     switch (CmdRecBuf[1]) {
       case CMD_TIME:
         Get_Time(CmdRecBuf);
-    Report_State(0x80, (uint8_t*)report_data, sizeof(report_data));
+    // Report_State(0x80, (uint8_t*)report_data, sizeof(report_data));
     break;
     case CMD_MOTO:
       Get_Mote_Data(&CmdRecBuf[MOTOR_NUM]);
       break;
     case CMD_LOCK:
-      Get_Mote_Data(&CmdRecBuf[MOTOR_NUM]);
+      Get_Lock_Data(&CmdRecBuf[MOTOR_NUM]);
       // Uart_Send_Data(SCREEN, report_data,sizeof(dat_tmp));
       break;
     case CMD_GUN:
-      for (uint8_t i = 0; i <= 3; i++) {
-        delay_ms(5);        // 串口延时，不能删除
+      for (uint8_t i = 0; i <= 1; i++) {
+        delay_ms(2);        // 串口延时，不能删除
         Uart_Send_Data(GUN, start_screen, sizeof(stop_screen) - 1);
       }
       break;
     case CMD_SCREEN_CLOSE:  // using
-      for (uint8_t i = 0; i <= 3; i++) {
-        delay_ms(5);        // 串口延时，不能删除
+      for (uint8_t i = 0; i <= 1; i++) {
+        delay_ms(2);        // 串口延时，不能删除
         Uart_Send_Data(GUN, stop_screen, sizeof(start_screen) - 1);
       }
       break;
@@ -150,6 +153,8 @@ void open_all_door(void) {
 void send_hart(void) {
   if (flag_hart) {
     flag_hart = 0;
+    delay_ms_whx(100);  // 添加延时保证串口连续发送的数据
     Report_State(HERAD, report_data, sizeof(report_data));
+    delay_ms_whx(100);  // 添加延时保证串口连续发送的数据
   }
 }

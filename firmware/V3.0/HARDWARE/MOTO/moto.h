@@ -27,7 +27,7 @@
 
 // moto speed
 #define MOTOR_X_SPEED_SLOWDOWN_COUNT 1000
-#define SENT_OVER_38000 76000
+#define SENT_OVER_38000 50000
 
 #define MOTOR_X_START_PLUS 600
 #define MOTOR_X_FAST_PLUS 60
@@ -301,6 +301,7 @@ typedef struct {
   uint8_t (*close_moto)(uint8_t);
   uint8_t (*read_moto)(uint8_t);
   uint8_t num;
+  uint8_t lock_num;
   uint8_t state;
   uint8_t (*get_moto_feetback)(uint8_t);
   uint8_t (*open_lock)(uint8_t);

@@ -33,26 +33,15 @@ void Get_Time(uint8_t data[]) {
 }
 
 void Get_Mote_Data(uint8_t* data) {
-  static uint8_t i = 0;
-  // motoDef.num = *data;
- if(*data > 0) {
-    g_array_ML[i] = *data;
-    // DBG_LOG("g_array_ML[%d] = %d",i,g_array_ML[i]);
-    *data = 0;
-    i++;
-    if (i == 7) i = 0;
-  }
+    motoDef.num = *data;
 }
 
-void Get_Lock_Data(uint8_t* data) { motoDef.num = *data; }
+void Get_Lock_Data(uint8_t* data) { 
+  motoDef.lock_num = *data; 
+}
 
 void Get_Gun_Data(uint8_t* data) {
-  static uint8_t i = 0;
-  g_array_ML[i] = *data;
-  *data = 0;
-  i++;
-  if (i == 7) i = 0;
-    // motoDef.num = *data;
+  motoDef.num = *data;
 }
 
 void Get_Cargo_Data(uint8_t* data) {
