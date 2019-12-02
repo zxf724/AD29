@@ -212,6 +212,7 @@ uint8_t get_moto_feetback(uint8_t num) {
 uint8_t close_lock(uint8_t num) {
   if (num < 1 || num > 56) return 0;
   GPIO_ResetBits(Pin_Array_LOCK[num - 1].port, Pin_Array_LOCK[num - 1].pin);
+	return 1;
 }
 
 /**
@@ -222,6 +223,7 @@ uint8_t close_lock(uint8_t num) {
 uint8_t open_lock(uint8_t num) {
   if (num < 1 || num > 56) return 0;
   GPIO_SetBits(Pin_Array_LOCK[num - 1].port, Pin_Array_LOCK[num - 1].pin);
+	return 1;
 }
 
 /**

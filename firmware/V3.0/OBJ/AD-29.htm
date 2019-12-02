@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\AD-29.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\AD-29.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Nov 22 15:43:17 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Dec 02 11:11:55 2019
 <BR><P>
 <H3>Maximum Stack Usage =        124 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -909,7 +909,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_IRQHandler
 </UL>
 
-<P><STRONG><a name="[a0]"></a>Start_Borrow</STRONG> (Thumb, 784 bytes, Stack size 8 bytes, schedule.o(i.Start_Borrow))
+<P><STRONG><a name="[a0]"></a>Start_Borrow</STRONG> (Thumb, 796 bytes, Stack size 8 bytes, schedule.o(i.Start_Borrow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = Start_Borrow &rArr; Report_State &rArr; Uart_Send_Data
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steper_moto_out
@@ -923,7 +923,6 @@ Global Symbols
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Schedule
 </UL>
@@ -961,7 +960,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(.text)
 </UL>
-<P><STRONG><a name="[2c]"></a>TIM2_IRQHandler</STRONG> (Thumb, 242 bytes, Stack size 8 bytes, timer.o(i.TIM2_IRQHandler))
+<P><STRONG><a name="[2c]"></a>TIM2_IRQHandler</STRONG> (Thumb, 296 bytes, Stack size 8 bytes, timer.o(i.TIM2_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = TIM2_IRQHandler &rArr; TIM_GetITStatus
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
@@ -1183,7 +1182,6 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funControl
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 <LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_IRQHandler
 </UL>
 
@@ -1328,7 +1326,7 @@ Global Symbols
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Start_Borrow
 </UL>
 
-<P><STRONG><a name="[cc]"></a>led_light</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, main.o(i.led_light))
+<P><STRONG><a name="[cc]"></a>led_light</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, main.o(i.led_light))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = led_light &rArr; RTC_Get &rArr; RTC_Get_Week
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_Get

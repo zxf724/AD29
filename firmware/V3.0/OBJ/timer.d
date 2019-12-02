@@ -42,3 +42,4 @@
 ..\obj\timer.o: ..\RTC\rtc.h
 ..\obj\timer.o: ..\SYSTEM\usart\usart.h
 ..\obj\timer.o: .\inc\analysis_protocol.h
+..\obj\timer.o: .\inc\schedule.h

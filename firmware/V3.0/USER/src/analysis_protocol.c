@@ -87,8 +87,6 @@ void Gun_CommandReceive_Poll(void) {
 }
 
 void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf, uint8_t length) {
-  static uint8_t report_data[8] = {0x01, 0x02, 0x03, 0x04,
-                                   0x05, 0x06, 0x07, 0x08};
   // crc16 test  already test
   uint16_t crc_data_count = CRC_16(0xffff, CmdRecBuf + 1, 14);
   // and crc16

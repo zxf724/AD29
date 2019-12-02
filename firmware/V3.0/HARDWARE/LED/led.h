@@ -19,6 +19,7 @@
 #define LED_ON      (GPIO_ResetBits(GPIOF, GPIO_Pin_13))
 #define LED_OFF     (GPIO_SetBits(GPIOF, GPIO_Pin_13))
 #define LED_TOGGLE  (GPIO_WriteBit(GPIOF,GPIO_Pin_13,(BitAction)((1-GPIO_ReadOutputDataBit(GPIOF,GPIO_Pin_13)))))
+#define LED_OUTPUT_LOGO_TOGGLE  (GPIO_WriteBit(GPIOF,GPIO_Pin_13,(BitAction)((1-GPIO_ReadOutputDataBit(GPIOB,GPIO_Pin_6)))))
 
 void led_light_times(uint8_t num);
 

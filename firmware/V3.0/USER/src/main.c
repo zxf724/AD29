@@ -75,15 +75,13 @@ void led_light(void) {
   if (calendar.hour <= 6) {
     // led turns off
     GPIO_ResetBits(GPIOB, GPIO_Pin_8);
-    GPIO_ResetBits(GPIOB, GPIO_Pin_9);	
-    GPIO_ResetBits(GPIOB, GPIO_Pin_6);	
+    GPIO_ResetBits(GPIOB, GPIO_Pin_9);
     GPIO_ResetBits(GPIOG, GPIO_Pin_15);
   } else {
     // led turns on
     // DBG_LOG("calendar.hour = %d",calendar.hour);
     GPIO_SetBits(GPIOB, GPIO_Pin_8);
      GPIO_SetBits(GPIOB, GPIO_Pin_9);
-     GPIO_SetBits(GPIOB, GPIO_Pin_6);
      GPIO_SetBits(GPIOG, GPIO_Pin_15);
   }
 } 
@@ -102,6 +100,7 @@ uint8_t wait_fun(void) {
   }
   i++;
   if(i>=7) i=0;
+	return 1;
 }
 
 
