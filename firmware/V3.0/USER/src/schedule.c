@@ -140,7 +140,7 @@ void Start_Borrow() {
       if((flag_calc_c_times == 1) && (flag_door_time >= 10)) {
         flag_calc_c_times = 0;
         motoDef.state = state_run_out_finish_again;
-        DBG_LOG("again");
+        // DBG_LOG("again");
       }
       if ((NORCH_SENSOR_C_DOOR == 0) && (flag_door_time >= 50)) {
         motoDef.state = state_run_third;
@@ -158,6 +158,9 @@ void Start_Borrow() {
       calc_times = 0;
       delay_time = 400;
       init_moto();
+      delay_ms_whx(100);
+      steper_moto_out();
+      MotorSetpperMove(500);
       motoDef.num = 0;
       motoDef.state = state_report;
       flag_finish = 1;
