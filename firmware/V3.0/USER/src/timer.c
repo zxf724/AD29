@@ -25,7 +25,7 @@ uint8_t flag_calc_times = 0;
 uint16_t delay_time = 700;
 uint8_t time_close_door = 1;
 uint8_t flag_door_time = 0;
-uint8_t flag_open_door_led = 1;
+uint8_t flag_open_door_led = 0;
 uint8_t flag_0_5_num = 0;
 uint16_t calc_c_times = 0;
 uint8_t flag_calc_c_times = 0;
@@ -250,7 +250,7 @@ void TIM5_Int_Init(u16 arr, u16 psc) {
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;  // IRQ通道被使能
   NVIC_Init(&NVIC_InitStructure);                  //初始化NVIC寄存器
 
-  TIM_Cmd(TIM5, ENABLE);  //使能TIMx
+   TIM_Cmd(TIM5, ENABLE);  //使能TIMx
 }
 
 //定时器2中断服务程序
@@ -258,9 +258,7 @@ void TIM5_IRQHandler(void)  // TIM5中断
 {
   if (TIM_GetITStatus(TIM5, TIM_IT_Update) != RESET)  //检查TIM5更新中断发生与否
   {
-    Screen_CommandReceive_Poll();
-    Gun_CommandReceive_Poll();
-    Start_Repay();
+
   }
 }
 

@@ -9,6 +9,7 @@
 #include "usart.h"
 #include "wdg.h"
 #include "fifo.h"
+#include "led.h"
 
 extern uint8_t g_start_cmd[7];
 extern Moto motoDef;
@@ -22,6 +23,7 @@ extern uint16_t delay_time;
 extern uint8_t flag_door_time;
 extern uint8_t flag_calc_c_times;
 extern uint8_t flag_calc_c_times_out;
+extern uint8_t flag_open_door_led;
 
 uint8_t close_800mm_moto = 0;
 uint8_t close_3min_cargo = 0;
@@ -97,6 +99,8 @@ void Start_Borrow() {
       GPIO_SetBits(GPIOC, GPIO_Pin_12);  // EN2
       steper_moto_out();
       MotorSetpperMove(26000);
+      //  open led
+      flag_open_door_led = 1;
       // init  
       GPIO_ResetBits(GPIOC, GPIO_Pin_10);  // EN1
       GPIO_ResetBits(GPIOC, GPIO_Pin_12);  // EN2
@@ -106,10 +110,10 @@ void Start_Borrow() {
       steper_moto_in();
       Report_State(HERAD, report_data, sizeof(report_data));
       delay_ms_whx(100);
-      motoDef.state = state_run_out_finish;
       close_3min_cargo = 0;
       sensor_B_num = 0;
       flag_calc_c_times = 0;
+      motoDef.state = state_run_out_finish;
     case state_run_out_finish:
       IWDG_Feed();
       if(flag_calc_c_times == 1) {
@@ -117,6 +121,8 @@ void Start_Borrow() {
         // pluse_hight = 500;
         flag_door_time = 0;
         close_3min_cargo = 0;
+        flag_open_door_led = 0;
+        LED_OUTPUT_LOGO_ON;
         motoDef.state = state_run_second_half;
       }
       if (close_3min_cargo >= DELAY_CARGO_STILL) {
@@ -151,6 +157,7 @@ void Start_Borrow() {
       break;
     case state_run_third:  // push motor
       IWDG_Feed();
+      LED_OUTPUT_LOGO_OFF;
       CLOSE_ELECTRIC_LOCK;
       IWDG_Feed();
       flag_calc_times = 0;

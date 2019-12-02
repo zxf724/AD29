@@ -41,3 +41,4 @@
 ..\obj\schedule.o: ..\HARDWARE\WDG\wdg.h
 ..\obj\schedule.o: .\inc\fifo.h
 ..\obj\schedule.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\schedule.o: ..\HARDWARE\LED\led.h
