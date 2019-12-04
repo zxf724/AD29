@@ -44,3 +44,4 @@
 ..\obj\analysis_protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\analysis_protocol.o: ..\SYSTEM\usart\usart.h
 ..\obj\analysis_protocol.o: ..\HARDWARE\WDG\wdg.h
+..\obj\analysis_protocol.o: ..\HARDWARE\LED\led.h

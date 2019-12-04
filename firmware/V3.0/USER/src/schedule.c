@@ -59,6 +59,8 @@ void Start_Borrow() {
         delay_ms_whx(20);  // 添加延时保证串口连续发送的数据
         Report_State(FINISH, report_data, sizeof(report_data));
         delay_ms_whx(20);  // 添加延时保证串口连续发送的数据
+        Report_State(CMD_PUSH_OUT, report_data, sizeof(report_data));
+        delay_ms_whx(50);
         motoDef.state = state_run_first;
         close_800mm_moto = 0;
       } else {
@@ -172,7 +174,7 @@ void Start_Borrow() {
       motoDef.state = state_report;
       flag_finish = 1;
       delay_ms_whx(10);  // 添加延时保证串口连续发送的数据
-      Report_State(CMD_PUSH_OUT, report_data, sizeof(report_data));
+      Report_State(CMD_PUSH_OUT_FINISH, report_data, sizeof(report_data));
       delay_ms_whx(100);
       Report_State(FINISH, report_data, sizeof(report_data));
       delay_ms_whx(100);

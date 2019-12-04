@@ -9,6 +9,7 @@
 #include "string.h"
 #include "usart.h"
 #include "wdg.h"
+#include "led.h"
 
 #define MOTOR_NUM 13
 
@@ -97,6 +98,9 @@ void Uart_Protocol_Cmd_Analy(uint8_t* CmdRecBuf, uint8_t length) {
     // Report_State(0x80, (uint8_t*)report_data, sizeof(report_data));
     break;
     case CMD_MOTO:
+    LED_OUTPUT_LOGO_ON;
+    delay_ms_whx(100);
+    LED_OUTPUT_LOGO_OFF;
       Get_Mote_Data(&CmdRecBuf[MOTOR_NUM]);
       break;
     case CMD_LOCK:
@@ -153,6 +157,5 @@ void send_hart(void) {
     flag_hart = 0;
     delay_ms_whx(100);  // 添加延时保证串口连续发送的数据
     Report_State(HERAD, report_data, sizeof(report_data));
-    delay_ms_whx(100);  // 添加延时保证串口连续发送的数据
   }
 }
