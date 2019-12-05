@@ -160,6 +160,7 @@ void Start_Borrow() {
     case state_run_third:  // push motor
       IWDG_Feed();
       LED_OUTPUT_LOGO_OFF;
+      flag_open_door_led = 0;
       CLOSE_ELECTRIC_LOCK;
       IWDG_Feed();
       flag_calc_times = 0;
@@ -182,6 +183,7 @@ void Start_Borrow() {
       delay_ms_whx(100);
       break;
     case state_report:
+          LED_OUTPUT_LOGO_OFF;
       // Report_State(CMD_RECARGO,&state,1);  //出货信息上报
       if (NORCH_SENSOR_A_MOTO == 1) {
         // DBG_LOG("error");  

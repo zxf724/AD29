@@ -108,6 +108,7 @@ void USART1_IRQHandler(void)  //串口1中断服务程序
   if (USART_GetITStatus(USART1, USART_IT_RXNE) !=
       RESET)  //接收中断(接收到的数据必须是0x0d 0x0a结尾)
   {
+    USART_ClearFlag(USART1,USART_FLAG_RXNE);
     Res = USART_ReceiveData(USART1);  //读取接收到的数据
     app_uart_put(Res, SCREEN);
   }
@@ -119,6 +120,7 @@ void USART2_IRQHandler(void)  //串口2中断服务程序
   if (USART_GetITStatus(USART2, USART_IT_RXNE) !=
       RESET)  //接收中断(接收到的数据必须是0x0d 0x0a结尾)
   {
+    USART_ClearFlag(USART2,USART_FLAG_RXNE);
     Res = USART_ReceiveData(USART2);  //读取接收到的数据
     app_uart_put(Res, GUN);
   }
