@@ -307,6 +307,7 @@ static void funControl(int argc, char *argv[]) {
     while (1) {
       IWDG_Feed();
       if (motoDef.get_moto_feetback(uatoi(argv[1])) == 0) {
+        delay_ms_whx(500);
         motoDef.close_moto(uatoi(argv[1]));
         break;
       }
