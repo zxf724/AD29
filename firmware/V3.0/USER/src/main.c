@@ -48,15 +48,16 @@ int main(void) {
   LED_ON;
   RTC_Init();
   init_moto();
-  delay_ms_whx(100);
-  Report_State(FINISH, report_data, sizeof(report_data));
-  delay_ms_whx(100);
-  Report_State(CMD_PUSH_OUT_FINISH, report_data, sizeof(report_data));
   DBG_LOG("system start!");
-
+  
   IWDG_Init(6, 1024);  //与分频数为64,重载值为625,溢出时间为1s
-
+  uint8_t door_one = 1;
   while (1) {
+    if(door_one == 1) {
+      door_one = 0;
+      delay_ms_whx(100);
+      Report_State(FINISH, report_data, sizeof(report_data));
+    }
     IWDG_Feed();
     Screen_CommandReceive_Poll();
     Gun_CommandReceive_Poll();
