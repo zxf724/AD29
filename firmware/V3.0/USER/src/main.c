@@ -57,6 +57,8 @@ int main(void) {
       door_one = 0;
       delay_ms_whx(100);
       Report_State(FINISH, report_data, sizeof(report_data));
+      delay_ms_whx(100);
+      Report_State(CMD_PUSH_OUT_FINISH, report_data, sizeof(report_data));
     }
     IWDG_Feed();
     Screen_CommandReceive_Poll();
